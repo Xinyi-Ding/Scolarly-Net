@@ -3,10 +3,10 @@
 .vscode
 
 # Data file
-data/*
-Docs/*
-Ents/*
-JSON/*
+data/*.sqlite
+Docs/*.docx
+Ents/*.json
+JSON/*.json
 Papers
 
 # History file
