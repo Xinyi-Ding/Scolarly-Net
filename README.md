@@ -11,7 +11,7 @@
 ### User Diagram
 
 ![User_Diagram](image/PSD.png) 
-<p style="text-align:center">Figure.1 User Diagram<p>
+<p style="text-align:center">Figure.1 User Diagram</p>
 
 As shown in Figure.1, the user starts the code in a command line terminal. The code starts execution, loading the configuration and database connection. If it is the first run or if there are new articles in the papers folder, the code will use pdf2docx, spaCy library to analyse the articles and the analysed article entities information will be saved in the SQLite database. After that the code will wait for the user to enter the query command in the command line. When the code receives the user's input, it parses the query command and generates a SQL command to retrieve the relevant information from the SQLite database, The code displays the results of the query in a readable form on the command line terminal, showing the papers that match the query condition. The user can continue to enter new query commands, or enter "q" to exit the code. If the user chooses to exit, the code ends execution.
 
@@ -102,6 +102,10 @@ RuntimeError: cannot find builtin font with name 'Arial'
 Solution: Go to your anaconda3’s installed package folder, find the path Anaconda3/envs/pdf2docx/Lib/site-packages/pdf2docx/common/constrants.py. Change 
 DEFAULT_FONT_NAME = ‘Arial’ to ‘helv’. This is link to the official [#issue](https://github.com/dothinking/pdf2docx/issues/216) from pdf2docx in GitHub.
 
+```text
+ERROR: Could not build wheels for tokenizers, which is required to install pyproject.toml-based projects
+```
+Solution: Please use M1-requirement.txt to reinstall those packages.
 
 ## Code Performance Analysis
 ### Profiling
@@ -134,13 +138,13 @@ Examining the code in conjunction with the performance data reveals that operati
 Considering these observations, one potential avenue for optimizing performance involves the exploration of parallelization techniques tailored to CPU-intensive tasks. By parallelizing these resource-intensive operations, we can potentially enhance the efficiency and overall runtime of the program.
 
 ![top-20-time-consuming](image/top-20-time-consuming.png) 
-<p style="text-align:center">Figure.2: Top 20 most time-consuming functions<p>
+<p style="text-align:center">Figure.2: Top 20 most time-consuming functions</p>
 
 #### Top 20 Call Count Functions
 With a quick overview of the top twenty most-called functions, as shown in Figure.3, we have found that there is no significant difference from the top 20 most time-consuming functions. These functions cover a range of operations, including string manipulation, list operations, and functions related to PDF and DOCX document processing. This aligns with our earlier observation that the code involves substantial I/O operations and emphasizes the importance of efficient handling of data and documents.
 
 ![top-20-calls.png](image/top-20-calls.png) 
-<p style="text-align:center">Figure.3: Top twenty most-called functions<p>
+<p style="text-align:center">Figure.3: Top twenty most-called functions</p>
 
 ### Memory Usage Analysis
 
@@ -149,7 +153,7 @@ In addition to profiling the program's execution time, it's crucial to monitor i
 To analyze memory usage, we employed the "memory_profile" tool during program execution. This tool allows us to track memory consumption over time and identify specific functions or operations that may cause excessive memory usage. It can also visualize the results of the tracking, providing a comprehensive view of memory utilization. The memory usage obtained during this evaluation increases with the run, as illustrated in Figure.4.
 
 ![memory-usage.png](image/memory-usage.png) 
-<p style="text-align:center">Figure.4: Memory Usage Illustration<p>
+<p style="text-align:center">Figure.4: Memory Usage Illustration</p>
 
 #### Key Findings:
 1.	**Steady Memory Consumption**: Throughout the execution of the program, we observed relatively stable memory consumption. This suggests that the code effectively manages memory resources during most of its runtime.
