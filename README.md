@@ -1,19 +1,24 @@
-# Analysis Prototype for Formative Assessment
+# Prototype Analysis for Formative Assessment
 
-## Summary of functionality
-### Main functionality:
-1. This code can read the metadata of the paper from an Excel file (index.xlsx), such as the name of the paper, the path to the PDF file, and so on.
-2. This code can connect to a SQLite database (test_db.sqlite) and define three tables: papers (information about papers), entities (information about entities), and papers_have_entities (information about the association of papers with entities).
-3. This code can convert PDF files to DOCX files.
-4. This code can analysis the text of the paper into entities and the entity information was stored as a JSON file and save the entities in the SQLite.
-5. This code provide a command line interface that allows the user to enter queries to retrieve entity-related papers from SQLite database.
+*Table of Content*
 
-### User Diagram
-
-![User_Diagram](image/PSD.png) 
-<p style="text-align:center">Figure.1 User Diagram</p>
-
-As shown in Figure.1, the user starts the code in a command line terminal. The code starts execution, loading the configuration and database connection. If it is the first run or if there are new articles in the papers folder, the code will use pdf2docx, spaCy library to analyse the articles and the analysed article entities information will be saved in the SQLite database. After that the code will wait for the user to enter the query command in the command line. When the code receives the user's input, it parses the query command and generates a SQL command to retrieve the relevant information from the SQLite database, The code displays the results of the query in a readable form on the command line terminal, showing the papers that match the query condition. The user can continue to enter new query commands, or enter "q" to exit the code. If the user chooses to exit, the code ends execution.
+- [Prototype Analysis for Formative Assessment](#prototype-analysis-for-formative-assessment)
+  * [Dependence](#dependence)
+    + [Python](#python)
+    + [Used Library](#used-library)
+  * [Instruction](#instruction)
+    + [Running Instruction](#running-instruction)
+    + [Setup Python Environment](#setup-python-environment)
+  * [Summary of functionality](#summary-of-functionality)
+    + [Main functionality:](#main-functionality-)
+    + [User Diagram](#user-diagram)
+  * [Code Performance Analysis](#code-performance-analysis)
+    + [Profiling](#profiling)
+    + [Memory Usage Analysis](#memory-usage-analysis)
+  * [Correctness Analysis](#correctness-analysis)
+    + [PDF to DOCX to JSON](#pdf-to-docx-to-json)
+    + [Entities Recognition](#entities-recognition)
+    + [Program Testing](#program-testing)
 
 ## Dependence
 ### Python
@@ -107,6 +112,20 @@ ERROR: Could not build wheels for tokenizers, which is required to install pypro
 ```
 Solution: Please use M1-requirement.txt to reinstall those packages.
 
+## Summary of functionality
+### Main functionality:
+1. This code can read the metadata of the paper from an Excel file (index.xlsx), such as the name of the paper, the path to the PDF file, and so on.
+2. This code can connect to a SQLite database (test_db.sqlite) and define three tables: papers (information about papers), entities (information about entities), and papers_have_entities (information about the association of papers with entities).
+3. This code can convert PDF files to DOCX files.
+4. This code can analysis the text of the paper into entities and the entity information was stored as a JSON file and save the entities in the SQLite.
+5. This code provide a command line interface that allows the user to enter queries to retrieve entity-related papers from SQLite database.
+
+### User Diagram
+
+![User_Diagram](image/PSD.png) 
+<p style="text-align:center">Figure.1 User Diagram</p>
+
+As shown in Figure.1, the user starts the code in a command line terminal. The code starts execution, loading the configuration and database connection. If it is the first run or if there are new articles in the papers folder, the code will use pdf2docx, spaCy library to analyse the articles and the analysed article entities information will be saved in the SQLite database. After that the code will wait for the user to enter the query command in the command line. When the code receives the user's input, it parses the query command and generates a SQL command to retrieve the relevant information from the SQLite database, The code displays the results of the query in a readable form on the command line terminal, showing the papers that match the query condition. The user can continue to enter new query commands, or enter "q" to exit the code. If the user chooses to exit, the code ends execution.
 ## Code Performance Analysis
 ### Profiling
 #### Profiling Methodology
@@ -155,17 +174,146 @@ To analyze memory usage, we employed the "memory_profile" tool during program ex
 ![memory-usage.png](image/memory-usage.png) 
 <p style="text-align:center">Figure.4: Memory Usage Illustration</p>
 
-#### Key Findings:
+#### Key Findings
 1.	**Steady Memory Consumption**: Throughout the execution of the program, we observed relatively stable memory consumption. This suggests that the code effectively manages memory resources during most of its runtime.
 2.	**Memory Spikes**: There are noticeable memory spikes at certain points during the program's execution. These spikes are likely caused by the processing of large PDF files, which temporarily require more memory for data storage and manipulation.
 3.	**End-of-Run Fluctuations**: Towards the end of the program's execution, there is a wider range of memory usage fluctuations. This behavior warrants further investigation to determine the root causes and potential areas for optimization.
 
+## Correctness Analysis
 
+### PDF to DOCX to JSON
 
+**Brief Steps:**
+Processed papers involves converting PDF files into DOCX format, extracting textual content, simplifying the text, extracting entities information, and saving the results as JSON files.
 
+**Correctness:**
+- For plain text, the extraction performs well.
+- But errors could occur when transforming formulars, such as:
+	- `{"TYPE": "text", "VALUE": "n \u00d7 c \u00d7 d2\u00d7 d2 x, "}`
+	- `{"TYPE": "text", "VALUE": "\ufffd(X\u22a4iB)Mj i."}`
 
+### Entities Recognition
 
+Some of the unclear entities are shown in the chart below:
 
+| entity_id | entity_name           | entity_type |
+| --------- | --------------------- | ----------- |
+| 1474      | 11 (64.7%             | PERCENT            |
+| 14025     | the period 2017-2021, | DATE        |
+| 14034     | 20, 21].2.3           | CARDINAL    |
+| 14037     | the period,           | DATE        |
+| 14439     | 2017.G.               | DATE        |
+| ...       |                       |             |
 
+### Program Testing
+#### Test Environment
 
+- Operating System: Windows 11 Ver 22H2
+- Python Version: 3.9.18
+- Dependency Library Versions: \*See details in requirements.txt\*
 
+#### Test Cases
+
+| ID  | Test Case                                                     | Input Data                                                          | Steps                                                                                                                                    | Expected Output                                                                          |
+| --- | ------------------------------------------------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| 1   | Convert PDF to Docx                                           | PDF file path: "Papers/yang19c.pdf"                                 | 1. Run the code to convert all the PDFs to DOCXs<br> 2. Check if the specified DOCX file exists at the expected path                     | A DOCX file is created at "Docs/yang19c.pdf.docx"                                        |
+| 2   | Extracting Text from DOCX and entity recognition              | DOCX file path: "Docs/yang19c.pdf.docx"                             | 1. Run the code to extract text from the specified DOCX file.<br> 2. Compare the entities from extracted text with the expected entities | Text extracted from the DOCX file and entities are stored in database                    |
+| 3   | SQL Query for papers                                          | SQL query: `get all papers`                                         | 1. Execute the query in program terminal<br>2. Check the printed results                                                                 | Print the query and details of all papers                                                |
+| 4   | SQL Query for papers that mention an entity                   | SQL query: `get all papers that mention person Mage`                | 1. Execute the query in program terminal<br>2. Check the printed results                                                                 | Print the query and details of all papers that mention the person named "Mage"           |
+| 5   | SQL Query for papers that mention multiple entities           | SQL query: `get all papers that mention person Mage or work Parcheesi` | 1. Execute the query in program terminal<br>2. Check the printed results                                                                 | Print the query and details of all papers that mention the person named "Mage" or "John" |
+| 6   | SQL Query for papers that mention an entity with limit of one | SQL query: `get one papers that mention organisation DEC`                | 1. Execute the query in program terminal<br>2. Check the printed results                                                                 | Print the query and details of a paper that mention the organisation named "DEC"              |
+| 7   | SQL Query for papers with mention of a none-exist person      | SQL query: `get all papers that mention work abc`                 | 1. Execute the query in program terminal<br>2. Check the printed results                                                                 | Print the query                                                                          |
+| 8   | Invalid SQL Query                                             | SQL query: `get paper`                                              | 1. Execute the query in program terminal<br>2. Check the printed results                                                                 | Print the query and prompting the user to re-enter                                       |
+| 9   | Exit the program                                              | Query `q`                                                           | Execute the query in program terminal                                                                                                    | Print the query and exit program                                                         |
+
+#### Test Results
+
+Case 1:
+A DOCX file is created at "Docs/yang19c.pdf.docx"
+
+Case 2:
+Text extracted from the DOCX file and entities are stored in database
+
+Case 3:
+```
+get all papers
+(1, 'Fostering early numerical competencies by playing conventional board games', 'Papers/1-s2.0-S0022096520305142-main.pdf', 'Docs/1-s2.0-S0022096520305142-main.pdf.docx', 'JSON/1-s2.0-S0022096520305142-main.pdf.json', 'Ents/1-s2.0-S0022096520305142-main.pdf.json')
+(2, 'Development of child’s home environment indexes based on consistent families of aggregation operators with prioritized hierarchical information', 'Papers/1-s2.0-S0165011413002583-main.pdf', 'Docs/1-s2.0-S0165011413002583-main.pdf.docx', 'JSON/1-s2.0-S0165011413002583-main.pdf.json', 'Ents/1-s2.0-S0165011413002583-main.pdf.json')
+...
+(56, 'LegoNet: Efficient Convolutional Neural Networks with Lego Filters ', 'Papers/yang19c.pdf', 'Docs/yang19c.pdf.docx', 'JSON/yang19c.pdf.json', 'Ents/yang19c.pdf.json')
+```
+
+Case 4:
+```
+get all papers that mention person Mage
+(1, 'Fostering early numerical competencies by playing conventional board games', 'Papers/1-s2.0-S0022096520305142-main.pdf', 'Docs/1-s2.0-S0022096520305142-main.pdf.docx', 'JSON/1-s2.0-S0022096520305142-main.pdf.json', 'Ents/1-s2.0-S0022096520305142-main.pdf.json', 22, 1, 21, 22, 'Mage', 'PERSON')
+(6, 'Enhancing arithmetic in pre-schoolers with comparison or number line estimation training: Does it matter? ', 'Papers/1-s2.0-S0959475216300718-main.pdf', 'Docs/1-s2.0-S0959475216300718-main.pdf.docx', 'JSON/1-s2.0-S0959475216300718-main.pdf.json', 'Ents/1-s2.0-S0959475216300718-main.pdf.json', 22, 6, 7, 22, 'Mage', 'PERSON')
+```
+
+Case 5:
+```
+get all papers that mention person Mage or person John
+(1, 'Fostering early numerical competencies by playing conventional board games', 'Papers/1-s2.0-S0022096520305142-main.pdf', 'Docs/1-s2.0-S0022096520305142-main.pdf.docx', 'JSON/1-s2.0-S0022096520305142-main.pdf.json', 'Ents/1-s2.0-S0022096520305142-main.pdf.json', 22, 1, 27, 22, 'Mage', 'PERSON')
+(6, 'Enhancing arithmetic in pre-schoolers with comparison or number line estimation training: Does it matter? ', 'Papers/1-s2.0-S0959475216300718-main.pdf', 'Docs/1-s2.0-S0959475216300718-main.pdf.docx', 'JSON/1-s2.0-S0959475216300718-main.pdf.json', 'Ents/1-s2.0-S0959475216300718-main.pdf.json', 22, 6, 9, 22, 'Mage', 'PERSON')
+(1, 'Fostering early numerical competencies by playing conventional board games', 'Papers/1-s2.0-S0022096520305142-main.pdf', 'Docs/1-s2.0-S0022096520305142-main.pdf.docx', 'JSON/1-s2.0-S0022096520305142-main.pdf.json', 'Ents/1-s2.0-S0022096520305142-main.pdf.json', 125, 1, 9, 125, 'Parcheesi', 'WORK_OF_ART')
+```
+
+Case 6:
+```
+get one papers that mention person Mage
+(13, 'The Impact of Degraded Speech and Stimulus Familiarity in a Dichotic Listening Task ', 'Papers/236297027.pdf', 'Docs/236297027.pdf.docx', 'JSON/236297027.pdf.json', 'Ents/236297027.pdf.json', 2338, 13, 9, 2338, 'DEC', 'ORG')
+```
+
+Case 7:
+```
+get all papers that mention person abc
+```
+
+Case 8:
+```
+get paper
+Traceback (most recent call last):
+  File "xxx\prototype.py", line 221, in <module>
+    cur.execute(build_query(user_input))
+sqlite3.OperationalError: near "FROM": syntax error
+```
+
+Case 9:
+```
+q
+Process finished with exit code 0
+```
+
+#### Test Summary
+
+1. Test Case 1: Convert PDF to DOCX
+	- **Status:** Passed
+	- **Description:** The code successfully converted a PDF file to a DOCX file, and the DOCX file was created at the expected path
+2. Test Case 2: Extracting Text from DOCX and entity recognition
+	- **Status:** Passed
+	- **Description:** The code successfully extracted text from the DOCX file and stored entities in database
+3. Test Case 3: SQL Query for papers
+	- **Status:** Passed
+	- **Description:** The code successfully printed the query and details of all papers
+4. Test Case 4: SQL Query for papers that mention an entity
+	- **Status:** Passed
+	- **Description:** The code successfully printed the query and details of all papers that mention the person named "Mage"
+5. Test Case 5: SQL Query for papers that mention multiple entities
+	- **Status:** Passed
+	- **Description:** The code successfully print the query and details of all papers that mention the person named "Mage" or "John"
+6. Test Case 6: SQL Query for papers that mention an entity with limit of one
+	- **Status:** Passed
+	- **Description:** The code successfully printed the query and details of a paper that mention the organisation named "DEC"
+7. Test Case 7: SQL Query for papers with mention of a none-exist person
+	- **Status:** Passed
+	- **Description:** The code successfully printed the query
+8. Test Case 8: Invalid SQL Query
+	- **Status:** Failed
+	- **Description:** The code printed the query and exited with a traceback log of syntax error.
+9. Test Case 9: Exit the program
+	- **Status:** Passed
+	- **Description:** The code successfully printed the query and exited the program.
+
+#### Overall Test Results
+
+The majority of test cases have passed, demonstrating the correctness of the code's functionality. However, there is one failed test case related to handling invalid SQL queries, indicating that the prototype still needs to be improved.
