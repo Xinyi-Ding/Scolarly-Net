@@ -317,3 +317,277 @@ Process finished with exit code 0
 #### Overall Test Results
 
 The majority of test cases have passed, demonstrating the correctness of the code's functionality. However, there is one failed test case related to handling invalid SQL queries, indicating that the prototype still needs to be improved.
+
+## Code Defect Analysis
+
+### Lack of Comments
+
+The code lacks comments, making it less understandable. Adding comments would enhance code readability.
+
+```
+# Original Code - Lack of Comments
+files_to_process = []
+for row in index.iter_rows(min_row=2):
+```
+
+```
+# Improved Code - Adding Comments
+files_to_process = []  # List to store processed files
+# Iterate through data rows (skipping the header row)
+for row in index.iter_rows(min_row=2):
+```
+
+### Lack of Modularity
+
+The code is monolithic and lacks modularity. Breaking it into smaller functions would improve organization and reusability.
+
+```
+# Original Code - Lack of Modularity
+def build_and_cases(query_string_array, query_parts, entry_index):
+    # Function with a long and complex logic
+    # ...
+    return current_index
+```
+
+```
+# Improved Code - Modularizing the Function
+def build_and_cases(query_string_array, query_parts, entry_index):
+    # Function with specific logic for building query conditions
+    # ...
+    return current_index
+```
+
+### Lack of Packaging
+The code lacks organization through packages or modules. Using packages and modules would improve structure and maintainability.
+
+```
+# Original Code - Lack of Packaging
+from pdf2docx import parse
+import docx
+from simplify_docx import simplify
+```
+
+```
+# Improved Code - Organizing Related Functionality into a Package
+from document_processing import parse_pdf_to_docx, simplify_docx
+```
+
+### Potential for Asynchronous Processing
+
+The code performs operations sequentially, potentially causing performance issues with large datasets. Consider using asyncio for concurrent operations to optimize execution.
+
+```
+# Original Code - Sequential Operations
+for path in os.listdir(source_path):
+    # ...
+```
+
+```
+# Improved Code - Using asyncio for Concurrent Operations
+import asyncio
+async def process_files(paths):
+    for path in paths:
+        # ...
+```
+
+### Error Handling
+
+The code lacks comprehensive error handling. Adding proper error and exception handling would enhance code robustness.
+
+```
+# Original Code - Lack of Error Handling
+if not exists(docx_file):
+    # convert pdf to docx
+    parse(pdf_file, docx_file)
+```
+
+```
+# Improved Code - Adding Error Handling
+if not exists(docx_file):
+    try:
+        # Attempt to convert pdf to docx
+        parse(pdf_file, docx_file)
+    except Exception as e:
+        print(f"Error converting {pdf_file} to docx: {str(e)}")
+```
+
+### Code Duplication
+
+There's duplication in the code, specifically in file path concatenations and database operations. Refactoring to eliminate duplication would improve code maintainability.
+
+```
+# Original Code - Code Duplication
+row_dictionary['paper_docx'] = os.path.join(docs_path, row_dictionary['paper_pdf'] + '.docx')
+row_dictionary['paper_json'] = os.path.join(json_path, row_dictionary['paper_pdf'] + '.json')
+row_dictionary['paper_entities'] = os.path.join(ents_path, row_dictionary['paper_pdf'] + '.json')
+row_dictionary['paper_pdf'] = os.path.join(source_path, row_dictionary['paper_pdf'])
+```
+
+```
+# Improved Code - Removing Code Duplication
+pdf_filename = row_dictionary['paper_pdf']
+row_dictionary['paper_docx'] = os.path.join(docs_path, pdf_filename + '.docx')
+row_dictionary['paper_json'] = os.path.join(json_path, pdf_filename + '.json')
+row_dictionary['paper_entities'] = os.path.join(ents_path, pdf_filename + '.json')
+row_dictionary['paper_pdf'] = os.path.join(source_path, pdf_filename)
+```
+
+### Hardcoded Values
+
+There are hardcoded values like database file paths and sheet names. It's recommended to use configuration files or environment variables to manage such values more flexibly.
+
+```
+# Original Code - Hardcoded Values
+xlsx_file = Path(".", "index.xlsx")
+```
+
+```
+# Improved Code - Using Configurable Values
+config_file_path = Path(".", "config.json")  # Load configuration from a separate file
+xlsx_file = config_file.get("xlsx_file_path", "index.xlsx")  # Read xlsx file path from configuration
+```
+
+### Lack of Documentation
+
+Add higher-level documentation to explain the code's purpose, dependencies, and usage.
+
+```
+# Original Code - Lack of Higher-level Documentation
+# ...
+```
+
+```
+"""
+This script processes documents and populates a database.
+It converts PDFs to DOCX, extracts entities, and stores data in SQLite.
+
+Usage:
+- Ensure proper configuration in 'config.json'.
+- Run the script to process documents and update the database.
+"""
+# ...
+```
+
+### SQL Injection Risk
+
+Use parameterized queries to prevent SQL injection vulnerabilities.
+
+
+```
+# Original Code - SQL Injection Risk
+query_string = "SELECT " + ' '.join(query_parts['select']) + " FROM " + ' '.join(query_parts['from']) + ' '.join(query_parts['limit'])
+```
+
+```
+# Improved Code - Using Parameterized Queries to Mitigate SQL Injection Risk
+query_string = "SELECT {} FROM {} {}".format(', '.join(query_parts['select']), ' '.join(query_parts['from']), ' '.join(query_parts['limit']))
+```
+
+### External Dependencies
+
+Ensure that all external dependencies (e.g., libraries like pdf2docx, spacy) are well-documented, up to date, and compatible with the Python version being used.
+
+```
+# Original Code - Importing External Libraries
+
+from pdf2docx import parse
+import docx
+from simplify_docx import simplify
+import spacy
+```
+
+```
+# Improved Code - Ensuring Dependencies and Version Management
+# It's important to include version information for dependencies in a requirements.txt file or similar.
+# Additionally, regularly update and review dependencies for security and compatibility.
+
+import pdf2docx
+import docx
+import simplify_docx
+import spacy
+```
+
+### Code Formatting
+
+Consistently formatting the code using a style guide such as PEP 8 would improve its readability.
+
+```
+# Original Code - Inconsistent Code Formatting
+def build_query(input_values):
+query_string_array = input_values.split(' ')
+```
+
+```
+# Improved Code - Consistent Code Formatting (PEP 8)
+def build_query(input_values):
+    query_string_array = input_values.split(' ')
+```
+
+### OOP
+
+OOP offers a powerful and flexible approach to software development, emphasizing concepts like modularity, reusability, encapsulation, abstraction, polymorphism, and more. These advantages contribute to improved code quality, maintainability, and scalability, making OOP a preferred choice for building complex and robust software systems.
+
+```
+class Database:
+    """
+    A class for managing database operations using SQLite.
+    Attributes:
+        db_file (str): The path to the SQLite database file.
+        conn (sqlite3.Connection): The database connection.
+    Methods:
+        __init__(self, db_file): Initialize a Database instance.
+        create_tables(self): Create tables if they don't exist in the database.
+        execute_query(self, query, params=None): Execute an SQL query and return a cursor.
+        commit(self): Commit changes to the database.
+        close(self): Close the database connection.
+    """
+
+    def __init__(self, db_file):
+        pass
+    def create_tables(self):
+        pass
+    def execute_query(self, query, params=None):
+        pass
+    def commit(self):
+        pass
+    def close(self):
+        pass
+
+class DocumentProcessor:
+    """
+    A class for processing documents, including PDF to DOCX conversion, text extraction,
+    entity recognition, and database storage.
+    Attributes:
+        source_path (str): Path to the source PDF files.
+        docs_path (str): Path to store DOCX files.
+        json_path (str): Path to store JSON files.
+        ents_path (str): Path to store entity JSON files.
+        database (Database): An instance of the Database class.
+        nlp (spacy.Language): A spaCy language model for entity recognition.
+    Methods:
+        __init__(self, source_path, docs_path, json_path, ents_path, database):
+            Initialize a DocumentProcessor instance.
+        process_document(self, row_dict): Process a single document.
+        process_documents(self, files_to_process): Process multiple documents concurrently.
+    """
+
+    def __init__(self, source_path, docs_path, json_path, ents_path, database):
+        pass
+    async def process_document(self, row_dict):
+        pass
+    async def process_documents(self, files_to_process):
+        pass
+```
+
+### Potential optimization
+
+Batch-Executing (with Database) offers significant performance and maintainability benefits when dealing with repetitive SQL operations, such as inserting, updating, or deleting multiple rows.
+
+```
+# Use executemany to insert multiple rows at once
+cursor.executemany(sql, batch_data)
+# Commit the changes to the database
+conn.commit()
+# Close the database connection
+conn.close()
+```
