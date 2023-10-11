@@ -1,26 +1,26 @@
 # Prototype Analysis for Formative Assessment
 
 *Table of Content*
+- [Dependencies](#dependencies)
+  * [Python](#python)
+  * [Used Library](#used-library)
+- [Instruction](#instruction)
+  * [Running Instruction](#running-instruction)
+  * [Setup Python Environment](#setup-python-environment)
+- [Summary of functionality](#summary-of-functionality)
+  * [Main functionality:](#main-functionality-)
+  * [User Diagram](#user-diagram)
+- [Code Performance Analysis](#code-performance-analysis)
+  * [Profiling](#profiling)
+  * [Memory Usage Analysis](#memory-usage-analysis)
+- [Correctness Analysis](#correctness-analysis)
+  * [PDF to DOCX to JSON](#pdf-to-docx-to-json)
+  * [Entities Recognition](#entities-recognition)
+  * [Program Testing](#program-testing)
+- [Code Defect Analysis](#code-defect-analysis)
+  
 
-- [Prototype Analysis for Formative Assessment](#prototype-analysis-for-formative-assessment)
-  * [Dependence](#dependence)
-    + [Python](#python)
-    + [Used Library](#used-library)
-  * [Instruction](#instruction)
-    + [Running Instruction](#running-instruction)
-    + [Setup Python Environment](#setup-python-environment)
-  * [Summary of functionality](#summary-of-functionality)
-    + [Main functionality:](#main-functionality-)
-    + [User Diagram](#user-diagram)
-  * [Code Performance Analysis](#code-performance-analysis)
-    + [Profiling](#profiling)
-    + [Memory Usage Analysis](#memory-usage-analysis)
-  * [Correctness Analysis](#correctness-analysis)
-    + [PDF to DOCX to JSON](#pdf-to-docx-to-json)
-    + [Entities Recognition](#entities-recognition)
-    + [Program Testing](#program-testing)
-
-## Dependence
+## Dependencies
 ### Python
 This code was made by Python, and need using Python3 to run. The later [Section](#setup-conda) supply the instruction about installing conda to work with Python.
 
@@ -317,6 +317,7 @@ Process finished with exit code 0
 #### Overall Test Results
 
 The majority of test cases have passed, demonstrating the correctness of the code's functionality. However, there is one failed test case related to handling invalid SQL queries, indicating that the prototype still needs to be improved.
+
 
 ## Code Defect Analysis
 
