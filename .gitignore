@@ -1,0 +1,13 @@
+# .DS_Store file
+.DS_Store
+.vscode
+
+# Data file
+data/*
+Docs/*
+Ents/*
+JSON/*
+Papers
+
+# History file
+historyPSD.txt
