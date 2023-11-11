@@ -169,7 +169,7 @@ With a quick overview of the top twenty most-called functions, as shown in Figur
 
 In addition to profiling the program's execution time, it's crucial to monitor its memory usage. Memory usage analysis provides insights into how the program manages memory resources, helping to identify potential memory leaks or areas for optimization.
 
-To analyze memory usage, we employed the "memory_profile" tool during program execution. This tool allows us to track memory consumption over time and identify specific functions or operations that may cause excessive memory usage. It can also visualize the results of the tracking, providing a comprehensive view of memory utilization. The memory usage obtained during this evaluation increases with the run, as illustrated in Figure.4.
+To analyze memory usage, we employed the "memory_profile" tool during program execution. This tool allows us to track memory consumption over time and identify specific functions or operations that may cause excessive memory usage. It can also visualize the results of the tracking, providing a comprehensive view of memory utilization. The memory usage obtained during this evaluation increases with the run, as illustrated in Figure.4. The red lines in Figure.4 indicate instance when the memory usage reached its peak.
 
 ![memory-usage.png](image/memory-usage.png) 
 <p style="text-align:center">Figure.4: Memory Usage Illustration</p>
