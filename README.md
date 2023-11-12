@@ -236,24 +236,31 @@ To analyze memory usage, we employed the "memory_profile" tool during program ex
 **Brief Steps:**
 Processed papers involves converting PDF files into DOCX format, extracting textual content, simplifying the text, extracting entities information, and saving the results as JSON files.
 
+**Rationale for Test Cases:**
+The test cases were designed to validate each step of the document processing pipeline. They ensure that the conversion and extraction processes are working correctly and that the system can handle different types of content in the documents.
+
 **Correctness:**
-- For plain text, the extraction performs well.
-- But errors could occur when transforming formulars, such as:
+- For plain text, the extraction performs well, demonstrating the effectiveness of the text extraction and conversion process.
+- Errors are observed in transforming formulas, for example:
 	- `{"TYPE": "text", "VALUE": "n \u00d7 c \u00d7 d2\u00d7 d2 x, "}`
 	- `{"TYPE": "text", "VALUE": "\ufffd(X\u22a4iB)Mj i."}`
+- These errors indicate challenges in accurately converting and interpreting mathematical and special characters from PDF to DOCX.
 
 ### Entities Recognition
 
-Some of the unclear entities are shown in the chart below:
+**Analysis of Unclear Entities:** 
+I randomly picked 20 entities extracted from the text. The results show that the entity recognition process sometimes incorrectly categorizes or incompletely captures entities. Examples of unclear entities include:
 
 | entity_id | entity_name           | entity_type |
 | --------- | --------------------- | ----------- |
-| 1474      | 11 (64.7%             | PERCENT            |
+| 1474      | 11 (64.7%             | PERCENT     |
 | 14025     | the period 2017-2021, | DATE        |
 | 14034     | 20, 21].2.3           | CARDINAL    |
 | 14037     | the period,           | DATE        |
 | 14439     | 2017.G.               | DATE        |
 | ...       |                       |             |
+
+These examples illustrate the limitations of the entity recognition algorithm in handling certain types of data, such as incomplete or out-of-context snippets.
 
 ### Program Testing
 #### Test Environment
@@ -275,6 +282,9 @@ Some of the unclear entities are shown in the chart below:
 | 7   | SQL Query for papers with mention of a none-exist person      | SQL query: `get all papers that mention work abc`                 | 1. Execute the query in program terminal<br>2. Check the printed results                                                                 | Print the query                                                                          |
 | 8   | Invalid SQL Query                                             | SQL query: `get paper`                                              | 1. Execute the query in program terminal<br>2. Check the printed results                                                                 | Print the query and prompting the user to re-enter                                       |
 | 9   | Exit the program                                              | Query `q`                                                           | Execute the query in program terminal                                                                                                    | Print the query and exit program                                                         |
+
+**Rationale for Test Cases:**
+Each test case was designed to validate specific functionality of the program, from file conversion to entity recognition and database queries. This approach ensures comprehensive coverage of the program's features.
 
 #### Test Results
 
@@ -367,6 +377,22 @@ Process finished with exit code 0
 #### Overall Test Results
 
 The majority of test cases have passed, demonstrating the correctness of the code's functionality. However, there is one failed test case related to handling invalid SQL queries, indicating that the prototype still needs to be improved.
+
+### Summary of Issues with the Program
+
+1. Invalid SQL Query Handling: The program fails to handle invalid SQL queries gracefully, leading to errors and potential crashes.
+2. Entity Recognition Errors: The entity recognition process is not fully accurate, leading to misclassified or incomplete entity data.
+3. Formula Conversion Issues: The process of converting formulas from PDF to DOCX is error-prone, leading to incorrect or garbled text in the output.
+
+### Recommendations for Improvement
+
+1. Enhanced Error Handling: Implement better error handling and validation for SQL queries to prevent crashes and provide user-friendly error messages.
+2. Improved Entity Recognition: Refine the entity recognition algorithm to improve accuracy, particularly for complex or out-of-context data.
+3. Formula Conversion Optimization: Develop a more robust method for handling mathematical and special characters during the PDF to DOCX conversion.
+
+### Conclusion
+
+While the program successfully handles a range of tasks related to document processing and data retrieval, there are areas that require improvement. Enhancing error handling, entity recognition, and formula conversion will significantly improve the program's reliability and accuracy.
 
 
 ## Code Defect Analysis
