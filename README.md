@@ -113,7 +113,13 @@ ERROR: Could not build wheels for tokenizers, which is required to install pypro
 Solution: Please use M1-requirement.txt to reinstall those packages.
 
 ## Summary of functionality
+
+### Overview Functionality
+
+Provided prototype is an academic document processing tools, it can be used to convert a set of PDF documents into DOCX format and extract text and entity information. The extracted information is stored in a SQLite database. In addition, it provides a command line interface that allows users to perform query operations to retrieve academic document information from the database.
+
 ### Main functionality:
+
 1. This code can read the metadata of the paper from an Excel file (index.xlsx), such as the name of the paper, the path to the PDF file, and so on.
 2. This code can connect to a SQLite database (test_db.sqlite) and define three tables: papers (information about papers), entities (information about entities), and papers_have_entities (information about the association of papers with entities).
 3. This code can convert PDF files to DOCX files.
@@ -125,7 +131,51 @@ Solution: Please use M1-requirement.txt to reinstall those packages.
 ![User_Diagram](image/PSD.png) 
 <p style="text-align:center">Figure.1 User Diagram</p>
 
-As shown in Figure.1, the user starts the code in a command line terminal. The code starts execution, loading the configuration and database connection. If it is the first run or if there are new articles in the papers folder, the code will use pdf2docx, spaCy library to analyse the articles and the analysed article entities information will be saved in the SQLite database. After that the code will wait for the user to enter the query command in the command line. When the code receives the user's input, it parses the query command and generates a SQL command to retrieve the relevant information from the SQLite database, The code displays the results of the query in a readable form on the command line terminal, showing the papers that match the query condition. The user can continue to enter new query commands, or enter "q" to exit the code. If the user chooses to exit, the code ends execution.
+1. User launches the program: \
+The user executes the prototype.py script. \
+Input: Commands line from the user. \
+Output: Program initialisation or request for text input.
+
+2. Read Excel Metadata: \
+The first time it runs, it reads the metadata of the paper from an Excel file. \
+Input: Path to the Excel file. \
+Output: List of titles and storage paths for the paper.
+
+3. PDF to Word Conversion: \
+Converts a paper from PDF format to Word format for processing. \
+Input: PDF file. \
+Output: Word document.
+
+4. Process content using NLP: \
+Use the spaCy NLP library to analyse content in Word documents. \
+Input: Word document. \
+Output: Processed text data such as entities, keywords, author etc.
+
+5. Database Storage: \
+Store the processed results in the relevant tables in a SQLite database. \
+Input: Processed text data from academic artical. \
+Output: Data is written to paper, entities and papers_have_entities tables.
+
+6. User query: \
+The user inputs a query in natural language (not in the form of a query). \
+Input: natural language query (e.g. "get all papers that mention person Torsten Hoefler"). \
+Output: Commands converted to SQL queries.
+
+7. WordCompleter: \
+Use the WordCompleter feature in prompt_toolkit to assist the user in entering queries. \
+Input: partial user input. \
+Output: A list of autocomplete suggestions.
+
+8. Execute SQL Query: \
+Execute SQL query based on user input.
+Input: SQL query command.
+Output: Query result.
+
+9. Display Query Results: \
+Display SQL query results to users in a user-friendly way. \
+Input: database query result. \
+Output: User-readable query results.
+
 ## Code Performance Analysis
 ### Profiling
 #### Profiling Methodology
