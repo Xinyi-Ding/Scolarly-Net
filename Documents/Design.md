@@ -99,3 +99,29 @@ To conduct in-depth analysis and establish meaningful connections within our dat
 
 By fulfilling these requirements, the project aims to empower users to extract valuable insights from the academic paper dataset, fostering a deeper understanding of authorship relationships and research trends.
 
+## Technology Stack
+
+### Back-End
+
+#### Python
+
+We considered using Python for the back-end development of the project. It has extensive support for third-party libraries and good data manipulation and analysis capabilities. The third-party libraries of Python include a large number of data manipulation and analysis tools, such as pandas, NumPy, and spaCy. Besides that, it also supports interfaces and libraries for a wide range of databases, such as MySQLdb, py2neo, and pymongo.  In addition, Python can be used for machine learning tasks, which can be used to integrate machine learning models, such as NLP, into projects to capture information from articles in the future.
+
+#### Database
+
+Based on the database requirements in this procject, we mainly consider the following database options.
+
+1. SQL Database:\
+MySQL is a relational database where data is organized in tables, each consisting of rows and columns. Data is stored in a structured manner in MySQL, with each table having predefined columns and data types. Relationships between tables can be established through primary keys and foreign keys to achieve data consistency and integrity.
+
+2. NoSQL Database:\
+MongoDB is a document-oriented NoSQL database where data is organized as documents and stored in a JSON-style format. A document is a dynamic structure that can contain different fields, with no predefined primary and foreign keys. MongoDB's document structure makes querying and creating entity data in articles more flexible.
+
+3. Graph Database:\
+Neo4j is a graphical database where data is organized in the form of nodes and relationships, which can be used to represent relationships between authors and references between articles. Each node and relationship can have properties that can be used to store additional metadata. The main features of a graph database are the ability to quickly traverse and query relationships, as well as perform complex graph analysis, such as constructing author networks.
+
+### Interface
+
+#### FastAPI
+
+FastAPI is a fast and high performance web framework. It utilizes Python's type hints to enhence the code clarity and maintainability. It also automatically generates documentation for the APIs, which can improve development efficiency and APIs testability. In addition, FastAPI supports asynchronous programming, which means that it can provide high performance on applications that have a high volume of data processing or require fast responses. Furthermore, it can easily integrate with a variety of powerful libraries for Python, enabling flexible development of complex web applications. The website for FastAPI is here: https://fastapi.tiangolo.com.
