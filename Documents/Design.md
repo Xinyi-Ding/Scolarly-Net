@@ -101,8 +101,28 @@ By fulfilling these requirements, the project aims to empower users to extract v
 
 ## Technology Stack
 
-### Back-End
+### Farse PDFs
+To fulfill the requirements of extracting information from PDFs for effective paper screening and analysis, a systematic approach employing various tools and technologies is essential. Below is a brief idea on how to implement this requirement.
 
+#### Parsing Text
+- **Library Choice:** Utilize Python libraries such as PyPDF2 or pdfplumber for extracting text from PDFs.
+  - **PyPDF2** is a Python library specifically designed for handling PDF files. It allows basic operations such as splitting, merging, and extracting text and metadata from PDFs. This library primarily focuses on extracting plain text from PDFs. It does not provide advanced features for extracting structured data like tables or images.
+  - **pdfplumber** is a more advanced PDF parsing library for Python. It builds on top of PyPDF2 and provides additional features for extracting structured data, including text, tables, and images. pdfplumber excels in extracting text, and it also offers features for extracting tables and images from PDFs.
+  
+  Both libraries can extract text, but pdfplumber   provides better support for formatted text and handles more complex PDF structures. However, pdfplumber surpasses PyPDF2 by offering capabilities for extracting tables and images, making it more suitable for projects requiring comprehensive data extraction.
+  
+#### Parsing Image and Table
+PyPDF2 can be utilized for extracting images from PDF files, providing a straightforward solution for obtaining visual content embedded within the documents.
+
+tabula-py offers robust capabilities for table extraction from PDFs, allowing the conversion of extracted tables into a DataFrame or JSON format, and they can be saved as CSV, TSV, or JSON files, which enhancing flexibility and usability in various data processing workflows.
+
+#### Parsing Link
+To extract links from PDF documents, a combination of regular expressions (regex) and a PDF parsing library like PyPDF2 can be employed. This approach involves searching through the text content of the PDF to identify and capture URLs or hyperlinks. 
+
+#### Comparision of Prototype
+When comparing the prototype libraries, PyPDF2 emerges as a more adept tool for parsing PDFs in contrast to the pdf2docx library. While pdf2docx is primarily designed for converting PDFs to Word documents and lacks advanced features for structured data extraction, PyPDF2 proves versatile in extracting text, images, and links from PDFs. Its capabilities are further enhanced when used alongside tabula-py, addressing the challenge of extracting tables comprehensively. Unlike pdf2docx, PyPDF2 excels in accurately representing diverse data types within PDFs, making it the preferred choice for projects requiring a nuanced and comprehensive analysis of PDF content.
+
+### Back-End
 #### Python
 
 We considered using Python for the back-end development of the project. It has extensive support for third-party libraries and good data manipulation and analysis capabilities. The third-party libraries of Python include a large number of data manipulation and analysis tools, such as pandas, NumPy, and spaCy. Besides that, it also supports interfaces and libraries for a wide range of databases, such as MySQLdb, py2neo, and pymongo.  In addition, Python can be used for machine learning tasks, which can be used to integrate machine learning models, such as NLP, into projects to capture information from articles in the future.
