@@ -145,3 +145,118 @@ Neo4j is a graphical database where data is organized in the form of nodes and r
 #### FastAPI
 
 FastAPI is a fast and high performance web framework. It utilizes Python's type hints to enhence the code clarity and maintainability. It also automatically generates documentation for the APIs, which can improve development efficiency and APIs testability. In addition, FastAPI supports asynchronous programming, which means that it can provide high performance on applications that have a high volume of data processing or require fast responses. Furthermore, it can easily integrate with a variety of powerful libraries for Python, enabling flexible development of complex web applications. The website for FastAPI is here: https://fastapi.tiangolo.com.
+
+### Query from Database for Academic Paper Analysis
+
+To implement the querying system for academic paper analysis based on the specified requirements, Python will be used along with suitable libraries and technologies. Here is an overview of the design for each requirement:
+
+#### Database Integration
+- **Library Choice:** Utilize Python's SQLAlchemy for MySQL and MongoDB databases, and Neo4j's official Python driver for Neo4j.
+  - **SQLAlchemy:** It is a widely used SQL toolkit and Object-Relational Mapping (ORM) library for Python. It supports multiple database engines, including MySQL. Use SQLAlchemy to interact with MySQL databases, manage connections, and execute queries.
+  - **PyMongo:** For MongoDB, use the PyMongo driver to connect to the MongoDB database, insert or retrieve documents, and perform queries.
+  - **Neo4j Driver:** Neo4j provides an official Python driver. Use this driver to interact with Neo4j databases, execute Cypher queries, and manage the graph database.
+
+#### Query Capabilities
+- **Author-Centric Queries:**
+  - **SQL Example (MySQL):**
+    ```python
+    from sqlalchemy import create_engine, text
+    
+    # Connect to the MySQL database
+    engine = create_engine('mysql://user:password@localhost/db_name')
+    
+    # Execute an author-centric query
+    query = text("SELECT * FROM papers WHERE author = :author")
+    result = engine.execute(query, author='Author Name').fetchall()
+    ```
+  - **MongoDB Example:**
+    ```python
+    from pymongo import MongoClient
+    
+    # Connect to the MongoDB database
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client['db_name']
+    
+    # Execute an author-centric query
+    result = db.papers.find({'author': 'Author Name'})
+    ```
+- **Paper-Centric Queries:**
+  - **SQL Example (MySQL):**
+    ```python
+    # Execute a paper-centric query
+    query = text("SELECT * FROM authors WHERE paper_id = :paper_id")
+    result = engine.execute(query, paper_id=123).fetchall()
+    ```
+  - **Neo4j Example:**
+    ```python
+    from neo4j import GraphDatabase
+    
+    # Connect to the Neo4j database
+    uri = "bolt://localhost:7687"
+    with GraphDatabase.driver(uri, auth=("user", "password")) as driver:
+        # Execute a paper-centric query
+        with driver.session() as session:
+            result = session.run("MATCH (a:Author)-[:AUTHORED]->(p:Paper {id: $paper_id}) RETURN a, p", paper_id=123)
+    ```
+
+#### Relationship Analysis
+- **Collaboration Network:**
+  - **Neo4j Example:**
+    ```python
+    # Execute a collaboration network query
+    with driver.session() as session:
+        result = session.run("MATCH (a1:Author)-[:CO_AUTHOR]->(a2:Author) WHERE a1.name = $author_name RETURN a1, a2", author_name='Author Name')
+    ```
+  - **SQL Example (MySQL):**
+    ```python
+    # Execute a collaboration network query
+    query = text("SELECT a1.*, a2.* FROM authors a1 JOIN authors a2 ON a1.id = a2.id WHERE a1.name = :author_name")
+    result = engine.execute(query, author_name='Author Name').fetchall()
+    ```
+
+- **Author-Keyword Associations:**
+  - **SQL Example (MySQL):**
+    ```python
+    # Execute an author-keyword association query
+    query = text("SELECT a.name, k.keyword FROM authors a JOIN author_keywords ak ON a.id = ak.author_id JOIN keywords k ON ak.keyword_id = k.id")
+    result = engine.execute(query).fetchall()
+    ```
+  - **MongoDB Example:**
+    ```python
+    # Execute an author-keyword association query
+    result = db.authors.aggregate([
+        {"$lookup": {"from": "author_keywords", "localField": "_id", "foreignField": "author_id", "as": "keywords"}},
+        {"$unwind": "$keywords"},
+        {"$lookup": {"from": "keywords", "localField": "keywords.keyword_id", "foreignField": "_id", "as": "keyword"}},
+        {"$unwind": "$keyword"},
+        {"$project": {"_id": 0, "author": "$name", "keyword": "$keyword.keyword"}}
+    ])
+    ```
+
+#### Query Optimization
+- **Indexing:** For SQL databases, use SQLAlchemy's indexing features to optimize query performance. MongoDB and Neo4j automatically handle indexing for efficient query execution.
+- **Caching Mechanism:** Utilize Python caching libraries like `cachetools` to store and manage cached query results, enhancing response times.
+
+#### Security and Access Control
+- **Authentication:** Implement authentication mechanisms provided by the database systems (e.g., MySQL user authentication, MongoDB user authentication, and Neo4j authentication) to control access.
+- **Authorization:** Leverage the built-in authorization features of each database to define user roles and permissions.
+
+#### Documentation and Reporting
+- **Query Documentation:** Utilize tools like Sphinx or MkDocs to generate comprehensive documentation for supported queries, including syntax and examples.
+- **Reporting Tools:** Integrate tools like Matplotlib or Plotly for generating visual reports based on query results.
+
+#### User Interface
+- **Query Interface:** Develop a web-based user interface using a framework like Flask or Django to input queries easily.
+- **Visualization:** Integrate visualization libraries like NetworkX for graph visualization and Matplotlib/Plotly for other data visualizations.
+
+#### Scalability and Performance
+- **Database Scaling:** Monitor and scale the databases horizontally or vertically based on the growing volume of academic papers and authors.
+- **Query Optimization:** Regularly analyze and optimize queries, utilizing database-specific tools and features for improved performance.
+
+#### Continuous Improvement
+- **Feedback Mechanism:** Implement a feedback mechanism within the user interface to collect user insights on query results.
+- **Adaptability:** Design the system to be easily adaptable to evolving requirements and integrate feedback for continuous improvement.
+
+#### Documentation
+- **Code Documentation:** Use docstrings and documentation tools like Sphinx to maintain thorough documentation for the database interactions, query implementations, and overall system architecture.
+- **User Guide:** Develop a user guide document or integrate help sections within the user interface for stakeholders to effectively use the query system and interpret analytical results.
