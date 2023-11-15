@@ -260,3 +260,24 @@ To implement the querying system for academic paper analysis based on the specif
 #### Documentation
 - **Code Documentation:** Use docstrings and documentation tools like Sphinx to maintain thorough documentation for the database interactions, query implementations, and overall system architecture.
 - **User Guide:** Develop a user guide document or integrate help sections within the user interface for stakeholders to effectively use the query system and interpret analytical results.
+
+
+### Front-end
+
+#### Frameworks
+Given the need for this project to support user interactions, it is essential to focus on operational visualization. Due to the short development time allocated for this project, our team has opted for a decoupled web application approach. This design choice means that the frontend and backend of the application will be developed separately, allowing for more flexible and efficient development processes. This separation is advantageous as it enables parallel development streams, with the frontend team focusing on user experience and interface design while the backend team concentrates on data handling and server-side logic.
+
+##### Vue.js
+The frontend of the project is preliminarily set to be built using the Vue framework. Vue is chosen for its ease of integration, scalability, and a rich ecosystem of tools and components, which are critical for rapid development and effective implementation. Furthermore, Vue's reactive data binding and component-based architecture make it an ideal choice for building interactive and dynamic user interfaces.
+
+##### ECharts
+For the data and relationship visualization aspect of the project, ECharts will be utilized as the primary component. ECharts is selected due to its comprehensive range of chart types, ease of integration with Vue, and high customizability, allowing us to effectively represent complex data relationships in an intuitive manner. Its rich features and interactive options will enhance the user's ability to explore and understand the complex relationships between academic papers, authors, and topics.
+
+#### Data Retrieval
+
+##### Axios.js
+The frontend will leverage axios.js to send requests to the backend. Axios.js is a popular, promise-based HTTP client for the browser and Node.js, known for its ease of use and ability to handle asynchronous requests efficiently. This choice ensures smooth communication between the frontend and backend, facilitating the retrieval of data in a structured and reliable manner.
+
+The integration of axios.js in our Vue-based frontend will allow for the efficient fetching, posting, and handling of data from our backend services. We will design the frontend to make RESTful API calls to the backend, retrieving necessary information such as paper details, author data, and relationship graphs. This setup ensures that the user interface remains responsive and dynamic, updating the visual elements in real-time as new data is received or user interactions necessitate changes.
+
+Furthermore, the frontend will include error handling mechanisms to manage potential issues in data retrieval or network communication. This approach guarantees a seamless user experience, even in cases of backend service unavailability or slow network responses.
