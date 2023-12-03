@@ -1,283 +1,344 @@
-# Academic Papers Analysis System
+# PSD Project Design
 
-## Functional Requirement Analysis
+## Introduction
 
-### Extracting Information from PDFs
-To effectively screen and analyze paper information, a substantial dataset of papers is required. Given that a significant portion of papers is available in PDF format on major websites, the primary focus is on extracting valuable information from these PDF documents. The extraction process involves capturing text, images, tables, and links to enhance the depth of analysis.
+## System Overview
 
-#### Text Extraction
-The extraction of text information is crucial for comprehensive paper analysis. The process entails breaking down the content into individual words, with the ideal outcome being the identification of meaningful phrase combinations. This detailed extraction is fundamental to understanding and categorizing the textual content within each paper.
+## High-level design of an end-to-end solution
 
-#### Image and Table Extraction
-In addition to textual content, the project requires the extraction of images and tables present in the papers. This encompasses the identification and retrieval of charts, graphs, and other visual elements that contribute to the overall information presented in the documents. The extraction of tabular data enhances the ability to analyze structured information within the papers.
+## Requirements Analysis
 
-#### Link Extraction
-As part of the data extraction process, identifying and capturing links within the PDF documents is essential. Links play a vital role in establishing connections between different papers, authors, or external references. Extracting and cataloging these links enables a more comprehensive understanding of the interconnectivity of information within the dataset.
+### 1. Paper Details Extraction (Topic/Keyword/Author/Reference)
 
-#### Priority on PDF Format
-Given that most papers are published in PDF format on major websites, a top priority is assigned to the extraction of information from PDF documents. This ensures that the system can effectively handle the predominant format in which academic papers are presented online.
+描述做成什么样的效果
 
-#### Build Database
-By satisfying these requirements, the project can use the extracted data to establish a comprehensive database. This database will serve as a foundation for subsequent data retrieval and detailed analysis of the website's content.
+### 2. Topic Connection
 
-### Data Storage
+### 3. Author Relationship
 
-The data storage system is responsible for storing the physical data of an article in a database when extracting data from academic papers. In order to fulfil this requirement, the following main implementation goals were considered: selecting a robust database solution capable of efficiently handling large amounts of data, supporting multiple data formats to accommodate different types of entity data from academic papers. Implement a comprehensive indexing system to include key attributes in the articles, such as author names, dates, disciplines, titles, and so on. Also ensure efficient data retrieval, using a relational database model to organise and manage data effectively.
+### 4. Reference Tree
 
-### Query Data
+### 5. User defined filter and search
 
-The analytical query component is the primary user interface for interacting with the database. It receives queries from the interface and searches for relevant data from the database. In order to achieve this, it must fulfil several key requirements. Firstly, it should be fully capable of holding various types of analytical queries, such as subject clustering, author association and reference networks, to ensure diversity of query functionality. Second, the system should be adept at handling complex queries to meet the diverse and complex information needs of users. In addition, the system should process queries quickly to minimise waiting time and enhance user experience. Finally, the system should package the retrieved data so that it can be transferred to the interface for easy viewing and use by users.
+### 5. [User Defined Filter and Search](#user-defined-filter-and-search)
+One crucial aspect of the proposed system is the implementation of a robust user-defined filter and search functionality. This feature empowers users across different domains, including students, academics, government officials, developers, and companies, to tailor their research queries based on specific criteria. The system will provide a highly customizable search interface allowing users to filter academic papers and other sources with precision.
 
-### Accepting User Query Input
+## Architectural Design
 
-This system is designed to analyze and organize relationships among academic papers based on user queries, an essential functionality for its operation. The types of user input that can be processed are diverse, catering to various analytical needs in the academic field:
+## Design Details
 
-1. **Topic**: This allows users to query all papers under a specific topic, delve into relationships between different topics, and explore connections between topics and authors. It's a feature that opens avenues for researchers to understand the landscape of ongoing research and its historical development under specific themes.
-2. **Author**: Users can explore papers written by a particular author, uncover relationships among different authors, and examine links between authors and topics. This functionality is crucial for tracking the contributions of individual researchers and understanding collaborative networks and intellectual lineages.
-3. **Reference**: This feature lets users search for papers citing a particular reference, helping them understand the impact of seminal works and the evolution of ideas in the academic community.
-4. **Time**: Users can find all papers within a specific time frame, analyzing trends, shifts in research focus, and the emergence of new topics over time.
-5. // TODO: Further functionalities and query types to be determined.
 
-// TODO: Corresponding database ER diagram and interface table needed.
+### 5. <a id="user-defined-filter-and-search">User Defined Filter and Search</a>
 
-In addition to leveraging its database to establish connections between academic papers, the system is also equipped to receive and analyze new papers submitted by users. This integration not only enhances the database's content but also ensures that the system remains current with the latest research developments. Advanced text analysis and data mining techniques will be employed to extract relevant information and relationships from these new submissions.
+#### Key Components:
+- 5a. [**Customizable Filters**](#customizable-filters)
 
-// TODO: Corresponding database ER diagram and interface table required for this feature.
+- 5b. [**Advanced Keyword Search**](#advanced-keyword-search)
 
-### Query from Database for Academic Paper Analysis
+- 5c. [**Dynamic Query Building**](#dynamic-query-building)
 
-To conduct in-depth analysis and establish meaningful connections within our dataset, which primarily consists of academic paper data, authors, and related information, the project will focus on implementing a robust querying system. This system will allow users to extract valuable insights through queries that revolve around authors and their associated papers.
+- 5d. [**Real-time Feedback(optional)**](#real-time-feedback)
 
-#### Database Integration
-- **Database Selection:** The project will integrate with databases such as MySQL, Neo4j, or MongoDB to store and manage the academic paper dataset, author information, and their relationships.
+- 5e. [**Saved Queries(optional)**](#saved-queries)
 
-#### Query Capabilities
-- **Author-Centric Queries:**
-  - Retrieve a list of papers authored by a specific author.
-  - Extract key details about an author, including their affiliation, publication history, and collaboration network.
+- 5f. [**Intuitive User Interface(optional)**](#intuitive-user-interface)
 
-- **Paper-Centric Queries:**
-  - Retrieve information about a specific paper, including its title, abstract, and authors.
-  - Identify other papers related to a particular research topic or field.
+- 5g. [**Compatibility Across User Categories(optional)**](#compatibility-across-user-categories)
 
-#### Relationship Analysis
-- **Collaboration Network:**
-  - Query and visualize the collaboration network of a specific author, showcasing co-authors and their shared publications.
-  - Identify prolific authors based on the number of collaborations within the dataset.
+Incorporating these user-defined filter and search capabilities adds a layer of flexibility and precision to the system, ensuring that researchers can efficiently navigate vast datasets and extract valuable insights pertinent to their specific areas of interest.
 
-- **Author-Keyword Associations:**
-  - Explore associations between authors and keywords, helping to identify expertise areas.
-  - Extract trends in research topics based on keyword co-occurrence among authors.
+### 5a. <a id="customizable-filters">Customizable Filters</a>
 
-#### Query Optimization
-- **Indexing:** Implement indexing strategies to optimize query performance, especially for large datasets.
-- **Caching Mechanism:** Introduce a caching mechanism to store frequently queried results and enhance response times.
+#### Description:
+Users can define filters based on various parameters such as author names, publication dates, keywords, and thematic categories. This flexibility ensures that users can narrow down their searches to retrieve the most relevant and targeted information.
 
-#### Security and Access Control
-- **Authentication:** Implement a secure authentication system to control access to sensitive data.
-- **Authorization:** Define user roles and permissions to restrict or grant access to specific query functionalities.
+#### Design Details:
+- **Requirement Design:**
+  - Users should be able to define filters for parameters such as author names, publication dates, keywords, and thematic categories.
+  - The goal is to offer flexibility in search queries, accommodating diverse research requirements.
 
-#### Documentation and Reporting
-- **Query Documentation:** Provide comprehensive documentation for supported queries, including syntax and usage examples.
-- **Reporting Tools:** Implement tools for generating reports based on query results, facilitating data interpretation and analysis.
+- **Implementation Details:**
+  - Implement a user-friendly interface where users can input and adjust filter settings.
+  - Develop backend logic to process and apply these filters to the dataset.
+  - Ensure that the system can handle a variety of filter combinations for comprehensive search capabilities.
 
-#### User Interface
-- **Query Interface:** Develop a user-friendly interface that allows users to input queries easily.
-- **Visualization:** Integrate visualization tools to represent query results in a visually interpretable manner.
+- **Requirement Test:**
+  - Refer to [Test Object - 5a. Customizable Filters](#5a-test)
 
-#### Scalability and Performance
-- **Database Scaling:** Design the system to handle the growing volume of academic papers and authors over time.
-- **Query Optimization:** Continuously optimize queries for improved performance as the dataset expands.
+### 5b. <a id="advanced-keyword-search">Advanced Keyword Search</a>
 
-#### Continuous Improvement
-- **Feedback Mechanism:** Establish a feedback mechanism for users to provide insights on query results, leading to iterative improvements.
-- **Adaptability:** Ensure the system remains adaptable to evolving requirements and technological advancements.
+#### Description:
+The advanced keyword search feature enables users to input specific terms or phrases, enhancing the efficiency and accuracy of information retrieval. This component aims to facilitate a more targeted search experience for users seeking particular details within academic papers and other sources.
 
-#### Documentation
-- **Code Documentation:** Maintain thorough documentation for the database schema, query implementations, and overall system architecture.
-- **User Guide:** Develop a user guide for stakeholders to effectively use the query system and interpret the analytical results.
+#### Design Details:
+- **Requirement Design:**
+  - Users should have the ability to perform searches using specific terms or phrases related to their research interests.
+  - The system should support advanced keyword search algorithms for improved relevance.
 
-By fulfilling these requirements, the project aims to empower users to extract valuable insights from the academic paper dataset, fostering a deeper understanding of authorship relationships and research trends.
+- **Implementation Details:**
+  - Implement a search algorithm that considers synonyms, related terms, and contextual relevance.
+  - Ensure the system ranks search results based on keyword relevance to provide meaningful outcomes.
+  - Design a user interface that allows users to easily input and modify their keyword search queries.
 
-## Technology Stack
-
-### Farse PDFs
-To fulfill the requirements of extracting information from PDFs for effective paper screening and analysis, a systematic approach employing various tools and technologies is essential. Below is a brief idea on how to implement this requirement.
-
-#### Parsing Text
-- **Library Choice:** Utilize Python libraries such as PyPDF2 or pdfplumber for extracting text from PDFs.
-  - **PyPDF2** is a Python library specifically designed for handling PDF files. It allows basic operations such as splitting, merging, and extracting text and metadata from PDFs. This library primarily focuses on extracting plain text from PDFs. It does not provide advanced features for extracting structured data like tables or images.
-  - **pdfplumber** is a more advanced PDF parsing library for Python. It builds on top of PyPDF2 and provides additional features for extracting structured data, including text, tables, and images. pdfplumber excels in extracting text, and it also offers features for extracting tables and images from PDFs.
-  
-  Both libraries can extract text, but pdfplumber   provides better support for formatted text and handles more complex PDF structures. However, pdfplumber surpasses PyPDF2 by offering capabilities for extracting tables and images, making it more suitable for projects requiring comprehensive data extraction.
-  
-#### Parsing Image and Table
-PyPDF2 can be utilized for extracting images from PDF files, providing a straightforward solution for obtaining visual content embedded within the documents.
-
-tabula-py offers robust capabilities for table extraction from PDFs, allowing the conversion of extracted tables into a DataFrame or JSON format, and they can be saved as CSV, TSV, or JSON files, which enhancing flexibility and usability in various data processing workflows.
-
-#### Parsing Link
-To extract links from PDF documents, a combination of regular expressions (regex) and a PDF parsing library like PyPDF2 can be employed. This approach involves searching through the text content of the PDF to identify and capture URLs or hyperlinks. 
-
-#### Comparision of Prototype
-When comparing the prototype libraries, PyPDF2 emerges as a more adept tool for parsing PDFs in contrast to the pdf2docx library. While pdf2docx is primarily designed for converting PDFs to Word documents and lacks advanced features for structured data extraction, PyPDF2 proves versatile in extracting text, images, and links from PDFs. Its capabilities are further enhanced when used alongside tabula-py, addressing the challenge of extracting tables comprehensively. Unlike pdf2docx, PyPDF2 excels in accurately representing diverse data types within PDFs, making it the preferred choice for projects requiring a nuanced and comprehensive analysis of PDF content.
-
-### Back-End
-#### Python
-
-We considered using Python for the back-end development of the project. It has extensive support for third-party libraries and good data manipulation and analysis capabilities. The third-party libraries of Python include a large number of data manipulation and analysis tools, such as pandas, NumPy, and spaCy. Besides that, it also supports interfaces and libraries for a wide range of databases, such as MySQLdb, py2neo, and pymongo.  In addition, Python can be used for machine learning tasks, which can be used to integrate machine learning models, such as NLP, into projects to capture information from articles in the future.
-
-#### Database
-
-Based on the database requirements in this procject, we mainly consider the following database options.
-
-1. SQL Database:\
-MySQL is a relational database where data is organized in tables, each consisting of rows and columns. Data is stored in a structured manner in MySQL, with each table having predefined columns and data types. Relationships between tables can be established through primary keys and foreign keys to achieve data consistency and integrity.
-
-2. NoSQL Database:\
-MongoDB is a document-oriented NoSQL database where data is organized as documents and stored in a JSON-style format. A document is a dynamic structure that can contain different fields, with no predefined primary and foreign keys. MongoDB's document structure makes querying and creating entity data in articles more flexible.
-
-3. Graph Database:\
-Neo4j is a graphical database where data is organized in the form of nodes and relationships, which can be used to represent relationships between authors and references between articles. Each node and relationship can have properties that can be used to store additional metadata. The main features of a graph database are the ability to quickly traverse and query relationships, as well as perform complex graph analysis, such as constructing author networks.
-
-### Interface
-
-#### FastAPI
-
-FastAPI is a fast and high performance web framework. It utilizes Python's type hints to enhence the code clarity and maintainability. It also automatically generates documentation for the APIs, which can improve development efficiency and APIs testability. In addition, FastAPI supports asynchronous programming, which means that it can provide high performance on applications that have a high volume of data processing or require fast responses. Furthermore, it can easily integrate with a variety of powerful libraries for Python, enabling flexible development of complex web applications. The website for FastAPI is here: https://fastapi.tiangolo.com.
-
-### Query from Database for Academic Paper Analysis
-
-To implement the querying system for academic paper analysis based on the specified requirements, Python will be used along with suitable libraries and technologies. Here is an overview of the design for each requirement:
-
-#### Database Integration
-- **Library Choice:** Utilize Python's SQLAlchemy for MySQL and MongoDB databases, and Neo4j's official Python driver for Neo4j.
-  - **SQLAlchemy:** It is a widely used SQL toolkit and Object-Relational Mapping (ORM) library for Python. It supports multiple database engines, including MySQL. Use SQLAlchemy to interact with MySQL databases, manage connections, and execute queries.
-  - **PyMongo:** For MongoDB, use the PyMongo driver to connect to the MongoDB database, insert or retrieve documents, and perform queries.
-  - **Neo4j Driver:** Neo4j provides an official Python driver. Use this driver to interact with Neo4j databases, execute Cypher queries, and manage the graph database.
-
-#### Query Capabilities
-- **Author-Centric Queries:**
-  - **SQL Example (MySQL):**
-    ```python
-    from sqlalchemy import create_engine, text
-    
-    # Connect to the MySQL database
-    engine = create_engine('mysql://user:password@localhost/db_name')
-    
-    # Execute an author-centric query
-    query = text("SELECT * FROM papers WHERE author = :author")
-    result = engine.execute(query, author='Author Name').fetchall()
-    ```
-  - **MongoDB Example:**
-    ```python
-    from pymongo import MongoClient
-    
-    # Connect to the MongoDB database
-    client = MongoClient('mongodb://localhost:27017/')
-    db = client['db_name']
-    
-    # Execute an author-centric query
-    result = db.papers.find({'author': 'Author Name'})
-    ```
-- **Paper-Centric Queries:**
-  - **SQL Example (MySQL):**
-    ```python
-    # Execute a paper-centric query
-    query = text("SELECT * FROM authors WHERE paper_id = :paper_id")
-    result = engine.execute(query, paper_id=123).fetchall()
-    ```
-  - **Neo4j Example:**
-    ```python
-    from neo4j import GraphDatabase
-    
-    # Connect to the Neo4j database
-    uri = "bolt://localhost:7687"
-    with GraphDatabase.driver(uri, auth=("user", "password")) as driver:
-        # Execute a paper-centric query
-        with driver.session() as session:
-            result = session.run("MATCH (a:Author)-[:AUTHORED]->(p:Paper {id: $paper_id}) RETURN a, p", paper_id=123)
-    ```
-
-#### Relationship Analysis
-- **Collaboration Network:**
-  - **Neo4j Example:**
-    ```python
-    # Execute a collaboration network query
-    with driver.session() as session:
-        result = session.run("MATCH (a1:Author)-[:CO_AUTHOR]->(a2:Author) WHERE a1.name = $author_name RETURN a1, a2", author_name='Author Name')
-    ```
-  - **SQL Example (MySQL):**
-    ```python
-    # Execute a collaboration network query
-    query = text("SELECT a1.*, a2.* FROM authors a1 JOIN authors a2 ON a1.id = a2.id WHERE a1.name = :author_name")
-    result = engine.execute(query, author_name='Author Name').fetchall()
-    ```
-
-- **Author-Keyword Associations:**
-  - **SQL Example (MySQL):**
-    ```python
-    # Execute an author-keyword association query
-    query = text("SELECT a.name, k.keyword FROM authors a JOIN author_keywords ak ON a.id = ak.author_id JOIN keywords k ON ak.keyword_id = k.id")
-    result = engine.execute(query).fetchall()
-    ```
-  - **MongoDB Example:**
-    ```python
-    # Execute an author-keyword association query
-    result = db.authors.aggregate([
-        {"$lookup": {"from": "author_keywords", "localField": "_id", "foreignField": "author_id", "as": "keywords"}},
-        {"$unwind": "$keywords"},
-        {"$lookup": {"from": "keywords", "localField": "keywords.keyword_id", "foreignField": "_id", "as": "keyword"}},
-        {"$unwind": "$keyword"},
-        {"$project": {"_id": 0, "author": "$name", "keyword": "$keyword.keyword"}}
-    ])
-    ```
-
-#### Query Optimization
-- **Indexing:** For SQL databases, use SQLAlchemy's indexing features to optimize query performance. MongoDB and Neo4j automatically handle indexing for efficient query execution.
-- **Caching Mechanism:** Utilize Python caching libraries like `cachetools` to store and manage cached query results, enhancing response times.
-
-#### Security and Access Control
-- **Authentication:** Implement authentication mechanisms provided by the database systems (e.g., MySQL user authentication, MongoDB user authentication, and Neo4j authentication) to control access.
-- **Authorization:** Leverage the built-in authorization features of each database to define user roles and permissions.
-
-#### Documentation and Reporting
-- **Query Documentation:** Utilize tools like Sphinx or MkDocs to generate comprehensive documentation for supported queries, including syntax and examples.
-- **Reporting Tools:** Integrate tools like Matplotlib or Plotly for generating visual reports based on query results.
-
-#### User Interface
-- **Query Interface:** Develop a web-based user interface using a framework like Flask or Django to input queries easily.
-- **Visualization:** Integrate visualization libraries like NetworkX for graph visualization and Matplotlib/Plotly for other data visualizations.
-
-#### Scalability and Performance
-- **Database Scaling:** Monitor and scale the databases horizontally or vertically based on the growing volume of academic papers and authors.
-- **Query Optimization:** Regularly analyze and optimize queries, utilizing database-specific tools and features for improved performance.
-
-#### Continuous Improvement
-- **Feedback Mechanism:** Implement a feedback mechanism within the user interface to collect user insights on query results.
-- **Adaptability:** Design the system to be easily adaptable to evolving requirements and integrate feedback for continuous improvement.
-
-#### Documentation
-- **Code Documentation:** Use docstrings and documentation tools like Sphinx to maintain thorough documentation for the database interactions, query implementations, and overall system architecture.
-- **User Guide:** Develop a user guide document or integrate help sections within the user interface for stakeholders to effectively use the query system and interpret analytical results.
-
-
-### Front-end
-
-#### Frameworks
-Given the need for this project to support user interactions, it is essential to focus on operational visualization. Due to the short development time allocated for this project, our team has opted for a decoupled web application approach. This design choice means that the frontend and backend of the application will be developed separately, allowing for more flexible and efficient development processes. This separation is advantageous as it enables parallel development streams, with the frontend team focusing on user experience and interface design while the backend team concentrates on data handling and server-side logic.
-
-##### Vue.js
-The frontend of the project is preliminarily set to be built using the Vue framework. Vue is chosen for its ease of integration, scalability, and a rich ecosystem of tools and components, which are critical for rapid development and effective implementation. Furthermore, Vue's reactive data binding and component-based architecture make it an ideal choice for building interactive and dynamic user interfaces.
-
-##### ECharts
-For the data and relationship visualization aspect of the project, ECharts will be utilized as the primary component. ECharts is selected due to its comprehensive range of chart types, ease of integration with Vue, and high customizability, allowing us to effectively represent complex data relationships in an intuitive manner. Its rich features and interactive options will enhance the user's ability to explore and understand the complex relationships between academic papers, authors, and topics.
-
-#### Data Retrieval
-
-##### Axios.js
-The frontend will leverage axios.js to send requests to the backend. Axios.js is a popular, promise-based HTTP client for the browser and Node.js, known for its ease of use and ability to handle asynchronous requests efficiently. This choice ensures smooth communication between the frontend and backend, facilitating the retrieval of data in a structured and reliable manner.
-
-The integration of axios.js in our Vue-based frontend will allow for the efficient fetching, posting, and handling of data from our backend services. We will design the frontend to make RESTful API calls to the backend, retrieving necessary information such as paper details, author data, and relationship graphs. This setup ensures that the user interface remains responsive and dynamic, updating the visual elements in real-time as new data is received or user interactions necessitate changes.
-
-Furthermore, the frontend will include error handling mechanisms to manage potential issues in data retrieval or network communication. This approach guarantees a seamless user experience, even in cases of backend service unavailability or slow network responses.
+- **Requirement Test:**
+  - Refer to [Test Object - 5b. Customizable Filters](#5b-test)
+
+### 5c. <a id="dynamic-query-building">Advanced Keyword Search</a>
+
+#### Description:
+Dynamic query building empowers users to create complex queries on-the-fly. This feature supports the combination of multiple filters and search criteria, providing users with a powerful tool for obtaining highly specific and refined results.
+
+#### Design Details:
+- **Requirement Design:**
+  - Users should be able to dynamically create complex queries by combining multiple filters and search criteria.
+  - The goal is to offer flexibility in query construction for nuanced research needs.
+
+- **Implementation Details:**
+  - Develop an intuitive user interface with drag-and-drop or toggle functionalities for adding and removing query components.
+  - Implement backend logic to dynamically adjust the query based on user interactions.
+  - Ensure real-time updates in response to user modifications for a seamless query-building experience.
+- **Requirement Test:**
+  - Refer to [Test Object - 5c. Dynamic Query Building](#5c-test)
+
+### 5d. <a id="real-time-feedback">Real-time Feedback</a>
+
+#### Description:
+Real-time feedback is essential for an interactive and responsive user experience. This component ensures that users receive immediate feedback as they apply filters or modify search parameters, facilitating efficient exploration of academic papers and sources.
+
+#### Design Details:
+- **Requirement Design:**
+  - Users should receive instant feedback on the impact of applied filters or modified search parameters.
+  - Real-time feedback enhances the user's ability to iteratively refine their queries.
+
+- **Implementation Details:**
+  - Implement mechanisms to update search results dynamically as filters are applied or modified.
+  - Utilize asynchronous processing to ensure minimal latency in providing feedback.
+  - Design a visually intuitive interface to convey changes and updates to users in real-time.
+
+- **Requirement Test:**
+  - Refer to [Test Object - 5d. Real-time Feedback](#5d-test)
+
+### 5e. <a id="saved-queries">Saved Queries (optional)</a>
+
+#### Description:
+The optional "Saved Queries" feature allows users to store frequently used or complex queries for future reference. This enhances productivity by enabling users to revisit and reuse previously defined search criteria without the need to recreate them.
+
+#### Design Details:
+- **Requirement Design:**
+  - Users should have the option to save and manage their frequently used or complex queries.
+  - This feature provides a convenient way to reuse predefined search criteria.
+
+- **Implementation Details:**
+  - Implement a user interface for saving, organizing, and retrieving saved queries.
+  - Develop backend storage to persistently store user-defined queries.
+  - Ensure security measures to protect and manage saved queries according to user permissions.
+
+- **Requirement Test:**
+  - Refer to [Test Object - 5e. Saved Queries (optional)](#5e-test)
+
+### 5f. <a id="intuitive-user-interface">Intuitive User Interface (Optional)</a>
+
+#### Description:
+An intuitive user interface is designed to ensure that users, regardless of their technical expertise, can navigate and utilize the filter and search functionalities seamlessly.
+
+#### Design Details:
+- **Requirement Design:**
+  - The user interface should be user-friendly, requiring minimal training for effective use.
+  - The goal is to create a visually appealing and intuitive design that enhances the overall user experience.
+
+- **Implementation Details:**
+  - Employ user interface design principles such as simplicity, consistency, and feedback.
+  - Conduct usability testing to refine the interface based on user feedback.
+  - Ensure responsive design for seamless user experiences across different devices.
+
+- **Requirement Test:**
+  - Refer to [Test Object - 5f. Intuitive User Interface (Optional)](#5f-test)
+
+### 5g. <a id="compatibility-across-user-categories">Compatibility Across User Categories (Optional)</a>
+
+#### Description:
+The optional "Compatibility Across User Categories" feature ensures that the filter and search functionalities cater to the specific needs of diverse user categories, including students, academics, government officials, developers, and companies.
+
+#### Design Details:
+- **Requirement Design:**
+  - The system should adapt its presentation and functionality based on the unique requirements of different user categories.
+  - Ensure that the interface and features are relevant and useful for each user category.
+
+- **Implementation Details:**
+  - Implement user category-specific profiles or settings to customize the user experience.
+  - Conduct user interviews and feedback sessions to understand the distinct needs of each user category.
+  - Design flexible components that can be enabled or disabled based on user category preferences.
+
+- **Requirement Test:**
+  - Refer to [Test Object - 5g. Compatibility Across User Categories (Optional)](#5g-test)
+
+## Test Plan
+
+### Test Object
+
+#### 5a. <a id="5a-test">Customizable Filters</a>
+
+**Test Cases:**
+1. **Filter Creation:** Verify that users can successfully create filters for author names, publication dates, keywords, and thematic categories.
+   - *Test Steps:* Create filters for each parameter and validate their existence in the filter list.
+
+2. **Filter Application:** Test the application of filters to ensure that the system accurately narrows down search results.
+   - *Test Steps:* Apply filters individually and in combination, then check if the displayed results align with the specified criteria.
+
+3. **Filter Flexibility:** Ensure the system can handle a variety of filter combinations.
+   - *Test Steps:* Create complex filter combinations and verify that the system responds without errors.
+
+#### 5b. <a id="5b-test">Advanced Keyword Search</a>
+
+**Test Cases:**
+1. **Keyword Input:** Confirm that users can input specific terms or phrases for advanced keyword searches.
+   - *Test Steps:* Enter various terms and phrases into the search bar and validate the system's recognition.
+
+2. **Synonym Recognition:** Test the system's ability to recognize synonyms and related terms during keyword searches.
+   - *Test Steps:* Input synonymous terms and ensure the system provides relevant results.
+
+3. **Contextual Relevance:** Validate that the system considers contextual relevance in keyword searches.
+   - *Test Steps:* Input terms in different contexts and verify that the search results align with the intended context.
+
+#### 5c. <a id="5c-test">Dynamic Query Building</a>
+
+**Test Cases:**
+1. **Query Modification:** Verify that users can dynamically add, remove, and modify query components.
+   - *Test Steps:* Dynamically adjust queries and confirm the system updates accordingly.
+
+2. **Query Complexity:** Ensure the system supports the creation of complex queries by combining multiple filters and search criteria.
+   - *Test Steps:* Build intricate queries and verify that the system accurately interprets and executes them.
+
+3. **Real-time Query Updates:** Test for real-time updates as users modify queries.
+   - *Test Steps:* Make changes to queries and ensure the system provides instant feedback and updates.
+
+#### 5d. <a id="5d-test">Real-time Feedback (Optional)</a>
+
+**Test Cases:**
+1. **Instant Filter Impact:** Confirm that applying filters or modifying search parameters results in real-time updates.
+   - *Test Steps:* Apply filters and check if the displayed results update instantly.
+
+2. **User Interaction:** Validate that users receive feedback when interacting with the system in real-time.
+   - *Test Steps:* Modify search parameters and confirm that the system provides visual or textual feedback promptly.
+
+3. **Asynchronous Processing:** Ensure the system utilizes asynchronous processing to maintain minimal latency in providing real-time feedback.
+   - *Test Steps:* Introduce deliberate delays and confirm that real-time feedback is not affected.
+
+#### 5e. <a id="5e-test">Saved Queries (Optional)</a>
+
+**Test Cases:**
+1. **Query Saving:** Confirm that users can successfully save queries for future reference.
+   - *Test Steps:* Save multiple queries and verify their existence in the saved queries section.
+
+2. **Query Retrieval:** Test the retrieval of saved queries to ensure users can reuse them without recreating.
+   - *Test Steps:* Retrieve saved queries and check if the system accurately reinstates the specified search criteria.
+
+3. **Security Measures:** Validate the security of saved queries, ensuring they are protected and managed according to user permissions.
+   - *Test Steps:* Test different user permissions to ensure saved queries are accessed and managed appropriately.
+
+#### 5f. <a id="5f-test">Intuitive User Interface (Optional)</a>
+
+**Test Cases:**
+1. **Usability Testing:** Conduct usability testing to ensure the user interface is intuitive and requires minimal training.
+   - *Test Steps:* Engage users with varying technical expertise to perform common tasks and gather feedback.
+
+2. **Design Principles:** Validate that the user interface adheres to design principles such as simplicity, consistency, and feedback.
+   - *Test Steps:* Evaluate the interface against established design principles and make adjustments accordingly.
+
+3. **Responsive Design:** Ensure the user interface is responsive across different devices for a seamless user experience.
+   - *Test Steps:* Access the system from various devices with different screen sizes and confirm consistent usability.
+
+#### 5g. <a id="5g-test">Compatibility Across User Categories (Optional)</a>
+
+**Test Cases:**
+1. **User Category-Specific Profiles:** Confirm that the system adapts its presentation and functionality based on user category-specific profiles.
+   - *Test Steps:* Log in with different user profiles and verify that the interface adjusts according to user categories.
+
+2. **User Interviews:** Conduct user interviews and feedback sessions to understand the distinct needs of each user category.
+   - *Test Steps:* Gather feedback from representatives of each user category and implement necessary adjustments.
+
+3. **Flexible Components:** Ensure that components can be enabled or disabled based on user category preferences.
+   - *Test Steps:* Test the system's ability to flexibly adjust features based on user category settings.
+
+## Test Environment
+
+The testing environment for the system is designed to be comprehensive, covering various aspects such as hardware, software, and network configurations.
+
+### Hardware Environment
+
+- **Servers:** Utilize servers with sufficient processing power, memory, and storage capacity to handle concurrent user interactions and data processing.
+- **Client Devices:** Ensure compatibility with a range of devices including laptops, tablets, and smartphones for testing responsive design.
+
+### Software Environment
+
+- **Operating System:** Test on multiple operating systems including Linux, Windows, and macOS to ensure cross-platform compatibility.
+- **Web Browsers:** Validate compatibility with popular web browsers like Chrome, Firefox, Safari, and Edge.
+- **Python Version:** Ensure compatibility with the required Python version (e.g., Python 3.7+).
+- **Database:** Utilize a test database system (e.g., PostgreSQL) for data storage and retrieval testing.
+
+### Network Environment
+
+- **Network Speeds:** Simulate various network speeds to assess system performance under different network conditions.
+- **Security Protocols:** Test the system's security features by simulating different network attack scenarios.
+
+## Test Strategy
+
+The test strategy involves a combination of Continuous Integration (CI) tests, unit tests, and manual testing to ensure thorough coverage and reliability.
+
+### CI Test
+
+Integration tests will be integrated into the CI/CD pipeline to perform automated testing on each code commit.
+
+- **Framework:** Utilize testing frameworks compatible with FastAPI, such as Pytest.
+- **Mocking:** Employ mocking techniques to simulate external dependencies and enhance test isolation.
+- **API Testing:** Conduct automated tests for API endpoints, ensuring proper request handling and response generation.
+- **Database Testing:** Integrate tests to validate data storage and retrieval from the database.
+
+### Unit Test
+
+Unit tests will focus on individual components, functions, and methods of the system.
+
+- **Test Framework:** Use Pytest for unit testing due to its compatibility with FastAPI.
+- **Isolation:** Ensure test cases are isolated, testing individual components without dependencies.
+- **Code Coverage:** Monitor and improve code coverage metrics to guarantee thorough testing.
+- **Edge Cases:** Include tests for edge cases to validate the robustness of the code.
+
+## Test Process
+
+The testing process will follow a systematic approach, encompassing the following stages:
+
+1. **Test Planning:**
+   - Define testing objectives, scope, and deliverables.
+   - Identify test resources, including hardware, software, and human resources.
+
+2. **Test Design:**
+   - Develop detailed test cases for each requirement and component.
+   - Prioritize test cases based on criticality and impact.
+
+3. **Test Execution:**
+   - Execute automated CI tests after each code commit.
+   - Run unit tests to validate individual components.
+   - Conduct manual tests for user interface interactions and user experience.
+
+4. **Defect Reporting:**
+   - Document and report any identified defects or issues.
+   - Prioritize defects based on severity and impact.
+
+5. **Regression Testing:**
+   - Perform regression testing after code changes to ensure existing functionalities remain intact.
+
+6. **Performance Testing:**
+   - Conduct performance testing to assess the system's response time, scalability, and resource usage.
+   - Evaluate system behavior under different loads and stress conditions.
+
+7. **Security Testing:**
+   - Implement security testing to identify and mitigate potential vulnerabilities.
+   - Conduct penetration testing to simulate real-world attack scenarios.
+
+8. **User Acceptance Testing (UAT):**
+   - Collaborate with end-users to perform UAT, ensuring the system meets their expectations.
+   - Gather feedback and make necessary adjustments based on user input.
+
+9. **Documentation:**
+   - Maintain comprehensive test documentation, including test plans, test cases, and test results.
+   - Update documentation with any changes to the testing process or environment.
