@@ -12,9 +12,28 @@
 
 描述做成什么样的效果
 
-### 2. Topic Connection
+### 2. <a id="topic-connection">Topic Connection</a>
+- **2a. Linking Articles with the Same Topic:**
+    - The system should link articles that share the same topic. 
+    - Example: When a user chooses the "high performance computing (HPC)" topic, the system should present articles  discussing HPC.
 
-### 3. Author Relationship
+- **2b. Establishing Connections Between Various Topics:**
+    - The system should establish connections between various topics within the same domain. 
+    - Example: When a user explores the topic "Computer Science," the system should showcase articles covering diverse but related subjects like machine learning and high-performance computing.
+### 3. <a id="author-relationship">Author Relationship</a>
+- **3a. Associating Authors Collaborating on the Same Paper: (Co-author)**
+    - The system should establish connections between authors who are credited for the same paper. The relationship should be presented as "Co-author."
+    - Example: If authors A and B are credited for the paper titled "Advancements in Artificial Intelligence," the system should display a "Co-author" relationship between A and B.
+- **3b. Linking Authors Working in the Same Company or Department: (Colleague)** 
+    - The system should connect authors who work in the same company or department. The relationship should be presented as "Colleague."
+    - Example: If authors X and Y both work at XYZ Corporation, the system should show a "Colleague" relationship between X and Y.
+- **3c. Connecting Authors with Family Relationships: (Co-Recipients of Awards)** 
+    - If two authors have jointly received a specific award, the system should showcase their relationship as "Co-Recipients of Awards."
+    - Example: If authors M and N were both recipients of the "Outstanding Research Contribution Award," the system should display a "Co-Recipients of Awards" relationship between M and N.
+
+- **3d. Co-Recipients of Awards Relationship: (Family)**
+    - The system should link authors with familial relationships. The relationship should be presented as "Family."
+    - Example: If authors P and Q are relatives, the system should depict a "Family" relationship between P and Q.
 
 ### 4. Reference Tree
 
@@ -26,7 +45,51 @@ One crucial aspect of the proposed system is the implementation of a robust user
 ## Architectural Design
 
 ## Design Details
+### 2. [Topic Connection](#topic-connection)
+The Topic Connection component aims to link articles based on shared topics, facilitating the exploration of related content for users.
+#### 2a. Linking Articles with the Same Topic:
+- **Functionality:**
+    - Query the database to retrieve articles associated with the selected topic.
+    - Present the relevant articles to the user.
+- **Implementation Details:**
+    - Introduce a "Topic" entity in the database to represent different topics.
+    - Each article should be associated with one or more topics using a many-to-many relationship.
+    - Create an "Article_Topic" associative table to manage the connections.
+- **Data Model:** （可另起一个section）
+    - Entities:
+        - Article:
+            - Attributes: article_id, title, content, publication_date, ...
+            - Relationships: Many-to-Many with Topic and Co-Author entities.
+        - Topic:
+            - Attributes: topic_id, name.
+            - Relationships: Many-to-Many with Article entities.
+    - Associative Tables:
+        - Article_Topic:
+            - Columns: article_id, topic_id.
+#### 2b. Establishing Connections Between Various Topics:
+- **Functionality:**
+    - Identify related subtopics and present articles covering those subjects when a user explores a broad topic.
+- **Implementation Details:**
+    - Extend the database schema to include relationships between different topics.
+    - Implement algorithms to analyze co-occurrences and relevancy between topics.
 
+### 3. [Author Relationship](#author-relationship)
+#### 3a. Associating Authors Collaborating on the Same Paper: (Co-author)
+- **Implementation Details:**
+    - Create a "Co-Authorship" entity in the database to capture relationships between authors collaborating on the same paper.
+    - Implement algorithms to identify co-authorship based on shared article credits.
+#### 3b. Linking Authors Working in the Same Company or Department (Colleague):
+- **Implementation Details:**
+    - Introduce a "Colleague" relationship in the database schema.
+    - Implement algorithms to identify authors working in the same company or department based on their affiliation data.
+#### 3c. Co-Recipients of Awards Relationship (Co-Recipients of Awards):
+- **Implementation Details:**
+    - Introduce an "Awards" entity to capture information about awards received by authors.
+    - Establish relationships between authors who have jointly received the same award.
+#### 3d. Connecting Authors with Family Relationships (Family):
+- **Implementation Details:**
+    - Add a "Family" relationship in the database schema.
+    - Develop algorithms to identify authors with familial relationships.
 
 ### 5. <a id="user-defined-filter-and-search">User Defined Filter and Search</a>
 
@@ -175,6 +238,54 @@ The optional "Compatibility Across User Categories" feature ensures that the fil
 ## Test Plan
 
 ### Test Object
+#### 2a. 
+- **Test Scenario:** Retrieving Articles for a Selected Topic
+
+- **Test Summary:** Verify the system's ability to retrieve and present articles associated with a selected topic.
+- **Pre-requisites:** A populated database with articles covering various topics.
+- **Test Steps:** 
+    1. Select a predefined topic, e.g., "High Performance Computing," from the dropdown menu.
+    2. Trigger the system to query the database for articles associated with the selected topic.
+    3. Observe the presented articles.
+
+- **Expected Result (Happy Case):** The system successfully retrieves and displays articles specifically linked to the "High Performance Computing" topic.
+- **Expected Results (Failure Case):** The system fails to retrieve articles for the selected topic, or the presented articles are unrelated.
+
+#### 2b. 
+- **Test Scenario:** Exploring Broad Topics and Identifying Related Subtopics. 
+- **Test Summary:** Ensure the system accurately identifies and presents related subtopics when exploring a broad topic.
+- **Pre-requisites:** A populated database with articles covering diverse subtopics within broad topics.
+- **Test Steps:** 
+    1. Choose the broad topic "Computer Science" from the dropdown menu.
+    2. Observe the system's response in identifying and presenting related subtopics.
+    3. Verify that the presented articles cover diverse but related subjects within the chosen broad topic.
+- **Expected Result (Happy Case):** The system successfully identifies and presents related subtopics within the "Computer Science" topic, and the displayed articles are relevant.
+- **Expected Results (Failure Case):** The system fails to identify related subtopics, or the presented articles are unrelated to the chosen broad topic.
+
+#### 3a. 
+- **Test Scenario:** Co-Authorship Relationship
+- **Test Summary:** Validate the system's ability to associate authors collaborating on the same paper and present the relationship as "Co-author."
+- **Pre-requisites:** A populated database with articles having multiple credited authors.
+- **Test Steps:** 
+    1. Access the details of an article known to have multiple authors.
+    2. Examine the system's representation of co-authors for the selected article.
+    3. Verify that the identified co-authors match the actual authors credited for the paper.
+- **Expected Result (Happy Case):** The system correctly displays the co-authors for the selected article, confirming accurate identification of authors collaborating on the same paper.
+- **Expected Results (Failure Case):** The system fails to display co-authors for the selected article, or the identified co-authors are incorrect.
+
+#### 3b. 
+- **Test Scenario:** Colleague Relationship
+- **Test Summary:** Ensure the system correctly links authors working in the same company or department and presents the relationship as "Colleague."
+- **Pre-requisites:** A populated database with authors affiliated with the same company or department.
+- **Test Steps:** 
+    1. Explore the profiles of authors known to work in the same company or department.
+    2. Confirm that the system displays a "Colleague" relationship between the selected authors.
+    3. Verify that the identified colleagues match the actual authors working in the same organization.
+- **Expected Result (Happy Case):**
+The system accurately represents professional connections by displaying "Colleague" relationships between authors from the same company or department.
+- **Expected Results (Failure Case):**
+The system fails to display colleague relationships for the selected authors, or the identified colleagues are incorrect.
+
 
 #### 5a. <a id="5a-test">Customizable Filters</a>
 
