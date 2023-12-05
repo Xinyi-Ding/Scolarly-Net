@@ -36,8 +36,8 @@
     - Example: If authors P and Q are relatives, the system should depict a "Family" relationship between P and Q.
 
 ### 4. Reference Tree
-
-### 5. User defined filter and search
+Most academic papers cite other research works, usually listed in the References section at the end of the document. This feature aims to enable users to construct a citation tree based on the References section of a current paper. It visually represents the citations of the current paper and its subsequent references, offering a clearer understanding of the paper's citation network.
+Optionally, we could also develop a 'Cited-by Tree' to identify all papers that have cited the current paper, along with their previous level of references. This helps users comprehend the impact of the paper on subsequent research.
 
 ### 5. [User Defined Filter and Search](#user-defined-filter-and-search)
 One crucial aspect of the proposed system is the implementation of a robust user-defined filter and search functionality. This feature empowers users across different domains, including students, academics, government officials, developers, and companies, to tailor their research queries based on specific criteria. The system will provide a highly customizable search interface allowing users to filter academic papers and other sources with precision.
@@ -55,7 +55,7 @@ The Topic Connection component aims to link articles based on shared topics, fac
     - Introduce a "Topic" entity in the database to represent different topics.
     - Each article should be associated with one or more topics using a many-to-many relationship.
     - Create an "Article_Topic" associative table to manage the connections.
-- **Data Model:** （可另起一个section）
+- **Data Model:**
     - Entities:
         - Article:
             - Attributes: article_id, title, content, publication_date, ...
@@ -90,6 +90,32 @@ The Topic Connection component aims to link articles based on shared topics, fac
 - **Implementation Details:**
     - Add a "Family" relationship in the database schema.
     - Develop algorithms to identify authors with familial relationships.
+
+### 4. Reference Tree
+#### 4a. Citation Tree Generation
+- **Description**: 
+	- This component involves developing an algorithm to visually represent the citation network of a paper. It will display the immediate citations of the current paper and allow users to explore second and higer levels citations, which are the references cited by the papers in the previous-level citations.
+- **Design Details:**
+	- **Requirement Design**: 
+		- The citation tree should be interactive, allowing users to navigate through different levels of citations. It must accurately represent the hierarchical structure of citations and be capable of dynamically updating as new references are added.
+	- **Implementation Details**: 
+		- The algorithm will parse the citation data and construct a hierarchical tree structure. The tree will be displayed graphically, with nodes representing individual papers and edges indicating citation relationships. Features will include collapsibility of branches for easy navigation and tooltips or additional information windows to provide details about each citation.
+#### 4b. Cited-by Tree Feature
+- **Description**: 
+	- This functionality involves creating a reverse citation tree that identifies papers which have cited the current paper. It also includes the references of these citing papers to understand their citation context.
+- **Design Details:**
+	- **Requirement Design**: 
+		- The 'Cited-by Tree' should offer insights into the impact of the paper on subsequent research. It should be able to dynamically update as new citing papers are published and identified.
+	- **Implementation Details**: 
+		- The system will use a reverse lookup algorithm to find papers that cite the current paper. A separate tree structure, similar to the citation tree, will be generated. This tree will also be interactive, allowing users to explore the citation networks of the papers that have cited the current paper.
+#### 4c. User Interface
+- **Description**: 
+	- The user interface is crucial for providing a user-friendly way to interact with the citation and 'Cited-by' trees. It needs to be intuitive, responsive, and visually appealing.
+- **Design Details:**
+	- **Requirement Design**: 
+		- The UI should allow users to easily navigate the complex network of citations. It should include graphical representations, clickable elements, and features like search, filter, and different views for better usability.
+	- **Implementation Details**: 
+		- The UI will be developed using web technologies (like HTML, CSS, JavaScript) or appropriate software frameworks. It will feature a main viewing area for the trees, a toolbar or menu for navigation controls, and possibly a sidebar or pop-up windows for detailed information about each citation. The design will ensure that the interface remains uncluttered and easy to use, even with large datasets.
 
 ### 5. <a id="user-defined-filter-and-search">User Defined Filter and Search</a>
 
@@ -286,6 +312,30 @@ The system accurately represents professional connections by displaying "Colleag
 - **Expected Results (Failure Case):**
 The system fails to display colleague relationships for the selected authors, or the identified colleagues are incorrect.
 
+#### 4a. Citation Tree Generation
+- **Description**: 
+	- This component involves developing an algorithm to visually represent the citation network of a paper. It will display the immediate citations of the current paper and allow users to explore second and higer levels citations, which are the references cited by the papers in the previous-level citations.
+- **Design Details:**
+	- **Requirement Design**: 
+		- The citation tree should be interactive, allowing users to navigate through different levels of citations. It must accurately represent the hierarchical structure of citations and be capable of dynamically updating as new references are added.
+	- **Implementation Details**: 
+		- The algorithm will parse the citation data and construct a hierarchical tree structure. The tree will be displayed graphically, with nodes representing individual papers and edges indicating citation relationships. Features will include collapsibility of branches for easy navigation and tooltips or additional information windows to provide details about each citation.
+#### 4b. Cited-by Tree Feature
+- **Description**: 
+	- This functionality involves creating a reverse citation tree that identifies papers which have cited the current paper. It also includes the references of these citing papers to understand their citation context.
+- **Design Details:**
+	- **Requirement Design**: 
+		- The 'Cited-by Tree' should offer insights into the impact of the paper on subsequent research. It should be able to dynamically update as new citing papers are published and identified.
+	- **Implementation Details**: 
+		- The system will use a reverse lookup algorithm to find papers that cite the current paper. A separate tree structure, similar to the citation tree, will be generated. This tree will also be interactive, allowing users to explore the citation networks of the papers that have cited the current paper.
+#### 4c. User Interface
+- **Description**: 
+	- The user interface is crucial for providing a user-friendly way to interact with the citation and 'Cited-by' trees. It needs to be intuitive, responsive, and visually appealing.
+- **Design Details:**
+	- **Requirement Design**: 
+		- The UI should allow users to easily navigate the complex network of citations. It should include graphical representations, clickable elements, and features like search, filter, and different views for better usability.
+	- **Implementation Details**: 
+		- The UI will be developed using web technologies (like HTML, CSS, JavaScript) or appropriate software frameworks. It will feature a main viewing area for the trees, a toolbar or menu for navigation controls, and possibly a sidebar or pop-up windows for detailed information about each citation. The design will ensure that the interface remains uncluttered and easy to use, even with large datasets.
 
 #### 5a. <a id="5a-test">Customizable Filters</a>
 
