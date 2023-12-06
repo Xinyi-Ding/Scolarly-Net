@@ -1,5 +1,12 @@
 # Group Carlson-Johnson
 
+## Project Description
+
+## Client
+
+## User
+
+
 ## Members
 - Kejia Zhang
 - Xinyi Ding
