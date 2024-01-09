@@ -3,8 +3,112 @@
 ## Introduction
 
 ## System Overview
+The proposed PSD (Paper Source Discovery) system is designed to provide a comprehensive platform for the analysis and exploration of academic papers and related sources. The system integrates various features to facilitate efficient information extraction, connection mapping, and user-driven exploration.
+### Key Components:
+  1. **Paper Details Extraction:**
+  2. **Topic Connection:**
+  3. **Author Relationship:**
+  4. **Reference Tree:**
+  5. **User Defined Filter and Search:**
+### System Interaction:
+Researchers and analysts can upload articles, triggering the extraction of key details. The system then creates a dynamic network of connections between articles, authors, and topics. Users can explore these connections through an intuitive interface, supported by visualizations such as topic clusters, author collaboration networks, and citation trees.
+
+The system aims to not only streamline information retrieval but also foster a deeper understanding of the relationships and influences within the academic landscape. It supports real-time query processing, interactive analysis, and collaborative features to enhance the overall research experience.
 
 ## High-level design of an end-to-end solution
+
+## Architectural Design
+
+### Technology Stack Architecture
+<img src="/Documents/Image/TechStack.jpg" alt="Technology Stack Architecture" width="700" height="600">
+
+#### Description
+The overall architecture involves Vue and Axios for frontend development, FastApi for backend API services, Python for backend data processing, and MongoDB/Neo4j for data storage. The dependencies establish a seamless flow of data and operations between the frontend and backend components.
+
+#### Front End
+- **Components**:
+  - **Vue:** A progressive JavaScript framework for building modern, responsive user interfaces. Vue emphasizes declarative rendering, component-based architecture, and seamless integration with other libraries.
+  - **Vuex:** A state management library designed specifically for Vue.js applications. Vuex facilitates centralized state management, enabling efficient handling of shared data between components and maintaining a predictable state flow within the application.
+  - **ElementUI:** A comprehensive Vue.js component library that provides a diverse set of pre-designed UI elements, such as forms, tables, and modals. ElementUI promotes rapid development by offering a consistent and visually appealing design system.
+  - **Webpack:** A powerful module bundler and build tool for JavaScript applications. Webpack simplifies the management of project assets, facilitates code splitting, and optimizes the performance of web applications through efficient bundling and minification processes.
+  - **Axios:** A promise-based HTTP client for the browser and Node.js, Axios seamlessly integrates with Vue.js to simplify asynchronous data fetching and manipulation. It provides a clean and concise API for handling HTTP requests and responses.
+  - **ECharts:** A versatile JavaScript charting library that supports various chart types and interactive features. ECharts is particularly suitable for creating dynamic and visually engaging data visualizations, making it an ideal choice for representing complex datasets in a user-friendly manner.
+
+- **Dependencies**
+  - **Vue → Vuex**  
+  Vue depends on Vuex for managing application-level state. Vuex provides a centralized statemanagement pattern for Vue applications, allowing efficient state sharing among components.
+  - **Vue → ElementUI**  
+  Vue relies on ElementUI as a component library to enhance the user interface. ElementUIprovides a set of pre-designed and customizable UI components, simplifying the process ofbuilding modern and visually appealing Vue applications.
+  - **Vue → Axios** 
+  Vue utilizes Axios for handling HTTP requests. Axios is a JavaScript library thatfacilitates asynchronous data fetching, making it an essential dependency for Vueapplications to communicate with backend servers and APIs.
+  - **Vue → ECharts**  
+  Vue integrates with ECharts to enable data visualization within the application. ECharts isa JavaScript charting library that provides a variety of interactive and dynamic chartoptions, allowing Vue applications to present data in a visually compelling manner.
+  - **Webpack → Vue**  
+  Webpack is responsible for bundling and managing front-end resources. Vue is one of thefront-end frameworks that Webpack supports, allowing developers to organize Vue components,templates, and styles efficiently.
+  - **Webpack → ElementUI**  
+  Webpack includes ElementUI as part of the front-end build process. Webpack manages theintegration of ElementUI components into the application, ensuring that the necessary stylesand scripts are bundled correctly.
+  - **Webpack → Axios:**  
+  Webpack incorporates Axios to handle HTTP requests during the build process. This allows Vue applications, managed by Webpack, to make asynchronous requests for data, ensuring a seamless integration of data fetching and bundling.
+
+#### Back End
+- **Components**:
+  - **FastApi:** A modern, fast (high-performance), web framework for building APIs with Python 3.7+ based on standard Python type hints.
+  - **Python:** A versatile programming language used for data processing and analysis in the backend. Python provides powerful libraries for various tasks, making it a suitable choice for backend development.
+  - **MongoDB/Neo4j:** NoSQL databases used for storing and retrieving data in the backend. MongoDB is a document-oriented database, while Neo4j is a graph database, allowing flexibility in data modeling based on the application's requirements.
+
+- **Dependencies**
+  - **Vue + Axios → FastApi**  
+  Vue, along with Axios, depends on FastApi for handling API requests. FastApi serves as the backend API framework, efficiently managing the communication between the frontend and backend components.
+  - **FastApi → Python**  
+  FastApi relies on Python for implementing the business logic and data processing tasks. Python's rich ecosystem of libraries makes it well-suited for handling complex backend operations.
+  - **FastApi → MongoDB/Neo4j**  
+  FastApi interacts with MongoDB and/or Neo4j databases to store and retrieve data. This dependency enables FastApi to persistently store information and perform data-related operations based on the chosen database model.
+  - **Python → MongoDB/Neo4j**  
+  Python communicates with MongoDB and/or Neo4j databases for data processing and analysis. This interaction allows Python to leverage the data stored in these databases, supporting functionalities such as data manipulation, aggregation, and analysis.
+
+### Component Architecture
+<img src="/Documents/Image/ComponentGraph.png" alt=" Component Architecture" width="700" height="600">
+
+#### Overview
+the system utilizes a 5-tier architecture to separate concerns, enhance scalability, and improve maintainability. This architecture allows for a clear distinction between the client interface, presentation logic, business processes, integration services, and resource management. By dividing the system into these layers, the system benefits from increased modularity, which simplifies updates and maintenance. Each tier can be developed and scaled independently, facilitating easier upgrades and integration with other systems or services. The separation also aids in security, as each layer acts as a gatekeeper to the next, ensuring that only authorized operations are performed.
+
+#### Client Tier
+- **ClientUI**: 
+  - Description: The user interface through which users interact with the system. It is designed to be intuitive and facilitate easy access to the system's features.
+  - Relation: This is the primary interface for users to input queries and view results related to academic paper analysis.
+
+#### Presentation Tier
+- **Controller**: 
+  - Description: Manages user input, processes user requests, and sends commands to the model to update the view accordingly.
+  - Relation: Acts as an intermediary between the ClientUI and the business logic, ensuring that user actions are translated into operations on the model.
+- **View**: 
+  - Description: Displays data to the user and sends user commands to the controller.
+  - Relation: Represents the visualization of the data that the system handles, such as showing the extracted paper details and connection maps.
+
+#### Business Tier
+- **SessionFacade**: 
+  - Description: Provides a simplified interface to complex subsystems in the business tier, often used to reduce network calls.
+  - Relation: In the system, it could manage user sessions and streamline interactions with complex data processing tasks for paper analysis.
+- **ValueObject**: 
+  - Description: Holds data that is passed between components, reducing the number of method calls required.
+  - Relation: Transfers relevant data like paper details and metadata across different components of the system.
+
+#### Integration Tier
+- **DataAccessObject (DAO)**: 
+  - Description: Abstracts and encapsulates all access to the data source, managing the connection to the database and the execution of queries.
+  - Relation: Responsible for retrieving and storing data related to academic papers from the database in the system.
+- **ServiceActivator**: 
+  - Description: Invokes services in an asynchronous fashion, can be used for message-driven beans or to initiate services without a direct client request.
+  - Relation: In the system, it may handle asynchronous tasks such as initiating analysis of new academic papers or updating the reference tree.
+
+#### Resource Tier
+- **DataBase**: 
+  - Description: Stores all the persistent data needed for the system to function, such as user accounts, paper details, and connection data.
+  - Relation: Acts as the central repository for the system, where all the academic papers and related metadata are stored.
+- **WebService**: 
+  - Description: Provides a way for the system to communicate with external services over the internet, such as external databases of academic papers.
+  - Relation: Could be used in the system to fetch paper details from external sources or to integrate with other academic research tools.
+
 
 ## Requirements Analysis
 
@@ -24,8 +128,6 @@ Optionally, we could also develop a 'Cited-by Tree' to identify all papers that 
 
 ### 5. User Defined Filter and Search
 One crucial aspect of the proposed system is the implementation of a robust user-defined filter and search functionality. This feature empowers users across different domains, including students, academics, government officials, developers, and companies, to tailor their research queries based on specific criteria. The system will provide a highly customizable search interface allowing users to filter academic papers and other sources with precision.
-
-## Architectural Design
 
 ## Design Details
 
