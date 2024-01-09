@@ -2,6 +2,32 @@
 
 ## Introduction
 
+### Purpose
+
+The system aims to provide a platform for academic literature research and analysis to meet the needs of a wide range of users including students, academics, government agencies and companies. The system can be used in scenarios of in-depth literature review, academic research validation, policy analysis and industry-specific research. In addition, the system integrates search functions, data analysis tools and visualisation capabilities designed to simplify the research process, enhance the organisation of information and support evidence-based decision-making in various fields.
+
+### Intended Users
+
+**Students (Literature Review):** The system provides literature search, organisation, citation management and note-taking functions, which can be used by students to collect and organise the information required for a literature review to support the writing of their dissertation.
+
+**Academia (Academic Proof):** The system provides advanced search, source validation, and reference tracking capabilities that can be utilised by academics to validate research hypotheses and arguments. The system also helps academics to discover links between studies and serves as a reference tool for conducting academic research.
+
+**Government (Policy Analysis):** The data analysis and visualisation features of the system can help government practitioners understand research trends and integrate different research findings to make evidence-based policy decisions.
+
+**Companies (Industry-related Research):** Companies can use the system to conduct research functions for industry research aggregation, trend analysis and market analysis report for better market understanding and strategic planning.
+
+### Product Scope
+
+The scope of the product includes the development of a user-friendly system for researching and analysing academic articles to meet the needs of different user groups. Key features include
+
+- **Advanced Research Functionality:** Enables users to search through existing literature databases and provides user definable filtering options.
+
+- **Data Management Tools:** Facilitates efficient organisation, annotation and storage of research literature.
+
+- **Citation and Reference Tracking:** Enables tracking of references in data articles to organise connections and streamline the academic writing process.
+
+- **Analysis and Visualisation:** Provides the ability to analyse links between article data, between topics and between authors, and to visualise these relationships in a clear and understandable way.
+
 ## System Overview
 The proposed PSD (Paper Source Discovery) system is designed to provide a comprehensive platform for the analysis and exploration of academic papers and related sources. The system integrates various features to facilitate efficient information extraction, connection mapping, and user-driven exploration.
 ### Key Components:
@@ -133,116 +159,113 @@ One crucial aspect of the proposed system is the implementation of a robust user
 
 ### 1. <a id="1-paper-details-extraction-topickeywordauthorreference">User Defined Filter and Search</a>
 
-#### Key Components
-
-- 1a. [**Topic Extraction**](#topic-extraction)
-
-- 1b. [**Keyword Extraction**](#keyword-extraction)
-
-- 1c. [**Author Identification**](#author-identification)
-
-- 1d. [**Reference Extraction**](#reference-extraction)
-
 #### 1a. <a id="topic-extraction">Topic Extraction</a>
 
-##### Description
+- **Description:**
 
-This function should be able to extract the main research areas or core themes of discussion from the input papers. Eventually the information shourl be deposited into a database and the papers can be grouped by using the selected topic as key.
+  - This function should be able to extract the main research areas or core themes of discussion from the input papers. Eventually the information shourl be deposited into a database and the papers can be grouped by using the selected topic as key.
 
-##### Design Details
+- **Priorisation:** High
 
-- Requirement Design:
-  - This should be able to identify and extract the main areas of research or core themes discussed from papers.
+- **Design Details:**
 
-  - This should be able to handle papers from a variety of academic fields and accurately identify sprcialisms or disciplines.
+  - Requirement Design:
+    - This should be able to identify and extract the main areas of research or core themes discussed from papers.
 
-  - Can accurately determine the sub-disciplines under each discipline.
+    - This should be able to handle papers from a variety of academic fields and accurately identify sprcialisms or disciplines.
 
-  - It is possible to query the database for existing topic categories and add multiple articles to the same category.
+    - Can accurately determine the sub-disciplines under each discipline.
 
-  - It can handle different representations of the same subject and still recognise that it is the same subject.
+    - It is possible to query the database for existing topic categories and add multiple articles to the same category.
 
-- Implementation Details:
+    - It can handle different representations of the same subject and still recognise that it is the same subject.
 
-  - Text pre-processing: Text is extracted using PDF parsing tool (PyPDF2) and cleaned by using NLP library and regular expression.
+  - Implementation Details:
 
-  - Topic Extraction and Categorisation: Use topic modelling tools from NLP libraries (e.g. Gensim's LDA model) to identify and extract the main research areas and core topics in the paper. Apply machine learning classification algorithms (e.g., Scikit-learn's Support Vector Machines or Random Forest) to categorise documents into predefined disciplines and sub-disciplines.
+    - Text pre-processing: Text is extracted using PDF parsing tool (PyPDF2) and cleaned by using NLP library and regular expression.
 
-  - Database Interaction: Use a graph database (Neo4j) for storing extracted topic and classification information and supporting efficient queries. Implement an API interface for querying existing subject categories in the database and support the ability to add multiple papers to the same category.
+    - Topic Extraction and Categorisation: Use topic modelling tools from NLP libraries (e.g. Gensim's LDA model) to identify and extract the main research areas and core topics in the paper. Apply machine learning classification algorithms (e.g., Scikit-learn's Support Vector Machines or Random Forest) to categorise documents into predefined disciplines and sub-disciplines.
+
+    - Database Interaction: Use a graph database (Neo4j) for storing extracted topic and classification information and supporting efficient queries. Implement an API interface for querying existing subject categories in the database and support the ability to add multiple papers to the same category.
 
 #### 1b. <a id="keyword-extraction">Keyword Extraction</a>
 
-##### Description
+- **Description:**
 
-This function extracts obvious keywords from the article, such as the subject of the experiment, the object of the experiment, and so on. In addition, it should also be possible to summarise implicit keywords.
+  - This function extracts obvious keywords from the article, such as the subject of the experiment, the object of the experiment, and so on. In addition, it should also be possible to summarise implicit keywords.
 
-##### Design Details
+- **Priorisation:** High
+- **Design Details:**
 
-- Requirement Design:
-  - Keywords or phrases should be extracted from the paper that summarise the main content or research focus of the paper.
+  - Requirement Design:
+    - Keywords or phrases should be extracted from the paper that summarise the main content or research focus of the paper.
 
-  - It can be located exactly to the keyword section of the article.
+    - It can be located exactly to the keyword section of the article.
 
-  - It is possible to match different keywords that express the same meaning.
+    - It is possible to match different keywords that express the same meaning.
 
-- Implementation Details:
-  - Keyword Extraction Algorithm: uses the NLP functionality of spaCy to tag text and identify noun phrases and adjectives.
+  - Implementation Details:
+    - Keyword Extraction Algorithm: uses the NLP functionality of spaCy to tag text and identify noun phrases and adjectives.
 
-  - Keyword Normalization and Disambiguation: Normalisation of extracted keywords, e.g., unification of morphological variations and normalisation of synonyms. The NLP package (WordNet with NLTK) is used to distinguish and match different keywords that express the same meaning.
+    - Keyword Normalization and Disambiguation: Normalisation of extracted keywords, e.g., unification of morphological variations and normalisation of synonyms. The NLP package (WordNet with NLTK) is used to distinguish and match different keywords that express the same meaning.
 
-  - Database Integration: Uses a graph database to store keywords and their associated article information for subsequent querying and analysis. Implement a database query function that allows quick retrieval of keywords and associations to related articles.
+    - Database Integration: Uses a graph database to store keywords and their associated article information for subsequent querying and analysis. Implement a database query function that allows quick retrieval of keywords and associations to related articles.
 
 #### 1c. <a id="author-identification">Author Identification</a>
 
-##### Description
+- **Description:**
 
-This feature extracts the author's information from the article and can store the relationship between the author and the article together in a database. In addition, it needs to be able to recognise author information already in the database and add multiple articles for the same author.
+  - This feature extracts the author's information from the article and can store the relationship between the author and the article together in a database. In addition, it needs to be able to recognise author information already in the database and add multiple articles for the same author.
 
-##### Design Details
+- **Priorisation:** High
+- **Design Details:**
 
-- Requirement Design:
+  - Requirement Design:
 
-  - The name, affiliation and contact details of the authors should be able to be extracted accurately from the paper.
+    - The name, affiliation and contact details of the authors should be able to be extracted accurately from the paper.
 
-  - Should handle multi-author situations and be able to return multiple authors for a single article in the database.
+    - Should handle multi-author situations and be able to return multiple authors for a single article in the database.
 
-  - Should have the ability to differentiate between authors with the same name, which may need to be combined with additional data such as the author's institutional information, contact details, etc.
+    - Should have the ability to differentiate between authors with the same name, which may need to be combined with additional data such as the author's institutional information, contact details, etc.
 
-  - It is possible to query the database for existing author information and add multiple articles for the same author.
+    - It is possible to query the database for existing author information and add multiple articles for the same author.
 
-- Implementation Details:
-  - Author Information Extraction: Develop a parsing algorithm to extract the author's name, organisation, and contact information from a document using an NLP tool (e.g., spaCy or NLTK) in combination with regular expressions. Use machine learning methods such as Named Entity Recognition (NER) to identify and extract author information fields.
+  - Implementation Details:
+    - Author Information Extraction: Develop a parsing algorithm to extract the author's name, organisation, and contact information from a document using an NLP tool (e.g., spaCy or NLTK) in combination with regular expressions. Use machine learning methods such as Named Entity Recognition (NER) to identify and extract author information fields.
 
-  - Handling Multi-Author Scenarios: Implement a logic that recognises multiple authors in a document and correctly assigns their respective information. Designing a Neo4j database storage interface to store multi-author information allows a single article to be associated with multiple author entities.
+    - Handling Multi-Author Scenarios: Implement a logic that recognises multiple authors in a document and correctly assigns their respective information. Designing a Neo4j database storage interface to store multi-author information allows a single article to be associated with multiple author entities.
 
-  - Disambiguation of Authors with Same Name: An algorithm (e.g., based on author institution information) is used to distinguish authors with the same name. Implement a unique identifier in the database, such as ORCID iD, to help distinguish between different authors with the same name.
+    - Disambiguation of Authors with Same Name: An algorithm (e.g., based on author institution information) is used to distinguish authors with the same name. Implement a unique identifier in the database, such as ORCID iD, to help distinguish between different authors with the same name.
 
-  - Database Querying and Update: Develop an API interface to allow querying of existing author information and updating the list of related articles for matching authors as they are found. Design database operations to support adding and updating multiple articles by the same author.
+    - Database Querying and Update: Develop an API interface to allow querying of existing author information and updating the list of related articles for matching authors as they are found. Design database operations to support adding and updating multiple articles by the same author.
 
 #### 1d. <a id="reference-extraction">Reference Extraction</a>
 
-##### Description
+- **Description:**
 
-The aim of this feature is to extract automatically a list of references from an academic paper and to parse out precise details of each reference, such as author, article title, journal name and year of publication. The achieved effect is to associate articles with their references in a database, supporting multiple citation formats and being able to recognise articles already in the database for data association.
+  - The aim of this feature is to extract automatically a list of references from an academic paper and to parse out precise details of each reference, such as author, article title, journal name and year of publication. The achieved effect is to associate articles with their references in a database, supporting multiple citation formats and being able to recognise articles already in the database for data association.
 
-##### Design Details
+- **Priorisation:** High
 
-- Requirement Design:
+- **Design Details:**
 
-  - Should be able to extract a list of references from a paper and accurately parse out the individual components of each reference (e.g. author, article title, journal name, year of publication, etc.).
+  - Requirement Design:
 
-  - It should be possible to store the relationship between the article and the articles in the references in a database.
+    - Should be able to extract a list of references from a paper and accurately parse out the individual components of each reference (e.g. author, article title, journal name, year of publication, etc.).
 
-  - Should support handling different citation formats (e.g. APA, MLA, Chicago, etc.).
+    - It should be possible to store the relationship between the article and the articles in the references in a database.
 
-  - It should be possible to identify articles that are already in the database and to correlate them.
+    - Should support handling different citation formats (e.g. APA, MLA, Chicago, etc.).
 
-- Implementation Details:
-  - Reference Location: development of a parser using NLP tools (e.g. spaCy) for identifying the reference part of an article.
+    - It should be possible to identify articles that are already in the database and to correlate them.
 
-  - Reference Parsing: development of a module, based on regular expressions and NLP packages, designed specifically to identify and extract the various components of a citation format, such as author, title, journal name and year of publication. Implement specific parsing rules for different citation formats (APA, MLA, Chicago, etc.).
+  - Implementation Details:
+    - Reference Location: development of a parser using NLP tools (e.g. spaCy) for identifying the reference part of an article.
 
-  - Identification of Existing Articles: Implement an algorithm or query logic for identifying identical citations in a database and associating them with newly extracted citations. Consider using a document's DOI (Digital Object Identifier) or other unique identifier to help identify and match documents.
+    - Reference Parsing: development of a module, based on regular expressions and NLP packages, designed specifically to identify and extract the various components of a citation format, such as author, title, journal name and year of publication. Implement specific parsing rules for different citation formats (APA, MLA, Chicago, etc.).
+
+    - Identification of Existing Articles: Implement an algorithm or query logic for identifying identical citations in a database and associating them with newly extracted citations. Consider using a document's DOI (Digital Object Identifier) or other unique identifier to help identify and match documents.
+
 ### 2. [Topic Connection](#topic-connection)
 #### 2a. Linking Articles with the Same Topic:
 - **Description:**
@@ -486,124 +509,145 @@ The aim of this feature is to extract automatically a list of references from an
 ## Test Plan
 
 ### Test Object
-#### 1a. <a id="topic-extraction-test">Topic Extraction</a>
 
-**Test Aim:**
-Ensure that the topic extraction function accurately identifies and extracts the main research areas, core topics and sub-disciplines from multi-disciplinary academic papers, and efficiently stores this information in the database.
+#### 1a. Topic Extraction
 
 **Test Cases:**
 
-1. **Text pre-processing tests:** Whether text pre-processing can extract and clean accurately.
+1. **Text Pre-processing**
+   - **Test Summary:** Whether text pre-processing can extract and clean accurately.
+   - **Pre-requisites:** Papers in PDF format are available for extraction.
+   - **Test Steps:** 
+     1. Extract text from PDF-formatted papers using the text pre-processing tool.
+     2. Apply the cleaning process to the extracted text to remove extraneous content.
+   - **Expected Result (Happy Case):** The text is accurately extracted from the PDFs, and the cleaning process retains all important information while removing any irrelevant or redundant content.
+   - **Expected Result (Failure Case):** The text extraction is inaccurate, or the cleaning process removes significant information or retains extraneous content.
 
-- *Test Steps:*
-  - Tests whether the text of papers in different formats (PDF) can be extracted accurately.
+2. **Topic Extraction Accuracy**
+   - **Test Summary:** Test accuracy and consistency of topic modelling tools.
+   - **Pre-requisites:** A test set of PDF papers and a matched pre-defined topic list are prepared.
+   - **Test Steps:** 
+     1. Run the topic model on the test set to extract topics.
+     2. Compare the extracted topics with the pre-defined topic list.
+     3. Analyze the recognition of different representations of the same topic.
+   - **Expected Result (Happy Case):** The topic model consistently and accurately identifies the topics from the test set, and different representations of the same topic are recognized correctly.
+   - **Expected Result (Failure Case):** The topic model fails to accurately identify the topics, or it does not recognize different representations of the same topic as identical.
 
-  - Verify that the cleaning process removes extraneous content and maintains important information.
+3. **Database and API Interaction**
+   - **Test Summary:** Test correctness of implementation of database storage structure and API interface functionality.
+   - **Pre-requisites:** Database and API endpoints are set up and functional.
+   - **Test Steps:** 
+     1. Store topic and article data in the database.
+     2. Use the API to query, add, and update data in the database.
+   - **Expected Result (Happy Case):** The database correctly stores the topic and article data, and the API supports efficient querying, addition, and updating of the content.
+   - **Expected Result (Failure Case):** The database improperly stores data, or the API does not allow for efficient operations.
 
-2. **Topic extraction tests:** Test accuracy and consistency of topic modelling tools.
-
-- *Test Steps:*
-  - Verify that the topic model accurately extracts topic from the test set. The test set will have the PDF formate paper and matched pre-defined topic list.
-
-  - Test whether different representations of the same topic are correctly recognised as the same topic.
-
-3. **Database and API interaction tests:** Test correctness of implementation of database storage structure and API interface functionality.
-
-- *Test Steps:*
-  - Testing the database is properly storing associated topic and article data.
-  - Verify that the API interface allows for efficient querying, adding and updating of database content.
-
-#### 1b. <a id="keyword-extraction-test">Keyword Extraction</a>
-
-**Test Aim:**
-Ensure that the keyword extraction function accurately identifies explicit and implicit keywords in academic articles, normalises variants and synonyms, and stores this information in a database for search and analysis.
-
-**Test Cases:**
-
-1. **Keyword extraction accuracy test:** Testing using a set of papers ensures that the most relevant keywords and phrases are extracted.
-
-- *Test Steps:*
-  - Verify that the keyword section of the paper is correctly identified and that keywords can be extracted from it when the section exists.
-
-2. **Keyword normalisation and disambiguation tests:** The effectiveness of normalisation and disambiguation.
-
-- *Test Steps:*
-  - Check that morphologically variant keywords are correctly normalised (e.g. paper and papers are all normalised to paper).
-
-  - Ensure that different keywords expressing the same meaning are matched and recognised as synonyms.
-
-3. **Database and API interaction tests:** The system interacts with a database to store and query keyword data.
-
-- *Test Steps:*
-  - Verify that keywords are correctly entered into the graphics database along with their associated article information.
-
-  - Verify that the database query function efficiently and accurately retrieves the correct keywords and their related articles.
-
-#### 1c. <a id="author-identification-test">Author Identification</a>
-
-**Test Aim:**:
-Ensure that the author recognition function can accurately extract author information from articles and can store the relationship between authors and articles in the database. In addition, the function needs to recognise author information already in the database and add multiple articles for the same author.
+#### 1b.Keyword Extraction
 
 **Test Cases:**
 
-1. **Keyword extraction accuracy test:** Testing using a set of papers ensures that the most relevant keywords and phrases are extracted.
+1. **Keyword Extraction Accuracy**
+   - **Test Summary:** Testing using a set of papers ensures that the most relevant keywords and phrases are extracted.
+   - **Pre-requisites:** Access to a set of academic papers with explicit keyword sections is established.
+   - **Test Steps:** 
+     1. Use the extraction tool to identify the keyword section within a diverse set of academic papers.
+     2. Execute the keyword extraction function to parse and extract the list of keywords.
+     3. Cross-reference the extracted keywords with a curated list of expected keywords for accuracy.
+   - **Expected Result (Happy Case):** All keywords are correctly identified and extracted from the papers, accurately reflecting the content's primary subjects.
+   - **Expected Result (Failure Case):** The extraction tool misses the keyword section, incorrectly parses the content, or fails to extract all relevant keywords.
 
-- *Test Steps:*
+2. **Keyword Normalisation and Disambiguation**
+   - **Test Summary:** Check that morphologically variant keywords are correctly normalised (e.g. paper and papers are all normalised to paper).
+   - **Pre-requisites:** A collection of papers with known variants and synonyms of keywords is prepared.
+   - **Test Steps:** 
+     1. Run the normalisation function on the extracted keywords to consolidate different morphological forms into a single base form.
+     2. Apply the disambiguation process to the keywords to identify and group synonyms.
+     3. Validate the output against a reference list to ensure all variants are normalised and synonyms are accurately grouped.
+   - **Expected Result (Happy Case):** The system normalises morphological variants effectively and identifies synonyms, ensuring that different forms of the same word are not counted as separate keywords.
+   - **Expected Result (Failure Case):** Failure in the normalisation process resulting in variants being treated as separate keywords, or synonyms not being correctly identified and grouped.
 
-  - Use a set of articles to test whether the names, affiliations, and contact information of authors can be extracted accurately.
+3. **Database and API Interaction**
+   - **Test Summary:** The system interacts with a database to store and query keyword data.
+   - **Pre-requisites:** The database schema and API endpoints for handling keyword data are defined and implemented.
+   - **Test Steps:** 
+     1. Input a set of keywords along with associated article metadata into the database using the provided API.
+     2. Conduct a series of queries through the API to retrieve keywords and verify the accuracy of the returned articles' metadata.
+     3. Perform update and delete operations on the keyword entries to ensure the database reflects the changes accurately.
+   - **Expected Result (Happy Case):** Keywords and their associated article metadata are correctly entered, retrievable, and modifiable via the API, demonstrating the system's robustness and accuracy.
+   - **Expected Result (Failure Case):** Misalignment between stored keywords and article metadata, inefficient retrieval performance, or failure to accurately reflect updates and deletions in the database.
 
-  - Verify that the extraction algorithm can handle multi-author information in articles.
-
-2. **Differentiation test for authors with the same name:** Distinguish between authors with the same name and incorporate additional information such as the author's institutional information, contact details, etc.
-
-- *Test Steps:*
-
-  - Check that the system can distinguish between authors with the same name by additional information (e.g. institutional information).
-
-  - Test if authors with the same name can be correctly associated in the database by a unique identifier (e.g. ORCID).
-
-3. **Database storage and query test:** Confirm that author information and article relationships are correctly entered into the database.
-
-- *Test Steps:*
-
-  - After data storing, verify that the database query function correctly retrieves author information and their related articles.
-
-4. **Multi-article correlation test:** Evaluate whether the system can add new articles to an author's record when an author already in the database is found.
-
-- *Test Steps:*
-
-  - Given a set of lists of articles by the same author, query the database to see whether the articles are correctly linked to the author.
-
-#### 1d. <a id="reference-extraction-test">Reference Extraction</a>
-
-**Test Aim:**
-Ensure that the reference extraction function automatically extracts a list of references from academic papers and accurately analyses the details of each reference (e.g. author, article title, journal name and year of publication). The target effect is to associate articles with their references in a database that supports multiple citation formats and is able to recognise articles already in the database for data association.
+#### 1c. Author Identification
 
 **Test Cases:**
 
-1. **Reference location test:** Testing using a set of papers ensures that the most relevant keywords and phrases are extracted.
+1. **Author Information Extraction Accuracy**
+   - **Test Summary:** Testing using a set of papers ensures that the most relevant keywords and phrases are extracted.
+   - **Pre-requisites:** A diverse set of academic articles with clearly identified author sections is available.
+   - **Test Steps:** 
+     1. Run the author extraction algorithm on the articles to identify and extract names, affiliations, and contact information of the authors.
+     2. Ensure that the algorithm can process and correctly associate multiple authors and their information in multi-author papers.
+   - **Expected Result (Happy Case):** The algorithm accurately extracts all author information, correctly associating each piece of data with the respective author, even in cases of multiple authors per article.
+   - **Expected Results (Failure Case):** Incorrect or incomplete extraction of author information, or failure to correctly identify all authors in multi-author scenarios.
 
-- *Test Steps:*
- 
-  - Test whether the developed parser accurately recognises the reference section of the article.
-  
-  - Test whether the text of reference list can be returned correctly.
+2. **Differentiation of Authors Sharing the Same Name**
+   - **Test Summary:** Distinguish between authors with the same name and incorporate additional information such as the author's institutional information, contact details, etc.
+   - **Pre-requisites:** Access to a dataset of academic articles featuring authors who share the same name, as well as additional distinguishing information, is established.
+   - **Test Steps:**
+     1. Test the system's ability to distinguish between authors with identical names using additional data such as institutional affiliation.
+     2. Confirm that the system assigns a unique identifier (e.g., ORCID) to each author for proper differentiation.
+   - **Expected Result (Happy Case):** The system successfully differentiates between authors with the same name using the additional data and correctly associates articles with the respective authors' unique identifiers.
+   - **Expected Results (Failure Case):** The system fails to distinguish between authors with the same name or incorrectly links articles to authors due to identifier mismatch.
 
-2. **Reference parsing test:** Testing using a set of papers ensures that the most relevant keywords and phrases are extracted.
+3. **Database Storage and Query Efficiency**
+   - **Test Summary:** Confirm that author information and article relationships are correctly entered into the database.
+   - **Pre-requisites:** The database is set up with a schema that includes author information and their relationship with articles.
+   - **Test Steps:**
+     1. Store author information extracted from articles in the database.
+     2. Execute a series of queries to retrieve author profiles and their associated articles to verify the accuracy and efficiency of the database.
+   - **Expected Result (Happy Case):** Author information and related articles are correctly entered and are efficiently retrievable from the database with correct associations.
+   - **Expected Results (Failure Case):** Author data is incorrectly stored or associated, or the query process is inefficient and slow, returning incorrect information.
 
-- *Test Steps:*
- 
-  - Test whether the developed parser accurately recognises the reference section of the article.
-  
-  - Test whether the text of reference list can be returned correctly.
+4. **Multi-Article Author Correlation**
+   - **Test Summary:** Evaluate whether the system can add new articles to an author's record when an author already in the database is found.
+   - **Pre-requisites:** The database contains existing records of authors and their published articles.
+   - **Test Steps:** 
+     1. Introduce new articles by authors already present in the database.
+     2. Query the database to check whether new articles are correctly added to the existing author's record and linked accurately.
+   - **Expected Result (Happy Case):** The system effectively adds new articles to the corresponding author's profile, maintaining an accurate record of the author's publications.
+   - **Expected Results (Failure Case):** The system fails to update the author's record with new publications, or incorrectly associates the articles with different authors.
 
-3. **Existing article recognition test:** Implement algorithms or query logic to confirm whether the same citation can be identified in the database and associated with the newly extracted citation.
+#### 1d. Reference Extraction
 
-- *Test Steps:*
+**Test Cases:**
 
-  - Test whether the system can find the paper in the reference list is already in the database.
+1. **Reference Location Accuracy**
+   - **Test Summary:** Testing using a set of papers ensures that the most relevant keywords and phrases are extracted.
+   - **Pre-requisites:** A diverse collection of academic papers with clearly defined reference sections is available.
+   - **Test Steps:**
+     1. Utilize the developed parser on various articles to locate and identify the reference section.
+     2. Verify that the parser correctly returns the text of the entire reference list without omitting any part.
+   - **Expected Result (Happy Case):** The parser accurately identifies the reference section in each article and returns the complete text of the reference list.
+   - **Expected Results (Failure Case):** The parser fails to locate the reference section or incorrectly identifies other parts of the article as the reference list. Alternatively, it returns an incomplete or erroneous text of the reference list.
 
-  - Test whether the system can add new relationships to papers already in the graphics database.
+2. **Reference Parsing Accuracy**
+   - **Test Summary:** Testing using a set of papers ensures that the most relevant keywords and phrases are extracted.
+   - **Pre-requisites:** Access to academic papers with various formats of reference lists is established.
+   - **Test Steps:**
+     1. Apply the parser to extract individual references from the reference list in each paper.
+     2. Check the accuracy of the extracted reference data, such as authors, titles, publication years, and journal or conference names.
+     3. Test the parser's ability to handle different referencing styles and formats.
+   - **Expected Result (Happy Case):** The parser accurately extracts all components of each reference, correctly handling various referencing styles and formats.
+   - **Expected Results (Failure Case):** Inaccurate extraction of reference components or failure to correctly interpret different reference styles and formats.
+
+3. **Existing Article Recognition**
+   - **Test Summary:** Implement algorithms or query logic to confirm whether the same citation can be identified in the database and associated with the newly extracted citation.
+   - **Pre-requisites:** The database already contains a set of articles, including those referenced in new papers.
+   - **Test Steps:** 
+     1. Check the system's ability to match references in a paper's reference list with existing articles in the database.
+     2. Verify the system's capability to identify and add new relationships (citations) to papers that are already stored in the database.
+     3. Conduct tests with various referencing styles and formats to ensure the system's robustness.
+   - **Expected Result (Happy Case):** The system successfully identifies when a paper in the reference list is already present in the database and accurately updates the database to reflect the new citation relationships.
+   - **Expected Results (Failure Case):** The system fails to recognize existing articles in the database when they are cited in new papers, or it inaccurately records citation relationships, leading to data inconsistency.
 
 #### 2a. Linking Articles with the Same Topic
 **Test Cases:**

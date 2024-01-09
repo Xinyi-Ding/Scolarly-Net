@@ -1,28 +1,46 @@
 # Group Carlson-Johnson
 
+## Table of Content
+
+- [Project Description](#project-description)
+- [Project Documents List](#project-documents-list)
+  - [Formative Assessment](#formative-assessment)
+  - [Project Design](#project-design)
+  - [Project Meeting](#project-meeting)
+- [Contributers](#contributers)
+
 ## Project Description
 
-## Client
+The aim of this project is to develop a system for analysing academic papers. The system will support analyses of authorship, sentiment, subject and topic. Users will be able to import articles into the data store in order to perform a variety of analytical queries including paper topic clustering, inter-author linking, inter-topic linking, relationships between authors and topics, sentiment analysis, paper outcomes, citation networks and timelines.
 
-## User
+### Client
+The client for this project is the course organisation team for practical software development in the EPCC MSc programme.
+
+## Project Documents List
+
+### Formative Assessment
+
+The given prototype of the project is located in branch '[proto](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/tree/proto)'.
+
+- [Formative Assessment](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/blob/proto/README.md)
+
+### Project Design
+
+All project documents are located in [Documents](/Documents/) folder.
+
+- [System Design](/Documents/Design.md)
+- [Project Planning](/Documents/Planning.md)
+
+### Project Meeting
+
+- [Project Meeting Minutes](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/wikis/Meeting-Minutes)
 
 
-## Members
+## Contributers
+
 - Kejia Zhang
 - Xinyi Ding
 - Yongkang Qiu
 - Yucheng Liang
 
-## Documents List
-
-### Formative Assessment
-The given prototype of the project is located in branch '[proto](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/tree/proto)'.
-Prototype review is written in this branch's '[README.md](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/blob/proto/README.md)'.
-
-### System Design
-Design documents are located in [Documents](/Documents/)
-
-System design document: [Design](/Documents/Design.md)
-
-## Gantt Chart
-![Gantt_Chart](/Documents/Image/Gantt.png)
+Supported by Daniyal Arshad
