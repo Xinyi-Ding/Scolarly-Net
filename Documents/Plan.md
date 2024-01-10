@@ -1,5 +1,48 @@
 # PSD Project Planning
 
+## Project Objective
+
+The primary goal of this project is to develop a comprehensive web-based platform that is universally accessible and provides a consistent user experience across a variety of operating systems, including Windows, macOS, and Linux platforms. The web-based approach will eliminate the need for platform-specific applications, which will reduce software development and maintenance costs and simultaneously maximise coverage and usability. The system will provide a full suite of tools for research and analysis of scholarly articles, with advanced search capabilities, data management, and interactive visualisation.
+
+## Project Management
+
+### Development Model
+
+![Waterfall](/Documents/Image/Waterfall.png)
+
+In order to effectively manage this project, we will be using the **Overlapping Waterfall** model as our software development methodology. This model is a variant of the traditional waterfall model that allows certain phases of a project to begin before the previous phase is fully completed. The main advantage of this approach is that it supports smooth transitions between phases, reduces wait times, and promotes more timely communication and collaboration among team members. In addition, we incorporate **Staged Delivery** strategy. The aim is to deliver some of the functionality as early as possible, which allows for faster user feedback and allows the project to be adjusted in subsequent phases based on that feedback. In this project, we have three delivery points: Minimum Viable Product (MVP), Beta, and Final release.
+
+**Advantage:**
+
+- **Accelerated delivery:** By allowing subsequent stages to start before the previous one is completely finished, the overall timeline of the project can be reduced and the delivery process accelerated.
+
+- **Improved Resource Utilisation:** The Overlapping Waterfall model improves resource utilisation by better balancing the workloads of team members and ensuring that there is a continuous flow of work at any given time.
+
+- **Early identification of issues:** Because the testing and development phases partially overlap, issues can be identified and resolved earlier in the development process, reducing the cost of fixing them later.
+
+- **Continuous Feedback and Improvement:** Early and frequent deliveries in each phase allow for continuous collection of user and stakeholder feedback, enabling the product to adapt to changes in the market and user needs.
+
+- **Reduced Waiting Time:** In the traditional waterfall model, a delay in one phase can lead to a postponement of the entire project. Whereas, in an overlapping waterfall model, certain work can be done in parallel, reducing delays caused by waiting for a particular phase to be completed.
+
+- **Support for iterative elements:** While the overlapping waterfall model maintains the structured nature of the waterfall approach, it also supports elements of iterative development, allowing the product to be refined over time as it is developed.
+
+- **More effective risk management:** Early iterative delivery and testing helps to identify risks and address them in advance, rather than facing potentially big problems later in the project.
+
+
+### Timeline
+
+![Gantt_Chart](/Documents/Image/Ganttv2.png)
+
+This Gantt chart is a project management tool to show a project timeline for the Carlson-Johnson Group. This timeline covers the period from September 2023 to May 2024. The entire development model uses an overlapping waterfall model. It divides the main project activities into key phases: design, development, and testing. In addition, it marks three main assessment points, which are group presentation, group assessment and individual assessment.
+
+- **Design** phase includes prototype evaluation, design documentation, requirements analysis, and design review.
+
+- **Development** phase includes building web framework, selecting NLP model, building database, front-end design, back-end interface development, front-end and back-end connection.
+
+- **Testing** phase including database testing, front-end testing, interaction testing, optimisation, final testing, etc.
+
+Project milestones include Minimum Viable Product (MVP), Beta, and Final release.
+
 ## Risk Management
 ### Risk Assessment
 Certainly, using the risk categories provided, we can classify the potential risks for the project aimed at analyzing academic papers and other sources into a tabulated format. Here's how these risks might be categorized:
@@ -103,11 +146,3 @@ This table provides a structured overview of potential risks by category, assess
 - **Regular Reviews**: Conduct frequent risk assessment reviews to identify new risks and reassess the status of existing ones.
 - **Stakeholder Feedback**: Use stakeholder feedback as a tool to monitor user satisfaction and detect early signs of resistance or conflict.
 - **Performance Metrics**: Establish performance metrics to evaluate the effectiveness of risk management strategies, making adjustments as necessary.
-
-## Project Management
-
-## Task Management
-
-## Timeline
-
-
