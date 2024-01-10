@@ -332,27 +332,62 @@ One crucial aspect of the proposed system is the implementation of a robust user
 #### 4a. Citation Tree Generation
 - **Description**: 
 	- This component involves developing an algorithm to visually represent the citation network of a paper. It will display the immediate citations of the current paper and allow users to explore second and higer levels citations, which are the references cited by the papers in the previous-level citations.
+- **Priorisation**: High
 - **Design Details:**
 	- **Requirement Design**: 
 		- The citation tree should be interactive, allowing users to navigate through different levels of citations. It must accurately represent the hierarchical structure of citations and be capable of dynamically updating as new references are added.
 	- **Implementation Details**: 
 		- The algorithm will parse the citation data and construct a hierarchical tree structure. The tree will be displayed graphically, with nodes representing individual papers and edges indicating citation relationships. Features will include collapsibility of branches for easy navigation and tooltips or additional information windows to provide details about each citation.
-#### 4b. Cited-by Tree Feature
+
+#### 4b. Cited-by Tree Feature (Optional)
 - **Description**: 
 	- This functionality involves creating a reverse citation tree that identifies papers which have cited the current paper. It also includes the references of these citing papers to understand their citation context.
+- **Priorisation**: Low
 - **Design Details:**
 	- **Requirement Design**: 
 		- The 'Cited-by Tree' should offer insights into the impact of the paper on subsequent research. It should be able to dynamically update as new citing papers are published and identified.
 	- **Implementation Details**: 
 		- The system will use a reverse lookup algorithm to find papers that cite the current paper. A separate tree structure, similar to the citation tree, will be generated. This tree will also be interactive, allowing users to explore the citation networks of the papers that have cited the current paper.
+
 #### 4c. User Interface
 - **Description**: 
 	- The user interface is crucial for providing a user-friendly way to interact with the citation and 'Cited-by' trees. It needs to be intuitive, responsive, and visually appealing.
+- **Priorisation**: High
 - **Design Details:**
 	- **Requirement Design**: 
 		- The UI should allow users to easily navigate the complex network of citations. It should include graphical representations, clickable elements, and features like search, filter, and different views for better usability.
 	- **Implementation Details**: 
 		- The UI will be developed using web technologies (like HTML, CSS, JavaScript) or appropriate software frameworks. It will feature a main viewing area for the trees, a toolbar or menu for navigation controls, and possibly a sidebar or pop-up windows for detailed information about each citation. The design will ensure that the interface remains uncluttered and easy to use, even with large datasets.
+
+#### 4d. Citation Context Analysis (Optional)
+- **Description**: 
+  - This feature aims to provide users with the context in which a paper is cited within the citing articles. It helps in understanding the relevance and impact of the cited paper in ongoing research discussions.
+- **Prioritization**: Low
+- **Design Details**:
+  - **Requirement Design**: 
+    - The system should be able to extract and display the specific text or paragraph from the citing paper where the reference is made. This requires the system to not only link to the citing papers but also analyze their content to find the exact citation context.
+  - **Implementation Details**: 
+    - Implementing this feature involves NLP techniques to parse the text of citing papers and identify sections where the original paper is cited. The UI should then present these excerpts in a way that is easily accessible, such as a tooltip or a dedicated section within the tree's node details.
+
+#### 4e. Citation Influence Scoring (Optional)
+- **Description**: 
+  - This component is designed to evaluate and display the influence or impact of each citation within the tree. It aims to highlight the most influential papers based on citation metrics like the number of times cited.
+- **Prioritization**: Low
+- **Design Details**:
+  - **Requirement Design**: 
+    - Each node (paper) in the citation and 'Cited-by' trees should have an associated influence score. This score helps users quickly identify key papers that have had a significant impact on the field.
+  - **Implementation Details**: 
+    - The algorithm will calculate the influence score based on citation counts and possibly other metrics like journal impact factor. The UI will visually differentiate nodes based on their scores, using methods such as varying node sizes, colors, or adding badges.
+
+#### 4f. Customizable Tree Views (Optional)
+- **Description**: 
+  - This feature allows users to customize how citation trees are displayed, offering various views based on user preferences or specific research needs, such as chronological order, influence score, or research domain.
+- **Prioritization**: Low
+- **Design Details**:
+  - **Requirement Design**: 
+    - Users should be able to choose from predefined tree layouts or create custom views that best suit their research process. The system should remember user preferences for future sessions.
+  - **Implementation Details**: 
+    - The implementation will involve UI options for selecting different tree views and backend logic to rearrange the tree structure accordingly. This might include algorithms to sort and display the tree based on different criteria like date of publication, citation count, or subject area.
 
 ### 5. User Defined Filter and Search
 #### 5a. Customizable Filters
@@ -711,29 +746,124 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - **Expected Result (Happy Case):** The system correctly establishes relationships between authors who have jointly received a specific award, displaying it as "Co-Recipients of Awards."
     - **Expected Results (Failure Case):** The system fails to display award relationships for the selected authors, or the identified co-recipients are incorrect.
 #### 4a. Citation Tree Generation
-- **Description**: 
-	- This component involves developing an algorithm to visually represent the citation network of a paper. It will display the immediate citations of the current paper and allow users to explore second and higer levels citations, which are the references cited by the papers in the previous-level citations.
-- **Design Details:**
-	- **Requirement Design**: 
-		- The citation tree should be interactive, allowing users to navigate through different levels of citations. It must accurately represent the hierarchical structure of citations and be capable of dynamically updating as new references are added.
-	- **Implementation Details**: 
-		- The algorithm will parse the citation data and construct a hierarchical tree structure. The tree will be displayed graphically, with nodes representing individual papers and edges indicating citation relationships. Features will include collapsibility of branches for easy navigation and tooltips or additional information windows to provide details about each citation.
-#### 4b. Cited-by Tree Feature
-- **Description**: 
-	- This functionality involves creating a reverse citation tree that identifies papers which have cited the current paper. It also includes the references of these citing papers to understand their citation context.
-- **Design Details:**
-	- **Requirement Design**: 
-		- The 'Cited-by Tree' should offer insights into the impact of the paper on subsequent research. It should be able to dynamically update as new citing papers are published and identified.
-	- **Implementation Details**: 
-		- The system will use a reverse lookup algorithm to find papers that cite the current paper. A separate tree structure, similar to the citation tree, will be generated. This tree will also be interactive, allowing users to explore the citation networks of the papers that have cited the current paper.
+**Test Cases:**
+1. **Basic Citation Tree Visualization:**
+    - **Test Summary:** Verify that the system can generate and display a basic citation tree for a given paper.
+    - **Pre-requisites:** A populated database with papers and their citations.
+    - **Test Steps:**
+        1. Select a paper with known citations from the database.
+        2. Trigger the citation tree generation feature for the selected paper.
+        3. Examine the visual representation of the citation tree.
+    - **Expected Result (Happy Case):** The system generates a visual citation tree displaying immediate citations of the selected paper.
+    - **Expected Result (Failure Case):** The citation tree is not generated, or the displayed citations are incorrect.
+2. **Deep Level Citation Exploration:**
+    - **Test Summary:** Ensure that users can explore citations beyond the immediate level (second and higher-level citations).
+    - **Pre-requisites:** A paper with multiple levels of citations in the database.
+    - **Test Steps:**
+        1. Generate a citation tree for a selected paper.
+        2. Navigate to second-level citations and beyond within the tree.
+        3. Verify the accuracy and representation of deeper citation levels.
+    - **Expected Result (Happy Case):** The system allows exploration of multiple citation levels with accurate representation.
+    - **Expected Result (Failure Case):** Deeper citation levels are inaccessible or inaccurately represented.
+
+#### 4b. Cited-by Tree Feature (Optional)
+**Test Cases:**
+1. **Cited-by Tree Generation:**
+    - **Test Summary:** Test the system's ability to generate a 'Cited-by' tree, showing papers that have cited the current paper.
+    - **Pre-requisites:** A populated database with papers and their referencing details.
+    - **Test Steps:**
+        1. Select a paper that has been cited by other papers.
+        2. Trigger the 'Cited-by' tree generation for the selected paper.
+        3. Review the 'Cited-by' tree for accuracy.
+    - **Expected Result (Happy Case):** The system accurately generates a 'Cited-by' tree showing all papers that have cited the selected paper.
+    - **Expected Result (Failure Case):** The 'Cited-by' tree is incorrect or fails to display.
+2. **Cited-by Tree Contextual Information:**
+    - **Test Summary:** Ensure that the 'Cited-by' tree provides context for how each citing paper references the original paper.
+    - **Pre-requisites:** A selected paper with detailed citation contexts in citing papers.
+    - **Test Steps:**
+        1. Generate a 'Cited-by' tree for the selected paper.
+        2. Examine the contextual information provided for each citing paper.
+    - **Expected Result (Happy Case):** Contextual information about the citations is correctly displayed within the 'Cited-by' tree.
+    - **Expected Result (Failure Case):** Citation contexts are missing or inaccurately represented.
+
 #### 4c. User Interface
-- **Description**: 
-	- The user interface is crucial for providing a user-friendly way to interact with the citation and 'Cited-by' trees. It needs to be intuitive, responsive, and visually appealing.
-- **Design Details:**
-	- **Requirement Design**: 
-		- The UI should allow users to easily navigate the complex network of citations. It should include graphical representations, clickable elements, and features like search, filter, and different views for better usability.
-	- **Implementation Details**: 
-		- The UI will be developed using web technologies (like HTML, CSS, JavaScript) or appropriate software frameworks. It will feature a main viewing area for the trees, a toolbar or menu for navigation controls, and possibly a sidebar or pop-up windows for detailed information about each citation. The design will ensure that the interface remains uncluttered and easy to use, even with large datasets.
+**Test Cases:**
+1. **Intuitive Navigation:**
+    - **Test Summary:** Evaluate the intuitiveness and ease of navigation within the citation and 'Cited-by' trees' user interface.
+    - **Pre-requisites:** A UI designed for interacting with citation trees.
+    - **Test Steps:**
+        1. Navigate through various components of the citation tree UI.
+        2. Assess the ease of use and intuitive nature of the navigation controls.
+    - **Expected Result (Happy Case):** Users find the UI straightforward and can easily navigate through citation trees.
+    - **Expected Result (Failure Case):** Users experience confusion or difficulty navigating the UI.
+2. **Responsive Design:**
+    - **Test Summary:** Confirm that the citation tree UI is responsive and functions well across different devices and screen sizes.
+    - **Pre-requisites:** Citation tree UI accessible on various devices.
+    - **Test Steps:**
+        1. Access the citation tree UI on different devices (desktop, tablet, smartphone).
+        2. Evaluate the responsiveness and usability of the UI on each device.
+    - **Expected Result (Happy Case):** The UI adjusts well to different screen sizes, maintaining functionality and usability.
+    - **Expected Result (Failure Case):** The UI is not responsive, leading to poor usability on certain devices.
+
+#### 4d. Citation Context Analysis (Optional)
+**Test Cases:**
+1. **Context Extraction Accuracy:**
+    - **Test Summary:** Verify the system's accuracy in extracting and displaying the citation context within citing papers.
+    - **Pre-requisites:** Papers with known citation contexts in the database.
+    - **Test Steps:**
+        1. Select a paper with well-documented citation contexts.
+        2. Use the citation context analysis feature to view the contexts.
+        3. Compare the displayed contexts with the actual text in the citing papers.
+    - **Expected Result (Happy Case):** The system accurately extracts and displays the citation contexts as they appear in the citing papers.
+    - **Expected Result (Failure Case):** The system displays incorrect or incomplete citation contexts.
+2. **Context Display Usability:**
+    - **Test Summary:** Evaluate the usability and clarity of the citation context display within the system.
+    - **Pre-requisites:** A user interface that displays citation contexts.
+    - **Test Steps:**
+        1. Navigate to the citation context display feature.
+        2. Assess the readability, accessibility, and overall user experience of the context display.
+    - **Expected Result (Happy Case):** Citation contexts are displayed in a user-friendly manner, making it easy for users to understand the relevance of the citation.
+    - **Expected Result (Failure Case):** The display of citation contexts is confusing, hard to read, or poorly integrated into the UI.
+
+#### 4e. Citation Influence Scoring (Optional)
+**Test Cases:**
+1. **Influence Score Calculation:**
+    - **Test Summary:** Test the accuracy of the citation influence scoring algorithm.
+    - **Pre-requisites:** Papers with known citation metrics and influence scores.
+    - **Test Steps:**
+        1. Select a set of papers with established influence scores.
+        2. Compare the system-generated influence scores with the known scores.
+    - **Expected Result (Happy Case):** The system's influence scores closely match the known scores, indicating accurate calculation.
+    - **Expected Result (Failure Case):** There is a significant discrepancy between the system-generated scores and the known influence scores.
+2. **Visual Representation of Influence:**
+    - **Test Summary:** Assess the effectiveness of the visual representation of citation influence scores in the citation tree.
+    - **Pre-requisites:** A citation tree with visually differentiated nodes based on influence scores.
+    - **Test Steps:**
+        1. Generate a citation tree with influence scoring.
+        2. Evaluate the visual differentiation (e.g., node size, color) of papers based on their influence scores.
+    - **Expected Result (Happy Case):** The visual representation effectively highlights the most influential papers, making them easily distinguishable.
+    - **Expected Result (Failure Case):** The visual differentiation is either too subtle to be noticeable or so pronounced that it detracts from usability.
+
+#### 4f. Customizable Tree Views (Optional)
+**Test Cases:**
+1. **View Customization Functionality:**
+    - **Test Summary:** Verify the functionality and ease of use of the customizable tree views feature.
+    - **Pre-requisites:** A citation tree with options for different view customizations.
+    - **Test Steps:**
+        1. Access the customizable tree views feature.
+        2. Experiment with different view options (e.g., chronological, by influence score).
+        3. Assess the ease of switching between views and the system's responsiveness.
+    - **Expected Result (Happy Case):** Users can easily customize the citation tree view according to their preferences, and the system responds by updating the view promptly.
+    - **Expected Result (Failure Case):** Customization options are limited, difficult to use, or result in slow or unresponsive system behavior.
+2. **Customization Preferences Persistence:**
+    - **Test Summary:** Ensure that the system remembers and applies user customization preferences for tree views across sessions.
+    - **Pre-requisites:** User customization preferences saved in the system.
+    - **Test Steps:**
+        1. Set preferred tree view customizations during one session.
+        2. Close and reopen the system, accessing the citation tree feature again.
+        3. Verify that the system recalls and applies the previously set customization preferences.
+    - **Expected Result (Happy Case):** The system successfully recalls and applies user preferences for tree views across different sessions.
+    - **Expected Result (Failure Case):** The system fails to remember user preferences, requiring them to be reset in each new session.
 
 #### 5a. Customizable Filters
 
