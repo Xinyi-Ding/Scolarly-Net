@@ -42,6 +42,36 @@ Researchers and analysts can upload articles, triggering the extraction of key d
 The system aims to not only streamline information retrieval but also foster a deeper understanding of the relationships and influences within the academic landscape. It supports real-time query processing, interactive analysis, and collaborative features to enhance the overall research experience.
 
 ## High-level design of an end-to-end solution
+### System Architecture Overview
+The system is architecturally designed as a multi-layered application, facilitating clear separation of concerns, enhanced scalability, and ease of maintenance. At its core, the system integrates a client-server model where the front-end provides an interactive user interface, and the back-end handles business logic, data processing, and storage.
+
+#### Decoupled Front-End and Back-End Architecture Rationale
+A decoupled or separated front-end and back-end architecture was chosen for several compelling reasons that align with the system's requirements for flexibility, scalability, and user experience.
+1. **Scalability:** Decoupling allows independent scaling of user interface and server resources, adapting easily to fluctuating demands.
+2. **Development Agility:** Facilitates parallel development of UI and server-side components, accelerating feature rollouts and updates.
+3. **Technology Flexibility:** Enables the selection of optimal technologies for each layer, enhancing system performance and maintainability.
+4. **Enhanced Security:** Offers an additional security layer by segregating user-facing elements from the system's core data and logic.
+5. **Improved User Experience:** Ensures a responsive and dynamic UI, independent of back-end processing complexities.
+6. **Maintenance and Upgradability:** Simplifies updates and maintenance by allowing changes to either front-end or back-end without impacting the other.
+
+### Component Interaction
+1. **Front-End and User Interaction:** The front-end serves as the primary interface for users. It presents an intuitive UI for conducting searches, displaying search results, and visualizing data connections.
+
+2. **Back-End Processing:** Python powers the back-end, providing robust API services. Python's extensive libraries are employed for complex data analysis and processing tasks.
+
+3. **Data Storage and Management:** Databases are utilized for their flexibility in handling structured and unstructured data, supporting the system's need for efficient data retrieval and relationship mapping among academic papers.
+
+### Scalability and Flexibility
+The system is designed with scalability in mind, capable of handling increasing loads and accommodating future expansions in functionality. This is achieved through modular design, enabling individual components to be updated or scaled independently. The use of stateless components and load balancing ensures that the system can efficiently distribute workload across multiple servers.
+
+### Security and Compliance
+Security measures are ingrained in the system's design to protect user data and ensure privacy. This includes data encryption in transit and at rest, and adherence to industry-standard compliance regulations.
+
+### User Experience
+The design prioritizes user experience, ensuring that the system is responsive, accessible, and easy to navigate. The front-end architecture supports dynamic content loading and interactive visualizations, making complex data more comprehensible to users.
+
+### Deployment Strategy
+The system is planned to be deployed in a cloud-based environment, leveraging the flexibility and scalability of cloud services. A CI/CD pipeline will be established for streamlined development, testing, and deployment processes.
 
 ## Architectural Design
 
