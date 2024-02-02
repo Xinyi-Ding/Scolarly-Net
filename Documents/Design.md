@@ -18,17 +18,17 @@
   - [Technology Stack Architecture](#technology-stack-architecture) - The set of technologies used in the system.
   - [Component Architecture](#component-architecture) - The internal structure and design of individual system components.
 - **[Requirements Analysis](#requirements-analysis)** - Examination of user needs and system requirements to guide the design.
-  - [Paper Details Extraction (Topic/Keyword/Author/Reference)](#paper-details-extraction) - Methods for extracting and analyzing academic paper details.
-  - [Topic Connection](#topic-connection) - Techniques for identifying relationships between different research topics.
-  - [Author Relationship](#author-relationship) - Analysis of connections among various authors and their collaborations.
-  - [Reference Tree](#reference-tree) - A visual or structural representation of references and citations among papers.
-  - [User Defined Filter and Search](#user-defined-filter-and-search) - Customizable search and filtering features for users.
+  - [Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference) - Methods for extracting and analyzing academic paper details.
+  - [Topic Connection](#2-topic-connection) - Techniques for identifying relationships between different research topics.
+  - [Author Relationship](#3-author-relationship) - Analysis of connections among various authors and their collaborations.
+  - [Reference Tree](#4-reference-tree) - A visual or structural representation of references and citations among papers.
+  - [User Defined Filter and Search](#5-user-defined-filter-and-search) - Customizable search and filtering features for users.
 - **[Design Details](#design-details)** - In-depth discussion of the design choices and implementation specifics.
-  - [Paper Details Extraction (Topic/Keyword/Author/Reference)](#paper-details-extraction-1) - Detailed design of the feature for extracting key paper details.
-  - [Topic Connection](#topic-connection-1) - Design considerations for mapping the relationships between topics.
-  - [Author Relationship](#author-relationship-1) - How the system models and represents author networks.
-  - [Reference Tree](#reference-tree-1) - The approach for constructing and displaying reference trees.
-  - [User Defined Filter and Search](#user-defined-filter-and-search-1) - Design of the system's search and filter capabilities.
+  - [Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference-1) - Detailed design of the feature for extracting key paper details.
+  - [Topic Connection](#2-topic-connection-1) - Design considerations for mapping the relationships between topics.
+  - [Author Relationship](#3-author-relationship-1) - How the system models and represents author networks.
+  - [Reference Tree](#4-reference-tree-1) - The approach for constructing and displaying reference trees.
+  - [User Defined Filter and Search](#5-user-defined-filter-and-search-1) - Design of the system's search and filter capabilities.
 - **[Data Model](#data-model)** - The structure and organization of data within the system.
   - [Entities](#entities) - The main data entities and their attributes.
   - [Associative Tables](#associative-tables) - The use of associative tables to manage relationships between entities.
@@ -217,8 +217,8 @@ One crucial aspect of the proposed system is the implementation of a robust user
 
 ## Design Details
 
-### 1. <a id="1-paper-details-extraction-topickeywordauthorreference">User Defined Filter and Search</a>
-#### 1a. <a id="topic-extraction">Topic Extraction</a>
+### 1. Paper Details Extraction (Topic/Keyword/Author/Reference)
+#### Topic Extraction
 - **Description:**
   - This function should be able to extract the main research areas or core themes of discussion from the input papers. Eventually the information shourl be deposited into a database and the papers can be grouped by using the selected topic as key.
 - **Priorisation:** High
@@ -234,7 +234,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Topic Extraction and Categorisation: Use topic modelling tools from NLP libraries (e.g. Gensim's LDA model) to identify and extract the main research areas and core topics in the paper. Apply machine learning classification algorithms (e.g., Scikit-learn's Support Vector Machines or Random Forest) to categorise documents into predefined disciplines and sub-disciplines.
     - Database Interaction: Use a graph database (Neo4j) for storing extracted topic and classification information and supporting efficient queries. Implement an API interface for querying existing subject categories in the database and support the ability to add multiple papers to the same category.
 
-#### 1b. <a id="keyword-extraction">Keyword Extraction</a>
+#### 1b. Keyword Extraction
 - **Description:**
   - This function extracts obvious keywords from the article, such as the subject of the experiment, the object of the experiment, and so on. In addition, it should also be possible to summarise implicit keywords.
 - **Priorisation:** High
@@ -248,7 +248,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Keyword Normalization and Disambiguation: Normalisation of extracted keywords, e.g., unification of morphological variations and normalisation of synonyms. The NLP package (WordNet with NLTK) is used to distinguish and match different keywords that express the same meaning.
     - Database Integration: Uses a graph database to store keywords and their associated article information for subsequent querying and analysis. Implement a database query function that allows quick retrieval of keywords and associations to related articles.
 
-#### 1c. <a id="author-identification">Author Identification</a>
+#### 1c. Author Identification
 - **Description:**
   - This feature extracts the author's information from the article and can store the relationship between the author and the article together in a database. In addition, it needs to be able to recognise author information already in the database and add multiple articles for the same author.
 - **Priorisation:** High
@@ -264,7 +264,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Disambiguation of Authors with Same Name: An algorithm (e.g., based on author institution information) is used to distinguish authors with the same name. Implement a unique identifier in the database, such as ORCID iD, to help distinguish between different authors with the same name.
     - Database Querying and Update: Develop an API interface to allow querying of existing author information and updating the list of related articles for matching authors as they are found. Design database operations to support adding and updating multiple articles by the same author.
 
-#### 1d. <a id="reference-extraction">Reference Extraction</a>
+#### 1d. Reference Extraction
 - **Description:**
   - The aim of this feature is to extract automatically a list of references from an academic paper and to parse out precise details of each reference, such as author, article title, journal name and year of publication. The achieved effect is to associate articles with their references in a database, supporting multiple citation formats and being able to recognise articles already in the database for data association.
 - **Priorisation:** High
@@ -279,7 +279,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Reference Parsing: development of a module, based on regular expressions and NLP packages, designed specifically to identify and extract the various components of a citation format, such as author, title, journal name and year of publication. Implement specific parsing rules for different citation formats (APA, MLA, Chicago, etc.).
     - Identification of Existing Articles: Implement an algorithm or query logic for identifying identical citations in a database and associating them with newly extracted citations. Consider using a document's DOI (Digital Object Identifier) or other unique identifier to help identify and match documents.
 
-### 2. [Topic Connection](#topic-connection)
+### 2. Topic Connection
 #### 2a. Linking Articles with the Same Topic
 - **Description:**
     - The system should link articles that share the same topic. 
@@ -305,7 +305,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
         - Extend the database schema to include relationships between different topics.
         - Implement algorithms to analyze co-occurrences and relevancy between topics.
 
-### 3. [Author Relationship](#author-relationship)
+### 3. Author Relationship
 #### 3a. Associating Authors Collaborating on the Same Paper (Co-author)
 - **Description:**
     - The system should establish connections between authors who are credited for the same paper. The relationship should be presented as "Co-author."
