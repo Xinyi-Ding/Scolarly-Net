@@ -17,6 +17,7 @@
 - **[Architectural Design](#architectural-design)** - Detailed information about the system's architecture and technological framework.
   - [Technology Stack Architecture](#technology-stack-architecture) - The set of technologies used in the system.
   - [Component Architecture](#component-architecture) - The internal structure and design of individual system components.
+- **[Requirements Table](#requirements-table)** - This table succinctly summarizes the system's requirements, design details, descriptions, priorities, and test objects, offering a clear overview of its functions.
 - **[Requirements Analysis](#requirements-analysis)** - Examination of user needs and system requirements to guide the design.
   - [Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference) - Methods for extracting and analyzing academic paper details.
   - [Topic Connection](#2-topic-connection) - Techniques for identifying relationships between different research topics.
@@ -196,6 +197,34 @@ the system utilizes a 5-tier architecture to separate concerns, enhance scalabil
 - **WebService**: 
   - Description: Provides a way for the system to communicate with external services over the internet, such as external databases of academic papers.
   - Relation: Could be used in the system to fetch paper details from external sources or to integrate with other academic research tools.
+
+## Requirements Table
+This table organizes the requirements, corresponding design details, descriptions, priorities, and test objects into a structured format, providing a comprehensive overview of the system's functionalities.
+
+| Requirements | Design Detail | Description | Priority | Test Object |
+|--------------|---------------|-------------|----------|-----------|
+| [1. Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference-1) | [1a. Topic Extraction](#1a-topic-extraction) | Extracts main research areas or core themes from papers. | High | 
+| | [1b. Keyword Extraction](#1b-keyword-extraction) | Identifies and extracts significant keywords and phrases from papers. | High |  |
+| | [1c. Author Identification](#1c-author-identification) | Extracts and stores authors' details from papers. | High | |
+| | [1d. Reference Extraction](#1d-reference-extraction) | Automatically extracts and parses reference lists from academic papers. | High |  |
+| [2. Topic Connection](#2-topic-connection-1) | [2a. Linking Articles with the Same Topic](#2a-linking-articles-with-the-same-topic) | Links articles that share the same topic. | High |  |
+| | [2b. Establishing Connections Between Various Topics](#2b-establishing-connections-between-various-topics) | Establishes connections between various topics within the same domain. | Medium |  |
+| [3. Author Relationship](#3-author-relationship-1) | [3a. Associating Authors Collaborating on the Same Paper (Co-author)](#3a-associating-authors-collaborating-on-the-same-paper-co-author) | Establishes connections between authors who have collaborated on the same paper. | High |  |
+| | [3b. Linking Authors Working in the Same Company or Department (Colleague)](#3b-linking-authors-working-in-the-same-company-or-department-colleague) | Connects authors who work in the same company or department. | Medium |  |
+| | [3c. Co-Recipients of Awards Relationship (Co-Recipients of Awards)](#3c-co-recipients-of-awards-relationship-co-recipients-of-awards) | Showcases relationships between authors who have jointly received specific awards. | Low |  |
+| [4. Reference Tree](#4-reference-tree-1) | [4a. Citation Tree Generation](#4a-citation-tree-generation) | Develops an algorithm to visually represent the citation network of a paper. | High ||
+| | [4b. Cited-by Tree Feature (Optional)](#4b-cited-by-tree-feature-optional) | Creates a reverse citation tree that identifies papers which have cited the current paper. | Low |  |
+| | [4c. User Interface](#4c-user-interface) | Provides a user-friendly way to interact with the citation and 'Cited-by' trees. | High |  |
+| | [4d. Citation Context Analysis (Optional)](#4d-citation-context-analysis-optional) | Provides users with the context in which a paper is cited within the citing articles. | Low |  |
+| | [4e. Citation Influence Scoring (Optional)](#4e-citation-influence-scoring-optional) | Evaluates and displays the influence or impact of each citation within the tree. | Low | |
+| | [4f. Customizable Tree Views (Optional)](#4f-customizable-tree-views-optional) | Allows users to customize how citation trees are displayed. | Low | |
+| [5. User Defined Filter and Search](#5-user-defined-filter-and-search-1) | [5a. Customizable Filters](#5a-customizable-filters) | Enables users to define filters based on various parameters. | High |  |
+| | [5b. Advanced Keyword Search](#5b-advanced-keyword-search) | Enables users to input specific terms or phrases for advanced keyword searches. | High |  |
+| | [5c. Dynamic Query Building](#5c-dynamic-query-building) | Empowers users to create complex queries on-the-fly. | Low |  |
+| | [5d. Real-time Feedback (Optional)](#5d-real-time-feedback-optional) | Provides immediate feedback as users apply filters or modify search parameters. | Low |  |
+| | [5e. Saved Queries (Optional)](#5e-saved-queries-optional) | Allows users to store frequently used or complex queries for future reference. | Low | |
+| | [5f. Intuitive User Interface (Optional)](#5f-intuitive-user-interface-optional) | Ensures that users, regardless of their technical expertise, can navigate and utilize the filter and search functionalities seamlessly. | Low |  |
+| | [5g. Compatibility Across User Categories (Optional)](#5g-compatibility-across-user-categories-optional) | Ensures that the filter and search functionalities cater to the specific needs of diverse user categories. | Low | |
 
 ## Requirements Analysis
 ### 1. [Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference-1)
