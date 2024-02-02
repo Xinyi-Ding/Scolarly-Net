@@ -1,4 +1,49 @@
 # PSD Project Design
+## Table of Contents
+- **[Introduction](#introduction)** - Overview of the document's purpose, intended audience, and scope.
+  - [Purpose](#purpose) - The primary objectives and goals of the project.
+  - [Intended Users](#intended-users) - The target audience for the product or system.
+  - [Product Scope](#product-scope) - The boundaries and extent of the product's capabilities.
+- **[System Overview](#system-overview)** - A high-level summary of the system's components and interactions.
+  - [Key Components](#key-components) - Major parts that make up the system.
+  - [System Interaction](#system-interaction) - How the system's components work together.
+- **[High-level design of an end-to-end solution](#high-level-design-of-an-end-to-end-solution)** - A broad view of the system's architecture and its interaction with external components.
+  - [System Architecture Overview](#system-architecture-overview) - A diagram or description of the system's structure.
+  - [Component Interaction](#component-interaction) - Details on how individual components of the system interact.
+  - [Scalability and Flexibility](#scalability-and-flexibility) - The system's ability to grow and adapt to future requirements.
+  - [Security and Compliance](#security-and-compliance) - Measures taken to protect data and ensure regulatory compliance.
+  - [User Experience](#user-experience) - Considerations for the end-user's interaction with the system.
+  - [Deployment Strategy](#deployment-strategy) - The approach for rolling out the system to users.
+- **[Architectural Design](#architectural-design)** - Detailed information about the system's architecture and technological framework.
+  - [Technology Stack Architecture](#technology-stack-architecture) - The set of technologies used in the system.
+  - [Component Architecture](#component-architecture) - The internal structure and design of individual system components.
+- **[Requirements Analysis](#requirements-analysis)** - Examination of user needs and system requirements to guide the design.
+  - [Paper Details Extraction (Topic/Keyword/Author/Reference)](#paper-details-extraction) - Methods for extracting and analyzing academic paper details.
+  - [Topic Connection](#topic-connection) - Techniques for identifying relationships between different research topics.
+  - [Author Relationship](#author-relationship) - Analysis of connections among various authors and their collaborations.
+  - [Reference Tree](#reference-tree) - A visual or structural representation of references and citations among papers.
+  - [User Defined Filter and Search](#user-defined-filter-and-search) - Customizable search and filtering features for users.
+- **[Design Details](#design-details)** - In-depth discussion of the design choices and implementation specifics.
+  - [Paper Details Extraction (Topic/Keyword/Author/Reference)](#paper-details-extraction-1) - Detailed design of the feature for extracting key paper details.
+  - [Topic Connection](#topic-connection-1) - Design considerations for mapping the relationships between topics.
+  - [Author Relationship](#author-relationship-1) - How the system models and represents author networks.
+  - [Reference Tree](#reference-tree-1) - The approach for constructing and displaying reference trees.
+  - [User Defined Filter and Search](#user-defined-filter-and-search-1) - Design of the system's search and filter capabilities.
+- **[Data Model](#data-model)** - The structure and organization of data within the system.
+  - [Entities](#entities) - The main data entities and their attributes.
+  - [Associative Tables](#associative-tables) - The use of associative tables to manage relationships between entities.
+  - [Data Model Diagram](#data-model-diagram) - A graphical representation of the data model and its relationships.
+- **[Test Plan](#test-plan)** - Outline of the testing strategies and objectives.
+  - [Test Object](#test-object) - The specific focus of testing efforts and activities.
+- **[Test Environment](#test-environment)** - The setup and conditions under which testing is conducted.
+  - [Hardware Environment](#hardware-environment) - The physical equipment used for testing.
+  - [Software Environment](#software-environment) - The software configurations and platforms involved in testing.
+  - [Network Environment](#network-environment) - The network settings and conditions under which testing is conducted.
+- **[Test Strategy](#test-strategy)** - The overarching approach to testing, including methodologies and standards.
+  - [CI Test](#ci-test) - Continuous integration testing practices and procedures.
+  - [Unit Test](#unit-test) - Unit testing methodologies and their implementation.
+- **[Test Process](#test-process)** - The step-by-step procedure followed during the testing phase.
+
 ## Introduction
 ### Purpose
 The system aims to provide a platform for academic literature research and analysis to meet the needs of a wide range of users including students, academics, government agencies and companies. The system can be used in scenarios of in-depth literature review, academic research validation, policy analysis and industry-specific research. In addition, the system integrates search functions, data analysis tools and visualisation capabilities designed to simplify the research process, enhance the organisation of information and support evidence-based decision-making in various fields.
@@ -63,8 +108,7 @@ The system is planned to be deployed in a cloud-based environment, leveraging th
 
 ## Architectural Design
 ### Technology Stack Architecture
-<!-- <img src="/Documents/Image/TechStack.jpg" alt="Technology Stack Architecture" width="700" height="600"> -->
-![TechStack](/Documents/Image/TechStack.jpg)
+<img src="/Documents/Image/TechStack.jpg" alt="Technology Stack Architecture">
 
 #### Description
 The overall architecture involves Vue and Axios for frontend development, FastApi for backend API services, Python for backend data processing, and MongoDB/Neo4j for data storage. The dependencies establish a seamless flow of data and operations between the frontend and backend components.
@@ -111,8 +155,7 @@ The overall architecture involves Vue and Axios for frontend development, FastAp
   Python communicates with MongoDB and/or Neo4j databases for data processing and analysis. This interaction allows Python to leverage the data stored in these databases, supporting functionalities such as data manipulation, aggregation, and analysis.
 
 ### Component Architecture
-<!-- <img src="/Documents/Image/ComponentGraph.png" alt=" Component Architecture" width="700" height="600"> -->
-![ComponentGraph](/Documents/Image/ComponentGraph.png)
+<img src="/Documents/Image/ComponentGraph.png" alt=" Component Architecture"> 
 
 #### Overview
 the system utilizes a 5-tier architecture to separate concerns, enhance scalability, and improve maintainability. This architecture allows for a clear distinction between the client interface, presentation logic, business processes, integration services, and resource management. By dividing the system into these layers, the system benefits from increased modularity, which simplifies updates and maintenance. Each tier can be developed and scaled independently, facilitating easier upgrades and integration with other systems or services. The separation also aids in security, as each layer acts as a gatekeeper to the next, ensuring that only authorized operations are performed.
@@ -156,13 +199,13 @@ the system utilizes a 5-tier architecture to separate concerns, enhance scalabil
 
 
 ## Requirements Analysis
-### 1. [Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference)
+### 1. Paper Details Extraction (Topic/Keyword/Author/Reference)
 Extracting information from articles is one of the most basic functions in the whole system. This feature extracts key information such as topics, keywords, authors and references from user uploaded articles or existing article databases. The extracted information can be stored in the database which can be queried and retrieved by other functions in the system. This will help researchers to quickly understand and organise the literature and make it easier for researchers to analyse and organise connections between academic sources.
 
-### 2. <a id="topic-connection">Topic Connection</a>
+### 2. Topic Connection
 The system must enable users to explore and navigate through different topics or interconnected topics within the same domain. This includes facilitating the discovery of related subtopics and presenting articles covering diverse but relevant subjects within broader domains.
     
-### 3. <a id="author-relationship">Author Relationship</a>
+### 3. Author Relationship
 The system should establish and display various types of relationships between authors based on their professional connections. This includes associating authors who have collaborated on the same paper, linking authors working in the same company or department, and showcasing relationships between authors with shared accolades.
 
 ### 4. Reference Tree
