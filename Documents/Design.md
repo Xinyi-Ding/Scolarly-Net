@@ -197,28 +197,26 @@ the system utilizes a 5-tier architecture to separate concerns, enhance scalabil
   - Description: Provides a way for the system to communicate with external services over the internet, such as external databases of academic papers.
   - Relation: Could be used in the system to fetch paper details from external sources or to integrate with other academic research tools.
 
-
 ## Requirements Analysis
-### 1. Paper Details Extraction (Topic/Keyword/Author/Reference)
+### 1. [Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference-1)
 Extracting information from articles is one of the most basic functions in the whole system. This feature extracts key information such as topics, keywords, authors and references from user uploaded articles or existing article databases. The extracted information can be stored in the database which can be queried and retrieved by other functions in the system. This will help researchers to quickly understand and organise the literature and make it easier for researchers to analyse and organise connections between academic sources.
-
-### 2. Topic Connection
-The system must enable users to explore and navigate through different topics or interconnected topics within the same domain. This includes facilitating the discovery of related subtopics and presenting articles covering diverse but relevant subjects within broader domains.
-    
-### 3. Author Relationship
+### 2. [Topic Connection](#2-topic-connection-1) 
+The system must enable users to explore and navigate through different topics or interconnected topics within the same domain. This includes facilitating the discovery of related subtopics and presenting articles covering diverse but relevant subjects within broader domains.   
+### 3. [Author Relationship](#3-author-relationship-1)
 The system should establish and display various types of relationships between authors based on their professional connections. This includes associating authors who have collaborated on the same paper, linking authors working in the same company or department, and showcasing relationships between authors with shared accolades.
-
-### 4. Reference Tree
+### 4. [Reference Tree](#4-reference-tree-1)
 Most academic papers cite other research works, usually listed in the References section at the end of the document. This feature aims to enable users to construct a citation tree based on the References section of a current paper. It visually represents the citations of the current paper and its subsequent references, offering a clearer understanding of the paper's citation network.
 Optionally, we could also develop a 'Cited-by Tree' to identify all papers that have cited the current paper, along with their previous level of references. This helps users comprehend the impact of the paper on subsequent research.
-
-### 5. User Defined Filter and Search
+### 5. [User Defined Filter and Search](#5-user-defined-filter-and-search-1)
 One crucial aspect of the proposed system is the implementation of a robust user-defined filter and search functionality. This feature empowers users across different domains, including students, academics, government officials, developers, and companies, to tailor their research queries based on specific criteria. The system will provide a highly customizable search interface allowing users to filter academic papers and other sources with precision.
 
 ## Design Details
-
 ### 1. Paper Details Extraction (Topic/Keyword/Author/Reference)
-#### Topic Extraction
+- [1a. Topic Extraction](#1a-topic-extraction)
+- [1b. Keyword Extraction](#1b-keyword-extraction)
+- [1c. Author Identification](#1c-author-identification)
+- [1d. Reference Extraction](#1d-reference-extraction)
+#### 1a. Topic Extraction
 - **Description:**
   - This function should be able to extract the main research areas or core themes of discussion from the input papers. Eventually the information shourl be deposited into a database and the papers can be grouped by using the selected topic as key.
 - **Priorisation:** High
@@ -280,6 +278,8 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Identification of Existing Articles: Implement an algorithm or query logic for identifying identical citations in a database and associating them with newly extracted citations. Consider using a document's DOI (Digital Object Identifier) or other unique identifier to help identify and match documents.
 
 ### 2. Topic Connection
+- [2a. Linking Articles with the Same Topic](#2a-linking-articles-with-the-same-topic)
+- [2b. Establishing Connections Between Various Topics](#2b-establishing-connections-between-various-topics)
 #### 2a. Linking Articles with the Same Topic
 - **Description:**
     - The system should link articles that share the same topic. 
@@ -306,6 +306,9 @@ One crucial aspect of the proposed system is the implementation of a robust user
         - Implement algorithms to analyze co-occurrences and relevancy between topics.
 
 ### 3. Author Relationship
+- [3a. Associating Authors Collaborating on the Same Paper (Co-author)](#3a-associating-authors-collaborating-on-the-same-paper-co-author)
+- [3b. Linking Authors Working in the Same Company or Department (Colleague)](#3b-linking-authors-working-in-the-same-company-or-department-colleague)
+- [3c. Co-Recipients of Awards Relationship (Co-Recipients of Awards)](#3c-co-recipients-of-awards-relationship-co-recipients-of-awards)
 #### 3a. Associating Authors Collaborating on the Same Paper (Co-author)
 - **Description:**
     - The system should establish connections between authors who are credited for the same paper. The relationship should be presented as "Co-author."
@@ -343,6 +346,12 @@ One crucial aspect of the proposed system is the implementation of a robust user
         - Establish relationships between authors who have jointly received the same award.
 
 ### 4. Reference Tree
+- [4a. Citation Tree Generation](#4a-citation-tree-generation)
+- [4b. Cited-by Tree Feature (Optional)](#4b-cited-by-tree-feature-optional)
+- [4c. User Interface](#4c-user-interface)
+- [4d. Citation Context Analysis (Optional)](#4d-citation-context-analysis-optional)
+- [4e. Citation Influence Scoring (Optional)](#4e-citation-influence-scoring-optional)
+- [4f. Customizable Tree Views (Optional)](#4f-customizable-tree-views-optional)
 #### 4a. Citation Tree Generation
 - **Description**: 
 	- This component involves developing an algorithm to visually represent the citation network of a paper. It will display the immediate citations of the current paper and allow users to explore second and higer levels citations, which are the references cited by the papers in the previous-level citations.
@@ -404,6 +413,13 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - The implementation will involve UI options for selecting different tree views and backend logic to rearrange the tree structure accordingly. This might include algorithms to sort and display the tree based on different criteria like date of publication, citation count, or subject area.
 
 ### 5. User Defined Filter and Search
+- [5a. Customizable Filters](#5a-customizable-filters)
+- [5b. Advanced Keyword Search](#5b-advanced-keyword-search)
+- [5c. Dynamic Query Building](#5c-dynamic-query-building)
+- [5d. Real-time Feedback (Optional)](#5d-real-time-feedback-optional)
+- [5e. Saved Queries (Optional)](#5e-saved-queries-optional)
+- [5f. Intuitive User Interface (Optional)](#5f-intuitive-user-interface-optional)
+- [5g. Compatibility Across User Categories (Optional)](#5g-compatibility-across-user-categories-optional)
 #### 5a. Customizable Filters
 - **Description**:
   - Users can define filters based on various parameters such as author names, publication dates, keywords, and thematic categories. This flexibility ensures that users can narrow down their searches to retrieve the most relevant and targeted information.
