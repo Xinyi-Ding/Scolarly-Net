@@ -193,31 +193,6 @@ the system utilizes a 5-tier architecture to separate concerns, enhance scalabil
   - Description: Provides a way for the system to communicate with external services over the internet, such as external databases of academic papers.
   - Relation: Could be used in the system to fetch paper details from external sources or to integrate with other academic research tools.
 
-
-  - [1a. Topic Extraction](#1a-topic-extraction-1)
-  - [1b. Keyword Extraction](#1b-keyword-extraction-1)
-  - [1c. Author Identification](#1c-author-identification-1)
-  - [1d. Reference Extraction](#1d-reference-extraction-1)
-  - [2a. Linking Articles with the Same Topic](#2a-linking-articles-with-the-same-topic-1)
-  - [2b. Establishing Connections Between Various Topics](#2b-establishing-connections-between-various-topics-1)
-  - [3a. Associating Authors Collaborating on the Same Paper (Co-author)](#3a-associating-authors-collaborating-on-the-same-paper-co-author-1)
-  - [3b. Linking Authors Working in the Same Company or Department (Colleague)](#3b-linking-authors-working-in-the-same-company-or-department-colleague-1)
-  - [3c. Co-Recipients of Awards Relationship (Co-Recipients of Awards)](#3c-co-recipients-of-awards-relationship-co-recipients-of-awards-1)
-  - [4a. Citation Tree Generation](#4a-citation-tree-generation-1)
-  - [4b. Cited-by Tree Feature (Optional)](#4b-cited-by-tree-feature-optional-1)
-  - [4c. User Interface](#4c-user-interface-1)
-  - [4d. Citation Context Analysis (Optional)](#4d-citation-context-analysis-optional-1)
-  - [4e. Citation Influence Scoring (Optional)](#4e-citation-influence-scoring-optional-1)
-  - [4f. Customizable Tree Views (Optional)](#4f-customizable-tree-views-optional-1)
-  - [5a. Customizable Filters](#5a-customizable-filters-1)
-  - [5b. Advanced Keyword Search](#5b-advanced-keyword-search-1)
-  - [5c. Dynamic Query Building](#5c-dynamic-query-building-1)
-  - [5d. Real-time Feedback (Optional)](#5d-real-time-feedback-optional-1)
-  - [5e. Saved Queries (Optional)](#5e-saved-queries-optional-1)
-  - [5f. Intuitive User Interface (Optional)](#5f-intuitive-user-interface-optional-1)
-  - [5g. Compatibility Across User Categories (Optional)](#5g-compatibility-across-user-categories-optional-1)
-
-
 ## Requirements Table
 This table organizes the requirements, corresponding design details, descriptions, priorities, and test objects into a structured format, providing a comprehensive overview of the system's functionalities.
 
@@ -643,8 +618,6 @@ One crucial aspect of the proposed system is the implementation of a robust user
   - [5e. Saved Queries (Optional)](#5e-saved-queries-optional-1)
   - [5f. Intuitive User Interface (Optional)](#5f-intuitive-user-interface-optional-1)
   - [5g. Compatibility Across User Categories (Optional)](#5g-compatibility-across-user-categories-optional-1)
-
-请注意，Markdown中的跳转链接是基于标题生成的，所以每个链接的锚点（例如`#1a-topic-extraction`）应该与实际标题完全匹配。如果您在文档中使用这个目录，确保每个部分的标题与目录中的锚点相对应。
 
 #### 1a. Topic Extraction
 **Test Cases:**
