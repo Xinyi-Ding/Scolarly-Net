@@ -36,14 +36,9 @@
   - [Data Model Diagram](#data-model-diagram)
 - **[Test Plan](#test-plan)**
   - [Test Object](#test-object)
-- **[Test Environment](#test-environment)**
-  - [Hardware Environment](#hardware-environment)
-  - [Software Environment](#software-environment)
-  - [Network Environment](#network-environment)
-- **[Test Strategy](#test-strategy)**
-  - [CI Test](#ci-test)
-  - [Unit Test](#unit-test)
-- **[Test Process](#test-process)**
+  - [Test Environment](#test-environment)
+  - [Test Strategy](#test-strategy)
+  - [Test Process](#test-process)
 
 ## Introduction
 ### Purpose
@@ -198,33 +193,58 @@ the system utilizes a 5-tier architecture to separate concerns, enhance scalabil
   - Description: Provides a way for the system to communicate with external services over the internet, such as external databases of academic papers.
   - Relation: Could be used in the system to fetch paper details from external sources or to integrate with other academic research tools.
 
+
+  - [1a. Topic Extraction](#1a-topic-extraction-1)
+  - [1b. Keyword Extraction](#1b-keyword-extraction-1)
+  - [1c. Author Identification](#1c-author-identification-1)
+  - [1d. Reference Extraction](#1d-reference-extraction-1)
+  - [2a. Linking Articles with the Same Topic](#2a-linking-articles-with-the-same-topic-1)
+  - [2b. Establishing Connections Between Various Topics](#2b-establishing-connections-between-various-topics-1)
+  - [3a. Associating Authors Collaborating on the Same Paper (Co-author)](#3a-associating-authors-collaborating-on-the-same-paper-co-author-1)
+  - [3b. Linking Authors Working in the Same Company or Department (Colleague)](#3b-linking-authors-working-in-the-same-company-or-department-colleague-1)
+  - [3c. Co-Recipients of Awards Relationship (Co-Recipients of Awards)](#3c-co-recipients-of-awards-relationship-co-recipients-of-awards-1)
+  - [4a. Citation Tree Generation](#4a-citation-tree-generation-1)
+  - [4b. Cited-by Tree Feature (Optional)](#4b-cited-by-tree-feature-optional-1)
+  - [4c. User Interface](#4c-user-interface-1)
+  - [4d. Citation Context Analysis (Optional)](#4d-citation-context-analysis-optional-1)
+  - [4e. Citation Influence Scoring (Optional)](#4e-citation-influence-scoring-optional-1)
+  - [4f. Customizable Tree Views (Optional)](#4f-customizable-tree-views-optional-1)
+  - [5a. Customizable Filters](#5a-customizable-filters-1)
+  - [5b. Advanced Keyword Search](#5b-advanced-keyword-search-1)
+  - [5c. Dynamic Query Building](#5c-dynamic-query-building-1)
+  - [5d. Real-time Feedback (Optional)](#5d-real-time-feedback-optional-1)
+  - [5e. Saved Queries (Optional)](#5e-saved-queries-optional-1)
+  - [5f. Intuitive User Interface (Optional)](#5f-intuitive-user-interface-optional-1)
+  - [5g. Compatibility Across User Categories (Optional)](#5g-compatibility-across-user-categories-optional-1)
+
+
 ## Requirements Table
 This table organizes the requirements, corresponding design details, descriptions, priorities, and test objects into a structured format, providing a comprehensive overview of the system's functionalities.
 
 | Requirements | Design Detail | Description | Priority | Test Object |
-|--------------|---------------|-------------|----------|-----------|
-| [1. Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference-1) | [1a. Topic Extraction](#1a-topic-extraction) | Extracts main research areas or core themes from papers. | High | 
-| | [1b. Keyword Extraction](#1b-keyword-extraction) | Identifies and extracts significant keywords and phrases from papers. | High |  |
-| | [1c. Author Identification](#1c-author-identification) | Extracts and stores authors' details from papers. | High | |
-| | [1d. Reference Extraction](#1d-reference-extraction) | Automatically extracts and parses reference lists from academic papers. | High |  |
-| [2. Topic Connection](#2-topic-connection-1) | [2a. Linking Articles with the Same Topic](#2a-linking-articles-with-the-same-topic) | Links articles that share the same topic. | High |  |
-| | [2b. Establishing Connections Between Various Topics](#2b-establishing-connections-between-various-topics) | Establishes connections between various topics within the same domain. | Medium |  |
-| [3. Author Relationship](#3-author-relationship-1) | [3a. Associating Authors Collaborating on the Same Paper (Co-author)](#3a-associating-authors-collaborating-on-the-same-paper-co-author) | Establishes connections between authors who have collaborated on the same paper. | High |  |
-| | [3b. Linking Authors Working in the Same Company or Department (Colleague)](#3b-linking-authors-working-in-the-same-company-or-department-colleague) | Connects authors who work in the same company or department. | Medium |  |
-| | [3c. Co-Recipients of Awards Relationship (Co-Recipients of Awards)](#3c-co-recipients-of-awards-relationship-co-recipients-of-awards) | Showcases relationships between authors who have jointly received specific awards. | Low |  |
-| [4. Reference Tree](#4-reference-tree-1) | [4a. Citation Tree Generation](#4a-citation-tree-generation) | Develops an algorithm to visually represent the citation network of a paper. | High ||
-| | [4b. Cited-by Tree Feature (Optional)](#4b-cited-by-tree-feature-optional) | Creates a reverse citation tree that identifies papers which have cited the current paper. | Low |  |
-| | [4c. User Interface](#4c-user-interface) | Provides a user-friendly way to interact with the citation and 'Cited-by' trees. | High |  |
-| | [4d. Citation Context Analysis (Optional)](#4d-citation-context-analysis-optional) | Provides users with the context in which a paper is cited within the citing articles. | Low |  |
-| | [4e. Citation Influence Scoring (Optional)](#4e-citation-influence-scoring-optional) | Evaluates and displays the influence or impact of each citation within the tree. | Low | |
-| | [4f. Customizable Tree Views (Optional)](#4f-customizable-tree-views-optional) | Allows users to customize how citation trees are displayed. | Low | |
-| [5. User Defined Filter and Search](#5-user-defined-filter-and-search-1) | [5a. Customizable Filters](#5a-customizable-filters) | Enables users to define filters based on various parameters. | High |  |
-| | [5b. Advanced Keyword Search](#5b-advanced-keyword-search) | Enables users to input specific terms or phrases for advanced keyword searches. | High |  |
-| | [5c. Dynamic Query Building](#5c-dynamic-query-building) | Empowers users to create complex queries on-the-fly. | Low |  |
-| | [5d. Real-time Feedback (Optional)](#5d-real-time-feedback-optional) | Provides immediate feedback as users apply filters or modify search parameters. | Low |  |
-| | [5e. Saved Queries (Optional)](#5e-saved-queries-optional) | Allows users to store frequently used or complex queries for future reference. | Low | |
-| | [5f. Intuitive User Interface (Optional)](#5f-intuitive-user-interface-optional) | Ensures that users, regardless of their technical expertise, can navigate and utilize the filter and search functionalities seamlessly. | Low |  |
-| | [5g. Compatibility Across User Categories (Optional)](#5g-compatibility-across-user-categories-optional) | Ensures that the filter and search functionalities cater to the specific needs of diverse user categories. | Low | |
+|--------------|---------------|-------------|----------|-------------|
+| [1. Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference-1) | [1a. Topic Extraction](#1a-topic-extraction) | Extracts main research areas or core themes from papers. | High | [Detail](#1a-topic-extraction-1) |
+| | [1b. Keyword Extraction](#1b-keyword-extraction) | Identifies and extracts significant keywords and phrases from papers. | High | [Detail](#1b-keyword-extraction-1) |
+| | [1c. Author Identification](#1c-author-identification) | Extracts and stores authors' details from papers. | High | [Detail](#1c-author-identification-1) |
+| | [1d. Reference Extraction](#1d-reference-extraction) | Automatically extracts and parses reference lists from academic papers. | High | [Detail](#1d-reference-extraction-1) |
+| [2. Topic Connection](#2-topic-connection-1) | [2a. Linking Articles with the Same Topic](#2a-linking-articles-with-the-same-topic) | Links articles that share the same topic. | High | [Detail](#2a-linking-articles-with-the-same-topic-1) |
+| | [2b. Establishing Connections Between Various Topics](#2b-establishing-connections-between-various-topics) | Establishes connections between various topics within the same domain. | Medium | [Detail](#2b-establishing-connections-between-various-topics-1) |
+| [3. Author Relationship](#3-author-relationship-1) | [3a. Associating Authors Collaborating on the Same Paper (Co-author)](#3a-associating-authors-collaborating-on-the-same-paper-co-author) | Establishes connections between authors who have collaborated on the same paper. | High | [Detail](#3a-associating-authors-collaborating-on-the-same-paper-co-author-1) |
+| | [3b. Linking Authors Working in the Same Company or Department (Colleague)](#3b-linking-authors-working-in-the-same-company-or-department-colleague) | Connects authors who work in the same company or department. | Medium | [Detail](#3b-linking-authors-working-in-the-same-company-or-department-colleague-1) |
+| | [3c. Co-Recipients of Awards Relationship (Co-Recipients of Awards)](#3c-co-recipients-of-awards-relationship-co-recipients-of-awards) | Showcases relationships between authors who have jointly received specific awards. | Low | [Detail](#3c-co-recipients-of-awards-relationship-co-recipients-of-awards-1) |
+| [4. Reference Tree](#4-reference-tree-1) | [4a. Citation Tree Generation](#4a-citation-tree-generation) | Develops an algorithm to visually represent the citation network of a paper. | High | [Detail](#4a-citation-tree-generation-1) |
+| | [4b. Cited-by Tree Feature (Optional)](#4b-cited-by-tree-feature-optional) | Creates a reverse citation tree that identifies papers which have cited the current paper. | Low | [Detail](#4b-cited-by-tree-feature-optional-1) |
+| | [4c. User Interface](#4c-user-interface) | Provides a user-friendly way to interact with the citation and 'Cited-by' trees. | High | [Detail](#4c-user-interface-1) |
+| | [4d. Citation Context Analysis (Optional)](#4d-citation-context-analysis-optional) | Provides users with the context in which a paper is cited within the citing articles. | Low | [Detail](#4d-citation-context-analysis-optional-1) |
+| | [4e. Citation Influence Scoring (Optional)](#4e-citation-influence-scoring-optional) | Evaluates and displays the influence or impact of each citation within the tree. | Low | [Detail](#4e-citation-influence-scoring-optional-1) |
+| | [4f. Customizable Tree Views (Optional)](#4f-customizable-tree-views-optional) | Allows users to customize how citation trees are displayed. | Low | [Detail](#4f-customizable-tree-views-optional-1) |
+| [5. User Defined Filter and Search](#5-user-defined-filter-and-search-1) | [5a. Customizable Filters](#5a-customizable-filters) | Enables users to define filters based on various parameters. | High | [Detail](#5a-customizable-filters-1) |
+| | [5b. Advanced Keyword Search](#5b-advanced-keyword-search) | Enables users to input specific terms or phrases for advanced keyword searches. | High | [Detail](#5b-advanced-keyword-search-1) |
+| | [5c. Dynamic Query Building](#5c-dynamic-query-building) | Empowers users to create complex queries on-the-fly. | Low | [Detail](#5c-dynamic-query-building-1) |
+| | [5d. Real-time Feedback (Optional)](#5d-real-time-feedback-optional) | Provides immediate feedback as users apply filters or modify search parameters. | Low | [Detail](#5d-real-time-feedback-optional-1) |
+| | [5e. Saved Queries (Optional)](#5e-saved-queries-optional) | Allows users to store frequently used or complex queries for future reference. | Low | [Detail](#5e-saved-queries-optional-1) |
+| | [5f. Intuitive User Interface (Optional)](#5f-intuitive-user-interface-optional) | Ensures that users, regardless of their technical expertise, can navigate and utilize the filter and search functionalities seamlessly. | Low | [Detail](#5f-intuitive-user-interface-optional-1) |
+| | [5g. Compatibility Across User Categories (Optional)](#5g-compatibility-across-user-categories-optional) | Ensures that the filter and search functionalities cater to the specific needs of diverse user categories. | Low | [Detail](#5g-compatibility-across-user-categories-optional-1) |
 
 ## Requirements Analysis
 ### 1. [Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference-1)
@@ -596,6 +616,36 @@ One crucial aspect of the proposed system is the implementation of a robust user
 
 ## Test Plan
 ### Test Object
+- Paper Details Extraction (Topic/Keyword/Author/Reference)
+  - [1a. Topic Extraction](#1a-topic-extraction-1)
+  - [1b. Keyword Extraction](#1b-keyword-extraction-1)
+  - [1c. Author Identification](#1c-author-identification-1)
+  - [1d. Reference Extraction](#1d-reference-extraction-1)
+- Topic Connection
+  - [2a. Linking Articles with the Same Topic](#2a-linking-articles-with-the-same-topic-1)
+  - [2b. Establishing Connections Between Various Topics](#2b-establishing-connections-between-various-topics-1)
+- Author Relationships
+  - [3a. Associating Authors Collaborating on the Same Paper (Co-author)](#3a-associating-authors-collaborating-on-the-same-paper-co-author-1)
+  - [3b. Linking Authors Working in the Same Company or Department (Colleague)](#3b-linking-authors-working-in-the-same-company-or-department-colleague-1)
+  - [3c. Co-Recipients of Awards Relationship (Co-Recipients of Awards)](#3c-co-recipients-of-awards-relationship-co-recipients-of-awards-1)
+- Reference Tree
+  - [4a. Citation Tree Generation](#4a-citation-tree-generation-1)
+  - [4b. Cited-by Tree Feature (Optional)](#4b-cited-by-tree-feature-optional-1)
+  - [4c. User Interface](#4c-user-interface-1)
+  - [4d. Citation Context Analysis (Optional)](#4d-citation-context-analysis-optional-1)
+  - [4e. Citation Influence Scoring (Optional)](#4e-citation-influence-scoring-optional-1)
+  - [4f. Customizable Tree Views (Optional)](#4f-customizable-tree-views-optional-1)
+- User Defined Filter and Search
+  - [5a. Customizable Filters](#5a-customizable-filters-1)
+  - [5b. Advanced Keyword Search](#5b-advanced-keyword-search-1)
+  - [5c. Dynamic Query Building](#5c-dynamic-query-building-1)
+  - [5d. Real-time Feedback (Optional)](#5d-real-time-feedback-optional-1)
+  - [5e. Saved Queries (Optional)](#5e-saved-queries-optional-1)
+  - [5f. Intuitive User Interface (Optional)](#5f-intuitive-user-interface-optional-1)
+  - [5g. Compatibility Across User Categories (Optional)](#5g-compatibility-across-user-categories-optional-1)
+
+请注意，Markdown中的跳转链接是基于标题生成的，所以每个链接的锚点（例如`#1a-topic-extraction`）应该与实际标题完全匹配。如果您在文档中使用这个目录，确保每个部分的标题与目录中的锚点相对应。
+
 #### 1a. Topic Extraction
 **Test Cases:**
 1. **Text Pre-processing**
@@ -1115,41 +1165,41 @@ One crucial aspect of the proposed system is the implementation of a robust user
    - **Expected Result (Happy Case):** The system allows for flexible enabling or disabling of components, aligning with user category preferences.
    - **Expected Results (Failure Case):** Component flexibility is inconsistent or does not align with user category preferences, requiring adjustments for improved customization.
 
-## Test Environment
+### Test Environment
 The testing environment for the system is designed to be comprehensive, covering various aspects such as hardware, software, and network configurations.
 
-### Hardware Environment
+#### Hardware Environment
 - **Servers:** Utilize servers with sufficient processing power, memory, and storage capacity to handle concurrent user interactions and data processing.
 - **Client Devices:** Ensure compatibility with a range of devices including laptops, tablets, and smartphones for testing responsive design.
 
-### Software Environment
+#### Software Environment
 - **Operating System:** Test on multiple operating systems including Linux, Windows, and macOS to ensure cross-platform compatibility.
 - **Web Browsers:** Validate compatibility with popular web browsers like Chrome, Firefox, Safari, and Edge.
 - **Python Version:** Ensure compatibility with the required Python version (e.g., Python 3.7+).
 - **Database:** Utilize a test database system (e.g., PostgreSQL) for data storage and retrieval testing.
 
-### Network Environment
+#### Network Environment
 - **Network Speeds:** Simulate various network speeds to assess system performance under different network conditions.
 - **Security Protocols:** Test the system's security features by simulating different network attack scenarios.
 
-## Test Strategy
+### Test Strategy
 The test strategy involves a combination of Continuous Integration (CI) tests, unit tests, and manual testing to ensure thorough coverage and reliability.
 
-### CI Test
+#### CI Test
 Integration tests will be integrated into the CI/CD pipeline to perform automated testing on each code commit.
 - **Framework:** Utilize testing frameworks compatible with FastAPI, such as Pytest.
 - **Mocking:** Employ mocking techniques to simulate external dependencies and enhance test isolation.
 - **API Testing:** Conduct automated tests for API endpoints, ensuring proper request handling and response generation.
 - **Database Testing:** Integrate tests to validate data storage and retrieval from the database.
 
-### Unit Test
+#### Unit Test
 Unit tests will focus on individual components, functions, and methods of the system.
 - **Test Framework:** Use Pytest for unit testing due to its compatibility with FastAPI.
 - **Isolation:** Ensure test cases are isolated, testing individual components without dependencies.
 - **Code Coverage:** Monitor and improve code coverage metrics to guarantee thorough testing.
 - **Edge Cases:** Include tests for edge cases to validate the robustness of the code.
 
-## Test Process
+### Test Process
 The testing process will follow a systematic approach, encompassing the following stages:
 1. **Test Planning:**
    - Define testing objectives, scope, and deliverables.
