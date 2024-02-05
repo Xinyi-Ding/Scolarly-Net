@@ -5,6 +5,8 @@ The primary goal of this project is to develop a comprehensive web-based platfor
 ## Project Management
 ### Development Model
 ![Waterfall](/Documents/Image/Waterfall.png)
+*Figure 1: The overlapping waterfall development model for this project.*
+
 In order to effectively manage this project, we will be using the **Overlapping Waterfall** model as our software development methodology. This model is a variant of the traditional waterfall model that allows certain phases of a project to begin before the previous phase is fully completed. The main advantage of this approach is that it supports smooth transitions between phases, reduces wait times, and promotes more timely communication and collaboration among team members. In addition, we incorporate **Staged Delivery** strategy. The aim is to deliver some of the functionality as early as possible, which allows for faster user feedback and allows the project to be adjusted in subsequent phases based on that feedback. In this project, we have three delivery points: Minimum Viable Product (MVP), Beta, and Final release.
 **Advantage:**
 - **Accelerated delivery:** By allowing subsequent stages to start before the previous one is completely finished, the overall timeline of the project can be reduced and the delivery process accelerated.
@@ -17,6 +19,8 @@ In order to effectively manage this project, we will be using the **Overlapping 
 
 ### Timeline
 ![Gantt_Chart](/Documents/Image/Ganttv2.png)
+*Figure 2: The Gantt chart for planning timeline.*
+
 This Gantt chart is a project management tool to show a project timeline for the Carlson-Johnson Group. This timeline covers the period from September 2023 to May 2024. The entire development model uses an overlapping waterfall model. It divides the main project activities into key phases: design, development, and testing. In addition, it marks three main assessment points, which are group presentation, group assessment and individual assessment.
 - **Design** phase includes prototype evaluation, design documentation, requirements analysis, and design review.
 - **Development** phase includes building web framework, selecting NLP model, building database, front-end design, back-end interface development, front-end and back-end connection.
@@ -61,6 +65,8 @@ Certainly, using the risk categories provided, we can classify the potential ris
 | Organisational Environment | Organisational changes impacting project continuity | Unlikely | Severe | Low |
 | Organisational Environment | Political issues within the organization affecting decisions | Unlikely | Moderate | Low |
 | Organisational Environment | Stability of the organization in the market | Unlikely | Severe | Low |
+
+*Table 1: List of risk considerations.*
 
 This table provides a structured overview of potential risks by category, assessing the probability of each risk occurring, the impact it would have if it did occur, and the level of risk it represents to the project. The risk level helps prioritize which risks need more immediate and significant attention and resource allocation.
 

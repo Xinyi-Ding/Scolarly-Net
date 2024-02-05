@@ -104,8 +104,8 @@ The system is planned to be deployed in a cloud-based environment, leveraging th
 
 ## Architectural Design
 ### Technology Stack Architecture
-<img src="/Documents/Image/TechStack.jpg" alt="Technology Stack Architecture">
-
+![Technology Stack Architecture](/Documents/Image/TechStack.jpg)
+*Figure 1: The overview of planned technology stack architecture.*
 #### Description
 The overall architecture involves Vue and Axios for frontend development, FastApi for backend API services, Python for backend data processing, and MongoDB/Neo4j for data storage. The dependencies establish a seamless flow of data and operations between the frontend and backend components.
 
@@ -151,7 +151,8 @@ The overall architecture involves Vue and Axios for frontend development, FastAp
   Python communicates with MongoDB and/or Neo4j databases for data processing and analysis. This interaction allows Python to leverage the data stored in these databases, supporting functionalities such as data manipulation, aggregation, and analysis.
 
 ### Component Architecture
-<img src="/Documents/Image/ComponentGraph.png" alt=" Component Architecture"> 
+![Component Architecture](/Documents/Image/ComponentGraph.png)
+*Figure 2: The overview of the component architecture for the application.*
 
 #### Overview
 the system utilizes a 5-tier architecture to separate concerns, enhance scalability, and improve maintainability. This architecture allows for a clear distinction between the client interface, presentation logic, business processes, integration services, and resource management. By dividing the system into these layers, the system benefits from increased modularity, which simplifies updates and maintenance. Each tier can be developed and scaled independently, facilitating easier upgrades and integration with other systems or services. The separation also aids in security, as each layer acts as a gatekeeper to the next, ensuring that only authorized operations are performed.
@@ -221,6 +222,8 @@ This table organizes the requirements, corresponding design details, description
 | | [5f. Intuitive User Interface (Optional)](#5f-intuitive-user-interface-optional) | Ensures that users, regardless of their technical expertise, can navigate and utilize the filter and search functionalities seamlessly. | Low | [Detail](#5f-intuitive-user-interface-optional-1) |
 | | [5g. Compatibility Across User Categories (Optional)](#5g-compatibility-across-user-categories-optional) | Ensures that the filter and search functionalities cater to the specific needs of diverse user categories. | Low | [Detail](#5g-compatibility-across-user-categories-optional-1) |
 
+*Table 1: The list of the requirements from client.*
+
 ## Requirements Analysis
 ### 1. [Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference-1)
 Extracting information from articles is one of the most basic functions in the whole system. This feature extracts key information such as topics, keywords, authors and references from user uploaded articles or existing article databases. The extracted information can be stored in the database which can be queried and retrieved by other functions in the system. This will help researchers to quickly understand and organise the literature and make it easier for researchers to analyse and organise connections between academic sources.
@@ -240,7 +243,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
 - [1b. Keyword Extraction](#1b-keyword-extraction)
 - [1c. Author Identification](#1c-author-identification)
 - [1d. Reference Extraction](#1d-reference-extraction)
-#### 1a. Topic Extraction
+#### 1a. [Topic Extraction](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/19)
 - **Description:**
   - This function should be able to extract the main research areas or core themes of discussion from the input papers. Eventually the information shourl be deposited into a database and the papers can be grouped by using the selected topic as key.
 - **Priorisation:** High
@@ -256,7 +259,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Topic Extraction and Categorisation: Use topic modelling tools from NLP libraries (e.g. Gensim's LDA model) to identify and extract the main research areas and core topics in the paper. Apply machine learning classification algorithms (e.g., Scikit-learn's Support Vector Machines or Random Forest) to categorise documents into predefined disciplines and sub-disciplines.
     - Database Interaction: Use a graph database (Neo4j) for storing extracted topic and classification information and supporting efficient queries. Implement an API interface for querying existing subject categories in the database and support the ability to add multiple papers to the same category.
 
-#### 1b. Keyword Extraction
+#### 1b. [Keyword Extraction](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/20)
 - **Description:**
   - This function extracts obvious keywords from the article, such as the subject of the experiment, the object of the experiment, and so on. In addition, it should also be possible to summarise implicit keywords.
 - **Priorisation:** High
@@ -270,7 +273,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Keyword Normalization and Disambiguation: Normalisation of extracted keywords, e.g., unification of morphological variations and normalisation of synonyms. The NLP package (WordNet with NLTK) is used to distinguish and match different keywords that express the same meaning.
     - Database Integration: Uses a graph database to store keywords and their associated article information for subsequent querying and analysis. Implement a database query function that allows quick retrieval of keywords and associations to related articles.
 
-#### 1c. Author Identification
+#### 1c. [Author Identification](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/21)
 - **Description:**
   - This feature extracts the author's information from the article and can store the relationship between the author and the article together in a database. In addition, it needs to be able to recognise author information already in the database and add multiple articles for the same author.
 - **Priorisation:** High
@@ -286,7 +289,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Disambiguation of Authors with Same Name: An algorithm (e.g., based on author institution information) is used to distinguish authors with the same name. Implement a unique identifier in the database, such as ORCID iD, to help distinguish between different authors with the same name.
     - Database Querying and Update: Develop an API interface to allow querying of existing author information and updating the list of related articles for matching authors as they are found. Design database operations to support adding and updating multiple articles by the same author.
 
-#### 1d. Reference Extraction
+#### 1d. [Reference Extraction](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/22)
 - **Description:**
   - The aim of this feature is to extract automatically a list of references from an academic paper and to parse out precise details of each reference, such as author, article title, journal name and year of publication. The achieved effect is to associate articles with their references in a database, supporting multiple citation formats and being able to recognise articles already in the database for data association.
 - **Priorisation:** High
@@ -304,7 +307,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
 ### 2. Topic Connection
 - [2a. Linking Articles with the Same Topic](#2a-linking-articles-with-the-same-topic)
 - [2b. Establishing Connections Between Various Topics](#2b-establishing-connections-between-various-topics)
-#### 2a. Linking Articles with the Same Topic
+#### 2a. [Linking Articles with the Same Topic](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/14)
 - **Description:**
     - The system should link articles that share the same topic. 
     - Example: When a user chooses the "high performance computing (HPC)" topic, the system should present articles  discussing HPC.
@@ -317,7 +320,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
         - Each article should be associated with one or more topics using a many-to-many relationship.
         - Create an "Article_Topic" associative table to manage the connections.
     
-#### 2b. Establishing Connections Between Various Topics
+#### 2b. [Establishing Connections Between Various Topics](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/15)
 - **Description:** 
     - The system should establish connections between various topics within the same domain. 
     - Example: When a user explores the topic "Computer Science," the system should showcase articles covering diverse but related subjects like machine learning and high-performance computing.
@@ -333,7 +336,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
 - [3a. Associating Authors Collaborating on the Same Paper (Co-author)](#3a-associating-authors-collaborating-on-the-same-paper-co-author)
 - [3b. Linking Authors Working in the Same Company or Department (Colleague)](#3b-linking-authors-working-in-the-same-company-or-department-colleague)
 - [3c. Co-Recipients of Awards Relationship (Co-Recipients of Awards)](#3c-co-recipients-of-awards-relationship-co-recipients-of-awards)
-#### 3a. Associating Authors Collaborating on the Same Paper (Co-author)
+#### 3a. [Associating Authors Collaborating on the Same Paper (Co-author)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/16)
 - **Description:**
     - The system should establish connections between authors who are credited for the same paper. The relationship should be presented as "Co-author."
     - Example: If authors A and B are credited for the paper titled "Advancements in Artificial Intelligence," the system should display a "Co-author" relationship between A and B.
@@ -345,7 +348,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
         - Create a "Co-Authorship" entity in the database to capture relationships between authors collaborating on the same paper.
         - Implement algorithms to identify co-authorship based on shared article credits.
 
-#### 3b. Linking Authors Working in the Same Company or Department (Colleague)
+#### 3b. [Linking Authors Working in the Same Company or Department (Colleague)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/17)
 - **Description:**
     - The system should connect authors who work in the same company or department. The relationship should be presented as "Colleague."
     - Example: If authors X and Y both work at XYZ Corporation, the system should show a "Colleague" relationship between X and Y.
@@ -357,7 +360,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
         - Introduce a "Colleague" relationship in the database schema.
         - Implement algorithms to identify authors working in the same company or department based on their affiliation data.
 
-#### 3c. Co-Recipients of Awards Relationship (Co-Recipients of Awards)
+#### 3c. [Co-Recipients of Awards Relationship (Co-Recipients of Awards)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/18)
 - **Description:**
     - If two authors have jointly received a specific award, the system should showcase their relationship as "Co-Recipients of Awards."
     - Example: If authors M and N were both recipients of the "Outstanding Research Contribution Award," the system should display a "Co-Recipients of Awards" relationship between M and N.
@@ -444,7 +447,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
 - [5e. Saved Queries (Optional)](#5e-saved-queries-optional)
 - [5f. Intuitive User Interface (Optional)](#5f-intuitive-user-interface-optional)
 - [5g. Compatibility Across User Categories (Optional)](#5g-compatibility-across-user-categories-optional)
-#### 5a. Customizable Filters
+#### 5a. [Customizable Filters](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/7)
 - **Description**:
   - Users can define filters based on various parameters such as author names, publication dates, keywords, and thematic categories. This flexibility ensures that users can narrow down their searches to retrieve the most relevant and targeted information.
 - **Priorisation**: High
@@ -457,7 +460,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Develop backend logic to process and apply these filters to the dataset.
     - Ensure that the system can handle a variety of filter combinations for comprehensive search capabilities.
 
-#### 5b. Advanced Keyword Search
+#### 5b. [Advanced Keyword Search](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/8)
 - **Description:**
   - The advanced keyword search feature enables users to input specific terms or phrases, enhancing the efficiency and accuracy of information retrieval. This component aims to facilitate a more targeted search experience for users seeking particular details within academic papers and other sources.
 - **Priorisation**: High
@@ -470,7 +473,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Ensure the system ranks search results based on keyword relevance to provide meaningful outcomes.
     - Design a user interface that allows users to easily input and modify their keyword search queries.
 
-#### 5c. Dynamic Query Building
+#### 5c. [Dynamic Query Building](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/9)
 - **Description:**
   - Dynamic query building empowers users to create complex queries on-the-fly. This feature supports the combination of multiple filters and search criteria, providing users with a powerful tool for obtaining highly specific and refined results.
 - **Priorisation**: Low
@@ -483,7 +486,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Implement backend logic to dynamically adjust the query based on user interactions.
     - Ensure real-time updates in response to user modifications for a seamless query-building experience.
 
-#### 5d. Real-time Feedback (Optional)
+#### 5d. [Real-time Feedback (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/10)
 - **Description:**
   - Real-time feedback is essential for an interactive and responsive user experience. This component ensures that users receive immediate feedback as they apply filters or modify search parameters, facilitating efficient exploration of academic papers and sources.
 - **Priorisation**: Low
@@ -496,7 +499,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Utilize asynchronous processing to ensure minimal latency in providing feedback.
     - Design a visually intuitive interface to convey changes and updates to users in real-time.
 
-#### 5e. Saved Queries (Optional)
+#### 5e. [Saved Queries (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/11)
 - **Description:**
   - The optional "Saved Queries" feature allows users to store frequently used or complex queries for future reference. This enhances productivity by enabling users to revisit and reuse previously defined search criteria without the need to recreate them.
 - **Priorisation**: Low
@@ -509,7 +512,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Develop backend storage to persistently store user-defined queries.
     - Ensure security measures to protect and manage saved queries according to user permissions.
 
-#### 5f. Intuitive User Interface (Optional)
+#### 5f. [Intuitive User Interface (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/12)
 - **Description:**
   - An intuitive user interface is designed to ensure that users, regardless of their technical expertise, can navigate and utilize the filter and search functionalities seamlessly.
 - **Priorisation**: Low
@@ -522,7 +525,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - Conduct usability testing to refine the interface based on user feedback.
     - Ensure responsive design for seamless user experiences across different devices.
 
-#### 5g. Compatibility Across User Categories (Optional)
+#### 5g. [Compatibility Across User Categories (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/13)
 - **Description:**
   - The optional "Compatibility Across User Categories" feature ensures that the filter and search functionalities cater to the specific needs of diverse user categories, including students, academics, government officials, developers, and companies.
 - **Priorisation**: Low
@@ -588,6 +591,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
    | topic_id (FK)  |     | author_id (FK) |
    +----------------+     +----------------+
 ```
+*Figure 3: The design of the structure of the data model.*
 
 ## Test Plan
 ### Test Object
