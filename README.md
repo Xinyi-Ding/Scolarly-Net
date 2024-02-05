@@ -29,7 +29,7 @@ The given prototype of the project is located in branch '[proto](https://git.ecd
 All project documents are located in [Documents](/Documents/) folder.
 
 - [System Design](/Documents/Design.md)
-- [Project Planning](/Documents/Planning.md)
+- [Project Planning](/Documents/Plan.md)
 
 ### Project Meeting
 
