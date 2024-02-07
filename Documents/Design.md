@@ -379,7 +379,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
 - [4d. Citation Context Analysis (Optional)](#4d-citation-context-analysis-optional)
 - [4e. Citation Influence Scoring (Optional)](#4e-citation-influence-scoring-optional)
 - [4f. Customizable Tree Views (Optional)](#4f-customizable-tree-views-optional)
-#### 4a. Citation Tree Generation
+#### 4a. [Citation Tree Generation](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/23)
 - **Description**: 
 	- This component involves developing an algorithm to visually represent the citation network of a paper. It will display the immediate citations of the current paper and allow users to explore second and higer levels citations, which are the references cited by the papers in the previous-level citations.
 - **Priorisation**: High
@@ -389,7 +389,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
 	- **Implementation Details**: 
 		- The algorithm will parse the citation data and construct a hierarchical tree structure. The tree will be displayed graphically, with nodes representing individual papers and edges indicating citation relationships. Features will include collapsibility of branches for easy navigation and tooltips or additional information windows to provide details about each citation.
 
-#### 4b. Cited-by Tree Feature (Optional)
+#### 4b. [Cited-by Tree Feature (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/24)
 - **Description**: 
 	- This functionality involves creating a reverse citation tree that identifies papers which have cited the current paper. It also includes the references of these citing papers to understand their citation context.
 - **Priorisation**: Low
@@ -399,7 +399,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
 	- **Implementation Details**: 
 		- The system will use a reverse lookup algorithm to find papers that cite the current paper. A separate tree structure, similar to the citation tree, will be generated. This tree will also be interactive, allowing users to explore the citation networks of the papers that have cited the current paper.
 
-#### 4c. User Interface
+#### 4c. [User Interface](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/25)
 - **Description**: 
 	- The user interface is crucial for providing a user-friendly way to interact with the citation and 'Cited-by' trees. It needs to be intuitive, responsive, and visually appealing.
 - **Priorisation**: High
@@ -409,7 +409,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
 	- **Implementation Details**: 
 		- The UI will be developed using web technologies (like HTML, CSS, JavaScript) or appropriate software frameworks. It will feature a main viewing area for the trees, a toolbar or menu for navigation controls, and possibly a sidebar or pop-up windows for detailed information about each citation. The design will ensure that the interface remains uncluttered and easy to use, even with large datasets.
 
-#### 4d. Citation Context Analysis (Optional)
+#### 4d. [Citation Context Analysis (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/26)
 - **Description**: 
   - This feature aims to provide users with the context in which a paper is cited within the citing articles. It helps in understanding the relevance and impact of the cited paper in ongoing research discussions.
 - **Prioritization**: Low
@@ -419,7 +419,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
   - **Implementation Details**: 
     - Implementing this feature involves NLP techniques to parse the text of citing papers and identify sections where the original paper is cited. The UI should then present these excerpts in a way that is easily accessible, such as a tooltip or a dedicated section within the tree's node details.
 
-#### 4e. Citation Influence Scoring (Optional)
+#### 4e. [Citation Influence Scoring (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/27)
 - **Description**: 
   - This component is designed to evaluate and display the influence or impact of each citation within the tree. It aims to highlight the most influential papers based on citation metrics like the number of times cited.
 - **Prioritization**: Low
@@ -429,7 +429,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
   - **Implementation Details**: 
     - The algorithm will calculate the influence score based on citation counts and possibly other metrics like journal impact factor. The UI will visually differentiate nodes based on their scores, using methods such as varying node sizes, colors, or adding badges.
 
-#### 4f. Customizable Tree Views (Optional)
+#### 4f. [Customizable Tree Views (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/28)
 - **Description**: 
   - This feature allows users to customize how citation trees are displayed, offering various views based on user preferences or specific research needs, such as chronological order, influence score, or research domain.
 - **Prioritization**: Low
