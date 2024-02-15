@@ -1,22 +1,28 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { routesConfig } from "@/lib/routesConfig.js";
-import { useRouter } from "vue-router";
+import { onBeforeRouteUpdate, useRouter } from "vue-router";
 
 const minimized = ref(false);
 
 const activeElement = ref(null);
 
 const router = useRouter();
-
+const header = ref('Null');
 const activeRouteName = ref('');
 const accordionValue = ref(new Array(routesConfig.length).fill(false));
-if (router.currentRoute.value.matched.length > 1) {
-  const parent = router.currentRoute.value.matched[1].name;
-  const child = router.currentRoute.value.matched[2].name;
-  const parentIndex = routesConfig.findIndex((route) => route.name === parent);
-  accordionValue.value[parentIndex] = true;
-  activeRouteName.value = child;
+
+function generateActive() {
+  if (router.currentRoute.value.matched.length > 2) {
+    const parent = router.currentRoute.value.matched[1].name;
+    const child = router.currentRoute.value.matched[2].name;
+    const parentIndex = routesConfig.findIndex((route) => route.name === parent);
+    accordionValue.value[parentIndex] = true;
+    activeRouteName.value = child;
+  } else {
+    activeRouteName.value = router.currentRoute.value.matched[1].name;
+  }
+
 }
 
 function isRouteActive(route) {
@@ -26,8 +32,18 @@ function isRouteActive(route) {
 function setRouteActive(route) {
   if (route.children) return;
   activeRouteName.value = route.name;
+  window.scrollTo(0, 0);
   router.push(route.path);
 }
+
+watch(() => router.currentRoute.value, (newRoute) => {
+  const matchedRoute = newRoute.matched.slice().reverse().find(r => r.meta && r.meta.title);
+  if (matchedRoute && matchedRoute.meta && matchedRoute.meta.title) {
+    header.value = matchedRoute.meta.title;
+  }
+  generateActive();
+
+}, { immediate: true });
 
 </script>
 
@@ -38,7 +54,7 @@ function setRouteActive(route) {
   >
     <template #top>
       <VaNavbar
-          class="min-h-14 py-2"
+          class="h-[58px] py-2"
           shadowed
       >
         <template #left>
@@ -69,7 +85,6 @@ function setRouteActive(route) {
           <VaCollapse
               v-for="(route, idx) in routesConfig"
               :key="idx"
-
               body-color="#fff"
           >
             <template #header>
@@ -80,7 +95,7 @@ function setRouteActive(route) {
                 <VaSidebarItemContent>
                   <VaIcon :name="route.icon" />
                   <VaSidebarItemTitle>
-                    {{ route.title }}
+                    {{ route.meta.title }}
                   </VaSidebarItemTitle>
                   <VaIcon
                       v-if="route.children"
@@ -99,61 +114,13 @@ function setRouteActive(route) {
                 <VaSidebarItemContent class="ml-3">
                   <VaIcon :name="child.icon" />
                   <VaSidebarItemTitle>
-                    {{ child.title }}
+                    {{ child.meta.title }}
                   </VaSidebarItemTitle>
                 </VaSidebarItemContent>
               </VaSidebarItem>
             </template>
           </VaCollapse>
         </VaAccordion>
-
-
-        <!--<VaAccordion>-->
-        <!--  <template v-for="item in routesConfig">-->
-        <!--    <VaCollapse-->
-        <!--        v-if="item.children"-->
-        <!--        :key="item.title + 'collapse'"-->
-        <!--        body-color="#00000022"-->
-        <!--    >-->
-        <!--      <template #header="{ value: isCollapsed }">-->
-        <!--        <VaSidebarItem :active="item.children.some((child) => child.title === activeElement)">-->
-        <!--          <VaSidebarItemContent>-->
-        <!--            <VaIcon :name="item.icon" />-->
-        <!--            <VaSidebarItemTitle>{{ item.title }}</VaSidebarItemTitle>-->
-        <!--            <VaSpacer />-->
-        <!--            <VaIcon :name="isCollapsed ? 'va-arrow-up' : 'va-arrow-down'" />-->
-        <!--          </VaSidebarItemContent>-->
-        <!--        </VaSidebarItem>-->
-        <!--      </template>-->
-
-        <!--      <template #body>-->
-        <!--        <VaSidebarItem-->
-        <!--            v-for="child in item.children"-->
-        <!--            :key="child.title"-->
-        <!--            :active="child.title === activeElement"-->
-        <!--            @click="router.push(child.path); activeElement = child.title"-->
-        <!--        >-->
-        <!--          <VaSidebarItemContent>-->
-        <!--            <VaIcon :name="child.icon" />-->
-        <!--            <VaSidebarItemTitle>{{ child.title }}</VaSidebarItemTitle>-->
-        <!--          </VaSidebarItemContent>-->
-        <!--        </VaSidebarItem>-->
-        <!--      </template>-->
-        <!--    </VaCollapse>-->
-
-        <!--    <VaSidebarItem-->
-        <!--        v-else-->
-        <!--        :key="item.title + 'item'"-->
-        <!--        :active="item.title === activeElement"-->
-        <!--        @click="router.push(item.path); activeElement = item.title"-->
-        <!--    >-->
-        <!--      <VaSidebarItemContent>-->
-        <!--        <VaIcon :name="item.icon" />-->
-        <!--        <VaSidebarItemTitle>{{ item.title }}</VaSidebarItemTitle>-->
-        <!--      </VaSidebarItemContent>-->
-        <!--    </VaSidebarItem>-->
-        <!--  </template>-->
-        <!--</VaAccordion>-->
 
         <VaSpacer />
 
@@ -171,7 +138,10 @@ function setRouteActive(route) {
 
     <template #content>
       <main class="p-4">
-        <RouterView />
+        <h1 class="text-3xl font-black ml-2 mb-3">{{header}}</h1>
+        <div class="min-h-[85vh] bg-white p-2 shadow-lg">
+          <router-view />
+        </div>
       </main>
     </template>
   </VaLayout>
@@ -179,7 +149,4 @@ function setRouteActive(route) {
 </template>
 
 <style scoped>
-.expanded {
-  background-color: var(--va-background-primary);
-}
 </style>
