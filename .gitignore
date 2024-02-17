@@ -14,13 +14,7 @@ Papers
 historyPSD.txt
 
 # Frontend files
-frontend/node_modules
-frontend/.vite-ssg-temp
-frontend/.DS_Store
-frontend/dist
-frontend/dist-ssr
-frontend/*.local
-frontend/yarn.lock
-frontend/package-lock.json
-frontend/pnpm-lock.yaml
-frontend/*.log
+front-end/node_modules
+front-end/.DS_Store
+front-end/*.local
+front-end/*.log
