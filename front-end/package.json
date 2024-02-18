@@ -12,6 +12,7 @@
     "@vuestic/tailwind": "^0.1.4",
     "@vueuse/core": "^10.7.2",
     "pinia": "^2.1.7",
+    "vis-network": "^9.1.9",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5",
     "vuestic-ui": "^1.9.0"

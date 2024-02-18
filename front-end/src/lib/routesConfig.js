@@ -22,9 +22,9 @@ export const routesConfig = [
         name: 'same-topic',
         icon: 'list',
         meta: {
-          title: 'Same Topic List',
+          title: 'Same Topic',
         },
-        component: () => import('@/views/topic/SameTopicList.vue')
+        component: () => import('@/views/topic/SameTopic.vue')
       },
       {
         path: '/topic/connections',

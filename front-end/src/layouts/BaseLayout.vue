@@ -69,6 +69,17 @@ watch(() => router.currentRoute.value, (newRoute) => {
           </VaNavbarItem>
 
         </template>
+        <template #right>
+          <VaNavbarItem>
+            <VaAvatar
+                size="small"
+                class="mr-2 rounded"
+                square
+            >
+              A
+            </VaAvatar>
+          </VaNavbarItem>
+        </template>
 
       </VaNavbar>
     </template>
@@ -138,7 +149,7 @@ watch(() => router.currentRoute.value, (newRoute) => {
 
     <template #content>
       <main class="p-4">
-        <h1 class="text-3xl font-black ml-2 mb-3">{{header}}</h1>
+        <h1 class="text-3xl font-black ml-2 mb-3 uppercase">{{header}}</h1>
         <div class="min-h-[85vh] bg-white p-2 shadow-lg">
           <router-view />
         </div>
