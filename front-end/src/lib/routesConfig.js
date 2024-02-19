@@ -20,7 +20,7 @@ export const routesConfig = [
       {
         path: '/topic/same-topic',
         name: 'same-topic',
-        icon: 'list',
+        icon: 'chat',
         meta: {
           title: 'Same Topic',
         },
@@ -29,7 +29,7 @@ export const routesConfig = [
       {
         path: '/topic/connections',
         name: 'connections',
-        icon: 'hub',
+        icon: 'forum',
         meta: {
           title: 'Topic Connections',
         },
@@ -55,6 +55,15 @@ export const routesConfig = [
         },
         component: () => import('@/views/author/CoAuthors.vue')
       },
+      {
+        path: '/author/affiliations',
+        name: 'affiliations',
+        icon: 'apartment',
+        meta: {
+          title: 'Affiliations',
+        },
+        component: () => import('@/views/author/AuthorAffiliation.vue')
+      }
     ]
   },
   {

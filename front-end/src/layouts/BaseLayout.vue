@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from "vue";
 import { routesConfig } from "@/lib/routesConfig.js";
-import { onBeforeRouteUpdate, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 
 const minimized = ref(false);
 
@@ -122,7 +122,7 @@ watch(() => router.currentRoute.value, (newRoute) => {
                   :active="isRouteActive(child)"
                   @click="setRouteActive(child)"
               >
-                <VaSidebarItemContent class="ml-3">
+                <VaSidebarItemContent class="ml-3 overflow-hidden">
                   <VaIcon :name="child.icon" />
                   <VaSidebarItemTitle>
                     {{ child.meta.title }}
@@ -150,8 +150,10 @@ watch(() => router.currentRoute.value, (newRoute) => {
     <template #content>
       <main class="p-4">
         <h1 class="text-3xl font-black ml-2 mb-3 uppercase">{{header}}</h1>
-        <div class="min-h-[85vh] bg-white p-2 shadow-lg">
-          <router-view />
+        <div class="h-[80vh] bg-white shadow-lg overflow-auto">
+          <keep-alive>
+            <router-view />
+          </keep-alive>
         </div>
       </main>
     </template>

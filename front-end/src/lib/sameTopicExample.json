@@ -1,0 +1,157 @@
+{
+  "code": 200,
+  "data": {
+    "original": {
+      "id": 4,
+      "title": "searched origin paper title",
+      "authors": "author 1, author 2, author 3, author 4, author 5",
+      "original":false
+    },
+    "topics": [
+      {
+        "id": 1,
+        "name": "topic 1"
+      },
+      {
+        "id": 2,
+        "name": "topic 2"
+      },
+      {
+        "id": 3,
+        "name": "topic 3"
+      },
+      {
+        "id": 4,
+        "name": "topic 4"
+      }
+    ],
+    "connections": [
+      {
+        "topic": 1,
+        "papers": [1, 2, 3, 4, 5, 11, 16]
+      },
+      {
+        "topic": 2,
+        "papers": [1, 3, 4, 6, 7, 8, 9, 13, 15]
+      },
+      {
+        "topic": 3,
+        "papers": [1, 8, 10, 11, 12, 13, 14, 15]
+      },
+      {
+        "topic": 4,
+        "papers": [1, 3, 7, 13, 16, 17, 18]
+      }
+    ],
+    "papers": [
+      {
+        "id": 1,
+        "title": "title 1",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 2,
+        "title": "title 2",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 3,
+        "title": "title 3",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 4,
+        "title": "title 4",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": true
+      },
+      {
+        "id": 5,
+        "title": "title 5",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 6,
+        "title": "title 6",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 7,
+        "title": "title 7",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 8,
+        "title": "title 8",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 9,
+        "title": "title 9",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 10,
+        "title": "title 10",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 11,
+        "title": "title 11",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 12,
+        "title": "title 12",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 13,
+        "title": "title 13",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 14,
+        "title": "title 14",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 15,
+        "title": "title 15",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 16,
+        "title": "title 16",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 17,
+        "title": "title 17",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      },
+      {
+        "id": 18,
+        "title": "title 18",
+        "authors": "author 1, author 2, author 3, author 4, author 5",
+        "original": false
+      }
+    ]
+  }
+}

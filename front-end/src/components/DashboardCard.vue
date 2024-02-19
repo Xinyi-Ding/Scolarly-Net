@@ -9,6 +9,7 @@ const props = defineProps({
   section: String,
   content: String,
   link: String,
+  paperId: Number,
 })
 
 const getReadyIcon = () => {
@@ -35,7 +36,11 @@ const getReadyStripe = () => {
 
 const handleClick = (link) => {
   if (link) {
-    router.push(link);
+    if (props.paperId) router.push({
+      path: link,
+      query: { paperId: props.paperId }
+    });
+    else router.push(link);
   }
 }
 

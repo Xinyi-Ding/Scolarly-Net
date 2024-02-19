@@ -1,21 +1,24 @@
 {
-  "title": "The Big Show",
+  "id": 4,
+  "title": "In Situ Workflows at Exascale: System Software to the Rescue",
   "authors": [
-    "George Archainbaud",
-    "Robert Emmett Tansey",
-    "Robert Emmett Tansey",
-    "Robert Emmett Tansey"
+    "Matthieu Dreher",
+    "Swann Perarnau",
+    "Tom Peterka",
+    "Kamil Iskra",
+    "Pete Beckman"
   ],
-  "date": "1936",
-  "topics": [
-    "Artificial Intelligence",
-    "Science Fiction",
-    "Machine Learning",
-    "Robotics",
-    "Automation",
-    "Technology"
-  ],
-  "references": [
+  "affiliations": [
 
-  ]
+  ],
+  "date": "2017-11-12",
+  "doi": "10.1145/3144769.3144774",
+  "keywords": [
+    "Argo",
+    "MPI",
+    "In Situ Workflows",
+    "Exascale",
+    "System Software"
+  ],
+  "references": 23
 }

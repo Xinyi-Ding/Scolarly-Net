@@ -3,12 +3,12 @@ import { ref, watch } from "vue";
 import DashboardCard from "@/components/DashboardCard.vue";
 import dashboardExample from '@/lib/dashboardExample.json';
 
-
 const uploaded = ref(false);
 const ready = ref({
   sameTopic: -1,
   topicConnections: -1,
   coAuthors: -1,
+  affiliations: -1,
   citedTree: -1,
   citedByTree: -1,
 });
@@ -24,6 +24,7 @@ const onFileAdded = async () => {
         sameTopic: 0,
         topicConnections: 0,
         coAuthors: 0,
+        affiliations: 0,
         citedTree: 0,
         citedByTree: 0,
       };
@@ -34,7 +35,8 @@ const onFileAdded = async () => {
         sameTopic: 1,
         topicConnections: 1,
         coAuthors: 1,
-        citedTree: -1,
+        affiliations: -1,
+        citedTree: 1,
         citedByTree: -1,
       };
     }, 5000);
@@ -50,7 +52,7 @@ watch(basic, (newValue, oldValue) => {
 </script>
 
 <template>
-  <div class="p-2">
+  <div class="p-4">
     <VaAlert color="info" border="left" class="mb-4 p-6">
       <template #icon>
         <VaIcon name="info" />
@@ -97,23 +99,37 @@ watch(basic, (newValue, oldValue) => {
             <VaIcon v-else name="loop" spin />
           </div>
           <div>
-            <span>Date:</span>
+            <span>Affiliations:</span>
             <span v-if="paper !== null">
-              {{paper.date }}
+              {{ paper.affiliations.length > 0 ? paper.affiliations.toString() : '-' }}
             </span>
             <VaIcon v-else name="loop" spin />
           </div>
           <div>
-            <span>Abstract:</span>
+            <span>Date:</span>
             <span v-if="paper !== null">
-              {{ paper.topics.toString() }}
+              {{ paper.date }}
+            </span>
+            <VaIcon v-else name="loop" spin />
+          </div>
+          <div>
+            <span>DOI:</span>
+            <span v-if="paper !== null">
+              {{ paper.doi }}
+            </span>
+            <VaIcon v-else name="loop" spin />
+          </div>
+          <div>
+            <span>Keywords:</span>
+            <span v-if="paper !== null">
+              {{ paper.keywords.toString() }}
             </span>
             <VaIcon v-else name="loop" spin />
           </div>
           <div>
             <span>References:</span>
             <span v-if="paper !== null">
-              {{ paper.references.length > 0 ? paper.references.toString() : 'None' }}
+              {{ paper.references ? paper.references : 'None' }}
             </span>
             <VaIcon v-else name="loop" spin />
           </div>
@@ -125,39 +141,57 @@ watch(basic, (newValue, oldValue) => {
           class="col-span-3"
           :ready="ready.sameTopic"
           section="Topic"
-          title="Same Topic Link"
-          content="Explore the papers with a same topic"
-          link="/topic"
+          title="Same Topic"
+          content="Explore the papers with same topics"
+          link="/topic/same-topic"
+          :paper-id="paper?.id"
       />
       <DashboardCard
           class="col-span-3"
           :ready="ready.topicConnections"
           section="Topic"
           title="Topic Connections"
-          content="Explore the connections between papers"
-          link="/author"
+          content="Explore the connections between topics"
+          link="/topic/connections"
+          :paper-id="paper?.id"
       />
       <DashboardCard
           class="col-span-2"
           :ready="ready.coAuthors"
           section="Author"
           title="Co-Authors"
-          content="aaaaaaaaaaa aaaaaaaaa aaaaaaaa aaaaaaaaaa aaaa aaaaaaaaaaaaaaaaa aaaaaa aaaaa"
+          content="Explore the co-authors of the paper"
+          link="/author/co-authors"
+          :paper-id="paper?.id"
+      />
+      <DashboardCard
+          class="col-span-2"
+          :ready="ready.affiliations"
+          section="Author"
+          title="Affiliations"
+          content="Explore the affiliations of the authors of the paper"
+          link="/author/affiliations"
+          :paper-id="paper?.id"
       />
       <DashboardCard
           class="col-span-2"
           :ready="ready.citedTree"
           section="Reference"
           title="Cited Tree"
-          content="aaa"
+          content="Explore the papers that are cited by the paper"
+          link="/reference/cited"
+          :paper-id="paper?.id"
       />
       <DashboardCard
-          class="col-span-2"
+          class="col-span-3"
           :ready="ready.citedByTree"
           section="Reference"
           title="Cited-By Tree"
-          content="aaa"
+          content="Explore the papers that cite the paper"
+          link="/reference/cited-by"
+          :paper-id="paper?.id"
       />
+
     </div>
   </div>
 </template>
