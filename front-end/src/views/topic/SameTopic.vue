@@ -106,6 +106,7 @@ const highlightListItem = (nodeId) => {
 const highlightNode = (paperId) => {
   if (network && paperId) {
     network.selectNodes([paperId], false);
+    highlightListItem(paperId);
   }
 };
 </script>
@@ -140,7 +141,9 @@ const highlightNode = (paperId) => {
       <VaList v-if="netResults" class="p-2">
         <VaListItem
             :class="{'highlight': selectedNodeId === netResults.original.id}"
-            class="p-2 cursor-pointer bg-blue-50 hover:bg-gray-100">
+            class="p-2 cursor-pointer bg-blue-50 hover:bg-gray-100"
+            @click="highlightNode(netResults.original.id)"
+        >
           <VaListItemSection>
             <p class="mb-1 text-sm text-blue-600 font-bold">Origin Paper</p>
             <VaListItemLabel class="mb-1">

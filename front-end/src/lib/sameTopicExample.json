@@ -1,8 +1,9 @@
 {
   "code": 200,
+  "msg": "success",
   "data": {
     "original": {
-      "id": 4,
+      "id": 1,
       "title": "searched origin paper title",
       "authors": "author 1, author 2, author 3, author 4, author 5",
       "original":false
@@ -48,7 +49,7 @@
         "id": 1,
         "title": "title 1",
         "authors": "author 1, author 2, author 3, author 4, author 5",
-        "original": false
+        "original": true
       },
       {
         "id": 2,
@@ -66,7 +67,7 @@
         "id": 4,
         "title": "title 4",
         "authors": "author 1, author 2, author 3, author 4, author 5",
-        "original": true
+        "original": false
       },
       {
         "id": 5,
