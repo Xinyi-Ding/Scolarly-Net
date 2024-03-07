@@ -1,4 +1,5 @@
 # Group Carlson-Johnson
+[![pipeline status](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/badges/main/pipeline.svg)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/commits/main)
 
 ## Table of Content
 
