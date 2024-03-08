@@ -20,25 +20,15 @@ default:
   image: python:3.10
 
 stages:          # List of stages for jobs, and their order of execution
-  - build
   - test
 
-build-job:       # This job runs in the build stage, which runs first.
-  stage: build
-  script:
-    - pip install -r backend/requirements.txt
-
-#before_script:
-#  - if [ ! -d "venv" ]; then python3 -m venv venv; fi # Create a virtual environment if it doesn't exist.
-#  - source venv/bin/activate # Activate the virtual environment.
+before_script:
+  - pip install -r backend/requirements.txt
+  - cd backend
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
-    - if [ ! -d "venv" ]; then python3 -m venv venv; fi  # Check if the virtual environment exists, if not, create it
-    - source venv/bin/activate  # Activate the virtual environment
-    - pip install -r backend/requirements.txt  # Install all dependencies from requirements.txt, assuming pytest is listed there
-    - cd backend
     - pytest test/test_main.py  # Run database tests
     - pytest test/test_db.py  # Run database tests
 
@@ -46,5 +36,4 @@ lint-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
   script:
     - pip install flake8
-    - cd backend
     - flake8 . --max-line-length=120
