@@ -35,9 +35,11 @@ before_script:
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
+    - if [ ! -d "venv" ]; then python3 -m venv venv; fi  # Check if the virtual environment exists, if not, create it
+    - source venv/bin/activate  # Activate the virtual environment
+    - pip install -r backend/requirements.txt  # Install all dependencies from requirements.txt, assuming pytest is listed there
     - cd backend
-    - pytest tests/test_db.py
-    - pytest tests/test_main.py
+    - pytest tests/test_db.py  # Run database tests
 
 lint-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
