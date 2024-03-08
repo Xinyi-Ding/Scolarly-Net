@@ -23,20 +23,18 @@ stages:          # List of stages for jobs, and their order of execution
   - build
   - test
 
-before_script:
-  - python3 -m venv venv
-  - source venv/bin/activate
-
-
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   script:
     - pip install -r backend/requirements.txt
 
+before_script:
+  - if [ ! -d "venv" ]; then python3 -m venv venv; fi # Create a virtual environment if it doesn't exist.
+  - source venv/bin/activate # Activate the virtual environment.
+
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
-    - source venv/bin/activate
     - cd backend
     - pytest tests/test_db.py
     - pytest tests/test_main.py
