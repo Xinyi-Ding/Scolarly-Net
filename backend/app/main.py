@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.routers import catalog_api, analysis_api
+from backend.app.routers import catalog_api, analysis_api
 
 app = FastAPI()
 
