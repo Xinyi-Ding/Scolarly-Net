@@ -45,9 +45,6 @@ class ArticleVO(BaseModel):
     class Config:
         orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
 
-    class Config:
-        orm_mode = True
-
 
 # Pydantic model for the Topic
 class TopicVO(BaseModel):

@@ -1,5 +1,3 @@
-from datetime import datetime
-
 import pytest
 from backend.app.services.models import ArticleVO
 from backend.app.intergration.catalog_access import create_article, get_article, update_article, delete_article
@@ -20,7 +18,6 @@ initial_article_data = ArticleVO(
     type="Research",
     container_title="Test Journal"
 )
-
 
 # Data for article update, might only change a few fields
 updated_article_data = ArticleVO(
@@ -66,4 +63,3 @@ async def test_article_crud():
     # Verify Deletion
     deleted_article = get_article(created_article.id)
     assert deleted_article is None
-

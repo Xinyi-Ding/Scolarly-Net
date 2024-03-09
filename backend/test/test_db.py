@@ -168,7 +168,7 @@ async def department(db_connection, institution):
 
 
 @pytest_asyncio.fixture
-async def parent_topic(db_connection)-> Topic:
+async def parent_topic(db_connection) -> Topic:
     """
     Setup: Create a new Topic object for the parent topic
     @param db_connection: None - The database connection
@@ -186,7 +186,7 @@ async def parent_topic(db_connection)-> Topic:
 
 
 @pytest_asyncio.fixture
-async def child_topic(db_connection)-> Topic:
+async def child_topic(db_connection) -> Topic:
     """
     Setup: Create a new Topic object for the child topic
     @param db_connection: None - The database connection
@@ -204,7 +204,7 @@ async def child_topic(db_connection)-> Topic:
 
 
 @pytest_asyncio.fixture
-async def new_institution(db_connection)-> Institution:
+async def new_institution(db_connection) -> Institution:
     """
     Setup: Create a new Institution object for testing updates
     @param db_connection: None - The database connection
@@ -219,7 +219,7 @@ async def new_institution(db_connection)-> Institution:
 
 
 @pytest_asyncio.fixture
-async def new_department(db_connection, new_institution)-> Department:
+async def new_department(db_connection, new_institution) -> Department:
     """
     Setup: Create a new Department object for testing updates, associated with a new institution
     @param db_connection: None - The database connection
@@ -235,7 +235,7 @@ async def new_department(db_connection, new_institution)-> Department:
 
 
 @pytest_asyncio.fixture
-async def new_cited_article(db_connection)-> Article:
+async def new_cited_article(db_connection) -> Article:
     """
     Setup: Create a new Article object to represent an alternative cited article for testing updates
     @param db_connection: None - The database connection
@@ -264,7 +264,7 @@ async def new_cited_article(db_connection)-> Article:
 
 
 @pytest_asyncio.fixture
-async def new_child_topic(db_connection)-> Topic:
+async def new_child_topic(db_connection) -> Topic:
     """
     Setup: Create a new Topic object for an alternative child topic for testing updates
     @param db_connection: None - The database connection
@@ -279,7 +279,7 @@ async def new_child_topic(db_connection)-> Topic:
 
 
 @pytest.mark.asyncio
-async def test_article_crud(article)-> None:
+async def test_article_crud(article) -> None:
     """
     Test the CRUD operations for the Article model
     @param article: Article - The article to test
@@ -298,7 +298,7 @@ async def test_article_crud(article)-> None:
 
 
 @pytest.mark.asyncio
-async def test_topic_crud(topic)-> None:
+async def test_topic_crud(topic) -> None:
     """
     Test the CRUD operations for the Topic model
     @param topic: Topic - The topic to test
@@ -317,7 +317,7 @@ async def test_topic_crud(topic)-> None:
 
 
 @pytest.mark.asyncio
-async def test_author_crud(author)-> None:
+async def test_author_crud(author) -> None:
     """
     Test the CRUD operations for the Author model
     @param author: Author - The author to test
@@ -336,7 +336,7 @@ async def test_author_crud(author)-> None:
 
 
 @pytest.mark.asyncio
-async def test_institution_crud(institution)-> None:
+async def test_institution_crud(institution) -> None:
     """
     Test the CRUD operations for the Institution model
     @param institution: Institution - The institution to test
@@ -355,7 +355,7 @@ async def test_institution_crud(institution)-> None:
 
 
 @pytest.mark.asyncio
-async def test_department_crud(db_connection, institution)-> None:
+async def test_department_crud(db_connection, institution) -> None:
     """
     Test the CRUD operations for the Department model
     @param db_connection: None - The database connection
@@ -381,7 +381,7 @@ async def test_department_crud(db_connection, institution)-> None:
 
 
 @pytest.mark.asyncio
-async def test_author_institution_crud(db_connection, author, institution, new_institution)-> None:
+async def test_author_institution_crud(db_connection, author, institution, new_institution) -> None:
     """
     Test the CRUD operations for the AuthorInstitution model
     @param author: Author - The author to associate with the institution
@@ -401,7 +401,8 @@ async def test_author_institution_crud(db_connection, author, institution, new_i
     # Update (e.g., changing the institution)
     author_institution.update(institution=new_institution)
     updated_author_institution = AuthorInstitution.objects(id=author_institution.id).first()
-    assert updated_author_institution.institution == new_institution, "Failed to update the AuthorInstitution relationship"
+    assert updated_author_institution.institution == new_institution, "Failed to update the AuthorInstitution " \
+                                                                      "relationship "
 
     # Delete
     author_institution.delete()
@@ -467,7 +468,7 @@ async def test_article_citation_crud(db_connection, citing_article, cited_articl
 
 
 @pytest.mark.asyncio
-async def test_topic_relationship_crud(db_connection, parent_topic, child_topic, new_child_topic) ->  None:
+async def test_topic_relationship_crud(db_connection, parent_topic, child_topic, new_child_topic) -> None:
     """
     Test the CRUD operations for the TopicRelationship model
     @param parent_topic: Topic - The parent topic
