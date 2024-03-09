@@ -1,10 +1,11 @@
-import Extractor.extractor as Extractor
-import Parser.parser as Parser
+from Extractor import extractor as Extractor
+from Parser import parser as Parser
+from pathlib import Path
 
 
 if __name__ == "__main__":
-    path = "../../data/Papers/3485847.pdf"
-    extractor = Extractor.Extractor(path)
-    artical = Parser.Parser(extractor.xml_path)
+    path = "../data/xml/test3.xml"
+    parser = Parser.Parser(path)
+    artical = parser.artical
     print(artical.metadata)
     print(artical.content)
