@@ -1,5 +1,6 @@
-from pydantic import BaseModel, EmailStr, Field
-from datetime import date
+from datetime import datetime, date
+
+from pydantic import BaseModel, EmailStr, Field, validator
 from typing import Optional
 
 
@@ -11,10 +12,10 @@ class SequenceVO(BaseModel):
 
 # Pydantic model for the Article
 class ArticleVO(BaseModel):
-    id: Optional[int] = Field(default_factory=int)
+    id: Optional[int] = None
     title: str
     publisher: Optional[str] = None
-    date: Optional[date] = None
+    date: Optional[str] = None
     issn: Optional[str] = None
     eissn: Optional[str] = None
     volume: Optional[str] = None
@@ -25,6 +26,27 @@ class ArticleVO(BaseModel):
     file_path: str
     type: Optional[str] = None
     container_title: Optional[str] = None
+
+    @validator('date', pre=True, allow_reuse=True)
+    def validate_date(cls, v):
+        if isinstance(v, (datetime, date)):
+            # If the input is a datetime or date object, convert it to a string in 'YYYY-MM-DD' format.
+            v = v.strftime('%Y-%m-%d')
+
+        if v is not None:
+            try:
+                # Validate that the string is in 'YYYY-MM-DD' format.
+                datetime.strptime(v, '%Y-%m-%d')
+            except ValueError:
+                # If the string is not in the correct format, raise a ValueError.
+                raise ValueError('Date must be in YYYY-MM-DD format')
+        return v  # Return the validated date string
+
+    class Config:
+        orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
+
+    class Config:
+        orm_mode = True
 
 
 # Pydantic model for the Topic

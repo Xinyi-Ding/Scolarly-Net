@@ -16,9 +16,11 @@ async def db_connection():
 
 
 @pytest_asyncio.fixture
-async def article(db_connection):
+async def article(db_connection) -> Article:
     """
     Setup: Create a new Article object
+    @param db_connection: None - The database connection
+    @return: Article - The created article
     """
     test_article = Article(
         title="Test Article",
@@ -43,9 +45,11 @@ async def article(db_connection):
 
 
 @pytest_asyncio.fixture
-async def citing_article(db_connection):
+async def citing_article(db_connection=db_connection) -> Article:
     """
     Setup: Create a new Article object to represent the citing article
+    @param db_connection: None - The database connection
+    @return: Article - The created article
     """
     article = Article(
         title="Citing Article",
@@ -70,9 +74,11 @@ async def citing_article(db_connection):
 
 
 @pytest_asyncio.fixture
-async def cited_article(db_connection):
+async def cited_article(db_connection) -> Article:
     """
     Setup: Create a new Article object to represent the cited article
+    @param db_connection: None - The database connection
+    @return: Article - The created article
     """
     article = Article(
         title="Cited Article",
@@ -97,9 +103,11 @@ async def cited_article(db_connection):
 
 
 @pytest_asyncio.fixture
-async def author(db_connection):
+async def author(db_connection) -> Author:
     """
     Setup: Create a new Author object
+    @param db_connection: None - The database connection
+    @return: Author - The created author
     """
     test_author = Author(family_name="Doe", given_name="John", email="john.doe@example.com")
     test_author.save()
@@ -112,9 +120,11 @@ async def author(db_connection):
 
 
 @pytest_asyncio.fixture
-async def topic(db_connection):
+async def topic(db_connection) -> Topic:
     """"
     Setup: Create a new Topic object
+    @param db_connection: None - The database connection
+    @return: Topic - The created topic
     """
     test_topic = Topic(name="Test Topic")
     test_topic.save()
@@ -125,22 +135,11 @@ async def topic(db_connection):
 
 
 @pytest_asyncio.fixture
-async def department(db_connection, institution):
-    """
-    Setup: Create a new Department object
-    """
-    test_department = Department(name="Test Department", institution=institution)
-    test_department.save()
-
-    yield test_department
-
-    test_department.delete()
-
-
-@pytest_asyncio.fixture
-async def institution(db_connection):
+async def institution(db_connection) -> Institution:
     """
     Setup: Create a new Institution object
+    @param db_connection: None - The database connection
+    @return: Institution - The created institution
     """
     test_institution = Institution(name="Test Institution")
     test_institution.save()
@@ -153,9 +152,27 @@ async def institution(db_connection):
 
 
 @pytest_asyncio.fixture
-async def parent_topic(db_connection):
+async def department(db_connection, institution):
+    """
+    Setup: Create a new Department object
+    @param db_connection: None - The database connection
+    @param institution: Institution - The institution to associate with the department
+    @return: Department - The created department
+    """
+    test_department = Department(name="Test Department", institution=institution)
+    test_department.save()
+
+    yield test_department
+
+    test_department.delete()
+
+
+@pytest_asyncio.fixture
+async def parent_topic(db_connection)-> Topic:
     """
     Setup: Create a new Topic object for the parent topic
+    @param db_connection: None - The database connection
+    @return: Topic - The created topic
     """
     # Setup: Create a new Topic object for the parent topic
     parent = Topic(name="Parent Topic")
@@ -169,9 +186,11 @@ async def parent_topic(db_connection):
 
 
 @pytest_asyncio.fixture
-async def child_topic(db_connection):
+async def child_topic(db_connection)-> Topic:
     """
     Setup: Create a new Topic object for the child topic
+    @param db_connection: None - The database connection
+    @return: Topic - The created topic
     """
     # Setup: Create a new Topic object for the child topic
     child = Topic(name="Child Topic")
@@ -184,10 +203,87 @@ async def child_topic(db_connection):
     child.delete()
 
 
+@pytest_asyncio.fixture
+async def new_institution(db_connection)-> Institution:
+    """
+    Setup: Create a new Institution object for testing updates
+    @param db_connection: None - The database connection
+    @return: Institution - The created institution
+    """
+    new_inst = Institution(name="New Test Institution")
+    new_inst.save()
+
+    yield new_inst
+
+    new_inst.delete()
+
+
+@pytest_asyncio.fixture
+async def new_department(db_connection, new_institution)-> Department:
+    """
+    Setup: Create a new Department object for testing updates, associated with a new institution
+    @param db_connection: None - The database connection
+    @param new_institution: Institution - The new institution to associate with the department
+    @return: Department - The created department
+    """
+    new_dept = Department(name="New Test Department", institution=new_institution)
+    new_dept.save()
+
+    yield new_dept
+
+    new_dept.delete()
+
+
+@pytest_asyncio.fixture
+async def new_cited_article(db_connection)-> Article:
+    """
+    Setup: Create a new Article object to represent an alternative cited article for testing updates
+    @param db_connection: None - The database connection
+    @return: Article - The created article
+    """
+    new_article = Article(
+        title="New Cited Article",
+        publisher="New Cited Publisher",
+        date="2024-03-01",
+        issn="3456-7890",
+        eissn="0987-6543",
+        volume="3",
+        issue="2",
+        page="31-40",
+        doi="10.1000/newcited",
+        meeting="New Cited Conference",
+        file_path="/path/to/new_cited_article.pdf",
+        type="Review Article",  # Added new field
+        container_title="New Scientific Journal"  # Added new field
+    )
+    new_article.save()
+
+    yield new_article
+
+    new_article.delete()
+
+
+@pytest_asyncio.fixture
+async def new_child_topic(db_connection)-> Topic:
+    """
+    Setup: Create a new Topic object for an alternative child topic for testing updates
+    @param db_connection: None - The database connection
+    @return: Topic - The created topic
+    """
+    new_child = Topic(name="New Child Topic")
+    new_child.save()
+
+    yield new_child
+
+    new_child.delete()
+
+
 @pytest.mark.asyncio
-async def test_article_crud(article):
+async def test_article_crud(article)-> None:
     """
     Test the CRUD operations for the Article model
+    @param article: Article - The article to test
+    @return: None
     """
     # Read (The article is already created by the fixture)
     fetched_article = Article.objects(id=article.id).first()
@@ -202,9 +298,11 @@ async def test_article_crud(article):
 
 
 @pytest.mark.asyncio
-async def test_topic_crud(topic):
+async def test_topic_crud(topic)-> None:
     """
     Test the CRUD operations for the Topic model
+    @param topic: Topic - The topic to test
+    @return: None
     """
     # Read (The topic is already created by the fixture)
     fetched_topic = Topic.objects(id=topic.id).first()
@@ -219,9 +317,11 @@ async def test_topic_crud(topic):
 
 
 @pytest.mark.asyncio
-async def test_author_crud(author):
+async def test_author_crud(author)-> None:
     """
     Test the CRUD operations for the Author model
+    @param author: Author - The author to test
+    @return: None
     """
     # Read (The author is already created by the fixture)
     fetched_author = Author.objects(id=author.id).first()
@@ -236,9 +336,11 @@ async def test_author_crud(author):
 
 
 @pytest.mark.asyncio
-async def test_institution_crud(institution):
+async def test_institution_crud(institution)-> None:
     """
     Test the CRUD operations for the Institution model
+    @param institution: Institution - The institution to test
+    @return: None
     """
     # Read (The institution is already created by the fixture)
     fetched_institution = Institution.objects(id=institution.id).first()
@@ -253,9 +355,12 @@ async def test_institution_crud(institution):
 
 
 @pytest.mark.asyncio
-async def test_department_crud(db_connection, institution):
+async def test_department_crud(db_connection, institution)-> None:
     """
     Test the CRUD operations for the Department model
+    @param db_connection: None - The database connection
+    @param institution: Institution - The institution to associate with the department
+    @return: None
     """
     # Now you can use the 'institution' fixture in your test
     # Create
@@ -276,9 +381,13 @@ async def test_department_crud(db_connection, institution):
 
 
 @pytest.mark.asyncio
-async def test_author_institution_crud(db_connection, author, institution):
+async def test_author_institution_crud(db_connection, author, institution, new_institution)-> None:
     """
     Test the CRUD operations for the AuthorInstitution model
+    @param author: Author - The author to associate with the institution
+    @param institution: Institution - The institution to associate with the author
+    @param new_institution: Institution - An alternative institution for testing updates
+    @return: None
     """
     # Create
     author_institution = AuthorInstitution(author=author, institution=institution)
@@ -289,15 +398,25 @@ async def test_author_institution_crud(db_connection, author, institution):
     fetched_author_institution = AuthorInstitution.objects(id=author_institution.id).first()
     assert fetched_author_institution.author == author, "Failed to fetch the created AuthorInstitution relationship"
 
-    # Update & Delete not applicable for EmbeddedDocument
+    # Update (e.g., changing the institution)
+    author_institution.update(institution=new_institution)
+    updated_author_institution = AuthorInstitution.objects(id=author_institution.id).first()
+    assert updated_author_institution.institution == new_institution, "Failed to update the AuthorInstitution relationship"
 
-    # Delete is handled by the fixture
+    # Delete
+    author_institution.delete()
+    assert AuthorInstitution.objects(
+        id=author_institution.id).first() is None, "Failed to delete the AuthorInstitution relationship"
 
 
 @pytest.mark.asyncio
-async def test_author_department_crud(db_connection, author, department):
+async def test_author_department_crud(db_connection, author, department, new_department) -> None:
     """
     Test the CRUD operations for the AuthorDepartment model
+    @param author: Author - The author to associate with the department
+    @param department: Department - The department to associate with the author
+    @param new_department: Department - An alternative department for testing updates
+    @return: None
     """
     # Create
     author_department = AuthorDepartment(author=author, department=department)
@@ -308,15 +427,25 @@ async def test_author_department_crud(db_connection, author, department):
     fetched_author_department = AuthorDepartment.objects(id=author_department.id).first()
     assert fetched_author_department.author == author, "Failed to fetch the created AuthorDepartment relationship"
 
-    # Update & Delete not applicable for EmbeddedDocument
+    # Update (e.g., changing the department)
+    author_department.update(department=new_department)
+    updated_author_department = AuthorDepartment.objects(id=author_department.id).first()
+    assert updated_author_department.department == new_department, "Failed to update the AuthorDepartment relationship"
 
-    # Delete is handled by the fixture
+    # Delete
+    author_department.delete()
+    assert AuthorDepartment.objects(
+        id=author_department.id).first() is None, "Failed to delete the AuthorDepartment relationship"
 
 
 @pytest.mark.asyncio
-async def test_article_citation_crud(db_connection, citing_article, cited_article):
+async def test_article_citation_crud(db_connection, citing_article, cited_article, new_cited_article) -> None:
     """
     Test the CRUD operations for the ArticleCitation model
+    @param citing_article: Article - The article doing the citing
+    @param cited_article: Article - The article being cited
+    @param new_cited_article: Article - An alternative article being cited for testing updates
+    @return: None
     """
     # Create
     article_citation = ArticleCitation(citing_article=citing_article, cited_article=cited_article)
@@ -327,15 +456,24 @@ async def test_article_citation_crud(db_connection, citing_article, cited_articl
     fetched_article_citation = ArticleCitation.objects(id=article_citation.id).first()
     assert fetched_article_citation.citing_article == citing_article, "Failed to fetch the created ArticleCitation"
 
-    # Update & Delete not applicable for this relationship
+    # Update (e.g., changing the cited_article)
+    article_citation.update(cited_article=new_cited_article)
+    updated_article_citation = ArticleCitation.objects(id=article_citation.id).first()
+    assert updated_article_citation.cited_article == new_cited_article, "Failed to update the ArticleCitation"
 
-    # Delete is handled by the fixture
+    # Delete
+    article_citation.delete()
+    assert ArticleCitation.objects(id=article_citation.id).first() is None, "Failed to delete the ArticleCitation"
 
 
 @pytest.mark.asyncio
-async def test_topic_relationship_crud(db_connection, parent_topic, child_topic):
+async def test_topic_relationship_crud(db_connection, parent_topic, child_topic, new_child_topic) ->  None:
     """
     Test the CRUD operations for the TopicRelationship model
+    @param parent_topic: Topic - The parent topic
+    @param child_topic: Topic - The child topic
+    @param new_child_topic: Topic - An alternative child topic for testing updates
+    @return: None
     """
     # Create
     topic_relationship = TopicRelationship(parent_topic=parent_topic, child_topic=child_topic)
@@ -346,6 +484,11 @@ async def test_topic_relationship_crud(db_connection, parent_topic, child_topic)
     fetched_topic_relationship = TopicRelationship.objects(id=topic_relationship.id).first()
     assert fetched_topic_relationship.parent_topic == parent_topic, "Failed to fetch the created TopicRelationship"
 
-    # Update & Delete not applicable for this relationship
+    # Update (e.g., changing the child_topic)
+    topic_relationship.update(child_topic=new_child_topic)
+    updated_topic_relationship = TopicRelationship.objects(id=topic_relationship.id).first()
+    assert updated_topic_relationship.child_topic == new_child_topic, "Failed to update the TopicRelationship"
 
-    # Delete is handled by the fixture
+    # Delete
+    topic_relationship.delete()
+    assert TopicRelationship.objects(id=topic_relationship.id).first() is None, "Failed to delete the TopicRelationship"
