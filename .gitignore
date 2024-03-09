@@ -21,6 +21,5 @@ frontend/dist
 frontend/dist-ssr
 frontend/*.local
 frontend/yarn.lock
-frontend/package-lock.json
 frontend/pnpm-lock.yaml
 frontend/*.log

@@ -58,40 +58,55 @@ if (route.query.paperId) {
 
 const initializeNetwork = () => {
   if (networkContainer.value && netResults.value) {
+    // convert topics to nodes
     const topicNodes = netResults.value.topics.map(topic => ({
       id: `topic-${topic.id}`,
       label: topic.name,
-      shape: 'box',
-      color: '#97C2FC',
+      shape: 'ellipse',
+      color: '#3D9209',
     }));
 
+    // convert papers to nodes
     const paperNodes = netResults.value.papers.map(paper => ({
       id: paper.id,
       label: paper.title,
-      shape: 'ellipse',
-      color: '#fff',
+      shape: 'box',
+      color: paper.original ? '#FFC107' : '#90CAF9',
+      title: paper.authors
     }));
-    nodes = new DataSet([...topicNodes, ...paperNodes]);
 
+    // convert connections to edges
     const edgesArray = netResults.value.connections.flatMap(connection =>
         connection.papers.map(paperId => ({
           from: `topic-${connection.topic}`,
           to: paperId,
         }))
     );
+
+    // create DataSet instances for nodes and edges
+    nodes = new DataSet([...topicNodes, ...paperNodes]);
     edges = new DataSet(edgesArray);
 
-    const data = {
-      nodes: nodes,
-      edges: edges
-    };
+    // define the data and options for the network
+    const data = { nodes: nodes, edges: edges };
     const options = {
-      physics: {
-        enabled: true,
+      edges: {
+        smooth: {
+          type: 'cubicBezier',
+          forceDirection: 'horizontal',
+          roundness: 0.4,
+        },
+        color: {
+          color: '#90CAF9',
+        },
       },
+      physics: false,
     };
+
+    // initialize the network
     network = new Network(networkContainer.value, data, options);
 
+    // event listeners for node selection
     network.on("selectNode", (params) => {
       if (params.nodes.length > 0) {
         const selectedNodeId = params.nodes[0];
