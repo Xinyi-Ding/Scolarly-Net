@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from "vue";
 import DashboardCard from "@/components/DashboardCard.vue";
-import dashboardExample from '@/lib/dashboardExample.json';
+import dashboardExample from '@/lib/exampleDashboard.json';
 
 const uploaded = ref(false);
 const ready = ref({

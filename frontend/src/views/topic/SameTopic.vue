@@ -5,7 +5,7 @@ import { DataSet, Network } from 'vis-network/standalone';
 import Net from "@/layouts/NetLayout.vue";
 import SearchResult from "@/components/SearchResult.vue";
 import searchResultExample from "@/lib/searchPaperResults.json";
-import sameTopicExample from "@/lib/sameTopicExample.json";
+import sameTopicExample from "@/lib/exampleSameTopic.json";
 
 const search = ref('');
 const searchLoading = ref(false);
@@ -98,6 +98,7 @@ const initializeNetwork = () => {
         },
         color: {
           color: '#90CAF9',
+          highlight: 'red',
         },
       },
       physics: false,
@@ -129,6 +130,8 @@ const highlightNode = (paperId) => {
     highlightListItem(paperId);
   }
 };
+
+test();
 </script>
 
 <template>
@@ -174,10 +177,9 @@ const highlightNode = (paperId) => {
             </VaListItemLabel>
           </VaListItemSection>
         </VaListItem>
-        <template v-for="paper in netResults.papers">
+        <template v-for="paper in netResults.papers" :key="paper.id">
           <VaListItem
               v-if="!paper.original"
-              :key="paper.id"
               :class="{'highlight': paper.id === selectedNodeId}"
               class="p-2 cursor-pointer hover:bg-gray-100"
               @click="highlightNode(paper.id)"

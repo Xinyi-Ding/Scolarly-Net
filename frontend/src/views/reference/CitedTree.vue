@@ -5,7 +5,7 @@ import { DataSet, Network } from 'vis-network/standalone';
 import Net from "@/layouts/NetLayout.vue";
 import SearchResult from "@/components/SearchResult.vue";
 import searchResultExample from "@/lib/searchPaperResults.json";
-import citedTreeExample from "@/lib/citedTreeExample.json";
+import citedTreeExample from "@/lib/exampleCitedTree.json";
 
 const search = ref('');
 const searchLoading = ref(false);
@@ -97,7 +97,11 @@ const initializeNetwork = () => {
         },
         arrows: {
           to: { enabled: true, scaleFactor: 1, type: 'arrow' }, // Configure arrow size and style
-        }
+        },
+        color: {
+          color: '#90CAF9',
+          highlight: 'red',
+        },
       },
       physics: false, // Disable physics for hierarchical layout
     };
