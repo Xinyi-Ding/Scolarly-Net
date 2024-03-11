@@ -1,65 +1,92 @@
 import pytest
-from backend.app.services.models import ArticleVO
-from backend.app.intergration.catalog_access import create_article, get_article, update_article, delete_article
+import pytest_asyncio
+from mongoengine import connect
 
-# Data for article creation, all fields populated
-initial_article_data = ArticleVO(
-    title="Test Title",
-    publisher="Test Publisher",
-    date="2024-01-01",
-    issn="1234-5678",
-    eissn="8765-4321",
-    volume="1",
-    issue="1",
-    page="100-200",
-    doi="10.1000/testdoi",
-    meeting="Test Meeting",
-    file_path="/path/to/article",
-    type="Research",
-    container_title="Test Journal"
-)
-
-# Data for article update, might only change a few fields
-updated_article_data = ArticleVO(
-    title="Updated Title",
-    publisher="Updated Publisher",
-    date="2024-01-01",
-    issn="2234-5678",
-    eissn="8766-4321",
-    volume="2",
-    issue="2",
-    page="200-300",
-    doi="10.2000/testdoi",
-    meeting="Updated Meeting",
-    file_path="/path/updated/article",
-    type="Review",
-    container_title="Updated Journal"
-)
+from backend.app.db.config import MONGO_TEST_URI
+from backend.app.db.mongoengine_models import Article
+from backend.app.intergration.catalog_access import ArticleCRUD
+from backend.app.services.models import ArticleVO, ArticleFilter
 
 
+@pytest_asyncio.fixture(scope="module")
+async def db_connection():
+    """
+    Setup: Connect to the test database
+    """
+    connect(host=MONGO_TEST_URI, alias="test", uuidRepresentation='standard')  # Connect to your test database
+
+
+# Fixture to create an instance of ArticleCRUD
+@pytest_asyncio.fixture(scope="module")
+def article_crud():
+    return ArticleCRUD()
+
+
+# Combined test function for all CRUD operations of Article
 @pytest.mark.asyncio
-async def test_article_crud():
-    """
-    Test creating, reading, updating, and deleting an article in the catalog.
-    This test flows through each CRUD operation sequentially.
-    """
+def test_article_crud_operations(article_crud):
+    # Create an article
+    article_vo_create = ArticleVO(
+        title="Test Article",
+        abstract="This is a test article",
+        publisher="Test Publisher",
+        date="2024-01-01",
+        issn="1234-5678",
+        eissn="8765-4321",
+        volume="1",
+        issue="1",
+        page="1-10",
+        doi="10.1000/xyz123",
+        meeting="Test Conference",
+        file_path="/path/to/article.pdf",
+        type="Journal Article",
+        container_title="Test Journal"
+    )
+    created_article = article_crud.create(article_vo_create)
+    assert created_article.title == "Test Article"
+    assert created_article.abstract == "This is a test article"
 
-    # Create
-    created_article = create_article(initial_article_data)
-    assert created_article.title == initial_article_data.title  # add other assertions
+    # Search by filter (using the title)
+    filter_obj = ArticleFilter(title="Test Article")
+    search_results = article_crud.search_by_filter(filter_obj)
+    assert len(search_results) == 1
+    assert search_results[0].title == "Test Article"
+    assert search_results[0].abstract == "This is a test article"
 
-    # Read
-    retrieved_article = get_article(created_article.id)
-    assert retrieved_article.title == created_article.title  # add other assertions
+    # Update article by filter (change abstract)
+    update_filter_obj = ArticleFilter(article_id=created_article.article_id)
+    article_vo_update = ArticleVO(
+        title="Updated Test Article",  # Ensure this is a string
+        abstract="This is an updated test article",
+        publisher="Updated Test Publisher",
+        date="2025-01-01",
+        issn="1234-5678",
+        eissn="8765-4321",
+        volume="2",
+        issue="1",
+        page="11-20",
+        doi="10.1000/xyz123",
+        meeting="Updated Test Conference",
+        file_path="/path/to/updated_article.pdf",  # Ensure this field is included
+        type="Journal Article",
+        container_title="Test Journal"
+    )
+    update_results = article_crud.update_by_filter(update_filter_obj, article_vo_update)
+    assert update_results is not None
+    assert len(update_results) == 1
+    assert update_results[0].abstract == "This is an updated test article"
 
-    # Update
-    updated_article = update_article(created_article.id, updated_article_data)
-    assert updated_article.title == updated_article_data.title  # add other assertions
+    # Get by filter to verify update
+    verify_update_results = article_crud.get_by_filter(update_filter_obj)
+    assert verify_update_results is not None
+    assert len(verify_update_results) == 1
+    assert verify_update_results[0].abstract == "This is an updated test article"
 
-    # Delete
-    result = delete_article(created_article.id)
-    assert result is True
+    # Delete article by filter
+    delete_filter_obj = ArticleFilter(title="Updated Test Article")
+    delete_success = article_crud.delete_by_filter(delete_filter_obj)
+    assert delete_success
 
-    # Verify Deletion
-    deleted_article = get_article(created_article.id)
-    assert deleted_article is None
+    # Verify deletion
+    verify_delete_results = article_crud.get_by_filter(delete_filter_obj)
+    assert verify_delete_results is None or len(verify_delete_results) == 0

@@ -1,5 +1,6 @@
 from datetime import datetime, date
 
+from bson import ObjectId
 from pydantic import BaseModel, EmailStr, Field, validator
 from typing import Optional
 
@@ -12,8 +13,9 @@ class SequenceVO(BaseModel):
 
 # Pydantic model for the Article
 class ArticleVO(BaseModel):
-    id: Optional[int] = None
+    article_id: Optional[int] = Field(default_factory=int)
     title: str
+    abstract: Optional[str] = None
     publisher: Optional[str] = None
     date: Optional[str] = None
     issn: Optional[str] = None
@@ -46,31 +48,70 @@ class ArticleVO(BaseModel):
         orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
 
 
+class ArticleFilter(ArticleVO):
+    article_id: Optional[int] = None
+    title: Optional[str] = None
+    file_path: Optional[str] = None
+
+
 # Pydantic model for the Topic
 class TopicVO(BaseModel):
-    id: Optional[int] = Field(default_factory=int)
+    topic_id: Optional[int] = Field(default_factory=int)
     name: str
+
+    class Config:
+        orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
+
+
+class TopicFilter(TopicVO):
+    topic_id: Optional[int] = None
+    name: Optional[str] = None
 
 
 # Pydantic model for the Author
 class AuthorVO(BaseModel):
-    id: Optional[int] = Field(default_factory=int)
+    author_id: Optional[int] = Field(default_factory=int)
     family_name: str
     given_name: str
     email: Optional[EmailStr] = None
 
+    class Config:
+        orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
+
+
+class AuthorFilter(AuthorVO):
+    author_id: Optional[int] = None
+    family_name: Optional[str] = None
+    given_name: Optional[str] = None
+
 
 # Pydantic model for the Institution
 class InstitutionVO(BaseModel):
-    id: Optional[int] = Field(default_factory=int)
+    institution_id: Optional[int] = Field(default_factory=int)
     name: str
+
+    class Config:
+        orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
+
+
+class InstitutionFilter(InstitutionVO):
+    institution_id: Optional[int] = None
+    name: Optional[str] = None
 
 
 # Pydantic model for the Department
 class DepartmentVO(BaseModel):
-    id: Optional[int] = Field(default_factory=int)
+    department_id: Optional[int] = Field(default_factory=int)
     name: str
-    institution_id: int  # Assuming you want to reference the Institution by its ID
+    institution_id: Optional[int] = None  # Assuming you want to reference the Institution by its ID
+
+    class Config:
+        orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
+
+
+class DepartmentFilter(DepartmentVO):
+    department_id: Optional[int] = None
+    name: Optional[str] = None
 
 
 # Pydantic model for Author-Institution relationship
@@ -78,11 +119,27 @@ class AuthorInstitutionVO(BaseModel):
     author_id: int  # Assuming you want to reference the Author by its ID
     institution_id: int  # Assuming you want to reference the Institution by its ID
 
+    class Config:
+        orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
+
+
+class AuthorInstitutionFilter(AuthorInstitutionVO):
+    author_id: Optional[int] = None
+    institution_id: Optional[int] = None
+
 
 # Pydantic model for Author-Department relationship
 class AuthorDepartmentVO(BaseModel):
     author_id: int  # Assuming you want to reference the Author by its ID
     department_id: int  # Assuming you want to reference the Department by its ID
+
+    class Config:
+        orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
+
+
+class AuthorDepartmentFilter(AuthorDepartmentVO):
+    author_id: Optional[int] = None
+    department_id: Optional[int] = None
 
 
 # Pydantic model for Article-Author relationship
@@ -90,14 +147,52 @@ class ArticleAuthorVO(BaseModel):
     article_id: int  # Assuming you want to reference the Article by its ID
     author_id: int  # Assuming you want to reference the Author by its ID
 
+    class Config:
+        orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
+
+
+class ArticleAuthorFilter(ArticleAuthorVO):
+    article_id: Optional[int] = None
+    author_id: Optional[int] = None
+
+
+# Pydantic model for Article-Author relationship
+class ArticleTopicVO(BaseModel):
+    article_id: int  # Assuming you want to reference the Article by its ID
+    topic_id: int  # Assuming you want to reference the Topic by its ID
+
+    class Config:
+        orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
+
+
+class ArticleTopicFilter(ArticleTopicVO):
+    article_id: Optional[int] = None
+    topic_id: Optional[int] = None
+
 
 # Pydantic model for Article-Citation relationship
 class ArticleCitationVO(BaseModel):
     citing_article_id: int  # Assuming you want to reference the citing Article by its ID
     cited_article_id: int  # Assuming you want to reference the cited Article by its ID
 
+    class Config:
+        orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
+
+
+class ArticleCitationFilter(ArticleCitationVO):
+    citing_article_id: Optional[int] = None
+    cited_article_id: Optional[int] = None
+
 
 # Pydantic model for TopicRelationship
 class TopicRelationshipVO(BaseModel):
     parent_topic_id: int  # Assuming you want to reference the parent Topic by its ID
     child_topic_id: int  # Assuming you want to reference the child Topic by its ID
+
+    class Config:
+        orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
+
+
+class TopicRelationshipFilter(TopicRelationshipVO):
+    parent_topic_id: Optional[int] = None
+    child_topic_id: Optional[int] = None

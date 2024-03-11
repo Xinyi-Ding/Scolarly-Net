@@ -1,6 +1,6 @@
 from mongoengine import Document, connect
 from mongoengine.fields import (
-    StringField, IntField, DateField, EmailField, ReferenceField
+    StringField, IntField, DateField, EmailField
 )
 from backend.app.db.config import MONGO_URI
 
@@ -38,9 +38,11 @@ def sequence(sequence_name):
 class Article(Document):
     meta = {'collection': 'article'}
     # Unique identifier for each article.
-    id = IntField(primary_key=True, default=lambda: sequence('article'))
+    article_id = IntField(primary_key=True, default=lambda: sequence('article'))
     # The title of the article.
     title = StringField(required=True, max_length=255)
+    # The abstract of the article. This field can be null.
+    abstract = StringField(max_length=4000)
     # The publisher of the article. This field can be null.
     publisher = StringField(max_length=255)
     # The original date the article was written or submitted. This field can be null.
@@ -60,7 +62,7 @@ class Article(Document):
     # The conference or meeting where the article was presented. This field can be null.
     meeting = StringField(max_length=255)
     # The location where the article file is stored.
-    file_path = StringField(required=True, max_length=255)
+    file_path = StringField(max_length=255)
     # The type of the publication (e.g., Journal Article, Conference Paper, Book, etc.). This field can be null.
     type = StringField(max_length=255)
     # The title of the container holding the publication (e.g., Journal Title, Conference Name, Book Title,
@@ -72,7 +74,7 @@ class Article(Document):
 class Topic(Document):
     meta = {'collection': 'topic'}
     # Unique identifier for each topic.
-    id = IntField(primary_key=True, default=lambda: sequence('topic'))
+    topic_id = IntField(primary_key=True, default=lambda: sequence('topic'))
     # The name of the topic. It must be unique.
     name = StringField(required=True, max_length=100, unique=True)
 
@@ -81,7 +83,7 @@ class Topic(Document):
 class Author(Document):
     meta = {'collection': 'author'}
     # Unique identifier for each author.
-    id = IntField(primary_key=True, default=lambda: sequence('author'))
+    author_id = IntField(primary_key=True, default=lambda: sequence('author'))
     # The family name of the author.
     family_name = StringField(required=True, max_length=255)
     # The given name of the author.
@@ -94,7 +96,7 @@ class Author(Document):
 class Institution(Document):
     meta = {'collection': 'institution'}
     # Unique identifier for each institution.
-    id = IntField(primary_key=True, default=lambda: sequence('institution'))
+    institution_id = IntField(primary_key=True, default=lambda: sequence('institution'))
     # The name of the institution. It must be unique.
     name = StringField(required=True, max_length=255, unique=True)
 
@@ -103,50 +105,56 @@ class Institution(Document):
 class Department(Document):
     meta = {'collection': 'department'}
     # Unique identifier for each department.
-    id = IntField(primary_key=True, default=lambda: sequence('department'))
+    department_id = IntField(primary_key=True, default=lambda: sequence('department'))
     # The name of the department.
     name = StringField(required=True, max_length=255)
     # Reference to the Institution document.
-    institution = ReferenceField(Institution, required=True)
+    institution_id = IntField(required=False)
 
 
 # Author-Institution model (relationship)
 class AuthorInstitution(Document):
     # Reference to the Author document; represents the many-to-many relationship between authors and institutions.
-    author = ReferenceField(Author, required=True)
+    author_id = IntField(required=True)
     # Reference to the Institution document; represents the many-to-many relationship between authors and institutions.
-    institution = ReferenceField(Institution, required=True)
+    institution_id = IntField(required=True)
 
 
 # Author-Department model (relationship)
 class AuthorDepartment(Document):
     # Reference to the Author document; represents the many-to-many relationship between authors and departments.
-    author = ReferenceField(Author, required=True)
+    author_id = IntField(required=True)
     # Reference to the Department document; represents the many-to-many relationship between authors and departments.
-    department = ReferenceField(Department, required=True)
+    department_id = IntField(required=True)
 
 
 # Article-Author model (relationship)
 class ArticleAuthor(Document):
     # Reference to the Article document.
-    article = ReferenceField(Article, required=True)
+    article_id = IntField(required=True)
     # Reference to the Author document.
-    author = ReferenceField(Author, required=True)
+    author_id = IntField(required=True)
 
 
 # Article-Citation model
 class ArticleCitation(Document):
     meta = {'collection': 'article_citation'}
     # Reference to the Article document that is doing the citing.
-    citing_article = ReferenceField(Article, required=True, dbref=True)
+    citing_article_id = IntField(required=True)
     # Reference to the Article document that is being cited.
-    cited_article = ReferenceField(Article, required=True, dbref=True)
+    cited_article_id = IntField(required=True)
+
+
+class ArticleTopic(Document):
+    meta = {'collection': 'article_topic'}
+    article_id = IntField(required=True)
+    topic_id = IntField(required=True)
 
 
 # TopicRelationship model
 class TopicRelationship(Document):
     meta = {'collection': 'topic_relationship'}
     # Reference to the Topic document that is the parent topic.
-    parent_topic = ReferenceField(Topic, required=True, dbref=True)
+    parent_topic_id = IntField(required=True)
     # Reference to the Topic document that is the child topic.
-    child_topic = ReferenceField(Topic, required=True, dbref=True)
+    child_topic_id = IntField(required=True)
