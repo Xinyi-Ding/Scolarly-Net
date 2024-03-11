@@ -1,6 +1,4 @@
 from datetime import datetime, date
-
-from bson import ObjectId
 from pydantic import BaseModel, EmailStr, Field, validator
 from typing import Optional
 

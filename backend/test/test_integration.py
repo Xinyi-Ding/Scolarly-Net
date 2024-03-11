@@ -3,7 +3,6 @@ import pytest_asyncio
 from mongoengine import connect
 
 from backend.app.db.config import MONGO_TEST_URI
-from backend.app.db.mongoengine_models import Article
 from backend.app.intergration.catalog_access import ArticleCRUD
 from backend.app.services.models import ArticleVO, ArticleFilter
 
