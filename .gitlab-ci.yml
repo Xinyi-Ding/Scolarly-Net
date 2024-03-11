@@ -4,7 +4,25 @@ include:
       - changes:
           - frontend/**/*
 
-  - local: 'backend/backend-ci.yml'
-    rules:
-      - changes:
-          - backend/**/*
+default:
+  image: python:3.10
+
+stages:          # List of stages for jobs, and their order of execution
+  - test
+
+before_script:
+  - pip install -r backend/requirements.txt
+  - cd backend
+
+unit-test-job:   # This job runs in the test stage.
+  stage: test    # It only starts when the job in the build stage completes successfully.
+  script:
+    - pytest test/test_main.py  # Run backend service tests
+    - pytest test/test_db.py  # Run database tests
+    - pytest test/test_integration.py  # Run integration tests
+
+lint-test-job:   # This job also runs in the test stage.
+  stage: test    # It can run at the same time as unit-test-job (in parallel).
+  script:
+    - pip install flake8
+    - flake8 . --max-line-length=120
