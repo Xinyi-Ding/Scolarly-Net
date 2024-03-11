@@ -36,11 +36,7 @@ const getReadyStripe = () => {
 
 const handleClick = (link) => {
   if (link) {
-    if (props.paperId) router.push({
-      path: link,
-      query: { paperId: props.paperId }
-    });
-    else router.push(link);
+    return props.paperId ? router.push({ path: link, query: { paperId: props.paperId } }) : router.push(link);
   }
 }
 

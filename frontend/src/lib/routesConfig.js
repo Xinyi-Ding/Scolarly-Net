@@ -3,7 +3,7 @@ export const routesConfig = [
     path: '/dashboard',
     name: 'dashboard',
     icon: 'dashboard',
-    component: () => import('@/views/Dashboard.vue'),
+    component: () => import('@/views/PaperDashboard.vue'),
     meta: {
       title: 'Dashboard',
     }
