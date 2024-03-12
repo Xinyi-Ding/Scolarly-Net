@@ -1,0 +1,813 @@
+{
+    "title": "Anvil - System Architecture and Experiences from Deployment and Early User Operations",
+    "doi": "10.1145/3491418.3530766",
+    "publisher": "ACM",
+    "journal": null,
+    "publish date": "2022-07-08",
+    "abstract": "Anvil is a new XSEDE advanced capacity computational resource funded by NSF. Designed with a systematic strategy to meet the ever increasing and diversifying research needs for advanced computa- tional capacity, Anvil integrates a large capacity high-performance computing (HPC) system with a comprehensive ecosystem of soft- ware, access interfaces, programming environments, and compos- able services in a seamless environment to support a broad range of current and future science and engineering applications of the nation’s research community. Anchored by a 1000-node CPU clus- ter featuring the latest AMD EPYC 3rd generation (Milan) proces- sors, along with a set of 1TB large memory and NVIDIA A100 GPU nodes, Anvil integrates a multi-tier storage system, a Kuber- netes composable subsystem, and a pathway to Azure commercial cloud to support a variety of workflows and storage needs. Anvil was successfully deployed and integrated with XSEDE during the world-wide COVID-19 pandemic. Entering production operation in February 2022, Anvil will serve the nation’s science and engi- neering research community for five years. This paper describes the Anvil system and services, including its various components and subsystems, user facing features, and shares the Anvil team’s experience through its early user access program from November 2021 through January 2022.",
+    "keywords": [
+        "parallel computing methodologies",
+        "distributed computing methodologies",
+        "hardware"
+    ],
+    "authors": [
+        {
+            "name": "Carol X. Song",
+            "affiliation": "Purdue University",
+            "email": null
+        },
+        {
+            "name": "Xiao Zhu",
+            "affiliation": "Purdue University",
+            "email": null
+        },
+        {
+            "name": "Patrick T. Finnegan",
+            "affiliation": "Purdue University",
+            "email": null
+        },
+        {
+            "name": "Rick Irvine",
+            "affiliation": "Purdue University",
+            "email": null
+        },
+        {
+            "name": "Preston Smith",
+            "affiliation": "Purdue University",
+            "email": null
+        },
+        {
+            "name": "Eric W. Adams",
+            "affiliation": "Purdue University",
+            "email": null
+        },
+        {
+            "name": "Erik Gough",
+            "affiliation": "Purdue University",
+            "email": null
+        },
+        {
+            "name": "Rajkumar Kettimuthu",
+            "affiliation": "Argonne National Laboratory",
+            "email": null
+        },
+        {
+            "name": "Amiya K. Maji",
+            "affiliation": "Purdue University",
+            "email": null
+        },
+        {
+            "name": "Rajesh Kalyanam",
+            "affiliation": "Purdue University",
+            "email": null
+        },
+        {
+            "name": "Kevin D. Colby",
+            "affiliation": "Purdue University",
+            "email": null
+        },
+        {
+            "name": "Elizabett Hillery",
+            "affiliation": "Purdue University",
+            "email": null
+        },
+        {
+            "name": "Jason St. John",
+            "affiliation": "Purdue University",
+            "email": null
+        }
+    ],
+    "References": [
+        {
+            "citation-number": "1",
+            "author": [
+                {
+                    "family": "Andino",
+                    "given": "G.K."
+                },
+                {
+                    "family": "Brazil",
+                    "given": "M."
+                },
+                {
+                    "family": "Gribskov",
+                    "given": "M."
+                },
+                {
+                    "family": "Smith",
+                    "given": "P."
+                }
+            ],
+            "title": "Advancing the represen- tation of women in HPC at purdue university",
+            "container-title": "ACM International Conference Proceeding Series",
+            "volume": "Part F1287",
+            "language": "en",
+            "type": "paper-conference",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "DOI": "10.1145/3093338.3104175"
+        },
+        {
+            "citation-number": "2",
+            "author": [
+                {
+                    "family": "Baldwin",
+                    "given": "Michael E."
+                },
+                {
+                    "family": "Zhu",
+                    "given": "Xiao"
+                },
+                {
+                    "family": "Smith",
+                    "given": "Preston M."
+                },
+                {
+                    "family": "Harrell",
+                    "given": "Stephen Lien"
+                },
+                {
+                    "family": "Skeel",
+                    "given": "Robert"
+                },
+                {
+                    "family": "Maji",
+                    "given": "Amiya"
+                }
+            ],
+            "title": "Scholar: a campus HPC resource to enable compu- tational literacy",
+            "container-title": "Education for High-Performance Computing (EduHPC), 2016 Workshop on",
+            "publisher": "IEEE",
+            "language": "en",
+            "type": "chapter",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "page": "25–31"
+        },
+        {
+            "citation-number": "3",
+            "author": [
+                {
+                    "family": "BrendanBurns",
+                    "given": "BrianGrant"
+                },
+                {
+                    "family": "DavidOppenheimer",
+                    "given": "EricBrewer"
+                },
+                {
+                    "given": "andJohnWilkes"
+                }
+            ],
+            "title": "Borg, Omega, and Kubernetes",
+            "volume": "14, 1",
+            "type": "article-journal",
+            "container-title": "Queue",
+            "language": "zu",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "page": "70–93",
+            "URL": "https:",
+            "DOI": "10.1145/2898442.2898444"
+        },
+        {
+            "citation-number": "4",
+            "author": [
+                {
+                    "family": "Cendio",
+                    "given": "A.B."
+                }
+            ],
+            "title": "ThinLinc - a remote desktop server from Cendio | ThinLinc byCendio.([n.d",
+            "language": "fr",
+            "type": null,
+            "issued": {
+                "raw": "XXXX"
+            },
+            "URL": "https://www.cendio.com/thinlinc/what-is-thinlinc"
+        },
+        {
+            "citation-number": "5",
+            "title": "PurdueResearchComputing.[n.d.].ITaPResearchComputing-DataWorkbench",
+            "genre": "([n.d.]).",
+            "language": "xh",
+            "type": null,
+            "URL": "https://www.rcac.purdue.edu/compute/workbench"
+        },
+        {
+            "citation-number": "6",
+            "author": [
+                {
+                    "family": "Veiga Leprevost",
+                    "given": "Felipe",
+                    "particle": "da"
+                },
+                {
+                    "family": "Grüning",
+                    "given": "Björn A."
+                },
+                {
+                    "family": "Aflitos",
+                    "given": "Saulo Alves"
+                },
+                {
+                    "family": "Röst",
+                    "given": "Hannes L."
+                },
+                {
+                    "family": "Uszkoreit",
+                    "given": "Julian"
+                },
+                {
+                    "family": "Barsnes",
+                    "given": "Harald"
+                },
+                {
+                    "family": "Vaudel",
+                    "given": "Marc"
+                },
+                {
+                    "family": "Moreno",
+                    "given": "Pablo"
+                },
+                {
+                    "family": "Gatto",
+                    "given": "Lau-",
+                    "particle": "rent"
+                },
+                {
+                    "family": "Weber",
+                    "given": "Jonas"
+                },
+                {
+                    "family": "Bai",
+                    "given": "Mingze"
+                },
+                {
+                    "family": "Jimenez",
+                    "given": "Rafael C."
+                },
+                {
+                    "family": "berg",
+                    "given": "Timo Sachsen-"
+                },
+                {
+                    "family": "Pfeuffer",
+                    "given": "Julianus"
+                },
+                {
+                    "family": "Alvarez",
+                    "given": "Roberto Vera"
+                },
+                {
+                    "family": "Griss",
+                    "given": "Johannes"
+                },
+                {
+                    "family": "Nesvizhskii",
+                    "given": "Alexey I."
+                },
+                {
+                    "family": "Perez-Riverol",
+                    "given": "Yasset"
+                }
+            ],
+            "title": "BioContainers: an open- source and community-driven framework for software standardization",
+            "volume": "33, 16",
+            "type": "article-journal",
+            "container-title": "Bioinformatics",
+            "language": "en",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "2580–2582",
+            "URL": "https://doi.org/10.1093/"
+        },
+        {
+            "citation-number": "7",
+            "author": [
+                {
+                    "family": "Gamblin",
+                    "given": "Todd"
+                },
+                {
+                    "family": "LeGendre",
+                    "given": "Matthew"
+                },
+                {
+                    "family": "Collette",
+                    "given": "Michael R."
+                },
+                {
+                    "family": "Lee",
+                    "given": "Gregory L."
+                },
+                {
+                    "family": "Moody",
+                    "given": "Adam"
+                },
+                {
+                    "family": "Supinski",
+                    "given": "Bronis R.",
+                    "particle": "de"
+                },
+                {
+                    "family": "Futral",
+                    "given": "Scott"
+                }
+            ],
+            "title": "The Spack package manager",
+            "container-title": "Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis on - SC ’15",
+            "publisher": "ACM Press",
+            "language": "en",
+            "type": "paper-conference",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "page": "1–12",
+            "publisher-place": "New York, New York, USA",
+            "DOI": "10.1145/2807591.2807623"
+        },
+        {
+            "citation-number": "8",
+            "author": [
+                {
+                    "family": "Gough",
+                    "given": "Erik"
+                }
+            ],
+            "title": "ITaP Research Computing - Interactive Scientific Computing on the Anvil Composable Subsystem",
+            "language": "en",
+            "type": null,
+            "issued": {
+                "raw": "XXXX"
+            },
+            "URL": "https://www.rcac.purdue.edu/training/"
+        },
+        {
+            "citation-number": "9",
+            "author": [
+                {
+                    "family": "Gough",
+                    "given": "Erik"
+                },
+                {
+                    "family": "Weekly",
+                    "given": "Sam"
+                },
+                {
+                    "family": "Werts",
+                    "given": "Brian"
+                },
+                {
+                    "family": "Smith",
+                    "given": "Preston"
+                }
+            ],
+            "title": "Enabling Re- search and Education through the Geddes Composable Platform",
+            "language": "en",
+            "type": null,
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "URL": "https://doi.org/10.5281/ZENODO.5796289",
+            "DOI": "10.5281/ZENODO.5796289"
+        },
+        {
+            "citation-number": "10",
+            "author": [
+                {
+                    "family": "Harrell",
+                    "given": "S."
+                },
+                {
+                    "family": "Nam",
+                    "given": "H.A."
+                },
+                {
+                    "family": "Vergara",
+                    "given": "V."
+                },
+                {
+                    "family": "Keville",
+                    "given": "K."
+                },
+                {
+                    "family": "Kamalic",
+                    "given": "D."
+                }
+            ],
+            "title": "Student Cluster Competition: A Multi-disciplinary Undergraduate HPC Educational Tool",
+            "container-title": "EduHPC ’15 Proceedings of the Workshop on Education for High-Performance Computing",
+            "language": "en",
+            "type": "paper-conference",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            }
+        },
+        {
+            "citation-number": "11",
+            "author": [
+                {
+                    "family": "Harrell",
+                    "given": "Stephen Lien"
+                },
+                {
+                    "family": "Brazil",
+                    "given": "Marisa"
+                },
+                {
+                    "family": "Younts",
+                    "given": "Alex"
+                },
+                {
+                    "family": "Dietz",
+                    "given": "Daniel T."
+                },
+                {
+                    "family": "Smith",
+                    "given": "Preston"
+                },
+                {
+                    "family": "Gough",
+                    "given": "Erik"
+                },
+                {
+                    "family": "Zhu",
+                    "given": "Xiao"
+                },
+                {
+                    "family": "Andino",
+                    "given": "Gladys K."
+                }
+            ],
+            "title": "Mentoring Undergraduates into Cyber-Facilitator Roles",
+            "container-title": "Proceedings of the Practice and Experience on Advanced Research Computing - PEARC ’18",
+            "publisher": "ACM Press",
+            "language": "en",
+            "type": "paper-conference",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "page": "1–7",
+            "publisher-place": "New York, New York, USA",
+            "DOI": "10.1145/3219104.3219138"
+        },
+        {
+            "citation-number": "12",
+            "author": [
+                {
+                    "family": "Hudak",
+                    "given": "Dave"
+                },
+                {
+                    "family": "Johnson",
+                    "given": "Doug"
+                },
+                {
+                    "family": "Chalker",
+                    "given": "Alan"
+                },
+                {
+                    "family": "Nicklas",
+                    "given": "Jeremy"
+                },
+                {
+                    "family": "Franz",
+                    "given": "Eric"
+                },
+                {
+                    "family": "Dockendorf",
+                    "given": "Trey"
+                },
+                {
+                    "family": "Mcmichael",
+                    "given": "Brian L."
+                }
+            ],
+            "title": "Open OnDemand: A web-based client portal for HPC",
+            "type": "article-journal",
+            "container-title": "centers Software • Review • Repository • Archive",
+            "language": "en",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "URL": "https://doi.org/10.21105/joss.00622",
+            "DOI": "10.21105/joss.00622"
+        },
+        {
+            "citation-number": "13",
+            "author": [
+                {
+                    "given": "N.V.I.D.I.A."
+                }
+            ],
+            "title": "NGC Overview :: NVIDIA GPU Cloud Documentation",
+            "genre": "([n. d.]).",
+            "language": "haw",
+            "type": null,
+            "issued": {
+                "raw": "XXXX"
+            },
+            "URL": "https://docs.nvidia.com/ngc/ngc-"
+        },
+        {
+            "citation-number": "14",
+            "author": [
+                {
+                    "given": "Rancher"
+                }
+            ],
+            "title": "Enterprise Kubernetes Management | Rancher",
+            "language": "da",
+            "type": null,
+            "issued": {
+                "raw": "XXXX"
+            },
+            "URL": "https://rancher.com/"
+        },
+        {
+            "citation-number": "15",
+            "author": [
+                {
+                    "family": "Towns",
+                    "given": "John"
+                },
+                {
+                    "family": "Towns",
+                    "given": "J."
+                },
+                {
+                    "family": "Cockerill",
+                    "given": "T."
+                },
+                {
+                    "family": "Dahan",
+                    "given": "M."
+                },
+                {
+                    "family": "Foster",
+                    "given": "I."
+                },
+                {
+                    "family": "Gaither",
+                    "given": "K."
+                },
+                {
+                    "family": "Grimshaw",
+                    "given": "A."
+                },
+                {
+                    "family": "Hazlewood",
+                    "given": "V."
+                }
+            ],
+            "title": "XSEDE Annual Report for Report Year 4 and Program Plan for Project Year 10",
+            "language": "en",
+            "type": null,
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "URL": "https://www.ideals.illinois.edu/handle/2142/107285"
+        },
+        {
+            "author": [
+                {
+                    "family": "Lathrop",
+                    "given": "S."
+                },
+                {
+                    "family": "Lifka",
+                    "given": "D."
+                },
+                {
+                    "family": "Peterson",
+                    "given": "G.D."
+                },
+                {
+                    "family": "Roskies",
+                    "given": "R."
+                },
+                {
+                    "family": "Scott",
+                    "given": "J."
+                },
+                {
+                    "family": "Wilkins-Diehr",
+                    "given": "N."
+                }
+            ],
+            "title": "XSEDE: Accelerating Scientific Discovery",
+            "volume": "16, 05",
+            "type": "article-journal",
+            "container-title": "Computing in Science \u0026 Engineering",
+            "language": "en",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "page": "62–74",
+            "DOI": "10.1109/MCSE.2014.80"
+        },
+        {
+            "citation-number": "17",
+            "author": [
+                {
+                    "family": "Weekly",
+                    "given": "Sam"
+                },
+                {
+                    "family": "Mertes",
+                    "given": "Zoey"
+                },
+                {
+                    "family": "Younts",
+                    "given": "Alex"
+                }
+            ],
+            "title": "Rapid Prototype for Shifting HPC to the Cloud",
+            "container-title": "2021 IEEE 17th International Conference on",
+            "volume": "eScience (eScience",
+            "language": "en",
+            "type": "paper-conference",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "page": "262–263",
+            "DOI": "10.1109/ESCIENCE51609.2021.00051"
+        },
+        {
+            "citation-number": "18",
+            "author": [
+                {
+                    "family": "Weil",
+                    "given": "Sage A."
+                },
+                {
+                    "family": "Brandt",
+                    "given": "Scott A."
+                },
+                {
+                    "family": "Miller",
+                    "given": "Ethan L."
+                },
+                {
+                    "family": "Long",
+                    "given": "Darrell D.E."
+                },
+                {
+                    "family": "Maltzahn",
+                    "given": "Carlos"
+                }
+            ],
+            "title": "Ceph: A Scalable, High-Performance Distributed File System",
+            "container-title": "Proceedings of the 7th Symposium on Operating Systems Design and Implementation (OSDI ’06",
+            "publisher": "USENIX Association",
+            "language": "en",
+            "type": "paper-conference",
+            "issued": {
+                "date-parts": [
+                    [
+                        2006
+                    ]
+                ]
+            },
+            "page": "307–320",
+            "publisher-place": "USA"
+        },
+        {
+            "citation-number": "19",
+            "author": [
+                {
+                    "family": "Wilton",
+                    "given": "Richard"
+                },
+                {
+                    "family": "Szalay",
+                    "given": "Alexander S."
+                }
+            ],
+            "title": "Performance op- timization in DNA short-read alignment",
+            "volume": "38, 8",
+            "note": "btac066 arXiv:https://academic.oup.com/bioinformatics/article- pdf/38/8/2081/43369967/btac066.pdf",
+            "type": "article-journal",
+            "container-title": "Bioinformatics",
+            "language": "ca",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "page": "2081–2087",
+            "URL": "https://doi.org/10.1093/bioinformatics/",
+            "DOI": "10.1093/bioinformatics/"
+        },
+        {
+            "citation-number": "20",
+            "author": [
+                {
+                    "family": "Wu",
+                    "given": "Tsai-Wei"
+                },
+                {
+                    "family": "Harrell",
+                    "given": "Stephen Lien"
+                },
+                {
+                    "family": "Lentner",
+                    "given": "Geoffrey"
+                },
+                {
+                    "family": "Younts",
+                    "given": "Alex"
+                },
+                {
+                    "family": "Weekly",
+                    "given": "Sam"
+                },
+                {
+                    "family": "Mertes",
+                    "given": "Zoey"
+                },
+                {
+                    "family": "Maji",
+                    "given": "Amiya"
+                },
+                {
+                    "family": "Smith",
+                    "given": "Preston"
+                },
+                {
+                    "family": "Zhu",
+                    "given": "Xiao"
+                }
+            ],
+            "title": "Defining Per- formance of Scientific Application Workloads on the AMD Milan Platform",
+            "container-title": "Practice and Experience in Advanced Research Computing (PEARC ’21",
+            "publisher": "Association for Computing Machinery",
+            "note": "https://doi.org/10.1145/3437359. 3465596",
+            "language": "en",
+            "type": "chapter",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "publisher-place": "New York, NY, USA"
+        }
+    ]
+}

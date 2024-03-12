@@ -1,16 +1,39 @@
 from .Grobid.grobid_client import GrobidClient
 from pathlib import Path
+import socket
+import subprocess
+from subprocess import Popen
+import time
+
+
 
 
 class Extractor(object):
     def __init__(self, artical_path):
         self.pdf_file_path = artical_path
-        self.xml_path = None
+        self.xml_path = self.generate_xml_path(artical_path)
         self.pdf_to_xml()
 
     def pdf_to_xml(self):
+        """
+        Convert the PDF file to XML using Grobid.
+
+        Args:
+        - pdf_file_path: The file path to the PDF file.
+
+        Returns:
+        - str: The file path to the XML file.
+        """
+        if not self._check_grobid_running():
+            if not self._start_grobid_service():
+                print("Unable to start Grobid service. Please check your Grobid setup.")
+                return
         config_path = Path.cwd()/"Extractor/Grobid/config.json"
-        client = GrobidClient(config_path=config_path)
+        client = GrobidClient(grobid_server="http://localhost:8070", 
+                              batch_size=1000, 
+                              sleep_time=5, 
+                              timeout=120, 
+                              coordinates=["persName", "figure", "ref", "biblStruct", "formula", "s", "note", "title"])
 
         req = client.process_pdf(
             service="processFulltextDocument",
@@ -23,7 +46,69 @@ class Extractor(object):
             tei_coordinates=True,
             segment_sentences=True
         )
-
-        self.xml_path = f"../data/xml/test3.xml"
         with open(self.xml_path, "w", encoding="utf-8") as file:
             file.write(req[2])
+    
+    # @TODO the start method is properly implemented, need to test it
+    def _start_grobid_service(self, grobid_path=Path(__file__).parent / 'Grobid/grobid-0.8.0'):
+        """
+        Start the Grobid service.
+
+        Args:
+        - grobid_path: The file path to the Grobid home directory.
+
+        Returns:
+        - bool: True if Grobid starts successfully, False otherwise.
+        """
+        try:
+            print(grobid_path)
+            # Start the Grobid service using the provided file path
+            print("Starting Grobid service...")
+            cmd = f"cd {grobid_path} && ./gradlew run"
+            Popen(cmd, shell=True)
+            # Try to connect to the service every 5 seconds, up to 15 attempts (total 1.5 minute)
+            for _ in range(18):
+                if self._check_grobid_running():
+                    print("Grobid service started successfully.")
+                    return True
+                time.sleep(5)
+            print("Failed to confirm Grobid service start within the timeout period.")
+            return False
+        except Exception as e:
+            print(f"Failed to start Grobid service: {e}")
+            return False
+        
+    def _check_grobid_running(self, url='http://localhost:8070'):
+        """
+        Check if the Grobid service is running by making a request to the specified URL using curl.
+
+        Args:
+        - url: The URL to the Grobid service (default 'http://localhost:8070').
+
+        Returns:
+        - bool: True if Grobid is running, False otherwise.
+        """
+        try:
+            # Use curl to make a request to the Grobid service and capture the HTTP status code
+            result = subprocess.run(['curl', '-s', '-o', '/dev/null', '-w', '%{http_code}', url], capture_output=True, text=True)
+            status_code = result.stdout.strip()
+
+            # Check if the status code is 200 (OK)
+            if status_code == "200":
+                print("Grobid service is running.")
+                return True
+            # If the status code is not 200, the service might not be running
+            else:
+                print(f"Grobid service might not be running. HTTP status code: {status_code}")
+                return False
+        except subprocess.CalledProcessError as e:
+            # If an error occurs, the service is not running
+            print(f"Failed to check Grobid service with curl: {e}")
+            return False
+    
+    def generate_xml_path(self, pdf_file_path):
+        pdf_path = Path(pdf_file_path)
+        pdf_dir = str(pdf_path.parent)
+        xml_dir = pdf_dir.replace("Papers", "xml")
+        xml_file_path = Path(xml_dir) / (pdf_path.stem + ".xml")
+        return str(xml_file_path)

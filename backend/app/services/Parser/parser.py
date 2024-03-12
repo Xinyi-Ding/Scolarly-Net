@@ -91,7 +91,6 @@ class Parser(object):
     def _parse_content(self) -> Content:
         tei_root = self.etree.getroot()
         abstract = _find_text_paragraph(tei_root, './/tei:profileDesc/tei:abstract', namespaces={'tei': self.tei_namespace})
-        conclusion = _find_text_paragraph(tei_root, './/tei:text//tei:div[@type="conclusion"]', namespaces={'tei': self.tei_namespace})
         keywords = _find_words_list(tei_root, './/tei:profileDesc/tei:textClass/tei:keywords/tei:term', namespaces={'tei': self.tei_namespace})
         return Content(
             abstract=abstract,

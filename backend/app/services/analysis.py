@@ -1,6 +1,6 @@
-from Extractor import extractor as Extractor
-from Parser import parser as Parser
-from Parser.types import Artical
+from .Extractor import extractor as Extractor
+from .Parser import parser as Parser
+from .Parser.types import Artical
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -84,10 +84,12 @@ def get_artical(xml_path) -> Artical:
     return artical
 
 
-def pdf_to_xml(pdf_path) -> str:
+def get_extracted_xml(pdf_path) -> str:
     extractor = Extractor.Extractor(pdf_path)
     return extractor.xml_path
 
 if __name__ == '__main__':
-    artical = get_artical("../data/xml/test3.xml")
+    xml_path = get_extracted_xml("../data/Papers/1693453.1693454.pdf")
+    artical = get_artical(xml_path)
+    print(artical.metadata)
     print(get_topics_from_article(artical))

@@ -21,6 +21,8 @@ class Metadata:
                f"Published Date: {self.published_date}"
 
     def __eq__(self, other):
+        if not isinstance(other, Metadata):
+            return False
         return self.title == other.title and \
                self.doi == other.doi and \
                self.publisher == other.publisher and \
@@ -38,6 +40,8 @@ class Content:
                f"Keywords: {self.keywords}\n"
 
     def __eq__(self, other):
+        if not isinstance(other, Content):
+            return False
         return self.abstract == other.abstract and \
                self.keywords == other.keywords
 
