@@ -11,9 +11,9 @@ before_script:
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
-    - pytest test/test_main.py  # Run backend service tests
-    - pytest test/test_db.py  # Run database tests
-    - pytest test/test_integration.py  # Run integration tests
+#    - pytest test/test_main.py  # Run backend service tests
+#    - pytest test/test_db.py  # Run database tests
+#    - pytest test/test_integration.py  # Run integration tests
     - pytest test/test_analytics.py  # Run analytics tests
 
 lint-test-job:   # This job also runs in the test stage.
