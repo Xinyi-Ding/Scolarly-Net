@@ -7,6 +7,7 @@ import SearchResult from "@/components/SearchResult.vue";
 import searchResultExample from "@/lib/searchPaperResults.json";
 import sameTopicExample from "@/lib/exampleSameTopic.json";
 import { generateOptions } from "@/utils/network.js";
+// import req from "@/utils/req.js";
 
 const search = ref('');
 const searchLoading = ref(false);
@@ -22,19 +23,19 @@ const selectedNodeId = ref(null);
 
 const generateLoading = ref(false);
 
-const handleSearch = () => {
-  searchLoading.value = true;
-  setTimeout(() => {
-    if (search.value !== '') {
+const handleSearch = async () => {
+  if (search.value !== '') {
+    searchLoading.value = true;
+    setTimeout(() => {
       searchResults.value = searchResultExample.data.map(paper => ({
         id: paper.id,
         title: paper.title,
         subtitle: paper.authors.toString(),
       }));
       resultModal.value = true;
-    }
-    searchLoading.value = false;
-  }, 1000);
+      searchLoading.value = false;
+    }, 1000);
+  }
 };
 
 const handleResultSelect = (id) => {
@@ -89,7 +90,7 @@ const initializeNetwork = () => {
     edges = new DataSet(edgesArray);
 
     // define the data and options for the network
-    const data = { nodes: nodes, edges: edges };
+    const data = {nodes: nodes, edges: edges};
     const options = generateOptions();
 
     // initialize the network
@@ -124,7 +125,6 @@ const highlightNode = (nodeId) => {
   }
 };
 
-handleResultSelect(1);
 </script>
 
 <template>
@@ -199,7 +199,7 @@ handleResultSelect(1);
       </div>
     </template>
     <template #graph>
-      <div ref="networkContainer" class="mx-auto w-full h-full" />
+      <div ref="networkContainer" class="mx-auto w-full h-full"/>
     </template>
   </Net>
 </template>
