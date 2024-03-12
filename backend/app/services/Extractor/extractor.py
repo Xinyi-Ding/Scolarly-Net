@@ -1,11 +1,6 @@
 from .Grobid.grobid_client import GrobidClient
 from pathlib import Path
-import socket
 import subprocess
-from subprocess import Popen
-import time
-
-
 
 
 class Extractor(object):
@@ -27,10 +22,10 @@ class Extractor(object):
         if not self._check_grobid_running():
             return
 
-        client = GrobidClient(grobid_server="http://localhost:8070", 
-                              batch_size=1000, 
-                              sleep_time=5, 
-                              timeout=120, 
+        client = GrobidClient(grobid_server="http://localhost:8070",
+                              batch_size=1000,
+                              sleep_time=5,
+                              timeout=1200,
                               coordinates=["persName", "figure", "ref", "biblStruct", "formula", "s", "note", "title"])
 
         req = client.process_pdf(
@@ -46,7 +41,7 @@ class Extractor(object):
         )
         with open(self.xml_path, "w", encoding="utf-8") as file:
             file.write(req[2])
-        
+
     def _check_grobid_running(self, url='http://localhost:8070'):
         """
         Check if the Grobid service is running by making a request to the specified URL using curl.
@@ -59,7 +54,8 @@ class Extractor(object):
         """
         try:
             # Use curl to make a request to the Grobid service and capture the HTTP status code
-            result = subprocess.run(['curl', '-s', '-o', '/dev/null', '-w', '%{http_code}', url], capture_output=True, text=True)
+            result = subprocess.run(['curl', '-s', '-o', '/dev/null', '-w', '%{http_code}', url], capture_output=True,
+                                    text=True)
             status_code = result.stdout.strip()
 
             # Check if the status code is 200 (OK)
@@ -74,7 +70,7 @@ class Extractor(object):
             # If an error occurs, the service is not running
             print(f"Failed to check Grobid service with curl: {e}")
             return False
-    
+
     def generate_xml_path(self, pdf_file_path):
         pdf_path = Path(pdf_file_path)
         pdf_dir = str(pdf_path.parent)

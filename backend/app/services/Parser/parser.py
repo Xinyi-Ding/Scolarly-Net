@@ -78,6 +78,7 @@ class Parser(object):
         )
 
     def _string_to_tree(self) -> ET.ElementTree:
+        print(self.xml_path)
         with open(self.xml_path, 'r') as xml_file:
             content = xml_file.read()
         if isinstance(content, str):
@@ -87,11 +88,21 @@ class Parser(object):
 
     def _parse_metadata(self) -> Metadata:
         tei_root = self.etree.getroot()
-        title = _find_text_single(tei_root, './/tei:titleStmt/tei:title[@level="a"]', namespaces={'tei': self.tei_namespace})
-        doi = _find_text_single(tei_root, './/tei:sourceDesc/tei:biblStruct/tei:idno[@type="DOI"]', namespaces={'tei': self.tei_namespace})
-        publisher = _find_text_single(tei_root, './/tei:publicationStmt/tei:publisher', namespaces={'tei': self.tei_namespace})
-        published_date = _find_text_single(tei_root, './/tei:publicationStmt/tei:date[@type="published"]', namespaces={'tei': self.tei_namespace})
-        journal = _find_text_single(tei_root, './/tei:sourceDesc/tei:biblStruct/tei:monogr/tei:title[@level="j"]', namespaces={'tei': self.tei_namespace})
+        title = _find_text_single(tei_root,
+                                  './/tei:titleStmt/tei:title[@level="a"]',
+                                  namespaces={'tei': self.tei_namespace})
+        doi = _find_text_single(tei_root,
+                                './/tei:sourceDesc/tei:biblStruct/tei:idno[@type="DOI"]',
+                                namespaces={'tei': self.tei_namespace})
+        publisher = _find_text_single(tei_root,
+                                      './/tei:publicationStmt/tei:publisher',
+                                      namespaces={'tei': self.tei_namespace})
+        published_date = _find_text_single(tei_root,
+                                           './/tei:publicationStmt/tei:date[@type="published"]',
+                                           namespaces={'tei': self.tei_namespace})
+        journal = _find_text_single(tei_root,
+                                    './/tei:sourceDesc/tei:biblStruct/tei:monogr/tei:title[@level="j"]',
+                                    namespaces={'tei': self.tei_namespace})
         return Metadata(
             title=title,
             doi=doi,
@@ -102,8 +113,12 @@ class Parser(object):
 
     def _parse_content(self) -> Content:
         tei_root = self.etree.getroot()
-        abstract = _find_text_paragraph(tei_root, './/tei:profileDesc/tei:abstract/tei:div', namespaces={'tei': self.tei_namespace})
-        keywords = _find_words_list(tei_root, './/tei:profileDesc/tei:textClass/tei:keywords/tei:term', namespaces={'tei': self.tei_namespace})
+        abstract = _find_text_paragraph(tei_root,
+                                        './/tei:profileDesc/tei:abstract/tei:div',
+                                        namespaces={'tei': self.tei_namespace})
+        keywords = _find_words_list(tei_root,
+                                    './/tei:profileDesc/tei:textClass/tei:keywords/tei:term',
+                                    namespaces={'tei': self.tei_namespace})
         return Content(
             abstract=abstract,
             keywords=keywords

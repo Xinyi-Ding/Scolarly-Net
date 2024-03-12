@@ -1,16 +1,18 @@
 """
+This module is a Python client for the GROBID service. It was provided by the GROBID team.
+The link to the original source code is: https://github.com/kermitt2/grobid_client_python
 
 Grobid Python Client
 
 This version uses the standard ThreadPoolExecutor for parallelizing the
 concurrent calls to the GROBID services.  Given the limits of
-ThreadPoolExecutor (input stored in memory, blocking Executor.map until the 
-whole input is acquired), it works with batches of PDF of a size indicated 
-in the config.json file (default is 1000 entries). We are moving from first 
-batch to the second one only when the first is entirely processed - which 
-means it is slightly sub-optimal, but should scale better. Working without 
-batch would mean acquiring a list of millions of files in directories and 
-would require something scalable too (e.g. done in a separate thread), 
+ThreadPoolExecutor (input stored in memory, blocking Executor.map until the
+whole input is acquired), it works with batches of PDF of a size indicated
+in the config.json file (default is 1000 entries). We are moving from first
+batch to the second one only when the first is entirely processed - which
+means it is slightly sub-optimal, but should scale better. Working without
+batch would mean acquiring a list of millions of files in directories and
+would require something scalable too (e.g. done in a separate thread),
 which is not implemented for the moment.
 
 """

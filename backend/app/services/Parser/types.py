@@ -24,10 +24,10 @@ class Metadata:
         if not isinstance(other, Metadata):
             return False
         return self.title == other.title and \
-               self.doi == other.doi and \
-               self.publisher == other.publisher and \
-               self.journal == other.journal and \
-               self.published_date == other.published_date
+            self.doi == other.doi and \
+            self.publisher == other.publisher and \
+            self.journal == other.journal and \
+            self.published_date == other.published_date
 
 
 @dataclass
@@ -42,8 +42,7 @@ class Content:
     def __eq__(self, other):
         if not isinstance(other, Content):
             return False
-        return self.abstract == other.abstract and \
-               self.keywords == other.keywords
+        return self.abstract == other.abstract and self.keywords == other.keywords
 
 
 @dataclass

@@ -1,7 +1,6 @@
-import pytest
 import json
 from backend.app.services import analysis
-from backend.app.services.Parser.types import Artical, Metadata, Content
+from backend.app.services.Parser.types import Metadata, Content
 from pathlib import Path
 from difflib import SequenceMatcher
 
@@ -27,7 +26,7 @@ def _parse_test_case_artical_metadata(path: str) -> Metadata:
 
     Args:
         path (str): The path to the test case data.
-    
+
     Returns:
         Artical: The article metadata.
     """
@@ -93,6 +92,7 @@ def test_parse_artical_metadata():
 
         # Parse the article metadata
         xml_path = analysis.get_extracted_xml(str(pdf_path))
+        print(xml_path)
         article = analysis.get_artical(xml_path)
 
         assert test_case == article.metadata, f"Metadata mismatch for {json_file.name}"
@@ -114,4 +114,5 @@ def test_parse_artical_content():
         # Parse the article metadata
         xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_artical(xml_path)
-        assert are_similar(normalize_text(test_case.abstract), normalize_text(article.content.abstract)), f"Abstract mismatch for {json_file.name}"
+        assert are_similar(normalize_text(test_case.abstract),
+                           normalize_text(article.content.abstract)), f"Abstract mismatch for {json_file.name}"
