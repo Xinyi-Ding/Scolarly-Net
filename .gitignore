@@ -3,13 +3,6 @@
 .vscode
 .idea/
 
-# Data file
-data/*.sqlite
-Docs/*.docx
-Ents/*.json
-JSON/*.json
-Papers
-
 # History file
 historyPSD.txt
 
