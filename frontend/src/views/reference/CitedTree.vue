@@ -5,7 +5,8 @@ import { DataSet, Network } from 'vis-network/standalone';
 import Net from "@/layouts/NetLayout.vue";
 import SearchResult from "@/components/SearchResult.vue";
 import searchResultExample from "@/lib/searchPaperResults.json";
-import citedTreeExample from "@/lib/citedTreeExample.json";
+import citedTreeExample from "@/lib/exampleCitedTree.json";
+import { generateOptions } from "@/utils/network.js";
 
 const search = ref('');
 const searchLoading = ref(false);
@@ -62,8 +63,7 @@ const initializeNetwork = () => {
     const paperNodes = netResults.value.papers.map(paper => ({
       id: paper.id,
       label: paper.title,
-      shape: 'box',
-      color: paper.original ? '#FFC107' : '#90CAF9', // highlight the original paper
+      color: paper.original ? '#FFC107' : null, // highlight the original paper
       title: paper.authors
     }));
 
@@ -81,7 +81,7 @@ const initializeNetwork = () => {
 
     // define the data and options for the network
     const data = { nodes, edges };
-    const options = {
+    const options = generateOptions({
       layout: {
         hierarchical: {
           enabled: true,
@@ -90,17 +90,11 @@ const initializeNetwork = () => {
         }
       },
       edges: {
-        smooth: {
-          type: 'cubicBezier',
-          forceDirection: 'vertical',
-          roundness: 0.4,
-        },
         arrows: {
-          to: { enabled: true, scaleFactor: 1, type: 'arrow' }, // Configure arrow size and style
-        }
+          to: { enabled: true, scaleFactor: 1, type: 'arrow' }, // configure arrow size and style
+        },
       },
-      physics: false, // Disable physics for hierarchical layout
-    };
+    });
 
     // initialize the network
     network = new Network(networkContainer.value, data, options);
@@ -109,11 +103,11 @@ const initializeNetwork = () => {
     network.on("selectNode", params => {
       if (params.nodes.length > 0) {
         const selectedNodeId = params.nodes[0];
-        highlightListItem(selectedNodeId); // Function to highlight the list item corresponding to the selected node
+        highlightListItem(selectedNodeId); // function to highlight the list item corresponding to the selected node
       }
     });
     network.on("deselectNode", () => {
-      selectedNodeId.value = null; // Clear selected node ID when a node is deselected
+      selectedNodeId.value = null; // clear selected node ID when a node is deselected
     });
   }
 };
@@ -122,10 +116,15 @@ const highlightListItem = (nodeId) => {
   selectedNodeId.value = nodeId;
 };
 
-const highlightNode = (paperId) => {
-  if (network && paperId) {
-    network.selectNodes([paperId], false);
-    highlightListItem(paperId);
+const highlightNode = (nodeId) => {
+  if (network && nodeId) {
+    // select the node
+    network.selectNodes([nodeId], false);
+    // find and select the edges connected to the node
+    const connectedEdges = network.getConnectedEdges(nodeId);
+    network.selectEdges(connectedEdges);
+    // highlight the list item
+    highlightListItem(nodeId);
   }
 };
 </script>
