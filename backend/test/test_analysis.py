@@ -3,6 +3,21 @@ import json
 from backend.app.services import analysis
 from backend.app.services.Parser.types import Artical, Metadata, Content
 from pathlib import Path
+from difflib import SequenceMatcher
+
+
+# Test cases for the article metadata
+def normalize_text(text):
+    """
+    Normalize the text by converting it to lowercase and removing extra whitespaces.
+
+    Args:
+        text (str): The text to normalize.
+
+    Returns:
+        str: The normalized text.
+    """
+    return ' '.join(text.lower().split())
 
 
 # Parse test case data
@@ -45,19 +60,32 @@ def _parse_test_case_artical_content(path: str) -> Content:
         )
 
 
-# Test cases
+def are_similar(text1, text2, threshold=0.8):
+    """
+    Check if two texts are similar based on the Levenshtein distance.
+
+    Args:
+        text1 (str): The first text.
+        text2 (str): The second text.
+        threshold (float): The similarity threshold (default 0.9).
+
+    Returns:
+        bool: True if the texts are similar, False otherwise.
+    """
+    text1 = normalize_text(text1)
+    text2 = normalize_text(text2)
+    similarity = SequenceMatcher(None, text1, text2).ratio()
+    return similarity >= threshold
+
+
+# Test cases for the article metadata
 def test_parse_artical_metadata():
     """
     Test the parsing of the article metadata.
     """
     json_dir = Path("test/test_data/JSON")
     for json_file in json_dir.glob("*.json"):
-        # Load test case data from JSON file
-        with open(json_file, 'r', encoding='utf-8') as f:
-            test_case = json.load(f)
-
-        # Assuming _parse_test_case_artical_metadata function is meant to load and parse the JSON test case
-        # We directly loaded the JSON above, but you might need to adjust this depending on your actual implementation
+        test_case = _parse_test_case_artical_metadata(str(json_file))
 
         # Construct corresponding PDF file path from the JSON file name
         pdf_file_name = json_file.stem + ".pdf"
@@ -67,18 +95,23 @@ def test_parse_artical_metadata():
         xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_artical(xml_path)
 
-        # Assuming article.metadata should be compared with test_case
-        # You might need to adjust this comparison based on how your metadata and test cases are structured
         assert test_case == article.metadata, f"Metadata mismatch for {json_file.name}"
 
 
-# def test_parse_artical_content():
-#     """
-#     Test the parsing of the article content.
-#     """
-#     # Parse the test case data
-#     test_case = _parse_test_case_artical_content("backend/test/test_data/article_content.json")
-#     # Parse the article content
-#     article = analysis.parse_artical_content("backend/test/test_data/article_content.html")
-#     # Check the test case and the parsed article are the same
-#     assert test_case == article
+# Test cases for the article content
+def test_parse_artical_content():
+    """
+    Test the parsing of the article content.
+    """
+    json_dir = Path("test/test_data/JSON")
+    for json_file in json_dir.glob("*.json"):
+        test_case = _parse_test_case_artical_content(str(json_file))
+
+        # Construct corresponding PDF file path from the JSON file name
+        pdf_file_name = json_file.stem + ".pdf"
+        pdf_path = Path("test/test_data/Papers") / pdf_file_name
+
+        # Parse the article metadata
+        xml_path = analysis.get_extracted_xml(str(pdf_path))
+        article = analysis.get_artical(xml_path)
+        assert are_similar(normalize_text(test_case.abstract), normalize_text(article.content.abstract)), f"Abstract mismatch for {json_file.name}"

@@ -31,9 +31,21 @@ def _find_text_paragraph(node: Element, xPath: AnyStr, namespaces: Dict) -> Opti
     :return: The text of the element found, or None
     :note: This function can only be used to parse the text paragraph
     """
+    # Find all <div> elements specified by the XPath
+    div_elements = node.findall(xPath, namespaces=namespaces)
+    paragraphs_text = []
 
-    element = node.find(xPath, namespaces=namespaces)
-    return " ".join(element.itertext()) if element is not None else None
+    for div in div_elements:
+        # Check if this <div> contains a <head>. Skip it if yes.
+        if div.find('.//tei:head', namespaces=namespaces) is None:
+            # For each <div> without a <head>, concatenate the text of all <p> elements
+            for p in div.findall('.//tei:p', namespaces=namespaces):
+                text = " ".join(p.itertext())
+                if text:
+                    paragraphs_text.append(text.strip())
+
+    # Return concatenated text of all paragraphs, separated by a space
+    return " ".join(paragraphs_text) if paragraphs_text else None
 
 
 def _find_words_list(node: Element, xPath: AnyStr, namespaces: Dict) -> Optional[List[AnyStr]]:
@@ -90,7 +102,7 @@ class Parser(object):
 
     def _parse_content(self) -> Content:
         tei_root = self.etree.getroot()
-        abstract = _find_text_paragraph(tei_root, './/tei:profileDesc/tei:abstract', namespaces={'tei': self.tei_namespace})
+        abstract = _find_text_paragraph(tei_root, './/tei:profileDesc/tei:abstract/tei:div', namespaces={'tei': self.tei_namespace})
         keywords = _find_words_list(tei_root, './/tei:profileDesc/tei:textClass/tei:keywords/tei:term', namespaces={'tei': self.tei_namespace})
         return Content(
             abstract=abstract,

@@ -25,10 +25,8 @@ class Extractor(object):
         - str: The file path to the XML file.
         """
         if not self._check_grobid_running():
-            if not self._start_grobid_service():
-                print("Unable to start Grobid service. Please check your Grobid setup.")
-                return
-        config_path = Path.cwd()/"Extractor/Grobid/config.json"
+            return
+
         client = GrobidClient(grobid_server="http://localhost:8070", 
                               batch_size=1000, 
                               sleep_time=5, 
@@ -48,35 +46,6 @@ class Extractor(object):
         )
         with open(self.xml_path, "w", encoding="utf-8") as file:
             file.write(req[2])
-    
-    # @TODO the start method is properly implemented, need to test it
-    def _start_grobid_service(self, grobid_path=Path(__file__).parent / 'Grobid/grobid-0.8.0'):
-        """
-        Start the Grobid service.
-
-        Args:
-        - grobid_path: The file path to the Grobid home directory.
-
-        Returns:
-        - bool: True if Grobid starts successfully, False otherwise.
-        """
-        try:
-            print(grobid_path)
-            # Start the Grobid service using the provided file path
-            print("Starting Grobid service...")
-            cmd = f"cd {grobid_path} && ./gradlew run"
-            Popen(cmd, shell=True)
-            # Try to connect to the service every 5 seconds, up to 15 attempts (total 1.5 minute)
-            for _ in range(18):
-                if self._check_grobid_running():
-                    print("Grobid service started successfully.")
-                    return True
-                time.sleep(5)
-            print("Failed to confirm Grobid service start within the timeout period.")
-            return False
-        except Exception as e:
-            print(f"Failed to start Grobid service: {e}")
-            return False
         
     def _check_grobid_running(self, url='http://localhost:8070'):
         """
