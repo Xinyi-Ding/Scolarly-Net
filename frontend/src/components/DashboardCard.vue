@@ -36,11 +36,7 @@ const getReadyStripe = () => {
 
 const handleClick = (link) => {
   if (link) {
-    if (props.paperId) router.push({
-      path: link,
-      query: { paperId: props.paperId }
-    });
-    else router.push(link);
+    return props.paperId ? router.push({ path: link, query: { paperId: props.paperId } }) : router.push(link);
   }
 }
 
@@ -48,27 +44,29 @@ const handleClick = (link) => {
 
 <template>
   <VaCard
-      class="flex min-h-32 cursor-pointer relative"
+      class="flex flex-row min-h-32 cursor-pointer relative"
       :stripe="ready !== 0"
       :stripe-color="getReadyStripe()"
       @click="handleClick(link)"
   >
     <VaProgressBar v-if="ready === 0" class="absolute top-0" :size="5" indeterminate />
-    <div>
-      <VaCardTitle>
-        <div>
-          <p class="font-black text-lg">{{ title }}</p>
-          <p class="text-gray-400">{{ section }}</p>
-        </div>
-      </VaCardTitle>
-      <VaCardContent class="break-words overflow-hidden">
-        <p class="text-gray-500">{{ content }}</p>
-      </VaCardContent>
+    <div class="flex items-center h-full">
+      <div class="flex-1">
+        <VaCardTitle>
+          <div>
+            <p class="font-black text-lg">{{ title }}</p>
+            <p class="text-gray-400">{{ section }}</p>
+          </div>
+        </VaCardTitle>
+        <VaCardContent class="break-words overflow-hidden h-full">
+          <p class="text-gray-500">{{ content }}</p>
+        </VaCardContent>
+      </div>
+      <div class="w-auto items-center justify-end text-end pr-4">
+        <VaIcon class="icon" size="4rem" :name="getReadyIcon()" />
+      </div>
     </div>
 
-    <div class="flex items-center justify-end text-end mr-4">
-      <VaIcon class="icon w-auto" size="4rem" :name="getReadyIcon()" />
-    </div>
   </VaCard>
 </template>
 

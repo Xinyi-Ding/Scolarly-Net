@@ -5,7 +5,7 @@ import { DataSet, Network } from 'vis-network/standalone';
 import Net from "@/layouts/NetLayout.vue";
 import SearchResult from "@/components/SearchResult.vue";
 import searchResultExample from "@/lib/searchTopicResults.json";
-import topicConnectionExample from "@/lib/topicConnectionExample.json";
+import topicConnectionExample from "@/lib/exampleTopicConnection.json";
 
 // search related variables
 const search = ref('');

@@ -7,6 +7,7 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
+
 @router.get("/")
 async def root():
     return {"uri": "/catalog"}

@@ -3,6 +3,9 @@
 .vscode
 .idea/
 
+# ignore pycache
+__pycache__/
+
 # History file
 historyPSD.txt
 
@@ -14,6 +17,5 @@ frontend/dist
 frontend/dist-ssr
 frontend/*.local
 frontend/yarn.lock
-frontend/package-lock.json
 frontend/pnpm-lock.yaml
 frontend/*.log
