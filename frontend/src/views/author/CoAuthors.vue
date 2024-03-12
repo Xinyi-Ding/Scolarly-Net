@@ -6,6 +6,7 @@ import Net from "@/layouts/NetLayout.vue";
 import SearchResult from "@/components/SearchResult.vue";
 import searchResultExample from "@/lib/searchAuthorResults.json";
 import topicConnectionExample from "@/lib/exampleCoAuthor.json";
+import { generateOptions } from "@/utils/network.js";
 
 // search related variables
 const search = ref('');
@@ -71,16 +72,14 @@ const initializeNetwork = () => {
     const authorNodes = authors.map(author => ({
       id: `author-${author.id}`,
       label: author.name,
-      shape: 'circle',
-      color: author.original ? '#F39C12' : '#27AE60',
+      shape: 'triangle',
+      color: author.original ? '#F39C12' : '#4ade80',
     }));
 
     // convert papers to nodes
     const paperNodes = papers.map(paper => ({
       id: paper.id,
       label: paper.title,
-      shape: 'box',
-      color: '#3498DB',
       title: paper.authors
     }));
 
@@ -98,24 +97,7 @@ const initializeNetwork = () => {
 
     // define the data and options for the network
     const data = { nodes, edges };
-    const options = {
-      edges: {
-        smooth: {
-          type: 'cubicBezier',
-          forceDirection: 'horizontal',
-          roundness: 0.4,
-        },
-        color: {
-          color: '#90CAF9',
-          highlight: 'red',
-        },
-      },
-      physics: false,
-      layout: {
-        randomSeed: undefined,
-        improvedLayout: true
-      }
-    };
+    const options = generateOptions();
 
     // initialize the network
     network = new Network(networkContainer.value, data, options);
@@ -168,7 +150,7 @@ handleResultSelect(1);
         <VaInput
             v-model="search"
             class="w-full"
-            label="search for an author"
+            label="search for a paper"
         >
           <template #append>
             <VaButton
@@ -200,7 +182,7 @@ handleResultSelect(1);
           </VaListItem>
         </template>
       </VaList>
-      <p v-else v-show="!generateLoading" class="mt-4 text-center text-gray-500">- Search for an author first -</p>
+      <p v-else v-show="!generateLoading" class="mt-4 text-center text-gray-500">- Search for a paper first -</p>
       <div v-if="generateLoading" class="w-full text-center">
         <VaProgressCircle
             class="mx-auto mt-8 mb-2"
