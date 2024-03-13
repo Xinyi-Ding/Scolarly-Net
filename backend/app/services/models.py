@@ -194,4 +194,3 @@ class TopicRelationshipVO(BaseModel):
 class TopicRelationshipFilter(TopicRelationshipVO):
     parent_topic_id: Optional[int] = None
     child_topic_id: Optional[int] = None
-

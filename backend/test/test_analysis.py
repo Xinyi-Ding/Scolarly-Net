@@ -93,11 +93,13 @@ def are_similar(text1, text2, threshold=0.8):
     similarity = SequenceMatcher(None, text1, text2).ratio()
     return similarity >= threshold
 
+
 def _are_reference_similar(reference1: List[Reference], reference2: List[Reference]):
     """
     Check if two lists of references are similar based on their titles.
     A reference is considered similar to another if their titles have more than 80% similarity.
-    References in one list are matched to the most similar references in the other list without assuming identical order.
+    References in one list are matched to the most similar
+    references in the other list without assuming identical order.
 
     Args:
         reference1 (List[Reference]): The first list of references.
@@ -130,6 +132,7 @@ def _are_reference_similar(reference1: List[Reference], reference2: List[Referen
 
     return True
 
+
 # Test cases for the article reference
 def test_parse_artical_reference():
     """
@@ -145,10 +148,8 @@ def test_parse_artical_reference():
         # Parse the article metadata
         xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_artical(xml_path)
-        print("reference test case")
-        print(test_case[2])
-        print(article.references[2])
         assert _are_reference_similar(test_case, article.references), f"Reference mismatch for {json_file.name}"
+
 
 # Test cases for the article metadata
 def test_parse_artical_metadata():

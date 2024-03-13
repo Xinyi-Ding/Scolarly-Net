@@ -46,6 +46,7 @@ class Content:
             return False
         return self.abstract == other.abstract and self.keywords == other.keywords
 
+
 @dataclass
 class Author:
     name: str
@@ -59,6 +60,7 @@ class Author:
         if not isinstance(other, Author):
             return False
         return self.name == other.name and self.affiliation == other.affiliation
+
 
 @dataclass
 class Reference:
@@ -86,6 +88,7 @@ class Reference:
             self.type == other.type and \
             self.container_title == other.container_title and \
             self.published_date == other.published_date
+
 
 @dataclass
 class Artical:

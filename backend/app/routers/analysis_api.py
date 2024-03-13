@@ -10,4 +10,4 @@ router = APIRouter(
 
 @router.get("/")
 async def root():
-    return {"Hello from the analysis API!"}
+    return {'uri': '/analysis'}
