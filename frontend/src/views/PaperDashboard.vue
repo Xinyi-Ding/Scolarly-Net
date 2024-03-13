@@ -2,6 +2,7 @@
 import { ref, watch } from "vue";
 import DashboardCard from "@/components/DashboardCard.vue";
 import dashboardExample from '@/lib/exampleDashboard.json';
+import req from "@/utils/req.js";
 
 const uploaded = ref(false);
 const ready = ref({
@@ -17,6 +18,8 @@ const paper = ref(null);
 const basic = ref([]);
 
 const onFileAdded = async () => {
+  const res = await req.post('/analysis/upload', { file: basic.value[0] });
+  console.log(res);
   if (basic.value.length > 0) {
     setTimeout(() => {
       uploaded.value = true;
