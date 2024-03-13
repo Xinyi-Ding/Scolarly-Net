@@ -34,7 +34,7 @@ frontend_install:
   rules:
     - changes:
       - frontend/**/*
-      - gitlab-ci.yml
+      - .gitlab-ci.yml
 
 frontend_lint:
   stage: lint
@@ -49,7 +49,7 @@ frontend_lint:
   rules:
     - changes:
       - frontend/**/*
-      - gitlab-ci.yml
+      - .gitlab-ci.yml
 
 frontend_test:
   stage: test
@@ -64,7 +64,7 @@ frontend_test:
   rules:
     - changes:
       - frontend/**/*
-      - gitlab-ci.yml
+      - .gitlab-ci.yml
 
 frontend_build:
   stage: build
@@ -82,7 +82,7 @@ frontend_build:
   rules:
     - changes:
       - frontend/**/*
-      - gitlab-ci.yml
+      - .gitlab-ci.yml
 
 # backend jobs
 backend_lint:
@@ -97,7 +97,7 @@ backend_lint:
   rules:
     - changes:
       - backend/**/*
-      - gitlab-ci.yml
+      - .gitlab-ci.yml
 
 backend_test:
   stage: test
@@ -116,4 +116,4 @@ backend_test:
   rules:
     - changes:
       - backend/**/*
-      - gitlab-ci.yml
+      - .gitlab-ci.yml
