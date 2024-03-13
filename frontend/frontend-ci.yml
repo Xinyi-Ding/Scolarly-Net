@@ -43,7 +43,7 @@ unit-test:  # test ui components using Vitest
 build:  # build application
   stage: build
   needs:
-    - test
+    - unit-test
   script:
     - echo "Building application..."
     - pwd
