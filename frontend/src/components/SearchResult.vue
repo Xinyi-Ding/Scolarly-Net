@@ -1,7 +1,5 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue';
-
-const props = defineProps({
+defineProps({
   modelValue: Boolean,
   search: String,
   searchResults: Array
@@ -15,7 +13,7 @@ const updateModelValue = (value) => {
 
 const selectResult = (id) => {
   emit('select', id);
-  updateModelValue(false); // 关闭模态框
+  updateModelValue(false); // close modal
 };
 
 const handleClose = () => {

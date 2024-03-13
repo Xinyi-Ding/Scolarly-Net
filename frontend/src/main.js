@@ -1,4 +1,3 @@
-import { createVuesticEssential, VaButton } from 'vuestic-ui'
 import 'vuestic-ui/styles/essential.css'
 import './assets/main.css'
 
@@ -16,5 +15,4 @@ app.use(createPinia())
 app.use(router)
 app.use(createVuestic(undefined))
 
-// app.use(createVuesticEssential());
 app.mount('#app')
