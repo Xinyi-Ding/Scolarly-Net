@@ -1,0 +1,15 @@
+version: '0.1'
+services:
+  vue-app:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+
+  fastapi-app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"

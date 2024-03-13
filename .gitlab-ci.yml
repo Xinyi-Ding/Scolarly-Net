@@ -1,16 +1,10 @@
 include:
   - local: 'frontend/frontend-ci.yml'
     rules:
-      - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
-        when: always
       - changes:
           - frontend/**/*
-        when: always
 
   - local: 'backend/backend-ci.yml'
     rules:
-      - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
-        when: always
       - changes:
           - backend/**/*
-        when: always

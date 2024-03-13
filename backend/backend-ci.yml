@@ -1,5 +1,4 @@
-default:
-  image: python:3.10
+image: python:3.10
 
 stages:          # List of stages for jobs, and their order of execution
   - test
