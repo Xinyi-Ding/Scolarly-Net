@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from typing import Optional
+from typing import List
 
 """
 The data models for the Parser service.
@@ -46,10 +48,59 @@ class Content:
 
 
 @dataclass
+class Author:
+    name: str
+    affiliation: str
+    email: Optional[str]
+
+    def __repr__(self):
+        return (f"Name: {self.name}\n"
+                f"Affiliation: {self.affiliation}\n"
+                f"Email: {self.email}\n")
+
+    def __eq__(self, other):
+        if not isinstance(other, Author):
+            return False
+        return self.name == other.name and self.affiliation == other.affiliation and self.email == other.email
+
+
+@dataclass
+class Reference:
+    authors: list
+    title: str
+    type: str
+    container_title: str
+    doi: str
+    published_date: str
+
+    def __repr__(self):
+        return (f"Authors: {self.authors}\n"
+                f"Title: {self.title}\n"
+                f"Type: {self.type}\n"
+                f"Container Title: {self.container_title}\n"
+                f"DOI: {self.doi}\n"
+                f"Published Date: {self.published_date}\n")
+
+    def __eq__(self, other):
+        if not isinstance(other, Reference):
+            return False
+        return self.title == other.title and \
+            self.doi == other.doi and \
+            self.authors == other.authors and \
+            self.type == other.type and \
+            self.container_title == other.container_title and \
+            self.published_date == other.published_date
+
+
+@dataclass
 class Artical:
     metadata: Metadata
     content: Content
+    authors: List[Author]
+    references: List[Reference]
 
     def __repr__(self):
-        return f"Metadata: {self.metadata}\n" \
-               f"Content: {self.content}"
+
+        return (f"Metadata: {self.metadata}\n"
+                f"Content: {self.content}\n"
+                f"References: {self.references}")
