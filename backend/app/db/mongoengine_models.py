@@ -2,10 +2,13 @@ from mongoengine import Document, connect
 from mongoengine.fields import (
     StringField, IntField, DateField, EmailField
 )
-from backend.app.db.config import MONGO_URI
+from backend.app.db.config import MONGO_URI, MONGO_TEST_URI, TEST_MODE
 
 # Establish a connection to MongoDB using the variables from config.py
-connect(host=MONGO_URI, uuidRepresentation='standard')
+if TEST_MODE:
+    connect(host=MONGO_TEST_URI, uuidRepresentation='standard')
+else:
+    connect(host=MONGO_URI, uuidRepresentation='standard')
 
 
 # Define the Sequence model to store sequence values
@@ -84,10 +87,8 @@ class Author(Document):
     meta = {'collection': 'author'}
     # Unique identifier for each author.
     author_id = IntField(primary_key=True, default=lambda: sequence('author'))
-    # The family name of the author.
-    family_name = StringField(required=True, max_length=255)
-    # The given name of the author.
-    given_name = StringField(required=True, max_length=255)
+    # The name of the author.
+    name = StringField(required=True, max_length=255)
     # The email address of the author. This field can be null but should be unique if provided.
     email = EmailField(unique=True, max_length=255)
 
@@ -109,7 +110,7 @@ class Department(Document):
     # The name of the department.
     name = StringField(required=True, max_length=255)
     # Reference to the Institution document.
-    institution_id = IntField(required=False)
+    institution_id = IntField()
 
 
 # Author-Institution model (relationship)

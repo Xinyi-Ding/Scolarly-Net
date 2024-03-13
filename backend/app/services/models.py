@@ -23,7 +23,7 @@ class ArticleVO(BaseModel):
     page: Optional[str] = None
     doi: Optional[str] = None
     meeting: Optional[str] = None
-    file_path: str
+    file_path: Optional[str] = None
     type: Optional[str] = None
     container_title: Optional[str] = None
 
@@ -69,8 +69,7 @@ class TopicFilter(TopicVO):
 # Pydantic model for the Author
 class AuthorVO(BaseModel):
     author_id: Optional[int] = Field(default_factory=int)
-    family_name: str
-    given_name: str
+    name: str
     email: Optional[EmailStr] = None
 
     class Config:
@@ -79,8 +78,7 @@ class AuthorVO(BaseModel):
 
 class AuthorFilter(AuthorVO):
     author_id: Optional[int] = None
-    family_name: Optional[str] = None
-    given_name: Optional[str] = None
+    name: Optional[str] = None
 
 
 # Pydantic model for the Institution
