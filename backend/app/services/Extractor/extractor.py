@@ -22,7 +22,7 @@ class Extractor(object):
         if not self._check_grobid_running():
             return
 
-        client = GrobidClient(grobid_server="http://localhost:8070",
+        client = GrobidClient(grobid_server="http://10.1.0.10:8070",
                               batch_size=1000,
                               sleep_time=5,
                               timeout=1200,
