@@ -1,7 +1,3 @@
-Based on your current backend directory structure, I will draft a concise README.md for your project.
-
----
-
 # Backend Service
 
 ## Overview
@@ -61,7 +57,3 @@ To run tests, execute:
 ```
 pytest test/
 ```
-
----
-
-Feel free to adjust or expand any section to better fit your project's specifics or to add any additional sections that you think might be necessary, such as 'Environment Setup', 'API Documentation', or 'Contributing'.
