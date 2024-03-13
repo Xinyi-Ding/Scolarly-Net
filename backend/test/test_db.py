@@ -2,18 +2,6 @@ import pytest
 import pytest_asyncio
 from backend.app.db.mongoengine_models import Article, Topic, Author, Institution, Department, AuthorInstitution, \
     AuthorDepartment, ArticleCitation, TopicRelationship, ArticleTopic, ArticleAuthor
-from backend.app.db.config import MONGO_TEST_URI
-
-from mongoengine import connect
-
-
-@pytest.fixture(scope="module")
-def db_connection() -> None:
-    """
-    Setup: Connect to the test database
-    :return: None
-    """
-    connect(host=MONGO_TEST_URI, alias="test", uuidRepresentation='standard')  # Connect to your test database
 
 
 @pytest_asyncio.fixture
@@ -109,7 +97,7 @@ async def author() -> Author:
     Setup: Create a new Author object
     @return: Author - The created author
     """
-    test_author = Author(family_name="Doe", given_name="John", email="john.doe@example.com")
+    test_author = Author(name="Doe", email="john.doe@example.com")
     test_author.save()
 
     # Yield the setup object to be used by the test
@@ -317,12 +305,12 @@ async def test_author_crud(author) -> None:
     """
     # Read (The author is already created by the fixture)
     fetched_author = Author.objects(author_id=author.id).first()
-    assert fetched_author.family_name == "Doe", "Failed to fetch the created Author"
+    assert fetched_author.name == "Doe", "Failed to fetch the created Author"
 
     # Update
-    fetched_author.update(set__family_name="Smith")
+    fetched_author.update(set__name="Smith")
     updated_author = Author.objects(author_id=author.id).first()
-    assert updated_author.family_name == "Smith", "Failed to update the Author"
+    assert updated_author.name == "Smith", "Failed to update the Author"
 
     # Delete is handled by the fixture
 

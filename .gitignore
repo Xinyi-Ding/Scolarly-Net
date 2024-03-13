@@ -22,3 +22,19 @@ frontend/*.local
 frontend/yarn.lock
 frontend/pnpm-lock.yaml
 frontend/*.log
+
+# Backend files
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest cache
+.pytest_cache/
+
+# Other files and folders to ignore
+*.log
+#*.csv
+#*.json
+#.env
+
