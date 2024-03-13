@@ -4,9 +4,10 @@ import subprocess
 
 
 class Extractor(object):
-    def __init__(self, artical_path):
+    def __init__(self, artical_path, grobid_server="http://10.1.0.10:8070"):
         self.pdf_file_path = artical_path
         self.xml_path = self.generate_xml_path(artical_path)
+        self.grobid_server = grobid_server
         self.pdf_to_xml()
 
     def pdf_to_xml(self):
@@ -22,7 +23,7 @@ class Extractor(object):
         if not self._check_grobid_running():
             return
 
-        client = GrobidClient(grobid_server="http://10.1.0.10:8070",
+        client = GrobidClient(grobid_server=self.grobid_server,
                               batch_size=1000,
                               sleep_time=5,
                               timeout=1200,
@@ -42,7 +43,7 @@ class Extractor(object):
         with open(self.xml_path, "w", encoding="utf-8") as file:
             file.write(req[2])
 
-    def _check_grobid_running(self, url='http://localhost:8070'):
+    def _check_grobid_running(self):
         """
         Check if the Grobid service is running by making a request to the specified URL using curl.
 
@@ -54,7 +55,7 @@ class Extractor(object):
         """
         try:
             # Use curl to make a request to the Grobid service and capture the HTTP status code
-            result = subprocess.run(['curl', '-s', '-o', '/dev/null', '-w', '%{http_code}', url], capture_output=True,
+            result = subprocess.run(['curl', '-s', '-o', '/dev/null', '-w', '%{http_code}', self.grobid_server], capture_output=True,
                                     text=True)
             status_code = result.stdout.strip()
 
