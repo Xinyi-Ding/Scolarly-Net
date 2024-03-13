@@ -99,7 +99,7 @@ backend_test:
     - backend
   <<: *change_to_backend_dir
   script:
-    - pip install -r backend/requirements.txt
+    - pip install -r requirements.txt
     - pytest test/test_main.py  # Run backend service tests
     - pytest test/test_db.py  # Run database tests
     - pytest test/test_integration.py  # Run integration tests
