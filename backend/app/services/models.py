@@ -24,3 +24,20 @@ class Content:
 
     def __repr__(self):
         return f"Abstract: {self.abstract}\nKeywords: {self.keywords}"
+
+@dataclass
+class Reference:
+    authors: list
+    title: str
+    type: str
+    container_title: str
+    doi: str
+    published_date: str
+
+    def __repr__(self):
+        return (f"Authors: {self.authors}\n"
+                f"Title: {self.title}\n"
+                f"Type: {self.type}\n"
+                f"Container Title: {self.container_title}\n"
+                f"DOI: {self.doi}\n"
+                f"Published Date: {self.published_date}")
