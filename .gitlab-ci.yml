@@ -8,10 +8,12 @@ stages:
 .change_to_frontend_dir: &change_to_frontend_dir
   before_script:
     - cd frontend
+    - pwd
 
 .change_to_backend_dir: &change_to_backend_dir
   before_script:
     - cd backend
+    - pwd
 
 # frontend jobs
 cache: # cache node_modules
