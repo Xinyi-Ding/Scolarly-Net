@@ -10,6 +10,7 @@ stages: # List of stages for jobs, and their order of execution
   - build
 
 backend-install:
+  image: python:3.10
   stage: install
   script:
     - echo "No install steps required for backend"
@@ -32,6 +33,7 @@ backend-unit-test: # This job runs in the test stage.
     - pytest test/test_analysis.py  # Run analytics tests
 
 backend-build-job:
+  image: python:3.10
   stage: build
   script:
     - echo "No build steps required for backend"

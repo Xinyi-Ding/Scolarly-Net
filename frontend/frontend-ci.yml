@@ -26,8 +26,7 @@ frontend-install:  # install dependencies
 frontend-lint-test:  # check code quality using ESLint
   image: node:20
   stage: lint
-  needs:
-    - install
+  needs: ["frontend-install"]
   script:
     - echo "Linting code..."
     - npm run lint
@@ -36,8 +35,7 @@ frontend-lint-test:  # check code quality using ESLint
 frontend-unit-test:  # test ui components using Vitest
   image: node:20
   stage: test
-  needs:
-    - install
+  needs: ["frontend-install"]
   script:
     - echo "Running unit tests..."
     - npm test
@@ -46,8 +44,7 @@ frontend-unit-test:  # test ui components using Vitest
 frontend-build:  # build application
   image: node:20
   stage: build
-  needs:
-    - unit-test
+  needs: ["frontend-unit-test"]
   script:
     - echo "Building application..."
     - pwd
