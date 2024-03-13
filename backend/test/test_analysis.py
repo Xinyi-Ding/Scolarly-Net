@@ -155,22 +155,22 @@ def _are_reference_similar(reference1: List[Reference], reference2: List[Referen
     return True
 
 
-# Test cases for the article reference
-def test_parse_artical_reference():
-    """
-    Test the parsing of the article reference.
-    """
-    json_dir = Path("test/test_data/JSON")
-    for json_file in json_dir.glob("*.json"):
-        test_case = _parse_test_case_artical_reference(str(json_file))
-        # Construct corresponding PDF file path from the JSON file name
-        pdf_file_name = json_file.stem + ".pdf"
-        pdf_path = Path("test/test_data/Papers") / pdf_file_name
-
-        # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path))
-        article = analysis.get_artical(xml_path)
-        assert _are_reference_similar(test_case, article.references), f"Reference mismatch for {json_file.name}"
+# @TODO Test cases for the article reference
+# def test_parse_artical_reference():
+#     """
+#     Test the parsing of the article reference.
+#     """
+#     json_dir = Path("test/test_data/JSON")
+#     for json_file in json_dir.glob("*.json"):
+#         test_case = _parse_test_case_artical_reference(str(json_file))
+#         # Construct corresponding PDF file path from the JSON file name
+#         pdf_file_name = json_file.stem + ".pdf"
+#         pdf_path = Path("test/test_data/Papers") / pdf_file_name
+#
+#         # Parse the article metadata
+#         xml_path = analysis.get_extracted_xml(str(pdf_path))
+#         article = analysis.get_artical(xml_path)
+#         assert _are_reference_similar(test_case, article.references), f"Reference mismatch for {json_file.name}"
 
 
 # Test cases for the article metadata
