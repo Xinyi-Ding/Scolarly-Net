@@ -1,4 +1,6 @@
 <script setup>
+import UserChip from "@/components/UserChip.vue";
+
 defineProps({
   modelValue: Boolean,
   search: String,
@@ -32,21 +34,25 @@ const handleClose = () => {
       @update:model-value="updateModelValue"
   >
     <VaList>
-      <VaListLabel class="sticky top-0 bg-white pb-4">
+      <VaListLabel class="sticky top-0 pb-4 bg-white/90 z-10">
         Results for <span class="ml-1 font-bold text-xl">{{ search }}</span>
       </VaListLabel>
       <VaListItem
           v-for="result in searchResults"
           :key="result.id"
-          class="p-2 cursor-pointer hover:bg-gray-100"
+          class="p-2 my-1 cursor-pointer hover:bg-gray-100 border-b border-gray-200 border-solid"
           @click="selectResult(result.id)"
       >
         <VaListItemSection>
           <VaListItemLabel class="mb-1">
-            {{ result.title }}
+            <span class="ml-1">{{ result.title }}</span>
           </VaListItemLabel>
-          <VaListItemLabel v-if="result.subtitle" caption>
-            {{ result.subtitle }}
+          <VaListItemLabel v-if="result.authors.length > 0" caption>
+            <UserChip
+                v-for="author in result.authors"
+                :key="author.id"
+                :author="author"
+            />
           </VaListItemLabel>
         </VaListItemSection>
       </VaListItem>

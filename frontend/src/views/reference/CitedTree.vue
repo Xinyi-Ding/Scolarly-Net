@@ -7,6 +7,7 @@ import SearchResult from "@/components/SearchResult.vue";
 import searchResultExample from "@/lib/searchPaperResults.json";
 import citedTreeExample from "@/lib/exampleCitedTree.json";
 import { generateOptions } from "@/utils/network.js";
+import UserChip from "@/components/UserChip.vue";
 
 const search = ref('');
 const searchLoading = ref(false);
@@ -26,11 +27,7 @@ const handleSearch = () => {
   searchLoading.value = true;
   setTimeout(() => {
     if (search.value !== '') {
-      searchResults.value = searchResultExample.data.map(paper => ({
-        id: paper.id,
-        title: paper.title,
-        subtitle: paper.authors.toString(),
-      }));
+      searchResults.value = searchResultExample.data;
       resultModal.value = true;
     }
     searchLoading.value = false;
@@ -159,33 +156,40 @@ const highlightNode = (nodeId) => {
       <VaList v-if="netResults" class="p-2">
         <VaListItem
             :class="{'highlight': selectedNodeId === netResults.original.id}"
-            class="p-2 cursor-pointer bg-blue-50 hover:bg-gray-100"
+            class="p-2 cursor-pointer bg-blue-50 hover:bg-gray-100 border-b border-gray-200 border-solid"
             @click="highlightNode(netResults.original.id)"
         >
           <VaListItemSection>
-            <p class="mb-1 text-sm text-blue-600 font-bold">Origin Paper</p>
+            <p class="ml-1 mb-1 text-sm text-blue-600 font-bold">Origin Paper</p>
             <VaListItemLabel class="mb-1">
-              {{ netResults.original.title }}
+              <span class="ml-1">{{ netResults.original.title }}</span>
             </VaListItemLabel>
-            <VaListItemLabel caption>
-              {{ netResults.original.authors.toString() }}
+            <VaListItemLabel v-if="netResults.original.authors.length > 0" caption>
+              <UserChip
+                  v-for="author in netResults.original.authors"
+                  :key="author.id"
+                  :author="author"
+              />
             </VaListItemLabel>
           </VaListItemSection>
         </VaListItem>
-        <template v-for="paper in netResults.papers">
+        <template v-for="paper in netResults.papers" :key="paper.id">
           <VaListItem
               v-if="!paper.original"
-              :key="paper.id"
               :class="{'highlight': paper.id === selectedNodeId}"
-              class="p-2 cursor-pointer hover:bg-gray-100"
+              class="p-2 cursor-pointer hover:bg-gray-100 border-b border-gray-200 border-solid"
               @click="highlightNode(paper.id)"
           >
             <VaListItemSection>
               <VaListItemLabel class="mb-1">
-                {{ paper.title }}
+                <span class="ml-1">{{ paper.title }}</span>
               </VaListItemLabel>
-              <VaListItemLabel caption>
-                {{ paper.authors.toString() }}
+              <VaListItemLabel v-if="paper.authors.length > 0" caption>
+                <UserChip
+                    v-for="author in paper.authors"
+                    :key="author.id"
+                    :author="author"
+                />
               </VaListItemLabel>
             </VaListItemSection>
           </VaListItem>
