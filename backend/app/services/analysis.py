@@ -85,5 +85,5 @@ def get_artical(xml_path) -> Artical:
 
 
 def get_extracted_xml(pdf_path) -> str:
-    extractor = Extractor.Extractor(pdf_path)
+    extractor = Extractor.Extractor(pdf_path, grobid_server="http://localhost:8070")
     return extractor.xml_path

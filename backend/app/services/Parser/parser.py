@@ -142,7 +142,7 @@ class Parser(object):
             ref = ref.replace('&apos;', "'")
             cleaned_ref = re.sub(r'-\s*', '-', ref)
             raw_references.append(cleaned_ref)
-        print(raw_references[11])
+        print(raw_references[1])
         return raw_references
 
     def _store_references(self, raw_references):
@@ -180,7 +180,7 @@ class Parser(object):
             return [
                 Reference(
                     authors=ref.get('author', []),
-                    title=ref.get('title', ''),
+                    title=''.join(ref.get('title', '')) if isinstance(ref.get('title'), list) else ref.get('title', ''),
                     type=ref.get('type', ''),
                     container_title=ref.get('container-title', ''),
                     doi=ref.get('doi', ''),
