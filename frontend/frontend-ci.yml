@@ -10,7 +10,7 @@ stages:
   - build
   - deploy
 
-cache:
+cache:  # cache node_modules
   paths:
     - frontend/node_modules/
 
