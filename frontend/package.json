@@ -13,6 +13,7 @@
   "dependencies": {
     "@vuestic/tailwind": "^0.1.4",
     "@vueuse/core": "^10.7.2",
+    "axios": "^1.6.7",
     "pinia": "^2.1.7",
     "vis-network": "^9.1.9",
     "vue": "^3.4.15",

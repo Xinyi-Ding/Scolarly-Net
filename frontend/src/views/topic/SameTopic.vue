@@ -5,7 +5,9 @@ import { DataSet, Network } from 'vis-network/standalone';
 import Net from "@/layouts/NetLayout.vue";
 import SearchResult from "@/components/SearchResult.vue";
 import searchResultExample from "@/lib/searchPaperResults.json";
-import sameTopicExample from "@/lib/sameTopicExample.json";
+import sameTopicExample from "@/lib/exampleSameTopic.json";
+import { generateOptions } from "@/utils/network.js";
+// import req from "@/utils/req.js";
 
 const search = ref('');
 const searchLoading = ref(false);
@@ -21,19 +23,19 @@ const selectedNodeId = ref(null);
 
 const generateLoading = ref(false);
 
-const handleSearch = () => {
-  searchLoading.value = true;
-  setTimeout(() => {
-    if (search.value !== '') {
+const handleSearch = async () => {
+  if (search.value !== '') {
+    searchLoading.value = true;
+    setTimeout(() => {
       searchResults.value = searchResultExample.data.map(paper => ({
         id: paper.id,
         title: paper.title,
         subtitle: paper.authors.toString(),
       }));
       resultModal.value = true;
-    }
-    searchLoading.value = false;
-  }, 1000);
+      searchLoading.value = false;
+    }, 1000);
+  }
 };
 
 const handleResultSelect = (id) => {
@@ -62,16 +64,16 @@ const initializeNetwork = () => {
     const topicNodes = netResults.value.topics.map(topic => ({
       id: `topic-${topic.id}`,
       label: topic.name,
-      shape: 'ellipse',
-      color: '#3D9209',
+      shape: 'star',
+      color: '#4ade80',
     }));
 
     // convert papers to nodes
     const paperNodes = netResults.value.papers.map(paper => ({
       id: paper.id,
       label: paper.title,
-      shape: 'box',
-      color: paper.original ? '#FFC107' : '#90CAF9',
+      shape: 'dot',
+      color: paper.original ? '#FFC107' : null,
       title: paper.authors
     }));
 
@@ -88,20 +90,8 @@ const initializeNetwork = () => {
     edges = new DataSet(edgesArray);
 
     // define the data and options for the network
-    const data = { nodes: nodes, edges: edges };
-    const options = {
-      edges: {
-        smooth: {
-          type: 'cubicBezier',
-          forceDirection: 'horizontal',
-          roundness: 0.4,
-        },
-        color: {
-          color: '#90CAF9',
-        },
-      },
-      physics: false,
-    };
+    const data = {nodes: nodes, edges: edges};
+    const options = generateOptions();
 
     // initialize the network
     network = new Network(networkContainer.value, data, options);
@@ -123,12 +113,18 @@ const highlightListItem = (nodeId) => {
   selectedNodeId.value = nodeId;
 };
 
-const highlightNode = (paperId) => {
-  if (network && paperId) {
-    network.selectNodes([paperId], false);
-    highlightListItem(paperId);
+const highlightNode = (nodeId) => {
+  if (network && nodeId) {
+    // select the node
+    network.selectNodes([nodeId], false);
+    // find and select the edges connected to the node
+    const connectedEdges = network.getConnectedEdges(nodeId);
+    network.selectEdges(connectedEdges);
+    // highlight the list item
+    highlightListItem(nodeId);
   }
 };
+
 </script>
 
 <template>
@@ -162,7 +158,7 @@ const highlightNode = (paperId) => {
         <VaListItem
             :class="{'highlight': selectedNodeId === netResults.original.id}"
             class="p-2 cursor-pointer bg-blue-50 hover:bg-gray-100"
-            @click="highlightNode(netResults.original.id)"
+            @click="highlightNode(network, netResults.original.id)"
         >
           <VaListItemSection>
             <p class="mb-1 text-sm text-blue-600 font-bold">Origin Paper</p>
@@ -174,10 +170,9 @@ const highlightNode = (paperId) => {
             </VaListItemLabel>
           </VaListItemSection>
         </VaListItem>
-        <template v-for="paper in netResults.papers">
+        <template v-for="paper in netResults.papers" :key="paper.id">
           <VaListItem
               v-if="!paper.original"
-              :key="paper.id"
               :class="{'highlight': paper.id === selectedNodeId}"
               class="p-2 cursor-pointer hover:bg-gray-100"
               @click="highlightNode(paper.id)"
@@ -204,7 +199,7 @@ const highlightNode = (paperId) => {
       </div>
     </template>
     <template #graph>
-      <div ref="networkContainer" class="mx-auto w-full h-full"></div>
+      <div ref="networkContainer" class="mx-auto w-full h-full"/>
     </template>
   </Net>
 </template>
