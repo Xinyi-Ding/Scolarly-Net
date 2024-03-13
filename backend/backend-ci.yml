@@ -2,6 +2,7 @@ image: python:3.10
 
 stages:          # List of stages for jobs, and their order of execution
   - test
+  - lint
 
 before_script:
   - pip install -r backend/requirements.txt
@@ -16,7 +17,7 @@ unit-test-job:   # This job runs in the test stage.
     - pytest test/test_analysis.py  # Run analytics tests
 
 lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
+  stage: lint    # It can run at the same time as unit-test-job (in parallel).
   script:
     - pip install flake8
     - flake8 . --max-line-length=120
