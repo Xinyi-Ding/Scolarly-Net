@@ -14,7 +14,7 @@ install-job:
   script:
     - echo "No install steps required for backend"
 
-lint-test-job: # This job also runs in the test stage.
+lint-test-job: # This job also runs in the test stage
   stage: lint    # It can run at the same time as unit-test-job (in parallel).
   script:
     - pip install flake8
