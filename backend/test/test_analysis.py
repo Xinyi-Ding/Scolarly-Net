@@ -92,7 +92,6 @@ def test_parse_artical_metadata():
 
         # Parse the article metadata
         xml_path = analysis.get_extracted_xml(str(pdf_path))
-        print(xml_path)
         article = analysis.get_artical(xml_path)
 
         assert test_case == article.metadata, f"Metadata mismatch for {json_file.name}"
