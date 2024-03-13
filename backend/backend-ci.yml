@@ -3,19 +3,24 @@ image: python:3.10
 before_script:
   - cd backend
 
-stages:          # List of stages for jobs, and their order of execution
+stages: # List of stages for jobs, and their order of execution
   - install
   - lint
   - test
   - build
 
-lint-test-job:   # This job also runs in the test stage.
+install-job:
+  stage: install
+  script:
+    - echo "No install steps required for backend"
+
+lint-test-job: # This job also runs in the test stage.
   stage: lint    # It can run at the same time as unit-test-job (in parallel).
   script:
     - pip install flake8
     - flake8 . --max-line-length=120
 
-unit-test-job:   # This job runs in the test stage.
+unit-test-job: # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
     - pip install -r backend/requirements.txt
@@ -24,3 +29,7 @@ unit-test-job:   # This job runs in the test stage.
     - pytest test/test_integration.py  # Run integration tests
     - pytest test/test_analysis.py  # Run analytics tests
 
+build-job:
+  stage: build
+  script:
+    - echo "No build steps required for backend"
