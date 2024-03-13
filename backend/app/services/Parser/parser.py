@@ -1,8 +1,12 @@
 import io
-from .types import Metadata, Content, Artical, Author
+import json
+import subprocess
+import tempfile
+from .types import Metadata, Content, Artical, Reference, Author
 from typing import AnyStr, Dict, List, Optional
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
+import re
 
 
 def _find_text_single(node: Element, xPath: AnyStr, namespaces: Dict) -> Optional[AnyStr]:
@@ -73,7 +77,8 @@ class Parser(object):
     def parse_artical(self):
         return Artical(
             metadata=self._parse_metadata(),
-            content=self._parse_content()
+            content=self._parse_content(),
+            references=self._parse_reference()
         )
 
     def _string_to_tree(self) -> ET.ElementTree:
@@ -130,3 +135,63 @@ class Parser(object):
         return [Author(name=author.find('.//tei:persName/tei:forename', namespaces={'tei': self.tei_namespace}).text,
                        affiliation=author.find('.//tei:affiliation', namespaces={'tei': self.tei_namespace}).text)
                 for author in authors]
+
+    def _find_raw_reference(self, ns=None):
+        print("extracting raw reference")
+        if ns is None:
+            ns = {'tei': 'http://www.tei-c.org/ns/1.0'}
+        tree = ET.parse(self.xml_path)
+        root = tree.getroot()
+        raw_references = []
+        for note in root.findall('.//tei:note[@type="raw_reference"]', ns):
+            ref = note.text
+            ref = ref.replace('Ű', '-')
+            ref = ref.replace('&apos;', "'")
+            cleaned_ref = re.sub(r'-\s*', '-', ref)
+            raw_references.append(cleaned_ref)
+        print(raw_references[1])
+        return raw_references
+
+    def _store_references(self, raw_references):
+        # Write the references to a temporary file
+        with tempfile.NamedTemporaryFile(mode='w+', delete=False) as tmp:
+            # Each reference on a new line
+            tmp.write('\n'.join(raw_references))
+            tmp_path = tmp.name
+
+        # Define the command to call Anystyle with the appropriate options
+        # This command assumes Anystyle CLI is installed and `anystyle` is in your PATH
+        cmd = ['anystyle', '-f', 'json', 'parse', tmp_path]
+
+        try:
+            # Run the Anystyle command （synchronously）
+            result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+
+            # Parse the JSON output
+            parsed_references = json.loads(result.stdout)
+            return parsed_references
+
+        except subprocess.CalledProcessError as e:
+            # Handle errors in the subprocess
+            print(f"An error occurred while running Anystyle: {e}")
+            return None
+
+        finally:
+            # Remove the temporary file
+            subprocess.run(['rm', tmp_path])
+
+    def _parse_reference(self):
+        raw_references = self._find_raw_reference()
+        stored_json_references = self._store_references(raw_references)
+        if stored_json_references:
+            return [
+                Reference(
+                    authors=ref.get('author', []),
+                    title=''.join(ref.get('title', '')) if isinstance(ref.get('title'), list) else ref.get('title', ''),
+                    type=ref.get('type', ''),
+                    container_title=ref.get('container-title', ''),
+                    doi=ref.get('doi', ''),
+                    published_date=ref.get('date', [])[0] if ref.get('data') else ''
+                )
+                for ref in stored_json_references
+            ]
