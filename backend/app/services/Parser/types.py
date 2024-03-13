@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-
+from typing import Optional
 from typing import List
 
 """
@@ -51,15 +51,17 @@ class Content:
 class Author:
     name: str
     affiliation: str
+    email: Optional[str]
 
     def __repr__(self):
-        return f"Name: {self.name}\n" \
-               f"Affiliation: {self.affiliation}\n"
+        return (f"Name: {self.name}\n"
+                f"Affiliation: {self.affiliation}\n"
+                f"Email: {self.email}\n")
 
     def __eq__(self, other):
         if not isinstance(other, Author):
             return False
-        return self.name == other.name and self.affiliation == other.affiliation
+        return self.name == other.name and self.affiliation == other.affiliation and self.email == other.email
 
 
 @dataclass
@@ -94,9 +96,10 @@ class Reference:
 class Artical:
     metadata: Metadata
     content: Content
+    authors: List[Author]
     references: List[Reference]
 
     def __repr__(self):
-        return f"Metadata: {self.metadata}\n" \
-               f"Content: {self.content}\n" \
-               f"References: {self.references}"
+        return (f"Metadata: {self.metadata}\n" 
+                f"Content: {self.content}\n"
+                f"References: {self.references}")

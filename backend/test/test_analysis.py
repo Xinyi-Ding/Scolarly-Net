@@ -1,7 +1,7 @@
 import json
 from typing import List
 from backend.app.services import analysis
-from backend.app.services.Parser.types import Metadata, Content, Reference
+from backend.app.services.Parser.types import Metadata, Content, Reference, Author
 from pathlib import Path
 from difflib import SequenceMatcher
 
@@ -74,6 +74,28 @@ def _parse_test_case_artical_content(path: str) -> Content:
             abstract=data["abstract"],
             keywords=data["keywords"]
         )
+
+
+def _parse_test_case_artical_authors(path: str) -> List[Author]:
+    """
+    Parse the test case data for the article authors.
+
+    Args:
+        path (str): The path to the test case data.
+
+    Returns:
+        List[Author]: The list of authors.
+    """
+    with open(path, "r") as file:
+        data = json.load(file)
+        return [
+            Author(
+                name=author.get('name', ''),
+                affiliation=author.get('affiliation', ''),
+                email=author.get('email', '')
+            )
+            for author in data['authors']
+        ]
 
 
 def are_similar(text1, text2, threshold=0.8):
@@ -189,3 +211,23 @@ def test_parse_artical_content():
         article = analysis.get_artical(xml_path)
         assert are_similar(normalize_text(test_case.abstract),
                            normalize_text(article.content.abstract)), f"Abstract mismatch for {json_file.name}"
+
+
+# Test cases for the article authors
+def test_parse_artical_authors():
+    """
+    Test the parsing of the article authors.
+    """
+    json_dir = Path("test/test_data/JSON")
+    for json_file in json_dir.glob("*.json"):
+        test_case = _parse_test_case_artical_authors(str(json_file))
+
+        # Construct corresponding PDF file path from the JSON file name
+        pdf_file_name = json_file.stem + ".pdf"
+        pdf_path = Path("test/test_data/Papers") / pdf_file_name
+
+        # Parse the article metadata
+        xml_path = analysis.get_extracted_xml(str(pdf_path))
+        article = analysis.get_artical(xml_path)
+        for i, author in enumerate(article.authors):
+            assert test_case[i].name == author.name, f"Author mismatch for {json_file.name}"

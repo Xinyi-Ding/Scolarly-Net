@@ -3,10 +3,18 @@ from pathlib import Path
 import subprocess
 
 
+def _generate_xml_path(pdf_file_path):
+    pdf_path = Path(pdf_file_path)
+    pdf_dir = str(pdf_path.parent)
+    xml_dir = pdf_dir.replace("Papers", "xml")
+    xml_file_path = Path(xml_dir) / (pdf_path.stem + ".xml")
+    return str(xml_file_path)
+
+
 class Extractor(object):
     def __init__(self, artical_path, grobid_server="http://10.1.0.10:8070"):
         self.pdf_file_path = artical_path
-        self.xml_path = self.generate_xml_path(artical_path)
+        self.xml_path = _generate_xml_path(artical_path)
         self.grobid_server = grobid_server
         self.pdf_to_xml()
 
@@ -72,10 +80,3 @@ class Extractor(object):
             # If an error occurs, the service is not running
             print(f"Failed to check Grobid service with curl: {e}")
             return False
-
-    def generate_xml_path(self, pdf_file_path):
-        pdf_path = Path(pdf_file_path)
-        pdf_dir = str(pdf_path.parent)
-        xml_dir = pdf_dir.replace("Papers", "xml")
-        xml_file_path = Path(xml_dir) / (pdf_path.stem + ".xml")
-        return str(xml_file_path)
