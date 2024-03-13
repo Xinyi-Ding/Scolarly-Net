@@ -74,6 +74,8 @@ frontend_build:
     - npm run build
     - echo "Built!"
     - ls
+  needs:
+    - frontend_test
   rules:
     - changes:
       - frontend/**/*
