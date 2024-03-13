@@ -3,12 +3,11 @@
 .vscode
 .idea/
 
-# Data file
-data/*.sqlite
-Docs/*.docx
-Ents/*.json
-JSON/*.json
-Papers
+# ignore pycache
+__pycache__/
+
+# Ignore grobid
+grobid-0.8.0/
 
 # History file
 historyPSD.txt
@@ -21,6 +20,5 @@ frontend/dist
 frontend/dist-ssr
 frontend/*.local
 frontend/yarn.lock
-frontend/package-lock.json
 frontend/pnpm-lock.yaml
 frontend/*.log

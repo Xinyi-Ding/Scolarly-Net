@@ -1,47 +1,14 @@
-# from .types import Metadata, Content, Reference
-# import grobid_tei_xml
-# import xml.etree.ElementTree as ET
-# import subprocess
-# import json
-# import tempfile
-# import re
-#
-#
-# class Parser(object):
-#     def __init__(self, xml_path):
-#         self.xml_path = xml_path
-#         self.metadata = None
-#         self.content = None
-#         self.references = None
-#         self._parse_reference()
-#
-#     def parse_metadata(self):
-#         with open(self.xml_path, 'r') as xml_file:
-#             doc = grobid_tei_xml.parse_document_xml(xml_file.read())
-#         self.metadata = Metadata(
-#             title=doc.header.title,
-#             doi=doc.header.doi,
-#             publisher=doc.header.publisher,
-#             journal=doc.header.journal,
-#             published_date=doc.header.date
-#         )
-#
-#     def parse_content(self):
-#         with open(self.xml_path, 'r') as xml_file:
-#             doc = grobid_tei_xml.parse_document_xml(xml_file.read())
-#         self.content = Content(
-#             abstract=doc.abstract,
-#             keywords=[" "]
-#         )
-
-
 import io
+import json
+import subprocess
+import tempfile
 
 from .types import Metadata, Content, Artical, Reference
 from typing import AnyStr, Dict, List, Optional
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
-import subprocess
+import re
+
 
 def _find_text_single(node: Element, xPath: AnyStr, namespaces: Dict) -> Optional[AnyStr]:
     """
@@ -210,7 +177,7 @@ class Parser(object):
         raw_references = self._find_raw_reference()
         stored_json_references = self._store_references(raw_references)
         if stored_json_references:
-            self.references = [
+            return [
                 Reference(
                     authors=ref.get('author', []),
                     title=ref.get('title', ''),
