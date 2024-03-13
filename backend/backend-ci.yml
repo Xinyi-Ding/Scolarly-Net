@@ -4,8 +4,10 @@ before_script:
   - cd backend
 
 stages:          # List of stages for jobs, and their order of execution
+  - install
   - lint
   - test
+  - build
 
 lint-test-job:   # This job also runs in the test stage.
   stage: lint    # It can run at the same time as unit-test-job (in parallel).

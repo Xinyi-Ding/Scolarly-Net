@@ -8,13 +8,12 @@ stages:
   - lint
   - test
   - build
-  - deploy
 
 cache:  # cache node_modules
   paths:
     - frontend/node_modules/
 
-install:  # install dependencies
+install-dependencies:  # install dependencies
   stage: install
   script:
     - echo "Clean installing the dependency..."
@@ -23,7 +22,7 @@ install:  # install dependencies
     - npm ci
     - echo "Installed!"
 
-lint:  # lint code
+lint-test-job:  # check code quality using ESLint
   stage: lint
   needs:
     - install
@@ -32,7 +31,7 @@ lint:  # lint code
     - npm run lint
     - echo "Lint passed!"
 
-test:  # vitest
+unit-test-job:  # test ui components using Vitest
   stage: test
   needs:
     - install
@@ -50,12 +49,3 @@ build:  # build application
     - pwd
     - npm run build
     - echo "Built!"
-
-deploy:  # deploy application
-  stage: deploy
-  needs:
-    - build
-  script:
-    - echo "Deploying to production server..."
-  only:
-    - master
