@@ -1,7 +1,7 @@
 import json
 from typing import List
 from backend.app.services import analysis
-from backend.app.services.Parser.types import Metadata, Content, Reference
+from backend.app.services.Parser.types import Metadata, Content, Reference, Author
 from pathlib import Path
 from difflib import SequenceMatcher
 
@@ -78,6 +78,28 @@ def _parse_test_case_artical_content(path: str) -> Content:
         )
 
 
+def _parse_test_case_artical_authors(path: str) -> List[Author]:
+    """
+    Parse the test case data for the article authors.
+
+    Args:
+        path (str): The path to the test case data.
+
+    Returns:
+        List[Author]: The list of authors.
+    """
+    with open(path, "r") as file:
+        data = json.load(file)
+        return [
+            Author(
+                name=author.get('name', ''),
+                affiliation=author.get('affiliation', ''),
+                email=author.get('email', '')
+            )
+            for author in data['authors']
+        ]
+
+
 def are_similar(text1, text2, threshold=0.8):
     """
     Check if two texts are similar based on the Levenshtein distance.
@@ -95,10 +117,15 @@ def are_similar(text1, text2, threshold=0.8):
     similarity = SequenceMatcher(None, text1, text2).ratio()
     return similarity >= threshold
 
+
 def _are_reference_similar(reference1: List[Reference], reference2: List[Reference], match_threshold=0.8, match_ratio_threshold=0.5):
     """
-    Check if the extracted references (reference2) are accurate compared to the manually extracted references (reference1).
-    Allows for differences in length and some level of inaccuracy in reference2.
+
+    Check if two lists of references are similar based on their titles.
+    A reference is considered similar to another if their titles have more than 80% similarity.
+    References in one list are matched to the most similar
+    references in the other list without assuming identical order.
+
 
     Args:
         reference1 (List[Reference]): The manually extracted references for comparison.
@@ -126,6 +153,7 @@ def _are_reference_similar(reference1: List[Reference], reference2: List[Referen
     match_ratio = match_count / len(reference1)
     print("match ratio:", match_ratio)
     return match_ratio >= match_ratio_threshold
+
 
 # Test cases for the article reference
 def test_parse_artical_reference():
@@ -189,3 +217,23 @@ def test_parse_artical_content():
         # print(article.content.abstract)
         assert are_similar(normalize_text(test_case.abstract),
                            normalize_text(article.content.abstract)), f"Abstract mismatch for {json_file.name}"
+
+
+# Test cases for the article authors
+def test_parse_artical_authors():
+    """
+    Test the parsing of the article authors.
+    """
+    json_dir = Path("test/test_data/JSON")
+    for json_file in json_dir.glob("*.json"):
+        test_case = _parse_test_case_artical_authors(str(json_file))
+
+        # Construct corresponding PDF file path from the JSON file name
+        pdf_file_name = json_file.stem + ".pdf"
+        pdf_path = Path("test/test_data/Papers") / pdf_file_name
+
+        # Parse the article metadata
+        xml_path = analysis.get_extracted_xml(str(pdf_path))
+        article = analysis.get_artical(xml_path)
+        for i, author in enumerate(article.authors):
+            assert test_case[i].name == author.name, f"Author mismatch for {json_file.name}"

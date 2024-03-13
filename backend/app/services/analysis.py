@@ -1,5 +1,5 @@
-from .Extractor import extractor as Extractor
-from .Parser import parser as Parser
+from .Extractor.extractor import Extractor
+from .Parser.parser import Parser
 from .Parser.types import Artical
 import nltk
 from nltk.corpus import stopwords
@@ -79,11 +79,11 @@ def get_topics_from_article(article: Artical) -> list:
 
 
 def get_artical(xml_path) -> Artical:
-    parser = Parser.Parser(xml_path)
+    parser = Parser(xml_path)
     artical = parser.artical
     return artical
 
+def get_extracted_xml(pdf_path, grobid_server="http://10.1.0.10:8070") -> str:
+    extractor = Extractor(pdf_path, grobid_server=grobid_server)
 
-def get_extracted_xml(pdf_path) -> str:
-    extractor = Extractor.Extractor(pdf_path)
     return extractor.xml_path

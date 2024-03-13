@@ -2,8 +2,7 @@ import io
 import json
 import subprocess
 import tempfile
-
-from .types import Metadata, Content, Artical, Reference
+from .types import Metadata, Content, Artical, Reference, Author
 from typing import AnyStr, Dict, List, Optional
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
@@ -79,11 +78,11 @@ class Parser(object):
         return Artical(
             metadata=self._parse_metadata(),
             content=self._parse_content(),
-            references=self._parse_reference()
+            references=self._parse_reference(),
+            authors=self._parse_author()
         )
 
     def _string_to_tree(self) -> ET.ElementTree:
-        print(self.xml_path)
         with open(self.xml_path, 'r') as xml_file:
             content = xml_file.read()
         if isinstance(content, str):
@@ -128,6 +127,35 @@ class Parser(object):
             abstract=abstract,
             keywords=keywords
         )
+
+    def _parse_author(self) -> list[Author]:
+        # Parse the XML string into an ElementTree object.
+        tree = self.etree.getroot()
+        authors = []
+
+        # Find all author elements.
+        author_elements = tree.findall('.//tei:sourceDesc/tei:biblStruct/tei:analytic/tei:author',
+                                       namespaces={'tei': self.tei_namespace})
+
+        for author_elem in author_elements:
+            # Extract forenames (including middle name) and surname for each author.
+            forenames = author_elem.findall('.//tei:persName/tei:forename', namespaces={'tei': self.tei_namespace})
+            forename_texts = [forename.text for forename in forenames]
+            surname = author_elem.find('.//tei:persName/tei:surname', namespaces={'tei': self.tei_namespace}).text
+
+            # Combine forenames and surname into a full name.
+            full_name = f"{' '.join(forename_texts)} {surname}"
+
+            affiliation_element = author_elem.find('.//tei:affiliation/tei:orgName',
+                                                   namespaces={'tei': self.tei_namespace})
+            affiliation = affiliation_element.text if affiliation_element is not None else None
+            email_element = author_elem.find('.//tei:email', namespaces={'tei': self.tei_namespace})
+            email = email_element.text if email_element is not None else None
+
+            # Create an Author dataclass and add it to the list.
+            authors.append(Author(name=full_name, affiliation=affiliation, email=email))
+
+        return authors
 
     def _find_raw_reference(self, ns=None):
         # print("extracting raw reference")

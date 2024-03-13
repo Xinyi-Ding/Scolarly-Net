@@ -18,7 +18,11 @@
             "email": "shafiekhorassani.1@osu.edu"
         },
         {
+<<<<<<< HEAD
             "name": "Chen-Chun Chen",
+=======
+            "name": "Chen Chun Chen",
+>>>>>>> main
             "affiliation": "The Ohio State University Columbus, USA",
             "email": "chen.10252@osu.edu"
         },
@@ -38,7 +42,11 @@
             "email": "subramon@csc.ohio-state.edu"
         },
         {
+<<<<<<< HEAD
             "name": "Dhabaleswar K. Panda",
+=======
+            "name": "Dhabaleswar K Panda",
+>>>>>>> main
             "affiliation": "The Ohio State University Columbus, USA",
             "email": "panda.1@ocsc.ohio-state.edu"
         }
