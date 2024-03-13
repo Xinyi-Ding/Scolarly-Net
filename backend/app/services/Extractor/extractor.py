@@ -55,7 +55,8 @@ class Extractor(object):
         """
         try:
             # Use curl to make a request to the Grobid service and capture the HTTP status code
-            result = subprocess.run(['curl', '-s', '-o', '/dev/null', '-w', '%{http_code}', self.grobid_server], capture_output=True,
+            result = subprocess.run(['curl', '-s', '-o', '/dev/null', '-w', '%{http_code}', self.grobid_server],
+                                    capture_output=True,
                                     text=True)
             status_code = result.stdout.strip()
 
