@@ -100,6 +100,7 @@ class Artical:
     references: List[Reference]
 
     def __repr__(self):
-        return (f"Metadata: {self.metadata}\n" 
+
+        return (f"Metadata: {self.metadata}\n"
                 f"Content: {self.content}\n"
                 f"References: {self.references}")

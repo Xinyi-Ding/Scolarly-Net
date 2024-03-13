@@ -134,7 +134,8 @@ class Parser(object):
         authors = []
 
         # Find all author elements.
-        author_elements = tree.findall('.//tei:sourceDesc/tei:biblStruct/tei:analytic/tei:author', namespaces={'tei': self.tei_namespace})
+        author_elements = tree.findall('.//tei:sourceDesc/tei:biblStruct/tei:analytic/tei:author',
+                                       namespaces={'tei': self.tei_namespace})
 
         for author_elem in author_elements:
             # Extract forenames (including middle name) and surname for each author.
@@ -145,7 +146,8 @@ class Parser(object):
             # Combine forenames and surname into a full name.
             full_name = f"{' '.join(forename_texts)} {surname}"
 
-            affiliation_element = author_elem.find('.//tei:affiliation/tei:orgName', namespaces={'tei': self.tei_namespace})
+            affiliation_element = author_elem.find('.//tei:affiliation/tei:orgName',
+                                                   namespaces={'tei': self.tei_namespace})
             affiliation = affiliation_element.text if affiliation_element is not None else None
             email_element = author_elem.find('.//tei:email', namespaces={'tei': self.tei_namespace})
             email = email_element.text if email_element is not None else None
