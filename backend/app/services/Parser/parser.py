@@ -1,6 +1,5 @@
 import io
-
-from .types import Metadata, Content, Artical
+from .types import Metadata, Content, Artical, Author
 from typing import AnyStr, Dict, List, Optional
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
@@ -123,3 +122,11 @@ class Parser(object):
             abstract=abstract,
             keywords=keywords
         )
+
+    def _parse_author(self) -> list[Author]:
+        tei_root = self.etree.getroot()
+        authors = tei_root.findall('.//tei:sourceDesc/tei:biblStruct/tei:analytic/tei:author',
+                                   namespaces={'tei': self.tei_namespace})
+        return [Author(name=author.find('.//tei:persName/tei:forename', namespaces={'tei': self.tei_namespace}).text,
+                       affiliation=author.find('.//tei:affiliation', namespaces={'tei': self.tei_namespace}).text)
+                for author in authors]

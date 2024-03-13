@@ -44,6 +44,19 @@ class Content:
             return False
         return self.abstract == other.abstract and self.keywords == other.keywords
 
+@dataclass
+class Author:
+    name: str
+    affiliation: str
+
+    def __repr__(self):
+        return f"Name: {self.name}\n" \
+               f"Affiliation: {self.affiliation}\n"
+
+    def __eq__(self, other):
+        if not isinstance(other, Author):
+            return False
+        return self.name == other.name and self.affiliation == other.affiliation
 
 @dataclass
 class Artical:
