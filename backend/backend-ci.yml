@@ -14,7 +14,7 @@ unit-test-job:   # This job runs in the test stage.
     - pytest test/test_main.py  # Run backend service tests
     - pytest test/test_db.py  # Run database tests
     - pytest test/test_integration.py  # Run integration tests
-    - pytest test/test_analysis.py  # Run analytics tests
+    - pytest -s test/test_analysis.py  # Run analytics tests
 
 lint-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
