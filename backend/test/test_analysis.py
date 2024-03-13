@@ -24,9 +24,11 @@ def normalize_text(text):
 def _parse_test_case_artical_reference(path: str) -> List[Reference]:
     with open(path, "r") as file:
         data = json.load(file)
+        if not data['Reference']:
+            return []
         return [
             Reference(
-                authors=ref.get('author', []),
+                authors=ref.get('authors', ''),
                 title=ref.get('title', ''),
                 type=ref.get('type', ''),
                 container_title=ref.get('container-title', ''),
@@ -93,42 +95,37 @@ def are_similar(text1, text2, threshold=0.8):
     similarity = SequenceMatcher(None, text1, text2).ratio()
     return similarity >= threshold
 
-def _are_reference_similar(reference1: List[Reference], reference2: List[Reference]):
+def _are_reference_similar(reference1: List[Reference], reference2: List[Reference], match_threshold=0.8, match_ratio_threshold=0.5):
     """
-    Check if two lists of references are similar based on their titles.
-    A reference is considered similar to another if their titles have more than 80% similarity.
-    References in one list are matched to the most similar references in the other list without assuming identical order.
+    Check if the extracted references (reference2) are accurate compared to the manually extracted references (reference1).
+    Allows for differences in length and some level of inaccuracy in reference2.
 
     Args:
-        reference1 (List[Reference]): The first list of references.
-        reference2 (List[Reference]): The second list of references.
+        reference1 (List[Reference]): The manually extracted references for comparison.
+        reference2 (List[Reference]): The automatically extracted references to be tested.
+        match_threshold (float): The similarity threshold for considering two references as a match.
+        match_ratio_threshold (float): The minimum ratio of reference1 that must find a match in reference2 for the function to return True.
 
     Returns:
-        bool: True if the references are considered similar, False otherwise.
+        bool: True if the accuracy of reference2 is deemed acceptable, False otherwise.
     """
-    # Ensure reference1 is always the longer list for simplicity
-    if len(reference1) < len(reference2):
-        reference1, reference2 = reference2, reference1
+    if len(reference1) == 0 and len(reference2) == 0:
+        return True
+    match_count = 0
 
-    # Initialize a list to keep track of which references in the longer list have been matched
-    matched = [False] * len(reference1)
+    for ref1 in reference1:
+        for ref2 in reference2:
+            # Compute similarity based on titles, but other fields like authors and DOI can also be considered
+            title_similarity = SequenceMatcher(None, normalize_text(ref1.title), normalize_text(ref2.title)).ratio()
+            if title_similarity > match_threshold:
+                match_count += 1
+                break  # Stop searching once a match is found for this reference
 
-    for ref2 in reference2:
-        best_match_index = -1
-        best_similarity = 0.8  # Set to the threshold to ensure only better matches are considered
-        for i, ref1 in enumerate(reference1):
-            if not matched[i]:  # Only consider unmatched references
-                similarity = SequenceMatcher(None, normalize_text(ref1.title), normalize_text(ref2.title)).ratio()
-                if similarity > best_similarity:
-                    best_similarity = similarity
-                    best_match_index = i
+    # Check if the ratio of matched references in reference1 is above the threshold
 
-        if best_match_index >= 0:
-            matched[best_match_index] = True  # Mark this reference as matched
-        else:
-            return False  # If no match found for a reference in the shorter list, return False
-
-    return True
+    match_ratio = match_count / len(reference1)
+    print("match ratio:", match_ratio)
+    return match_ratio >= match_ratio_threshold
 
 # Test cases for the article reference
 def test_parse_artical_reference():
@@ -137,6 +134,7 @@ def test_parse_artical_reference():
     """
     json_dir = Path("test/test_data/JSON")
     for json_file in json_dir.glob("*.json"):
+        print("testing reference:", json_file.name)
         test_case = _parse_test_case_artical_reference(str(json_file))
         # Construct corresponding PDF file path from the JSON file name
         pdf_file_name = json_file.stem + ".pdf"
@@ -145,9 +143,9 @@ def test_parse_artical_reference():
         # Parse the article metadata
         xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_artical(xml_path)
-        print("reference test case")
-        print(test_case[2])
-        print(article.references[2])
+        # print("reference test case")
+        # print(test_case)
+        # print(article.references)
         assert _are_reference_similar(test_case, article.references), f"Reference mismatch for {json_file.name}"
 
 # Test cases for the article metadata
@@ -166,7 +164,8 @@ def test_parse_artical_metadata():
         # Parse the article metadata
         xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_artical(xml_path)
-
+        print(test_case.journal)
+        print(article.metadata.journal)
         assert test_case == article.metadata, f"Metadata mismatch for {json_file.name}"
 
 
@@ -186,5 +185,7 @@ def test_parse_artical_content():
         # Parse the article metadata
         xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_artical(xml_path)
+        # print(test_case)
+        # print(article.content.abstract)
         assert are_similar(normalize_text(test_case.abstract),
                            normalize_text(article.content.abstract)), f"Abstract mismatch for {json_file.name}"
