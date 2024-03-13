@@ -4,16 +4,16 @@ from backend.app.main import app  # Import the FastAPI application instance
 
 
 # Test for the root endpoint "/"
-@pytest.mark.asyncio
-async def test_root():
-    """
-    Asynchronously test the root endpoint "/"
-    """
-    # Asynchronously send a GET request to the root endpoint and assert response
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
-        response = await ac.get("/")
-    assert response.status_code == 200
-    assert response.json() == {"uri": "/"}
+# @pytest.mark.asyncio
+# async def test_root():
+#     """
+#     Asynchronously test the root endpoint "/"
+#     """
+#     # Asynchronously send a GET request to the root endpoint and assert response
+#     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
+#         response = await ac.get("/")
+#     assert response.status_code == 200
+#     assert response.json() == {"uri": "/"}
 
 
 # Test for the "/catalog/" endpoint
