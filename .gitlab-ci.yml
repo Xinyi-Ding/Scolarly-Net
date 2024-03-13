@@ -34,6 +34,7 @@ frontend_install:
   rules:
     - changes:
       - frontend/**/*
+      - gitlab-ci.yml
 
 frontend_lint:
   stage: lint
@@ -48,6 +49,7 @@ frontend_lint:
   rules:
     - changes:
       - frontend/**/*
+      - gitlab-ci.yml
 
 frontend_test:
   stage: test
@@ -62,6 +64,7 @@ frontend_test:
   rules:
     - changes:
       - frontend/**/*
+      - gitlab-ci.yml
 
 frontend_build:
   stage: build
@@ -79,6 +82,7 @@ frontend_build:
   rules:
     - changes:
       - frontend/**/*
+      - gitlab-ci.yml
 
 # backend jobs
 backend_lint:
@@ -93,6 +97,7 @@ backend_lint:
   rules:
     - changes:
       - backend/**/*
+      - gitlab-ci.yml
 
 backend_test:
   stage: test
@@ -100,11 +105,10 @@ backend_test:
   tags:
     - backend
   <<: *change_to_backend_dir
-  before_script:
+  script:
     - apt-get update && apt-get install -y ruby-full # Install ruby for anystyle-cli
     - gem install anystyle-cli # Install anystyle-cli
     - pip install -r requirements.txt # Install python dependencies
-  script:
     - pytest test/test_main.py  # Run backend service tests
     - pytest test/test_db.py  # Run database tests
     - pytest test/test_integration.py  # Run integration tests
@@ -112,3 +116,4 @@ backend_test:
   rules:
     - changes:
       - backend/**/*
+      - gitlab-ci.yml
