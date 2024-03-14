@@ -1,0 +1,439 @@
+{
+    "metadata": {
+        "title": "John Beddington is the UK government chief scientific adviser and head of the Government Office for Science in London",
+        "doi": null,
+        "publisher": null,
+        "journal": null,
+        "published_date": null
+    },
+    "content": {
+        "abstract": null,
+        "keywords": []
+    },
+    "authors": [
+        {
+            "name": "John Beddington",
+            "affiliation": null,
+            "email": null
+        },
+        {
+            "name": "Cary L Cooper",
+            "affiliation": null,
+            "email": null
+        },
+        {
+            "name": "John Field",
+            "affiliation": null,
+            "email": null
+        },
+        {
+            "name": "Usha Goswami",
+            "affiliation": null,
+            "email": null
+        },
+        {
+            "name": "Felicia A Huppert",
+            "affiliation": null,
+            "email": null
+        },
+        {
+            "name": "Rachel Jenkins",
+            "affiliation": null,
+            "email": null
+        },
+        {
+            "name": "Hannah S Jones",
+            "affiliation": null,
+            "email": null
+        },
+        {
+            "name": "Tom B L Kirkwood",
+            "affiliation": null,
+            "email": null
+        },
+        {
+            "name": "Barbara J Sahakian",
+            "affiliation": null,
+            "email": null
+        },
+        {
+            "name": "Sandy M Thomas",
+            "affiliation": null,
+            "email": null
+        }
+    ],
+    "references": [
+        {
+            "authors": [
+                {
+                    "family": "Llewellyn",
+                    "given": "D.J."
+                },
+                {
+                    "family": "Lang",
+                    "given": "I.A."
+                },
+                {
+                    "family": "Langa",
+                    "given": "K.M."
+                },
+                {
+                    "family": "McWilliams",
+                    "given": "B.C."
+                },
+                {
+                    "family": "Huppert",
+                    "given": "F."
+                }
+            ],
+            "title": "A",
+            "type": null,
+            "container_title": "",
+            "doi": "",
+            "published_date": ""
+        },
+        {
+            "authors": [
+                {
+                    "family": "Goswami",
+                    "given": "U."
+                }
+            ],
+            "title": "Foresight Mental Capital and Wellbeing Project",
+            "type": "book",
+            "container_title": "",
+            "doi": "",
+            "published_date": "2008"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Kirkwood",
+                    "given": "T."
+                },
+                {
+                    "family": "Bond",
+                    "given": "J."
+                },
+                {
+                    "family": "May",
+                    "given": "C."
+                },
+                {
+                    "family": "McKeith",
+                    "given": "I."
+                },
+                {
+                    "family": "Teh",
+                    "given": "M."
+                }
+            ],
+            "title": "Foresight Mental Capital and Wellbeing Project",
+            "type": null,
+            "container_title": "",
+            "doi": "",
+            "published_date": ""
+        },
+        {
+            "authors": [
+                {
+                    "family": "Albert",
+                    "given": "M.S."
+                },
+                {
+                    "family": "Blacker",
+                    "given": "D.Annu"
+                }
+            ],
+            "title": "Rev",
+            "type": "article-journal",
+            "container_title": [
+                "Clin. Psychol"
+            ],
+            "doi": "",
+            "published_date": "2006"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Blennow",
+                    "given": "K."
+                },
+                {
+                    "given": "Hampel"
+                }
+            ],
+            "title": "H",
+            "type": "article-journal",
+            "container_title": [
+                "Lancet Neurol"
+            ],
+            "doi": "",
+            "published_date": "2003"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Chua",
+                    "given": "T.C."
+                },
+                {
+                    "family": "Wen",
+                    "given": "W."
+                },
+                {
+                    "family": "Slavin",
+                    "given": "M.J."
+                },
+                {
+                    "family": "Sachdev",
+                    "given": "P.S.Curr"
+                }
+            ],
+            "title": "Opin",
+            "type": "article-journal",
+            "container_title": [
+                "Neurol"
+            ],
+            "doi": "",
+            "published_date": "2008"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Schott",
+                    "given": "J.M."
+                },
+                {
+                    "others": true
+                }
+            ],
+            "title": "",
+            "type": "article-journal",
+            "container_title": [
+                "Neurology"
+            ],
+            "doi": "",
+            "published_date": "2005"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Papassotiropoulos",
+                    "given": "A."
+                }
+            ],
+            "title": "et al",
+            "type": "article-journal",
+            "container_title": [
+                "Science"
+            ],
+            "doi": "",
+            "published_date": "2006"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Reiman",
+                    "given": "E.M."
+                },
+                {
+                    "others": true
+                }
+            ],
+            "title": "",
+            "type": "article-journal",
+            "container_title": [
+                "Neuron"
+            ],
+            "doi": "",
+            "published_date": "2007"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Phillips",
+                    "given": "M.L."
+                },
+                {
+                    "family": "Vieta",
+                    "given": "E."
+                }
+            ],
+            "title": "Schizophr",
+            "type": "article-journal",
+            "container_title": [
+                "Bull"
+            ],
+            "doi": "",
+            "published_date": "2007"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Mayberg",
+                    "given": "H.S."
+                },
+                {
+                    "others": true
+                }
+            ],
+            "title": "",
+            "type": "article-journal",
+            "container_title": [
+                "NeuroReport"
+            ],
+            "doi": "",
+            "published_date": "1997"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Chen",
+                    "given": "C.H."
+                },
+                {
+                    "others": true
+                }
+            ],
+            "title": "",
+            "type": "article-journal",
+            "container_title": [
+                "Neuropsychopharmacology"
+            ],
+            "doi": "",
+            "published_date": "2008"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Cooper",
+                    "given": "C."
+                },
+                {
+                    "others": true
+                }
+            ],
+            "title": "Psychol",
+            "type": "article-journal",
+            "container_title": [
+                "Med"
+            ],
+            "doi": "",
+            "published_date": "2008"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Bebbington",
+                    "given": "P.E."
+                },
+                {
+                    "others": true
+                }
+            ],
+            "title": "Br",
+            "type": "article-journal",
+            "container_title": [
+                "J"
+            ],
+            "doi": "",
+            "published_date": ""
+        },
+        {
+            "authors": [
+                {
+                    "family": "Jenkins",
+                    "given": "R."
+                },
+                {
+                    "others": true
+                }
+            ],
+            "title": "Psychol",
+            "type": "article-journal",
+            "container_title": [
+                "Med"
+            ],
+            "doi": "",
+            "published_date": "2008"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Challen",
+                    "given": "A."
+                },
+                {
+                    "family": "King",
+                    "given": "D."
+                },
+                {
+                    "family": "Knapp",
+                    "given": "M."
+                },
+                {
+                    "family": "McNally",
+                    "given": "S."
+                }
+            ],
+            "title": "Foresight Mental Capital and Wellbeing Project",
+            "type": "chapter",
+            "container_title": [
+                "The Economic Consequences of Specific Learning Difficulties and the Cost-Effectiveness of Prevention Strategies"
+            ],
+            "doi": "",
+            "published_date": "2008"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Jenkins",
+                    "given": "R."
+                },
+                {
+                    "others": true
+                }
+            ],
+            "title": "Foresight Mental Capital and Wellbeing Project",
+            "type": "book",
+            "container_title": "",
+            "doi": "",
+            "published_date": "2008"
+        },
+        {
+            "authors": [],
+            "title": "The WHO World Mental Health Survey Consortium",
+            "type": "article-journal",
+            "container_title": [
+                "J. Am. Med. Assoc"
+            ],
+            "doi": "",
+            "published_date": "2004"
+        },
+        {
+            "authors": [],
+            "title": "World Health Organization www.who.int/mental_health/ management/depression/definition/en",
+            "type": null,
+            "container_title": "",
+            "doi": "",
+            "published_date": ""
+        },
+        {
+            "authors": [
+                {
+                    "family": "Knapp",
+                    "given": "M."
+                },
+                {
+                    "others": true
+                }
+            ],
+            "title": "Dementia UK",
+            "type": "book",
+            "container_title": "",
+            "doi": "",
+            "published_date": "2007"
+        }
+    ]
+}

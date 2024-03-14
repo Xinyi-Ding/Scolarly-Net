@@ -8,7 +8,6 @@ import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
 import re
 
-
 def _find_text_single(node: Element, xPath: AnyStr, namespaces: Dict) -> Optional[AnyStr]:
     """
     Helper functions for parsing XML for metadata

@@ -1,6 +1,7 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from typing import Optional
 from typing import List
+
 
 """
 The data models for the Parser service.
@@ -104,3 +105,7 @@ class Artical:
                 f"Content: {self.content}\n"
                 f"Authors: {self.authors}\n"
                 f"References: {self.references}")
+
+    def to_dict(self):
+        return asdict(self)
+
