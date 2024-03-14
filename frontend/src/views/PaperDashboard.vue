@@ -48,20 +48,21 @@ const onFileAdded = async (file) => {
     console.log('analyzed result', res);
     paper.value = {
       id: 2,
-      title: res.metadata.title,
+      title: res.metadata?.title,
       authors: res.authors,
-      doi: res.metadata.doi,
-      date: res.metadata.published_date,
-      journal: res.metadata.journal,
-      publisher: res.metadata.publisher,
-      abstract: res.content.abstract,
-      keywords: res.content.keywords,
+      doi: res.metadata?.doi,
+      date: res.metadata?.published_date,
+      journal: res.metadata?.journal,
+      publisher: res.metadata?.publisher,
+      abstract: res.content?.abstract,
+      keywords: res.content?.keywords,
       references: res.references,
     };
+    console.log('paper', paper.value);
     ready.value = {
-      sameTopic: paper.value.keywords.length > 0 ? 1 : -1,
-      topicConnections: paper.value.keywords.length > 0 ? 1 : -1,
-      coAuthors: paper.value.authors.length > 0 ? 1 : -1,
+      sameTopic: paper.value.keywords?.length > 0 ? 1 : -1,
+      topicConnections: paper.value.keywords?.length > 0 ? 1 : -1,
+      coAuthors: paper.value.authors?.length > 0 ? 1 : -1,
       affiliations: -1,
       citedTree: paper.value.references > 0 ? 1 : -1,
       citedByTree: paper.value.references > 0 ? 1 : -1,
@@ -108,8 +109,9 @@ const onFileAdded = async (file) => {
         <VaCardTitle>
           <!--<VaIcon v-if="uploading" name="loop" spin />-->
           <span v-if="paper?.title" class="ml-3 font-black text-lg">
-          {{ paper.title }}
-        </span>
+            {{ paper.title }}
+          </span>
+          <span v-else class="ml-3 font-black text-lg">- No Title Found -</span>
         </VaCardTitle>
         <VaCardContent class="paper break-words overflow-hidden -mt-2">
           <table class="va-table">
@@ -156,7 +158,6 @@ const onFileAdded = async (file) => {
                     class="mr-1 leading-none"
                     size="small"
                     square
-                    outline
                 >
                   {{ keyword }}
                 </VaChip>
