@@ -1,9 +1,9 @@
 <script setup>
-import { ref, watch } from "vue";
+import { nextTick, ref } from "vue";
 import DashboardCard from "@/components/DashboardCard.vue";
-// import dashboardExample from '@/lib/exampleDashboard.json';
-import req from "@/utils/req.js";
 import UserChip from "@/components/UserChip.vue";
+import req from "@/utils/req.js";
+// import dashboardExample from '@/lib/exampleDashboard.json';
 
 const uploaded = ref(false);
 const ready = ref({
@@ -15,14 +15,24 @@ const ready = ref({
   citedByTree: -1,
 });
 const paper = ref({});
+const filename = ref(null);
+const cardRef = ref();
 
-const basic = ref([]);
-
-const onFileAdded = async () => {
-  if (basic.value.length > 0) {
+const onFileAdded = async (file) => {
+  if (file?.length === 1) {
     uploaded.value = true;
+    paper.value = {};
+    ready.value = {
+      sameTopic: 0,
+      topicConnections: 0,
+      coAuthors: 0,
+      affiliations: 0,
+      citedTree: 0,
+      citedByTree: 0,
+    };
+    filename.value = file[0].name;
     const data = new FormData();
-    data.append('file', basic.value[0]);
+    data.append('file', file[0]);
     ready.value = {
       sameTopic: 0,
       topicConnections: 0,
@@ -33,8 +43,9 @@ const onFileAdded = async () => {
     };
     let res = await req.post('/analysis/upload', data);
     res = res.data.data;
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
     // const res = dashboardExample.data;
-    console.log(res)
+    console.log('analyzed result', res);
     paper.value = {
       id: 2,
       title: res.metadata.title,
@@ -52,124 +63,116 @@ const onFileAdded = async () => {
       topicConnections: paper.value.keywords.length > 0 ? 1 : -1,
       coAuthors: paper.value.authors.length > 0 ? 1 : -1,
       affiliations: -1,
-      citedTree: paper.value.references.length > 0 ? 1 : -1,
+      citedTree: paper.value.references > 0 ? 1 : -1,
       citedByTree: paper.value.references > 0 ? 1 : -1,
     };
+    await nextTick();
+    if (cardRef.value) {
+      cardRef.value.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 };
-
-watch(basic, (newValue, oldValue) => {
-  if (newValue.length > oldValue.length) {
-    onFileAdded();
-  }
-});
-
 </script>
 
 <template>
   <div class="p-4">
-    <VaAlert color="info" border="left" class="mb-4 p-6">
-      <template #icon>
-        <VaIcon name="info" />
-      </template>
-      <p class="mb-3">This is the Dashboard, where you can upload your own papers for analysis and view related information.</p>
-      <p>When the paper analysis is successful, clicking on the card below will redirect to the relevant page and
-        automatically display the analysis results of the uploaded paper.</p>
-    </VaAlert>
     <VaFileUpload
-        v-model="basic"
-        :disabled="basic.length > 0"
-        v-if="!uploaded"
-        class="mb-4"
-        file-types="application/msword,application/pdf"
+        type="single"
+        file-types="application/msword, application/pdf"
+        @file-added="onFileAdded"
     >
       <div class="p-4 border-2 border-gray-300 border-dashed">
         <div class="upload">
           <VaIcon class="mr-2" size="large" name="upload" color="primary" />
           <p>
-            <span>Click</span>or<span>Drag & Drop</span>a file to upload{{paper}}
+            <span>Click</span>or<span>Drag & Drop</span>a file to upload
           </p>
         </div>
       </div>
     </VaFileUpload>
-    <VaCard
-        v-else
-        class="min-h-32 relative mb-4"
+    <VaAlert
+        v-if="filename"
+        color="success"
+        outline
     >
-      <div>
+      <template #icon>
+        <VaIcon name="attach_file" color="success" />
+      </template>
+      {{ filename }}
+    </VaAlert>
+    <div class="pt-4" ref="cardRef">
+      <VaCard
+          v-if="Object.keys(paper).length > 0"
+          class="min-h-32 relative mb-4"
+      >
         <VaCardTitle>
-          <div>
-            <span v-if="paper !== null" class="font-black text-lg">
-              {{ paper.title }}
-            </span>
-            <VaIcon v-else name="loop" spin />
-          </div>
+          <!--<VaIcon v-if="uploading" name="loop" spin />-->
+          <span v-if="paper?.title" class="ml-3 font-black text-lg">
+          {{ paper.title }}
+        </span>
         </VaCardTitle>
         <VaCardContent class="paper break-words overflow-hidden -mt-2">
-          <div>
-            <span>Authors:</span>
-            <span v-if="paper !== null">
-              <UserChip
-                  v-for="author in paper.authors"
-                  :key="author.id"
-                  :author="author"
-              />
-            </span>
-            <VaIcon v-else name="loop" spin />
-          </div>
-          <div>
-            <span>DOI:</span>
-            <span v-if="paper !== null">
-              {{ paper.doi }}
-            </span>
-            <VaIcon v-else name="loop" spin />
-          </div>
-          <div>
-            <span>Date:</span>
-            <span v-if="paper !== null">
-              {{ paper.date }}
-            </span>
-            <VaIcon v-else name="loop" spin />
-          </div>
-          <div v-if="paper?.journal">
-            <span>Journal:</span>
-            <span v-if="paper !== null">
-              {{ paper.journal }}
-            </span>
-            <VaIcon v-else name="loop" spin />
-          </div>
-          <div v-if="paper?.publisher">
-            <span>Publisher:</span>
-            <span v-if="paper !== null">
-              {{ paper.publisher }}
-            </span>
-            <VaIcon v-else name="loop" spin />
-          </div>
-          <div>
-            <span>Abstract:</span>
-            <span v-if="paper !== null">
-              {{ paper.abstract }}
-            </span>
-            <VaIcon v-else name="loop" spin />
-          </div>
-          <div v-if="paper?.keywords">
-            <span>Keywords:</span>
-            <span v-if="paper !== null">
-              {{ paper.keywords.toString() }}
-            </span>
-            <VaIcon v-else name="loop" spin />
-          </div>
-          <div>
-            <span>References:</span>
-            <span v-if="paper !== null">
-              {{ paper.references ? paper.references : 'None' }}
-            </span>
-            <VaIcon v-else name="loop" spin />
-          </div>
+          <table class="va-table">
+            <tbody>
+            <tr v-if="paper?.authors">
+              <td>AUTHOR</td>
+              <td>
+                <UserChip
+                    v-for="author in paper.authors"
+                    :key="author.id"
+                    :author="author"
+                />
+              </td>
+            </tr>
+            <tr v-if="paper?.doi">
+              <td>DOI</td>
+              <td>
+                <VaIcon class="mr-2" size="small" name="share" />
+                <a class="text-primary" :href="'https://doi.org/' + paper.doi" target="_blank">{{ paper.doi }}</a>
+              </td>
+            </tr>
+            <tr v-if="paper?.date">
+              <td>DATE</td>
+              <td>{{ paper.date }}</td>
+            </tr>
+            <tr v-if="paper?.journal">
+              <td>JOURNAL</td>
+              <td>{{ paper.journal }}</td>
+            </tr>
+            <tr v-if="paper?.publisher">
+              <td>PUBLISHER</td>
+              <td>{{ paper.publisher }}</td>
+            </tr>
+            <tr v-if="paper?.abstract">
+              <td>ABSTRACT</td>
+              <td>{{ paper.abstract }}</td>
+            </tr>
+            <tr v-if="paper?.keywords">
+              <td>KEYWORDS</td>
+              <td>
+                <VaChip
+                    v-for="(keyword, index) in paper.keywords"
+                    :key="index"
+                    class="mr-1 leading-none"
+                    size="small"
+                    square
+                    outline
+                >
+                  {{ keyword }}
+                </VaChip>
+              </td>
+            </tr>
+            <tr v-if="paper?.references">
+              <td>REFERENCES</td>
+              <td>{{ paper.references }}</td>
+            </tr>
+            </tbody>
+          </table>
         </VaCardContent>
-      </div>
-    </VaCard>
+      </VaCard>
+    </div>
     <div class="grid grid-cols-6 gap-4">
+      <div class="card-section">TOPIC</div>
       <DashboardCard
           class="col-span-3"
           :ready="ready.sameTopic"
@@ -188,8 +191,9 @@ watch(basic, (newValue, oldValue) => {
           link="/topic/connections"
           :paper-id="paper?.id"
       />
+      <div class="card-section">AUTHOR</div>
       <DashboardCard
-          class="col-span-2"
+          class="col-span-3"
           :ready="ready.coAuthors"
           section="Author"
           title="Co-Authors"
@@ -198,7 +202,7 @@ watch(basic, (newValue, oldValue) => {
           :paper-id="paper?.id"
       />
       <DashboardCard
-          class="col-span-2"
+          class="col-span-3"
           :ready="ready.affiliations"
           section="Author"
           title="Affiliations"
@@ -206,8 +210,9 @@ watch(basic, (newValue, oldValue) => {
           link="/author/affiliations"
           :paper-id="paper?.id"
       />
+      <div class="card-section">REFERENCE</div>
       <DashboardCard
-          class="col-span-2"
+          class="col-span-3"
           :ready="ready.citedTree"
           section="Reference"
           title="Cited Tree"
@@ -224,7 +229,6 @@ watch(basic, (newValue, oldValue) => {
           link="/reference/cited-by"
           :paper-id="paper?.id"
       />
-
     </div>
   </div>
 </template>
@@ -242,5 +246,20 @@ watch(basic, (newValue, oldValue) => {
 .paper span:nth-child(odd) {
   @apply font-bold mr-2;
 }
-
+.va-table tr {
+  @apply border-b-2 border-gray-300;
+}
+.va-table td {
+  vertical-align: baseline!important;
+  @apply py-1 text-justify;
+}
+.va-table td:first-child {
+  @apply font-bold text-end;
+}
+.va-table td:last-child {
+  @apply leading-relaxed;
+}
+.card-section {
+  @apply font-black text-2xl col-span-6 border-l-4 border-solid pl-4 border-gray-300;
+}
 </style>

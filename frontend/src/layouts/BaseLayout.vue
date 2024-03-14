@@ -3,14 +3,12 @@ import { ref, watch } from "vue";
 import { routesConfig } from "@/lib/routesConfig.js";
 import { useRouter } from "vue-router";
 
-const minimized = ref(false);
-
-const activeElement = ref(null);
-
 const router = useRouter();
 const header = ref('Null');
+const accordionValue = ref(new Array(routesConfig.length).fill(true));
+const minimized = ref(true);
+const activeElement = ref(null);
 const activeRouteName = ref('');
-const accordionValue = ref(new Array(routesConfig.length).fill(false));
 
 function generateActive() {
   if (router.currentRoute.value.matched.length > 2) {

@@ -4,7 +4,7 @@ import { useRoute } from "vue-router";
 import { DataSet, Network } from 'vis-network/standalone';
 import Net from "@/layouts/NetLayout.vue";
 import SearchResult from "@/components/SearchResult.vue";
-import searchResultExample from "@/lib/searchAuthorResults.json";
+import searchResultExample from "@/lib/searchResults.json";
 import topicConnectionExample from "@/lib/exampleCoAuthor.json";
 import { generateOptions } from "@/utils/network.js";
 import UserChip from "@/components/UserChip.vue";
@@ -35,7 +35,7 @@ const handleSearch = () => {
       //   title: item.name,
       //   subtitle: item.count + ' papers related',
       // }));
-      searchResults.value = searchResultExample.data
+      searchResults.value = searchResultExample.data;
       resultModal.value = true; // open the search result modal
     }
     searchLoading.value = false;
@@ -176,7 +176,7 @@ const highlightNode = (nodeId) => {
               <VaListItemLabel class="mb-1">
                 <span class="ml-1">{{ netResults.original.title }}</span>
               </VaListItemLabel>
-              <VaListItemLabel v-if="netResults.original.authors.length > 0" caption>
+              <VaListItemLabel v-if="netResults.original.authors?.length > 0" caption>
                 <UserChip
                     v-for="author in netResults.original.authors"
                     :key="author.id"

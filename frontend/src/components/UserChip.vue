@@ -26,7 +26,7 @@ defineProps({
       </div>
     </template>
 
-    <VaChip class="mr-1 pa-0" icon="person" size="small" flat>
+    <VaChip class="mr-1 leading-none" icon="person" size="small" square outline>
       {{ author.name }}
     </VaChip>
   </VaPopover>

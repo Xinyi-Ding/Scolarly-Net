@@ -44,7 +44,7 @@ const handleClose = () => {
           @click="selectResult(result.id)"
       >
         <VaListItemSection>
-          <VaListItemLabel class="mb-1">
+          <VaListItemLabel class="mb-3">
             <span class="ml-1">{{ result.title }}</span>
           </VaListItemLabel>
           <VaListItemLabel v-if="result.authors.length > 0" caption>

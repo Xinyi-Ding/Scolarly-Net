@@ -4,7 +4,7 @@ import { useRoute } from "vue-router";
 import { DataSet, Network } from 'vis-network/standalone';
 import Net from "@/layouts/NetLayout.vue";
 import SearchResult from "@/components/SearchResult.vue";
-import searchResultExample from "@/lib/searchPaperResults.json";
+import searchResultExample from "@/lib/searchResults.json";
 import sameTopicExample from "@/lib/exampleSameTopic.json";
 import { generateOptions } from "@/utils/network.js";
 import UserChip from "@/components/UserChip.vue";
