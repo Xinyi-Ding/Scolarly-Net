@@ -31,11 +31,12 @@ const onFileAdded = async () => {
       citedTree: 0,
       citedByTree: 0,
     };
-    const res = await req.post('/paper/upload', data).data.data;
+    let res = await req.post('/analysis/upload', data);
+    res = res.data.data;
     // const res = dashboardExample.data;
     console.log(res)
     paper.value = {
-      id: res.article_id,
+      id: 2,
       title: res.metadata.title,
       authors: res.authors,
       doi: res.metadata.doi,
@@ -151,7 +152,7 @@ watch(basic, (newValue, oldValue) => {
             </span>
             <VaIcon v-else name="loop" spin />
           </div>
-          <div>
+          <div v-if="paper?.keywords">
             <span>Keywords:</span>
             <span v-if="paper !== null">
               {{ paper.keywords.toString() }}
