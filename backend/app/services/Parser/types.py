@@ -25,7 +25,7 @@ class Metadata:
     def __eq__(self, other):
         if not isinstance(other, Metadata):
             return False
-        return self.title == other.title and \
+        return self.title.lower() == other.title.lower() and \
             self.doi == other.doi and \
             self.publisher == other.publisher and \
             self.journal == other.journal and \
@@ -100,7 +100,7 @@ class Artical:
     references: List[Reference]
 
     def __repr__(self):
-
         return (f"Metadata: {self.metadata}\n"
                 f"Content: {self.content}\n"
+                f"Authors: {self.authors}\n"
                 f"References: {self.references}")
