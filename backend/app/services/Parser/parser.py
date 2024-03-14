@@ -79,7 +79,7 @@ class Parser(object):
             metadata=self._parse_metadata(),
             content=self._parse_content(),
             references=self._parse_reference(),
-            authors=self._parse_author()
+            authors=self._parse_author
         )
 
     def _string_to_tree(self) -> ET.ElementTree:
@@ -128,32 +128,38 @@ class Parser(object):
             keywords=keywords
         )
 
-    def _parse_author(self) -> list[Author]:
+    @property
+    def _parse_author(self) -> List[Author]:
         # Parse the XML string into an ElementTree object.
         tree = self.etree.getroot()
         authors = []
 
-        # Find all author elements.
+        # Find all author elements in the XML.
         author_elements = tree.findall('.//tei:sourceDesc/tei:biblStruct/tei:analytic/tei:author',
                                        namespaces={'tei': self.tei_namespace})
 
         for author_elem in author_elements:
-            # Extract forenames (including middle name) and surname for each author.
+            # Extract forenames (including middle names) and surnames for each author.
             forenames = author_elem.findall('.//tei:persName/tei:forename', namespaces={'tei': self.tei_namespace})
-            forename_texts = [forename.text for forename in forenames]
-            surname = author_elem.find('.//tei:persName/tei:surname', namespaces={'tei': self.tei_namespace}).text
+            # Remove numbers and subsequent spaces, then remove extra spaces
+            forename_texts = [' '.join(re.sub(r'\s+', ' ', re.sub(r'\d+\s*', '', forename.text)).split()) for forename
+                              in forenames if forename.text]
+            surname_element = author_elem.find('.//tei:persName/tei:surname', namespaces={'tei': self.tei_namespace})
+            surname = surname_element.text if surname_element is not None else None
 
-            # Combine forenames and surname into a full name.
-            full_name = f"{' '.join(forename_texts)} {surname}"
+            # Combine forenames and surname into a full name and remove leading/trailing spaces
+            full_name = ' '.join([name for name in forename_texts + [surname] if name]).strip()
 
+            # Find affiliation and email elements, if available
             affiliation_element = author_elem.find('.//tei:affiliation/tei:orgName',
                                                    namespaces={'tei': self.tei_namespace})
             affiliation = affiliation_element.text if affiliation_element is not None else None
             email_element = author_elem.find('.//tei:email', namespaces={'tei': self.tei_namespace})
             email = email_element.text if email_element is not None else None
 
-            # Create an Author dataclass and add it to the list.
-            authors.append(Author(name=full_name, affiliation=affiliation, email=email))
+            # Create an Author dataclass instance and add it to the list
+            if full_name:  # This checks if full_name is not None and not an empty string
+                authors.append(Author(name=full_name, affiliation=affiliation, email=email))
 
         return authors
 

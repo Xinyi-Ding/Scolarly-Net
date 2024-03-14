@@ -103,4 +103,5 @@ class Artical:
 
         return (f"Metadata: {self.metadata}\n"
                 f"Content: {self.content}\n"
+                f"Authors: {self.authors}\n"
                 f"References: {self.references}")

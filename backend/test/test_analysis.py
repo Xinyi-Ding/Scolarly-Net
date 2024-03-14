@@ -192,8 +192,8 @@ def test_parse_artical_metadata():
         # Parse the article metadata
         xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_artical(xml_path)
-        print(test_case.journal)
-        print(article.metadata.journal)
+        # print(test_case.journal)
+        # print(article.metadata.journal)
         assert test_case == article.metadata, f"Metadata mismatch for {json_file.name}"
 
 
@@ -235,5 +235,7 @@ def test_parse_artical_authors():
         # Parse the article metadata
         xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_artical(xml_path)
+        print(test_case)
+        print(article.authors)
         for i, author in enumerate(article.authors):
             assert test_case[i].name == author.name, f"Author mismatch for {json_file.name}"
