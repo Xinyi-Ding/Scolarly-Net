@@ -1,8 +1,10 @@
 import json
 import analysis
 from pathlib import Path
+
+
 # from Parser.types import Artical
-from models import ParseArticalVO
+# from models import ParseArticalVO
 
 
 def parse_xml_to_article(xml_file_path):
