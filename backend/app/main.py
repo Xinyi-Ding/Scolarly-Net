@@ -1,9 +1,16 @@
 from fastapi import FastAPI
-
-# from backend.app.routers import catalog_api, analysis_api
-from .routers import catalog_api, analysis_api
+from app.routers import catalog_api, analysis_api
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins="http://localhost:5173",
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(catalog_api.router)
 app.include_router(analysis_api.router)
