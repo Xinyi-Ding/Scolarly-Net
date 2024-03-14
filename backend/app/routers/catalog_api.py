@@ -2,7 +2,7 @@ from datetime import date
 
 from fastapi import APIRouter
 
-from app.services.schema import PaperResponse, TopicResponse, AuthorResponse, TopicConnectionResponseVO, \
+from backend.app.services.schema import PaperResponse, TopicResponse, AuthorResponse, TopicConnectionResponseVO, \
     SameTopicResponseVO, DashboardResponseVO, \
     DashboardItemVO, CoAuthorResponseVO, CitedConnectionItemVO, CitedPaperItemVO, CitedTreeResponseVO, AuthorVO
 
