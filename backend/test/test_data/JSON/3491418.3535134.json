@@ -37,17 +37,12 @@
       "email": "dmishin@ucsd.edu"
     },
     {
-      "name": "Thomas Hutton",
-      "affiliation": "UC San Diego",
-      "email": "aaarora@ucsd.edu"
-    },
-    {
       "name": "Igor Sfiligoi",
       "affiliation": "UC San Diego",
       "email": "isfiligoi@sdsc.edu"
     },
     {
-      "name": "Frank Würthwein",
+      "name": "Frank Wuerthwein",
       "affiliation": "UC San Diego",
       "email": "fkw@ucsd.edu"
     },
@@ -75,6 +70,11 @@
       "name": "Justas Balcas",
       "affiliation": "Caltech",
       "email": "jbalcas@caltech.edu"
+    },
+    {
+      "name": "Thomas Hutton",
+      "affiliation": "UC San Diego",
+      "email": "aaarora@ucsd.edu"
     }
   ],
   "Reference": [

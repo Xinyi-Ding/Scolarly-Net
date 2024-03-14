@@ -12,69 +12,64 @@
   ],
   "authors": [
     {
-      "name": "Carol X. Song",
-      "affiliation": "Purdue University",
-      "email": null
-    },
-    {
-      "name": "Xiao Zhu",
-      "affiliation": "Purdue University",
-      "email": null
-    },
-    {
-      "name": "Patrick T. Finnegan",
-      "affiliation": "Purdue University",
-      "email": null
-    },
-    {
-      "name": "Rick Irvine",
-      "affiliation": "Purdue University",
-      "email": null
+      "name": "X Carol Song",
+      "Affiliation": null,
+      "Email": null
     },
     {
       "name": "Preston Smith",
-      "affiliation": "Purdue University",
-      "email": null
-    },
-    {
-      "name": "Eric W. Adams",
-      "affiliation": "Purdue University",
-      "email": null
-    },
-    {
-      "name": "Erik Gough",
-      "affiliation": "Purdue University",
-      "email": null
-    },
-    {
-      "name": "Rajkumar Kettimuthu",
-      "affiliation": "Argonne National Laboratory",
-      "email": null
-    },
-    {
-      "name": "Amiya K. Maji",
-      "affiliation": "Purdue University",
-      "email": null
+      "Affiliation": null,
+      "Email": null
     },
     {
       "name": "Rajesh Kalyanam",
-      "affiliation": "Purdue University",
-      "email": null
+      "Affiliation": null,
+      "Email": null
     },
     {
-      "name": "Kevin D. Colby",
-      "affiliation": "Purdue University",
-      "email": null
+      "name": "Xiao Zhu",
+      "Affiliation": null,
+      "Email": null
+    },
+    {
+      "name": "Eric W Adams",
+      "Affiliation": null,
+      "Email": null
+    },
+    {
+      "name": "Kevin D Colby",
+      "Affiliation": null,
+      "Email": null
+    },
+    {
+      "name": "Patrick T Finnegan",
+      "Affiliation": null,
+      "Email": null
+    },
+    {
+      "name": "Erik Gough",
+      "Affiliation": null,
+      "Email": null
     },
     {
       "name": "Elizabett Hillery",
-      "affiliation": "Purdue University",
-      "email": null
+      "Affiliation": null,
+      "Email": null
+    },
+    {
+      "name": "Rick Irvine",
+      "Affiliation": null,
+      "Email": null
+    },
+    {
+      "name": "Amiya K Maji",
+      "Affiliation": null,
+      "Email": null
     },
     {
       "name": "Jason St. John",
-      "affiliation": "Purdue University",
-      "email": null
+      "Affiliation": null,
+      "Email": null
     }
   ],
   "Reference": [
