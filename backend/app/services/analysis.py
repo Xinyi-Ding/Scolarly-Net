@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 from Extractor.extractor import Extractor
 from Parser.parser import Parser
 from Parser.types import Artical
@@ -88,3 +91,39 @@ def get_extracted_xml(pdf_path, grobid_server="http://10.1.0.10:8070") -> str:
     extractor = Extractor(pdf_path, grobid_server=grobid_server)
 
     return extractor.xml_path
+
+
+def parse_xml_to_article(xml_file_path):
+    try:
+        # Use the analysis module to parse the XML file into an Artical object
+        article = get_artical(str(xml_file_path))
+        return article  # Return the Artical object if parsing is successful
+    except Exception as e:
+        # Handle any exceptions that might occur during parsing
+        print(f"Error parsing the XML file: {e}")
+        return None  # Return None in case of an exception
+
+
+def store_article_as_json(article, json_file_path):
+    # Convert the Artical object to a dictionary
+    article_dict = article.to_dict()  # Assuming to_value_object() provides the dictionary representation
+    # Write the dictionary to a JSON file
+    with open(json_file_path, 'w') as json_file:
+        json.dump(article_dict, json_file, indent=4)
+
+
+def process_articles(xml_dir: str, json_dir: str):
+    xml_dir = Path(xml_dir)
+    json_dir = Path(json_dir)
+    json_dir.mkdir(parents=True, exist_ok=True)
+
+    for xml_file_path in xml_dir.glob("*.xml"):
+        if not xml_file_path.is_file():
+            print(f"File not found: {xml_file_path}")
+            continue
+
+        article = parse_xml_to_article(xml_file_path)
+        if article:
+            json_file_name = xml_file_path.stem + '.json'
+            json_file_path = json_dir / json_file_name
+            store_article_as_json(article, json_file_path)
