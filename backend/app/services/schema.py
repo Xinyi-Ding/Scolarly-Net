@@ -11,10 +11,17 @@ class ResponseVO(BaseModel):
     data: list
 
 
+class AuthorVO(BaseModel):
+    id: int
+    name: str
+    email: str
+    affiliation: Optional[str] = None
+
+
 class PaperItemVO(BaseModel):
     id: int
     title: str
-    authors: str
+    authors: list[AuthorVO]
 
 
 class PaperResponse(ResponseVO):
