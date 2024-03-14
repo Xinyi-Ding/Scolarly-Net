@@ -158,7 +158,7 @@ class Parser(object):
         return authors
 
     def _find_raw_reference(self, ns=None):
-        print("extracting raw reference")
+        # print("extracting raw reference")
         if ns is None:
             ns = {'tei': 'http://www.tei-c.org/ns/1.0'}
         tree = ET.parse(self.xml_path)
@@ -169,8 +169,10 @@ class Parser(object):
             ref = ref.replace('Ű', '-')
             ref = ref.replace('&apos;', "'")
             cleaned_ref = re.sub(r'-\s*', '-', ref)
-            raw_references.append(cleaned_ref)
-        print(raw_references[1])
+            if cleaned_ref != "REFERENCES":
+                raw_references.append(cleaned_ref)
+        # print(len(raw_references))
+        # print(raw_references[0])
         return raw_references
 
     def _store_references(self, raw_references):
@@ -204,15 +206,16 @@ class Parser(object):
     def _parse_reference(self):
         raw_references = self._find_raw_reference()
         stored_json_references = self._store_references(raw_references)
-        if stored_json_references:
-            return [
-                Reference(
-                    authors=ref.get('author', []),
-                    title=''.join(ref.get('title', '')) if isinstance(ref.get('title'), list) else ref.get('title', ''),
-                    type=ref.get('type', ''),
-                    container_title=ref.get('container-title', ''),
-                    doi=ref.get('doi', ''),
-                    published_date=ref.get('date', [])[0] if ref.get('data') else ''
-                )
-                for ref in stored_json_references
-            ]
+        if not stored_json_references:
+            return []
+        return [
+            Reference(
+                authors=ref.get('author', []),
+                title=''.join(ref.get('title', '')) if isinstance(ref.get('title'), list) else ref.get('title', ''),
+                type=ref.get('type', ''),
+                container_title=ref.get('container-title', ''),
+                doi=''.join(ref.get('doi', '')) if isinstance(ref.get('doi'), list) else ref.get('doi', ''),
+                published_date=ref.get('date', [])[0] if ref.get('date') else ''
+            )
+            for ref in stored_json_references
+        ]
