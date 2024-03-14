@@ -1,24 +1,35 @@
 {
-  "id": 4,
-  "title": "In Situ Workflows at Exascale: System Software to the Rescue",
-  "authors": [
-    "Matthieu Dreher",
-    "Swann Perarnau",
-    "Tom Peterka",
-    "Kamil Iskra",
-    "Pete Beckman"
-  ],
-  "affiliations": [
-
-  ],
-  "date": "2017-11-12",
-  "doi": "10.1145/3144769.3144774",
-  "keywords": [
-    "Argo",
-    "MPI",
-    "In Situ Workflows",
-    "Exascale",
-    "System Software"
-  ],
-  "references": 23
+  "code": 200,
+  "msg": "success",
+  "data": {
+    "authors": [
+      {
+        "id": 1,
+        "name": "test1",
+        "affiliation": "test affiliation1",
+        "email": "test1@test.test"
+      },
+      {
+        "id": 2,
+        "name": "test2",
+        "affiliation": "test affiliation2",
+        "email": "test2@test.test"
+      }
+    ],
+    "content": {
+      "abstract": "test abstract",
+      "keywords": [
+        "test1",
+        "test2"
+      ]
+    },
+    "metadata": {
+      "doi": "10.1234/5678",
+      "journal": null,
+      "published_date": "2020-01-01",
+      "publisher": "test publisher",
+      "title": "test title"
+    },
+    "references": 24
+  }
 }

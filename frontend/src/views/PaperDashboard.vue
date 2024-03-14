@@ -1,8 +1,9 @@
 <script setup>
 import { ref, watch } from "vue";
 import DashboardCard from "@/components/DashboardCard.vue";
-import dashboardExample from '@/lib/exampleDashboard.json';
+// import dashboardExample from '@/lib/exampleDashboard.json';
 import req from "@/utils/req.js";
+import UserChip from "@/components/UserChip.vue";
 
 const uploaded = ref(false);
 const ready = ref({
@@ -13,36 +14,46 @@ const ready = ref({
   citedTree: -1,
   citedByTree: -1,
 });
-const paper = ref(null);
+const paper = ref({});
 
 const basic = ref([]);
 
 const onFileAdded = async () => {
-  const res = await req.post('/analysis/upload', { file: basic.value[0] });
-  console.log(res);
   if (basic.value.length > 0) {
-    setTimeout(() => {
-      uploaded.value = true;
-      ready.value = {
-        sameTopic: 0,
-        topicConnections: 0,
-        coAuthors: 0,
-        affiliations: 0,
-        citedTree: 0,
-        citedByTree: 0,
-      };
-    }, 1000);
-    setTimeout(() => {
-      paper.value = dashboardExample;
-      ready.value = {
-        sameTopic: 1,
-        topicConnections: 1,
-        coAuthors: 1,
-        affiliations: -1,
-        citedTree: 1,
-        citedByTree: -1,
-      };
-    }, 5000);
+    uploaded.value = true;
+    const data = new FormData();
+    data.append('file', basic.value[0]);
+    ready.value = {
+      sameTopic: 0,
+      topicConnections: 0,
+      coAuthors: 0,
+      affiliations: 0,
+      citedTree: 0,
+      citedByTree: 0,
+    };
+    const res = await req.post('/paper/upload', data).data.data;
+    // const res = dashboardExample.data;
+    console.log(res)
+    paper.value = {
+      id: res.article_id,
+      title: res.metadata.title,
+      authors: res.authors,
+      doi: res.metadata.doi,
+      date: res.metadata.published_date,
+      journal: res.metadata.journal,
+      publisher: res.metadata.publisher,
+      abstract: res.content.abstract,
+      keywords: res.content.keywords,
+      references: res.references,
+    };
+    ready.value = {
+      sameTopic: paper.value.keywords.length > 0 ? 1 : -1,
+      topicConnections: paper.value.keywords.length > 0 ? 1 : -1,
+      coAuthors: paper.value.authors.length > 0 ? 1 : -1,
+      affiliations: -1,
+      citedTree: paper.value.references.length > 0 ? 1 : -1,
+      citedByTree: paper.value.references > 0 ? 1 : -1,
+    };
   }
 };
 
@@ -97,14 +108,18 @@ watch(basic, (newValue, oldValue) => {
           <div>
             <span>Authors:</span>
             <span v-if="paper !== null">
-              {{ paper.authors.toString() }}
+              <UserChip
+                  v-for="author in paper.authors"
+                  :key="author.id"
+                  :author="author"
+              />
             </span>
             <VaIcon v-else name="loop" spin />
           </div>
           <div>
-            <span>Affiliations:</span>
+            <span>DOI:</span>
             <span v-if="paper !== null">
-              {{ paper.affiliations.length > 0 ? paper.affiliations.toString() : '-' }}
+              {{ paper.doi }}
             </span>
             <VaIcon v-else name="loop" spin />
           </div>
@@ -115,10 +130,24 @@ watch(basic, (newValue, oldValue) => {
             </span>
             <VaIcon v-else name="loop" spin />
           </div>
-          <div>
-            <span>DOI:</span>
+          <div v-if="paper?.journal">
+            <span>Journal:</span>
             <span v-if="paper !== null">
-              {{ paper.doi }}
+              {{ paper.journal }}
+            </span>
+            <VaIcon v-else name="loop" spin />
+          </div>
+          <div v-if="paper?.publisher">
+            <span>Publisher:</span>
+            <span v-if="paper !== null">
+              {{ paper.publisher }}
+            </span>
+            <VaIcon v-else name="loop" spin />
+          </div>
+          <div>
+            <span>Abstract:</span>
+            <span v-if="paper !== null">
+              {{ paper.abstract }}
             </span>
             <VaIcon v-else name="loop" spin />
           </div>
