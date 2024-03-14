@@ -1,6 +1,7 @@
+from dataclasses import dataclass
 from datetime import datetime, date
 from pydantic import BaseModel, EmailStr, Field, validator
-from typing import Optional
+from typing import Optional, List, AnyStr
 
 
 # Pydantic model for the Sequence
@@ -192,3 +193,48 @@ class TopicRelationshipVO(BaseModel):
 class TopicRelationshipFilter(TopicRelationshipVO):
     parent_topic_id: Optional[int] = None
     child_topic_id: Optional[int] = None
+
+
+# VO class for Metadata, representing the metadata of an article
+@dataclass
+class ParseMetadataVO:
+    title: str  # The title of the article
+    doi: str  # Digital Object Identifier for the article
+    publisher: str  # The publisher of the article
+    journal: str  # The journal where the article is published
+    published_date: str  # The publication date of the article
+
+
+# VO class for Content, representing the main content of an article
+@dataclass
+class ParseContentVO:
+    abstract: str  # The abstract of the article
+    keywords: List[AnyStr]  # A list of keywords associated with the article
+
+
+# VO class for Author, representing an author of the article
+@dataclass
+class ParseAuthorVO:
+    name: str  # The name of the author
+    affiliation: str  # The affiliation of the author
+    email: Optional[str]  # The email address of the author, which is optional
+
+
+# VO class for Reference, representing a reference cited in the article
+@dataclass
+class ParseReferenceVO:
+    authors: List[str]  # A list of authors of the reference
+    title: str  # The title of the reference
+    type: str  # The type of the reference (e.g., journal article, book)
+    container_title: str  # The title of the container holding the reference (e.g., journal name)
+    doi: str  # Digital Object Identifier for the reference
+    published_date: str  # The publication date of the reference
+
+
+# VO class for Artical, representing the entire article including metadata, content, authors, and references
+@dataclass
+class ParseArticalVO:
+    metadata: ParseMetadataVO  # The metadata of the article
+    content: ParseContentVO  # The content of the article
+    authors: List[ParseAuthorVO]  # A list of authors of the article
+    references: List[ParseReferenceVO]  # A list of references cited in the article
