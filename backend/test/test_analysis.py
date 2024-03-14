@@ -121,7 +121,8 @@ def are_similar(text1, text2, threshold=0.8):
 def _are_reference_similar(reference1: List[Reference], reference2: List[Reference], match_threshold=0.8,
                            match_ratio_threshold=0.5):
     """
-    Check if the extracted references (reference2) are accurate compared to the manually extracted references (reference1).
+    Check if the extracted references (reference2)
+    are accurate compared to the manually extracted references (reference1).
     Allows for differences in length and some level of inaccuracy in reference2.
 
     Args:
@@ -151,7 +152,6 @@ def _are_reference_similar(reference1: List[Reference], reference2: List[Referen
     match_ratio = match_count / len(reference1)
     print("match ratio:", match_ratio)
     return match_ratio >= match_ratio_threshold
-
 
 
 # Test cases for the article reference

@@ -40,6 +40,7 @@ async def upload_document(file: UploadFile = File(...)):
         print(e)
         raise HTTPException(status_code=500, detail="Could not save file")
 
+
 @router.get("/topic-connection", response_model=TopicConnectionResponseVO)
 async def get_topic_connection():
     original_topic = {"id": 1, "name": "searched origin topic", "papers": [1, 2, 3, 4, 5, 6]}

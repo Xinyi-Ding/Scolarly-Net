@@ -1,11 +1,6 @@
 from fastapi import FastAPI
-<<<<<<< HEAD
 from app.routers import catalog_api, analysis_api
 from starlette.middleware.cors import CORSMiddleware
-=======
-
-from app.routers import catalog_api, analysis_api
->>>>>>> 648b214 (Make some changes in endpoint)
 
 app = FastAPI()
 
