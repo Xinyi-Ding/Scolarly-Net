@@ -118,7 +118,8 @@ def are_similar(text1, text2, threshold=0.8):
     return similarity >= threshold
 
 
-def _are_reference_similar(reference1: List[Reference], reference2: List[Reference], match_threshold=0.8, match_ratio_threshold=0.5):
+def _are_reference_similar(reference1: List[Reference], reference2: List[Reference], match_threshold=0.8,
+                           match_ratio_threshold=0.5):
     """
     Check if the extracted references (reference2) are accurate compared to the manually extracted references (reference1).
     Allows for differences in length and some level of inaccuracy in reference2.
@@ -127,7 +128,8 @@ def _are_reference_similar(reference1: List[Reference], reference2: List[Referen
         reference1 (List[Reference]): The manually extracted references for comparison.
         reference2 (List[Reference]): The automatically extracted references to be tested.
         match_threshold (float): The similarity threshold for considering two references as a match.
-        match_ratio_threshold (float): The minimum ratio of reference1 that must find a match in reference2 for the function to return True.
+        match_ratio_threshold (float): The minimum ratio of reference1 that must
+        find a match in reference2 for the function to return True.
 
     Returns:
         bool: True if the accuracy of reference2 is deemed acceptable, False otherwise.
@@ -172,6 +174,7 @@ def test_parse_artical_reference():
         # print(test_case)
         # print(article.references)
         assert _are_reference_similar(test_case, article.references), f"Reference mismatch for {json_file.name}"
+
 
 # Test cases for the article metadata
 def test_parse_artical_metadata():
