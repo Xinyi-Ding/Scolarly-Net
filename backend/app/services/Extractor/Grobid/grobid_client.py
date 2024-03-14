@@ -65,7 +65,7 @@ class GrobidClient(ApiClient):
         the_url = self.get_server_url("isalive")
         try:
             r = requests.get(the_url)
-        except:
+        except requests.exceptions.RequestException:
             print("GROBID server does not appear up and running, the connection to the server failed")
             raise ServerUnavailableException
 
@@ -122,7 +122,8 @@ class GrobidClient(ApiClient):
                         try:
                             print(filename)
                         except Exception:
-                            # may happen on linux see https://stackoverflow.com/questions/27366479/python-3-os-walk-file-paths-unicodeencodeerror-utf-8-codec-cant-encode-s
+                            # may happen on linux see https://stackoverflow.com/questions/27366479/python-3-os-walk
+                            # -file-paths-unicodeencodeerror-utf-8-codec-cant-encode-s
                             pass
                     input_files.append(os.sep.join([dirpath, filename]))
 
@@ -373,7 +374,8 @@ def main():
     )
     parser.add_argument(
         "--input", default=None,
-        help="path to the directory containing files to process: PDF or .txt (for processCitationList only, one reference per line), or .xml for patents in ST36"
+        help="path to the directory containing files to process: PDF or .txt (for processCitationList only, "
+             "one reference per line), or .xml for patents in ST36 "
     )
     parser.add_argument(
         "--output",
@@ -466,7 +468,7 @@ def main():
     segment_sentences = args.segmentSentences
     verbose = args.verbose
 
-    if service is None or not service in valid_services:
+    if service is None or service not in valid_services:
         print("Missing or invalid service, must be one of", valid_services)
         exit(1)
 
