@@ -166,6 +166,8 @@ def main():
     # Process all JSON files within the given folder and its folders
     save_parse_articles_within_dir(folder_path)
 
+    # analysis.process_articles("app/data/xml", "app/data/json")
+
 
 if __name__ == "__main__":
     main()
