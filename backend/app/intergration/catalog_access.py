@@ -25,13 +25,21 @@ class CRUDOperations(Generic[TModel, TVO, TFilter]):
         self.vo_model = vo_model
 
     def create(self, obj: TVO) -> TVO:
+        # Create a MongoEngine document from the Pydantic model
         mongo_obj = self.mongo_model(**obj.dict()).save()
+        # Return a Pydantic model created from the MongoEngine document
         return self.vo_model.from_orm(mongo_obj)
 
     def create_many(self, objs: List[TVO]) -> List[TVO]:
-        mongo_objs = [self.mongo_model(**obj.dict()) for obj in objs]
-        self.mongo_model.objects.insert(mongo_objs, load_bulk=False)
-        return [self.vo_model.from_orm(obj) for obj in mongo_objs]
+        inserted_objs = []
+        for obj in objs:
+            try:
+                mongo_obj = self.mongo_model(**obj.dict())
+                mongo_obj.save()  # Save each document individually
+                inserted_objs.append(self.vo_model.from_orm(mongo_obj))
+            except Exception as e:  # Consider catching more specific exceptions
+                print(f"Error inserting document: {e}")
+        return inserted_objs
 
     def get_by_filter(self, filter_obj: TFilter) -> List[TVO] | None:
         try:
@@ -46,7 +54,8 @@ class CRUDOperations(Generic[TModel, TVO, TFilter]):
 
             updated_objects = []
             for obj in matched_objects:
-                for key, value in update_obj.dict().items():
+                obj.clean()
+                for key, value in update_obj.dict(exclude_none=True).items():
                     setattr(obj, key, value)
                 obj.save()
                 updated_objects.append(self.vo_model.from_orm(obj))

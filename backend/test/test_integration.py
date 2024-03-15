@@ -332,12 +332,12 @@ def article_author_crud():
 async def test_article_author_crud_operations(article_author_crud):
     # Create an article-author link
     article_author_vo_create = ArticleAuthorVO(
-        article_id=1,  # Assuming an article with ID 1 exists
-        author_id=1  # Assuming an author with ID 1 exists
+        article_id=9999,
+        author_id=9999
     )
     created_article_author = article_author_crud.create(article_author_vo_create)
-    assert created_article_author.article_id == 1
-    assert created_article_author.author_id == 1
+    assert created_article_author.article_id == 9999
+    assert created_article_author.author_id == 9999
 
     # Get by filter to verify creation
     filter_obj = ArticleAuthorFilter(**article_author_vo_create.dict())
@@ -345,18 +345,18 @@ async def test_article_author_crud_operations(article_author_crud):
     assert verify_create_results is not None
 
     # Update article-author link by filter
-    update_filter_obj = ArticleAuthorFilter(article_id=1, author_id=1)
+    update_filter_obj = ArticleAuthorFilter(article_id=9999, author_id=9999)
     article_author_vo_update = ArticleAuthorVO(
-        article_id=1,  # Assuming an article with ID 1 exists
-        author_id=2  # Assuming an author with ID 2 exists
+        article_id=9998,
+        author_id=9998
     )
     update_results = article_author_crud.update_by_filter(update_filter_obj, article_author_vo_update)
     assert update_results is not None
     assert len(update_results) == 1
-    assert update_results[0].author_id == 2
+    assert update_results[0].author_id == 9998
 
     # Delete article-author link by filter
-    delete_filter_obj = ArticleAuthorFilter(article_id=1)
+    delete_filter_obj = ArticleAuthorFilter(article_id=9998, author_id=9998)
     delete_success = article_author_crud.delete_by_filter(delete_filter_obj)
     assert delete_success
 
@@ -370,12 +370,12 @@ def article_citation_crud():
 async def test_article_citation_crud_operations(article_citation_crud):
     # Create an article-citation link
     article_citation_vo_create = ArticleCitationVO(
-        citing_article_id=1,  # Assuming a citing article with ID 1 exists
-        cited_article_id=2  # Assuming a cited article with ID 2 exists
+        citing_article_id=9999,
+        cited_article_id=9999
     )
     created_article_citation = article_citation_crud.create(article_citation_vo_create)
-    assert created_article_citation.citing_article_id == 1
-    assert created_article_citation.cited_article_id == 2
+    assert created_article_citation.citing_article_id == 9999
+    assert created_article_citation.cited_article_id == 9999
 
     # Get by filter to verify creation
     filter_obj = ArticleCitationFilter(**article_citation_vo_create.dict())
@@ -385,16 +385,16 @@ async def test_article_citation_crud_operations(article_citation_crud):
     # Update article-citation link by filter
     update_filter_obj = ArticleCitationFilter(**article_citation_vo_create.dict())
     article_citation_vo_update = ArticleCitationVO(
-        citing_article_id=1,  # Assuming a citing article with ID 1 exists
-        cited_article_id=3  # Assuming a cited article with ID 3 exists
+        citing_article_id=9998,  # Assuming a citing article with ID 1 exists
+        cited_article_id=9998  # Assuming a cited article with ID 3 exists
     )
     update_results = article_citation_crud.update_by_filter(update_filter_obj, article_citation_vo_update)
     assert update_results is not None
     assert len(update_results) == 1
-    assert update_results[0].cited_article_id == 3
+    assert update_results[0].cited_article_id == 9998
 
     # Delete article-citation link by filter
-    delete_filter_obj = ArticleCitationFilter(citing_article_id=1)
+    delete_filter_obj = ArticleCitationFilter(citing_article_id=9998, cited_article_id=9998)
     delete_success = article_citation_crud.delete_by_filter(delete_filter_obj)
     assert delete_success
 
