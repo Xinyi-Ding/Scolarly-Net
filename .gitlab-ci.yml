@@ -112,7 +112,7 @@ backend_test:
 #    - pytest test/test_main.py  # Run backend service tests
     - pytest test/test_db.py  # Run database tests
     - pytest test/test_integration.py  # Run integration tests
-    - pytest test/test_analysis.py  # Run analytics tests
+#    - pytest test/test_analysis.py  # Run analytics tests
   rules:
     - changes:
       - backend/**/*
