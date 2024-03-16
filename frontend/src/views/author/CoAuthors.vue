@@ -6,8 +6,8 @@ import Net from "@/layouts/NetLayout.vue";
 import SearchResult from "@/components/SearchResult.vue";
 import searchResultExample from "@/lib/searchResults.json";
 import topicConnectionExample from "@/lib/exampleCoAuthor.json";
-import { generateOptions } from "@/utils/network.js";
-import UserChip from "@/components/UserChip.vue";
+import { authors2Str, generateOptions } from "@/utils/network.js";
+import PaperList from "@/components/PaperList.vue";
 
 // search related variables
 const search = ref('');
@@ -21,6 +21,7 @@ const networkContainer = ref(null);
 let nodes = new DataSet([]);
 let edges = new DataSet([]);
 let network = null;
+const originalPaper = ref({});
 const selectedNodeId = ref(null);
 
 // loading related variables
@@ -43,7 +44,7 @@ const handleSearch = () => {
 };
 
 const handleResultSelect = (id) => {
-  console.log(id);
+  originalPaper.value.articleId = id;
   netResults.value = null; // clear the previous network data
   resultModal.value = false;
   generateLoading.value = true;
@@ -51,7 +52,9 @@ const handleResultSelect = (id) => {
   edges.clear();
   setTimeout(() => {
     generateLoading.value = false;
-    netResults.value = topicConnectionExample.data;
+    const data = topicConnectionExample.data;
+    originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
+    netResults.value = data;
     search.value = '';
     initializeNetwork();
   }, 1000);
@@ -60,10 +63,9 @@ const handleResultSelect = (id) => {
 // check if the paperId is in the query, if so, generate the network
 const route = useRoute();
 if (route.query.paperId) {
-  handleResultSelect(route.query.paperId);
+  handleResultSelect(+route.query.paperId);
 }
 
-// TODO: Use groupBy to group the papers by author
 const initializeNetwork = () => {
   if (networkContainer.value) {
     const authors = netResults.value.authors;
@@ -80,10 +82,10 @@ const initializeNetwork = () => {
 
     // convert papers to nodes
     const paperNodes = papers.map(paper => ({
-      id: paper.id,
+      id: paper.articleId,
       label: paper.title,
-      title: paper.authors,
-      color: paper.original ? '#F39C12' : null,
+      title: authors2Str(paper.authors),
+      color: paper.articleId === originalPaper.value.articleId ? '#F39C12' : null,
     }));
 
     // convert connections to edges
@@ -99,7 +101,7 @@ const initializeNetwork = () => {
     const edges = new DataSet(edgesArray);
 
     // define the data and options for the network
-    const data = { nodes, edges };
+    const data = {nodes, edges};
     const options = generateOptions();
 
     // initialize the network
@@ -163,51 +165,13 @@ const highlightNode = (nodeId) => {
           </template>
         </VaInput>
       </div>
-
-      <VaList v-if="netResults" class="p-2">
-        <template v-for="paper in netResults.papers" :key="paper.id">
-          <VaListItem
-              :class="{'highlight': selectedNodeId === netResults.original.id}"
-              class="p-2 cursor-pointer bg-blue-50 hover:bg-gray-100 border-b border-gray-200 border-solid"
-              @click="highlightNode(netResults.original.id)"
-          >
-            <VaListItemSection>
-              <p class="ml-1 mb-1 text-sm text-blue-600 font-bold">Origin Paper</p>
-              <VaListItemLabel class="mb-1">
-                <span class="ml-1">{{ netResults.original.title }}</span>
-              </VaListItemLabel>
-              <VaListItemLabel v-if="netResults.original.authors?.length > 0" caption>
-                <UserChip
-                    v-for="author in netResults.original.authors"
-                    :key="author.id"
-                    :author="author"
-                />
-              </VaListItemLabel>
-            </VaListItemSection>
-          </VaListItem>
-          <template v-for="paper in netResults.papers" :key="paper.id">
-            <VaListItem
-                v-if="!paper.original"
-                :class="{'highlight': paper.id === selectedNodeId}"
-                class="p-2 cursor-pointer hover:bg-gray-100 border-b border-gray-200 border-solid"
-                @click="highlightNode(paper.id)"
-            >
-              <VaListItemSection>
-                <VaListItemLabel class="mb-1">
-                  <span class="ml-1">{{ paper.title }}</span>
-                </VaListItemLabel>
-                <VaListItemLabel v-if="paper.authors.length > 0" caption>
-                  <UserChip
-                      v-for="author in paper.authors"
-                      :key="author.id"
-                      :author="author"
-                  />
-                </VaListItemLabel>
-              </VaListItemSection>
-            </VaListItem>
-          </template>
-        </template>
-      </VaList>
+      <PaperList
+          v-if="netResults"
+          :originalPaper="originalPaper"
+          :papers="netResults.papers"
+          :selectedNodeId="selectedNodeId"
+          @highlightNode="highlightNode"
+      />
       <p v-else v-show="!generateLoading" class="mt-4 text-center text-gray-500">- Search for a paper first -</p>
       <div v-if="generateLoading" class="w-full text-center">
         <VaProgressCircle
@@ -225,7 +189,5 @@ const highlightNode = (nodeId) => {
 </template>
 
 <style scoped>
-.highlight {
-  border: 2px solid #154ec1;
-}
+
 </style>

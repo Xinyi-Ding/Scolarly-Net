@@ -38,20 +38,9 @@
         "name": "topic 4"
       }
     ],
-    "original": {
-      "id": 2,
-      "title": "searched origin paper title",
-      "authors": [
-        {
-          "id": 1,
-          "name": "author 1",
-          "email": "author1@test.test"
-        }
-      ]
-    },
     "papers": [
       {
-        "id": 1,
+        "articleId": 1,
         "title": "title 1",
         "authors": [
           {
@@ -82,11 +71,10 @@
             "name": "author 5",
             "email": "test@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 2,
+        "articleId": 2,
         "title": "title 2",
         "authors": [
           {
@@ -98,7 +86,7 @@
         "original": true
       },
       {
-        "id": 3,
+        "articleId": 3,
         "title": "title 3",
         "authors": [
           {
@@ -106,11 +94,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 4,
+        "articleId": 4,
         "title": "title 4",
         "authors": [
           {
@@ -118,11 +105,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 5,
+        "articleId": 5,
         "title": "title 5",
         "authors": [
           {
@@ -130,11 +116,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 6,
+        "articleId": 6,
         "title": "title 6",
         "authors": [
           {
@@ -142,11 +127,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 7,
+        "articleId": 7,
         "title": "title 7",
         "authors": [
           {
@@ -154,11 +138,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 8,
+        "articleId": 8,
         "title": "title 8",
         "authors": [
           {
@@ -166,11 +149,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 9,
+        "articleId": 9,
         "title": "title 9",
         "authors": [
           {
@@ -178,11 +160,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 10,
+        "articleId": 10,
         "title": "title 10",
         "authors": [
           {
@@ -190,11 +171,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 11,
+        "articleId": 11,
         "title": "title 11",
         "authors": [
           {
@@ -202,11 +182,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 12,
+        "articleId": 12,
         "title": "title 12",
         "authors": [
           {
@@ -214,11 +193,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 13,
+        "articleId": 13,
         "title": "title 13",
         "authors": [
           {
@@ -226,11 +204,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 14,
+        "articleId": 14,
         "title": "title 14",
         "authors": [
           {
@@ -238,11 +215,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 15,
+        "articleId": 15,
         "title": "title 15",
         "authors": [
           {
@@ -250,11 +226,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 16,
+        "articleId": 16,
         "title": "title 16",
         "authors": [
           {
@@ -262,11 +237,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 17,
+        "articleId": 17,
         "title": "title 17",
         "authors": [
           {
@@ -274,11 +248,10 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       },
       {
-        "id": 18,
+        "articleId": 18,
         "title": "title 18",
         "authors": [
           {
@@ -286,8 +259,7 @@
             "name": "author 1",
             "email": "author1@test.test"
           }
-        ],
-        "original": false
+        ]
       }
     ]
   }

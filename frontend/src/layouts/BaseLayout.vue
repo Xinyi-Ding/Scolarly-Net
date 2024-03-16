@@ -149,11 +149,12 @@ watch(() => router.currentRoute.value, (newRoute) => {
       <main class="p-4">
         <h1 class="text-3xl font-black ml-2 mb-3 uppercase">{{header}}</h1>
         <div class="h-[80vh] bg-white shadow-lg overflow-auto">
-          <router-view v-slot="{ Component }">
-            <keep-alive>
-              <component :is="Component" />
-            </keep-alive>
-          </router-view>
+          <!--<router-view v-slot="{ Component }">-->
+          <!--  <keep-alive>-->
+          <!--    <component :is="Component" />-->
+          <!--  </keep-alive>-->
+          <!--</router-view>-->
+          <RouterView />
         </div>
       </main>
     </template>

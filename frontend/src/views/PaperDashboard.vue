@@ -47,7 +47,7 @@ const onFileAdded = async (file) => {
     // const res = dashboardExample.data;
     console.log('analyzed result', res);
     paper.value = {
-      id: 2,
+      articleId: 2,
       title: res.metadata?.title,
       authors: res.authors,
       doi: res.metadata?.doi,
@@ -181,7 +181,7 @@ const onFileAdded = async (file) => {
           title="Same Topic"
           content="Explore the papers with same topics"
           link="/topic/same-topic"
-          :paper-id="paper?.id"
+          :paper-id="paper?.articleId"
       />
       <DashboardCard
           class="col-span-3"
@@ -190,7 +190,7 @@ const onFileAdded = async (file) => {
           title="Topic Connections"
           content="Explore the connections between topics"
           link="/topic/connections"
-          :paper-id="paper?.id"
+          :paper-id="paper?.articleId"
       />
       <div class="card-section">AUTHOR</div>
       <DashboardCard
@@ -200,7 +200,7 @@ const onFileAdded = async (file) => {
           title="Co-Authors"
           content="Explore the co-authors of the paper"
           link="/author/co-authors"
-          :paper-id="paper?.id"
+          :paper-id="paper?.articleId"
       />
       <DashboardCard
           class="col-span-3"
@@ -209,7 +209,7 @@ const onFileAdded = async (file) => {
           title="Affiliations"
           content="Explore the affiliations of the authors of the paper"
           link="/author/affiliations"
-          :paper-id="paper?.id"
+          :paper-id="paper?.articleId"
       />
       <div class="card-section">REFERENCE</div>
       <DashboardCard
@@ -219,7 +219,7 @@ const onFileAdded = async (file) => {
           title="Cited Tree"
           content="Explore the papers that are cited by the paper"
           link="/reference/cited"
-          :paper-id="paper?.id"
+          :paper-id="paper?.articleId"
       />
       <DashboardCard
           class="col-span-3"
@@ -228,7 +228,7 @@ const onFileAdded = async (file) => {
           title="Cited-By Tree"
           content="Explore the papers that cite the paper"
           link="/reference/cited-by"
-          :paper-id="paper?.id"
+          :paper-id="paper?.articleId"
       />
     </div>
   </div>
