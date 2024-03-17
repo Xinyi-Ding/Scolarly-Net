@@ -7,8 +7,8 @@ describe('SearchResult', () => {
 
   beforeEach(() => {
     const searchResults = [
-      { id: 1, title: 'First Result', subtitle: 'First subtitle' },
-      { id: 2, title: 'Second Result', subtitle: 'Second subtitle' }
+      { id: 1, title: 'First Result', authors: [{'id': 1, 'name': 'test'}] },
+      { id: 2, title: 'Second Result', authors: [{'id': 1, 'name': 'test'}] }
     ];
 
     wrapper = mount(SearchResult, {

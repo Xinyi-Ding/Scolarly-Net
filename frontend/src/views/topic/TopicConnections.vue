@@ -1,204 +1,55 @@
 <script setup>
-import { ref } from 'vue';
-import { useRoute } from "vue-router";
-import { DataSet, Network } from 'vis-network/standalone';
-import Net from "@/layouts/NetLayout.vue";
-import SearchResult from "@/components/SearchResult.vue";
-import searchResultExample from "@/lib/searchTopicResults.json";
-import topicConnectionExample from "@/lib/exampleTopicConnection.json";
 
-// search related variables
-const search = ref('');
-const searchLoading = ref(false);
-const resultModal = ref(false);
-const searchResults = ref(null);
-
-// network related variables
-const netResults = ref(null);
-const networkContainer = ref(null);
-let nodes = new DataSet([]);
-let edges = new DataSet([]);
-let network = null;
-const selectedNodeId = ref(null);
-
-// loading related variables
-const generateLoading = ref(false);
-
-const handleSearch = () => {
-  searchLoading.value = true;
-  setTimeout(() => {
-    if (search.value !== '') {
-      searchResults.value = searchResultExample.data.map(item => ({
-        id: item.id,
-        title: item.topic,
-        subtitle: item.count + ' papers related',
-      }));
-      resultModal.value = true; // open the search result modal
-    }
-    searchLoading.value = false;
-  }, 1000);
-};
-
-const handleResultSelect = (id) => {
-  console.log(id);
-  netResults.value = null; // clear the previous network data
-  resultModal.value = false;
-  generateLoading.value = true;
-  nodes.clear();
-  edges.clear();
-  setTimeout(() => {
-    generateLoading.value = false;
-    netResults.value = topicConnectionExample.data;
-    search.value = '';
-    initializeNetwork();
-  }, 3000);
-};
-
-// check if the paperId is in the query, if so, generate the network
-const route = useRoute();
-if (route.query.paperId) {
-  handleResultSelect(route.query.paperId);
-}
-
-const initializeNetwork = () => {
-  if (networkContainer.value && netResults.value) {
-    const topicNodes = netResults.value.topics.map(topic => ({
-      id: `topic-${topic.id}`,
-      label: topic.name,
-      shape: 'box',
-      color: '#97C2FC',
-    }));
-
-    const paperNodes = netResults.value.papers.map(paper => ({
-      id: paper.id,
-      label: paper.title,
-      shape: 'ellipse',
-      color: '#fff',
-    }));
-    nodes = new DataSet([...topicNodes, ...paperNodes]);
-
-    const edgesArray = netResults.value.connections.flatMap(connection =>
-        connection.papers.map(paperId => ({
-          from: `topic-${connection.topic}`,
-          to: paperId,
-        }))
-    );
-    edges = new DataSet(edgesArray);
-
-    const data = {
-      nodes: nodes,
-      edges: edges
-    };
-    const options = {
-      physics: {
-        enabled: true,
-      },
-    };
-    network = new Network(networkContainer.value, data, options);
-    network.on("selectNode", (params) => {
-      if (params.nodes.length > 0) {
-        const selectedNodeId = params.nodes[0];
-        highlightListItem(selectedNodeId);
-      }
-    });
-    network.on("deselectNode", () => {
-      selectedNodeId.value = null;
-    });
-  }
-};
-
-const highlightListItem = (nodeId) => {
-  selectedNodeId.value = nodeId;
-};
-
-const highlightNode = (paperId) => {
-  if (network && paperId) {
-    network.selectNodes([paperId], false);
-    highlightListItem(paperId);
-  }
-};
 </script>
 
 <template>
-  <SearchResult
-      v-model="resultModal"
-      :search="search"
-      :searchResults="searchResults"
-      @select="handleResultSelect"
-  />
-  <Net>
-    <template #list>
-      <div class="p-4 sticky top-0 shadow bg-white/20 backdrop-blur z-10">
-        <VaInput
-            v-model="search"
-            class="w-full"
-            label="search for a topic"
-        >
-          <template #append>
-            <VaButton
-                class="ml-2 bg-primary-500 text-white"
-                :disabled="!search"
-                icon="search"
-                :loading="searchLoading"
-                @click="handleSearch"
-            />
-          </template>
-        </VaInput>
-      </div>
-
-      <VaList v-if="netResults" class="p-2">
-        <VaListItem
-            :class="{'highlight': selectedNodeId === netResults.original.id}"
-            class="p-2 cursor-pointer bg-blue-50 hover:bg-gray-100"
-            @click="highlightNode(netResults.original.id)"
-        >
-          <VaListItemSection>
-            <p class="mb-1 text-sm text-blue-600 font-bold">Origin Topic</p>
-            <VaListItemLabel class="mb-1">
-              {{ netResults.original.name }}
-            </VaListItemLabel>
-            <VaListItemLabel caption>
-              {{ netResults.original.papers.toString() }}
-            </VaListItemLabel>
-          </VaListItemSection>
-        </VaListItem>
-        <template v-for="topic in netResults.topics">
-          <VaListItem
-              v-if="!topic.original"
-              :key="topic.id"
-              :class="{'highlight': topic.id === selectedNodeId}"
-              class="p-2 cursor-pointer hover:bg-gray-100"
-              @click="highlightNode(topic.id)"
-          >
-            <VaListItemSection>
-              <VaListItemLabel class="mb-1">
-                {{ topic.name }}
-              </VaListItemLabel>
-              <!--<VaListItemLabel caption>-->
-              <!--  {{ topic.papers.toString() }}-->
-              <!--</VaListItemLabel>-->
-            </VaListItemSection>
-          </VaListItem>
-        </template>
-      </VaList>
-      <p v-else v-show="!generateLoading" class="mt-4 text-center text-gray-500">- Search for a paper first -</p>
-      <div v-if="generateLoading" class="w-full text-center">
-        <VaProgressCircle
-            class="mx-auto mt-8 mb-2"
-            :thickness="0.6"
-            indeterminate
-        />
-        <p class="text-gray-500">Generating ...</p>
-      </div>
-    </template>
-    <template #graph>
-      <div ref="networkContainer" class="mx-auto w-full h-full"></div>
-    </template>
-  </Net>
+  <div>
+    Topic Connection
+    <!--<VaList v-if="netResults" class="p-2">-->
+    <!--  <VaListItem-->
+    <!--      :class="{'highlight': selectedNodeId === originalPaper.articleId}"-->
+    <!--      class="p-2 cursor-pointer bg-blue-50 hover:bg-gray-100 border-b border-gray-200 border-solid"-->
+    <!--      @click="highlightNode(originalPaper.articleId)"-->
+    <!--  >-->
+    <!--    <VaListItemSection>-->
+    <!--      <p class="ml-1 mb-1 text-sm text-blue-600 font-bold">Origin Paper</p>-->
+    <!--      <VaListItemLabel class="mb-1">-->
+    <!--        <span class="ml-1">{{ originalPaper.title }}</span>-->
+    <!--      </VaListItemLabel>-->
+    <!--      <VaListItemLabel v-if="originalPaper?.authors.length > 0" caption>-->
+    <!--        <UserChip-->
+    <!--            v-for="author in originalPaper?.authors"-->
+    <!--            :key="author.id"-->
+    <!--            :author="author"-->
+    <!--        />-->
+    <!--      </VaListItemLabel>-->
+    <!--    </VaListItemSection>-->
+    <!--  </VaListItem>-->
+    <!--  <template v-for="paper in netResults.papers" :key="paper.id">-->
+    <!--    <VaListItem-->
+    <!--        v-if="paper.articleId !== originalPaper.articleId"-->
+    <!--        :class="{'highlight': paper.articleId === selectedNodeId}"-->
+    <!--        class="p-2 cursor-pointer hover:bg-gray-100 border-b border-gray-200 border-solid"-->
+    <!--        @click="highlightNode(paper.articleId)"-->
+    <!--    >-->
+    <!--      <VaListItemSection>-->
+    <!--        <VaListItemLabel class="mb-1">-->
+    <!--          <span class="ml-1">{{ paper.title }}</span>-->
+    <!--        </VaListItemLabel>-->
+    <!--        <VaListItemLabel v-if="paper.authors.length > 0" caption>-->
+    <!--          <UserChip-->
+    <!--              v-for="author in paper.authors"-->
+    <!--              :key="author.id"-->
+    <!--              :author="author"-->
+    <!--          />-->
+    <!--        </VaListItemLabel>-->
+    <!--      </VaListItemSection>-->
+    <!--    </VaListItem>-->
+    <!--  </template>-->
+    <!--</VaList>-->
+  </div>
 </template>
 
 <style scoped>
-.highlight {
-  border: 2px solid #154ec1;
-}
+
 </style>

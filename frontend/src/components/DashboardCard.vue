@@ -44,7 +44,7 @@ const handleClick = (link) => {
 
 <template>
   <VaCard
-      class="flex flex-row min-h-32 cursor-pointer relative"
+      class="flex flex-row min-h-44 min-w-72 cursor-pointer relative"
       :stripe="ready !== 0"
       :stripe-color="getReadyStripe()"
       @click="handleClick(link)"
@@ -58,7 +58,7 @@ const handleClick = (link) => {
             <p class="text-gray-400">{{ section }}</p>
           </div>
         </VaCardTitle>
-        <VaCardContent class="break-words overflow-hidden h-full">
+        <VaCardContent class="break-words overflow-hidden h-full leading-normal">
           <p class="text-gray-500">{{ content }}</p>
         </VaCardContent>
       </div>
