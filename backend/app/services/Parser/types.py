@@ -115,7 +115,7 @@ class Reference:
 
 
 @dataclass
-class Artical:
+class ArticleObject:
     metadata: Metadata
     content: Content
     authors: List[Author]

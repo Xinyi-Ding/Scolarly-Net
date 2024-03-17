@@ -2,7 +2,7 @@ import io
 import json
 import subprocess
 import tempfile
-from .types import Metadata, Content, Artical, Reference, Author
+from .types import Metadata, Content, ArticleObject, Reference, Author
 from typing import AnyStr, Dict, List, Optional
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
@@ -75,7 +75,7 @@ class Parser(object):
         self.artical = self.parse_artical()
 
     def parse_artical(self):
-        return Artical(
+        return ArticleObject(
             metadata=self._parse_metadata(),
             content=self._parse_content(),
             references=self._parse_reference(),
