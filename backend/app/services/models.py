@@ -138,6 +138,7 @@ class AuthorVO(BaseModel):
     author_id: Optional[int] = Field(None)
     name: str
     email: Optional[str] = None
+    affiliation: Optional[str] = None
 
     @validator('email', pre=True, allow_reuse=True)
     def validate_email(cls, v):

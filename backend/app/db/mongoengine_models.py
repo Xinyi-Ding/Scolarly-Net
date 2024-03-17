@@ -116,6 +116,8 @@ class Author(Document):
     name = StringField(required=True, max_length=255)
     # The email address of the author. This field can be null but should be unique if provided.
     email = StringField(unique=True, max_length=255, sparse=True)
+    # The affiliation of the author. This field can be null.
+    affiliation = StringField(max_length=255)
 
     def clean(self):
         # Convert empty strings or other "empty" values to None for unique fields
