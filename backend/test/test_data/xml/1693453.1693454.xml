@@ -6,7 +6,7 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 	<teiHeader xml:lang="en">
 		<fileDesc>
 			<titleStmt>
-				<title level="a" type="main" xml:id="_CbXyyaC" coord="1,223.68,89.33,164.51,16.06;1,107.28,109.25,397.57,16.06">Exascale Computing: The challenges and opportunities in the next decade</title>
+				<title level="a" type="main" xml:id="_8gKQF46" coord="1,223.68,89.33,164.51,16.06;1,107.28,109.25,397.57,16.06">Exascale Computing: The challenges and opportunities in the next decade</title>
 			</titleStmt>
 			<publicationStmt>
 				<publisher/>
@@ -39,7 +39,7 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 								</address>
 							</affiliation>
 						</author>
-						<title level="a" type="main" xml:id="_3bjMmsS" coord="1,223.68,89.33,164.51,16.06;1,107.28,109.25,397.57,16.06">Exascale Computing: The challenges and opportunities in the next decade</title>
+						<title level="a" type="main" xml:id="_yRxbFhB" coord="1,223.68,89.33,164.51,16.06;1,107.28,109.25,397.57,16.06">Exascale Computing: The challenges and opportunities in the next decade</title>
 					</analytic>
 					<monogr>
 						<imprint>
@@ -52,7 +52,7 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		</fileDesc>
 		<encodingDesc>
 			<appInfo>
-				<application version="0.8.0" ident="GROBID" when="2024-03-14T01:59+0000">
+				<application version="0.8.0" ident="GROBID" when="2024-03-17T16:34+0000">
 					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
 					<ref target="https://github.com/kermitt2/grobid"/>
 				</application>
@@ -61,13 +61,13 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		<profileDesc>
 			<textClass>
 				<keywords>
-					<term xml:id="_gYbuKyW">C</term>
-					<term xml:id="_EGfFb37">5</term>
-					<term xml:id="_D6ZfmDf">0 [Computer Systems Implementation]: General</term>
+					<term xml:id="_E9mnYNz">C</term>
+					<term xml:id="_DQXvGfa">5</term>
+					<term xml:id="_Z6ZY42Y">0 [Computer Systems Implementation]: General</term>
 				</keywords>
 			</textClass>
 			<abstract>
-<div xmlns="http://www.tei-c.org/ns/1.0" xml:id="_C4SsbSy"><p xml:id="_eCFaDbS"><s xml:id="_SnSMPBu" coords="1,126.00,221.55,360.20,8.03;1,126.00,234.51,360.00,8.03;1,126.00,247.47,29.98,8.03">Supercomputing systems have made great strides in recent years as the extensive computing needs of cutting-edge engineering work and scientific discovery have driven the development of more powerful systems.</s><s xml:id="_pE56k44" coords="1,158.17,247.47,327.82,8.03;1,126.00,260.55,123.96,8.03">In 2008, the first petaflop machine was released, and historic trends indicate that in ten years, we should be at the exascale level.</s><s xml:id="_e9p2TJt" coords="1,252.50,260.55,233.59,8.03;1,126.00,273.51,227.16,8.03">Indeed, various agencies are targeting a computer system capable of 1 Exaop (10**18 ops) of computation within the next decade.</s><s xml:id="_y93DD7Y" coords="1,355.35,273.51,130.86,8.03;1,126.00,286.47,226.07,8.03">We believe that applications in many industries will be materially transformed by exascale computers.</s></p><p xml:id="_NhuHhFP"><s xml:id="_gDd9eMj" coords="1,126.00,305.55,360.05,8.03;1,125.99,318.51,61.07,8.03">Meeting the exascale challenge will require significant innovation in technology, architecture and programmability.</s><s xml:id="_MzHcaNS" coords="1,192.39,318.51,293.68,8.03;1,125.99,331.47,360.03,8.03;1,126.00,344.55,359.99,8.03;1,126.00,357.51,359.97,8.03;1,126.00,370.47,274.79,8.03">Power is a fundamental problem at all levels; traditional memory cost and performance are not keeping pace with compute potential; the storage hierarchy will have to be rearchitected; networks will be a much bigger part of the system cost; reliability at exascale levels will require a holistic approach to architecture design, and programmability and ease-of-use will be an essential component to extract the promised performance at the exascale level.</s></p><p xml:id="_9M2Ut2e"><s xml:id="_ugRcR4s" coords="1,128.15,389.55,357.98,8.03;1,126.00,402.51,258.21,8.03">In this talk, I will discuss the importance of exascale computing and address the major challenges, touching on the areas of technology, architecture, reliability and usability.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0" xml:id="_3bzRZyq"><p xml:id="_sU3tFBH"><s xml:id="_Ehtz3pr" coords="1,126.00,221.55,360.20,8.03;1,126.00,234.51,360.00,8.03;1,126.00,247.47,29.98,8.03">Supercomputing systems have made great strides in recent years as the extensive computing needs of cutting-edge engineering work and scientific discovery have driven the development of more powerful systems.</s><s xml:id="_HuVYPgH" coords="1,158.17,247.47,327.82,8.03;1,126.00,260.55,123.96,8.03">In 2008, the first petaflop machine was released, and historic trends indicate that in ten years, we should be at the exascale level.</s><s xml:id="_ZNFZ7cn" coords="1,252.50,260.55,233.59,8.03;1,126.00,273.51,227.16,8.03">Indeed, various agencies are targeting a computer system capable of 1 Exaop (10**18 ops) of computation within the next decade.</s><s xml:id="_mE9ERWj" coords="1,355.35,273.51,130.86,8.03;1,126.00,286.47,226.07,8.03">We believe that applications in many industries will be materially transformed by exascale computers.</s></p><p xml:id="_v6m8skq"><s xml:id="_8XqSg6f" coords="1,126.00,305.55,360.05,8.03;1,125.99,318.51,61.07,8.03">Meeting the exascale challenge will require significant innovation in technology, architecture and programmability.</s><s xml:id="_Zhud9SX" coords="1,192.39,318.51,293.68,8.03;1,125.99,331.47,360.03,8.03;1,126.00,344.55,359.99,8.03;1,126.00,357.51,359.97,8.03;1,126.00,370.47,274.79,8.03">Power is a fundamental problem at all levels; traditional memory cost and performance are not keeping pace with compute potential; the storage hierarchy will have to be rearchitected; networks will be a much bigger part of the system cost; reliability at exascale levels will require a holistic approach to architecture design, and programmability and ease-of-use will be an essential component to extract the promised performance at the exascale level.</s></p><p xml:id="_RTEmdZV"><s xml:id="_QgPm3rq" coords="1,128.15,389.55,357.98,8.03;1,126.00,402.51,258.21,8.03">In this talk, I will discuss the importance of exascale computing and address the major challenges, touching on the areas of technology, architecture, reliability and usability.</s></p></div>
 			</abstract>
 		</profileDesc>
 	</teiHeader>
