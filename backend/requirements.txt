@@ -12,3 +12,4 @@ mongoengine==0.28.2
 pytest-asyncio==0.17.0
 gensim==4.3.2
 nltk==3.8.1
+python-multipart==0.0.9
