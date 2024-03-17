@@ -1,0 +1,975 @@
+{
+    "metadata": {
+        "title": "Checkpointing Exascale Memory Systems with Existing Memory Technologies",
+        "doi": "10.1145/2989081.2989121",
+        "publisher": null,
+        "journal": null,
+        "published_date": null
+    },
+    "content": {
+        "abstract": "Building exascale supercomputers requires resilience to failing components such as processor, memory, storage, and network devices. Checkpoint/restart is a key ingredient in attaining resilience, but providing fast and reliable checkpointing is becoming more challenging as the amount of data to checkpoint and the number of components that can fail increase in exascale systems. To improve the speed of checkpointing, emerging non-volatile memory (phase change, magnetic, resistive RAM) have been proposed. However, using unproven memories to create checkpoints will only increase the design risk for exascale memory systems. In this paper, we show that exascale systems with hundreds of petabytes of memory can be constructed with commodity DRAM and SSD flash memory and that newer non-volatile memory are unnecessary, at least for the next generation. The challenge when using commodity parts is providing fast and reliable checkpointing to protect against system failures. A straightforward solution of checkpointing to local flash-based SSD devices will not work because they are endurance and performance limited. We present a checkpointing solution that employs a combination of DRAM and SSD devices. A Checkpoint Location Controller (CLC) is implemented to monitor the endurance of the SSD and the performance loss of the application and to decide dynamically whether to checkpoint to the DRAM or the SSD. The CLC improves both SSD endurance and application slowdown; but the checkpoints in DRAM are exposed to device failures. To design a reliable exascale memory, we protect the data with a low latency ECC that can correct all errors due to bit/pin/column/word faults and also detect errors due to chip failures, and we protect the checkpoint with a Chipkill-Correct level ECC that allows reliable checkpointing to the DRAM. Using our system, the SSD lifetime increases by 2\u00d7-from 3 years to 6.3 years. Furthermore, the CLC reduces the average checkpointing overhead by nearly 10\u00d7 (47% from a 420% slowdown), compared to when the application always checkpointed to the SSD.",
+        "keywords": [
+            "Fault tolerance",
+            "Dynamic memory",
+            "Nonvolatile memory",
+            "\u2022Software and its engineering \u2192 Checkpoint / restart",
+            "fault tolerance",
+            "checkpoint/restart",
+            "ECC",
+            "exascale"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Nilmini Abeyratne",
+            "affiliation": null,
+            "email": "sabeyrat@umich.edu"
+        },
+        {
+            "name": "Hsing-Min Chen",
+            "affiliation": "Arizona State University",
+            "email": null
+        },
+        {
+            "name": "Byoungchan Oh",
+            "affiliation": null,
+            "email": "bcoh@umich.edu"
+        },
+        {
+            "name": "Ronald Dreslinski",
+            "affiliation": null,
+            "email": null
+        },
+        {
+            "name": "Chaitali Chakrabarti",
+            "affiliation": "Arizona State University",
+            "email": "chaitali@asu.edu"
+        },
+        {
+            "name": "Trevor Mudge",
+            "affiliation": null,
+            "email": null
+        }
+    ],
+    "references": [
+        {
+            "authors": [
+                {
+                    "family": "Schroeder",
+                    "given": "Bianca"
+                },
+                {
+                    "family": "Pinheiro",
+                    "given": "Eduardo"
+                },
+                {
+                    "family": "We-ber",
+                    "given": "Wolf-Dietrich"
+                }
+            ],
+            "title": "DRAM errors in the wild: a large-scale field study",
+            "type": "article-journal",
+            "container_title": [
+                "ACM SIGMETRICS Performance Evaluation Review"
+            ],
+            "doi": "",
+            "published_date": "2009"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Schroeder",
+                    "given": "Bianca"
+                },
+                {
+                    "family": "Gibson",
+                    "given": "Garth A."
+                }
+            ],
+            "title": "Understanding fail-ures in petascale computers",
+            "type": "article-journal",
+            "container_title": [
+                "Journal of Physics: Confer-ence Series"
+            ],
+            "doi": "",
+            "published_date": "2007"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Xiangyong Ouyang",
+                    "given": "S.Marcarelli"
+                },
+                {
+                    "family": "Panda",
+                    "given": "D.K."
+                }
+            ],
+            "title": "Enhanc-ing checkpoint performance with staging io and ssd",
+            "type": "article-journal",
+            "container_title": [
+                "SNAPI"
+            ],
+            "doi": "",
+            "published_date": "2010"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Cooperation",
+                    "given": "Intel"
+                }
+            ],
+            "title": "Intel Solid-State Drive DC S3700 specifi-cation",
+            "type": null,
+            "container_title": "",
+            "doi": "",
+            "published_date": "2012-10"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Dong",
+                    "given": "Xiangyu"
+                },
+                {
+                    "family": "Muralimanohar",
+                    "given": "Naveen"
+                },
+                {
+                    "family": "Jouppi",
+                    "given": "Norm"
+                },
+                {
+                    "family": "Kaufmann",
+                    "given": "Richard"
+                },
+                {
+                    "family": "Xie",
+                    "given": "Yuan"
+                }
+            ],
+            "title": "Leveraging 3D PCRAM Technologies to Reduce Checkpoint Overhead for Future Ex-ascale Systems",
+            "type": "article-journal",
+            "container_title": [
+                "SC"
+            ],
+            "doi": "",
+            "published_date": "2009"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Chi",
+                    "given": "Ping"
+                },
+                {
+                    "family": "Xu",
+                    "given": "Cong"
+                },
+                {
+                    "family": "Zhang",
+                    "given": "Tao"
+                },
+                {
+                    "family": "Dong",
+                    "given": "Xiangyu"
+                },
+                {
+                    "family": "Xie",
+                    "given": "Yuan"
+                }
+            ],
+            "title": "Using Multi-level Cell STT-RAM for Fast and Energy-efficient Local Checkpointing",
+            "type": "article-journal",
+            "container_title": [
+                "ICCAD"
+            ],
+            "doi": "",
+            "published_date": "2014"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Kannan",
+                    "given": "S."
+                },
+                {
+                    "family": "Gavrilovska",
+                    "given": "A."
+                },
+                {
+                    "family": "Schwan",
+                    "given": "K."
+                },
+                {
+                    "family": "Milojicic",
+                    "given": "D."
+                }
+            ],
+            "title": "Optimizing Checkpoints Using NVM as Virtual Memory",
+            "type": "article-journal",
+            "container_title": [
+                "IPDPS"
+            ],
+            "doi": "",
+            "published_date": "2013"
+        },
+        {
+            "authors": [],
+            "title": "U.S Department of Energy Office of Science and National Nuclear Security Administration",
+            "type": "article-journal",
+            "container_title": [
+                "Preliminary Conceptual Design for an Exascale Computing Initiative"
+            ],
+            "doi": "",
+            "published_date": "2014-11"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Liu",
+                    "given": "Ning"
+                },
+                {
+                    "family": "Cope",
+                    "given": "Jason"
+                },
+                {
+                    "family": "Carns",
+                    "given": "Philip"
+                },
+                {
+                    "family": "Carothers",
+                    "given": "Christopher"
+                },
+                {
+                    "family": "Ross",
+                    "given": "Robert"
+                },
+                {
+                    "family": "Grider",
+                    "given": "Gary"
+                },
+                {
+                    "family": "Crume",
+                    "given": "Adam"
+                },
+                {
+                    "family": "Maltzahn",
+                    "given": "Carlos"
+                }
+            ],
+            "title": "On the role of burst buffers in leadership-class storage systems",
+            "type": "article-journal",
+            "container_title": [
+                "MSST"
+            ],
+            "doi": "",
+            "published_date": "2012"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Vetter",
+                    "given": "Jeffrey"
+                },
+                {
+                    "family": "Schreiber",
+                    "given": "Rob"
+                },
+                {
+                    "family": "Mudge",
+                    "given": "Trevor"
+                },
+                {
+                    "family": "Xie",
+                    "given": "Yuan"
+                }
+            ],
+            "title": "Blackcomb: Hardware-Software Co-design for Non-Volatile Memory in Exascale Systems",
+            "type": null,
+            "container_title": "",
+            "doi": "",
+            "published_date": "2015-01"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Analysis",
+                    "given": "Objective"
+                }
+            ],
+            "title": "A Close Look At The Micron/Intel 3D XPoint Memory",
+            "type": null,
+            "container_title": "",
+            "doi": "",
+            "published_date": "2015-09"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Kang",
+                    "given": "D."
+                },
+                {
+                    "family": "Jeong",
+                    "given": "W."
+                },
+                {
+                    "family": "Kim",
+                    "given": "C."
+                },
+                {
+                    "family": "Kim",
+                    "given": "D.H."
+                },
+                {
+                    "family": "Cho",
+                    "given": "Y.S."
+                },
+                {
+                    "family": "Kang",
+                    "given": "K.T."
+                },
+                {
+                    "family": "Ryu",
+                    "given": "J."
+                },
+                {
+                    "family": "Kang",
+                    "given": "K.M."
+                },
+                {
+                    "family": "Lee",
+                    "given": "S."
+                },
+                {
+                    "family": "Kim",
+                    "given": "W."
+                },
+                {
+                    "family": "Lee",
+                    "given": "H."
+                },
+                {
+                    "family": "Yu",
+                    "given": "J."
+                },
+                {
+                    "family": "Choi",
+                    "given": "N."
+                },
+                {
+                    "family": "Jang",
+                    "given": "D.S."
+                },
+                {
+                    "family": "Ihm",
+                    "given": "J.D."
+                },
+                {
+                    "family": "Kim",
+                    "given": "D."
+                },
+                {
+                    "family": "Min",
+                    "given": "Y.S."
+                },
+                {
+                    "family": "Kim",
+                    "given": "M.S."
+                },
+                {
+                    "family": "Park",
+                    "given": "A.S."
+                },
+                {
+                    "family": "Son",
+                    "given": "J.I."
+                },
+                {
+                    "family": "Kim",
+                    "given": "I.M."
+                },
+                {
+                    "family": "Kwak",
+                    "given": "P."
+                },
+                {
+                    "family": "Jung",
+                    "given": "B.K."
+                },
+                {
+                    "family": "Lee",
+                    "given": "D.S."
+                },
+                {
+                    "family": "Kim",
+                    "given": "H."
+                },
+                {
+                    "family": "Yang",
+                    "given": "H.J."
+                },
+                {
+                    "family": "Byeon",
+                    "given": "D.S."
+                },
+                {
+                    "family": "Park",
+                    "given": "K.T."
+                },
+                {
+                    "family": "Kyung",
+                    "given": "K.H."
+                },
+                {
+                    "family": "Choi",
+                    "given": "J.H."
+                }
+            ],
+            "title": "",
+            "type": null,
+            "container_title": "",
+            "doi": "",
+            "published_date": ""
+        },
+        {
+            "authors": [
+                {
+                    "family": "Sun",
+                    "given": "Fei"
+                },
+                {
+                    "family": "Rose",
+                    "given": "Ken"
+                },
+                {
+                    "family": "Zhang",
+                    "given": "Tong"
+                }
+            ],
+            "title": "On the use of strong bch codes for improving multilevel nand flash memory storage capacity",
+            "type": "chapter",
+            "container_title": [
+                "IEEE Workshop on Signal Processing Systems (SiPS): Design and Implementation"
+            ],
+            "doi": "",
+            "published_date": "2006"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Zheng",
+                    "given": "Gengbin"
+                },
+                {
+                    "family": "Shi",
+                    "given": "Lixia"
+                },
+                {
+                    "family": "Kal\u00e9",
+                    "given": "Laxmikant V."
+                }
+            ],
+            "title": "FTC-Charm++: an in-memory checkpoint-based fault tolerant runtime for Charm++ and MPI",
+            "type": "article-journal",
+            "container_title": [
+                "CLUSTER"
+            ],
+            "doi": "",
+            "published_date": "2004"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Saito",
+                    "given": "Takafumi"
+                },
+                {
+                    "family": "Sato",
+                    "given": "Kento"
+                },
+                {
+                    "family": "Sato",
+                    "given": "Hitoshi"
+                },
+                {
+                    "family": "Mat-suoka",
+                    "given": "Satoshi"
+                }
+            ],
+            "title": "Energy-aware i/o optimization for checkpoint and restart on a nand flash memory system",
+            "type": "article-journal",
+            "container_title": [
+                "FTXS"
+            ],
+            "doi": "",
+            "published_date": "2013"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Ni",
+                    "given": "Xiang"
+                },
+                {
+                    "family": "Meneses",
+                    "given": "Esteban"
+                },
+                {
+                    "family": "Kal\u00e9",
+                    "given": "Laxmikant V."
+                }
+            ],
+            "title": "Hid-ing checkpoint overhead in HPC applications with a semi-blocking algorithm",
+            "type": "article-journal",
+            "container_title": [
+                "CLUSTER"
+            ],
+            "doi": "",
+            "published_date": "2012"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Gomez",
+                    "given": "Leonardo Arturo Bautista"
+                },
+                {
+                    "family": "Maruyama",
+                    "given": "Naoya"
+                },
+                {
+                    "family": "Cappello",
+                    "given": "Franck"
+                },
+                {
+                    "family": "Matsuoka",
+                    "given": "Satoshi"
+                }
+            ],
+            "title": "Distributed Diskless Checkpoint for large scale systems",
+            "type": "paper-conference",
+            "container_title": [
+                "Proceedings of the 2010 10th IEEE/ACM International Conference on Cluster, Cloud and Grid Computing"
+            ],
+            "doi": "",
+            "published_date": "2010"
+        },
+        {
+            "authors": [],
+            "title": "Advanced Scientific Computing Advisory Committee",
+            "type": "book",
+            "container_title": "",
+            "doi": "",
+            "published_date": "2015-07-27"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Moody",
+                    "given": "Adam"
+                },
+                {
+                    "family": "Bronevetsky",
+                    "given": "Greg"
+                },
+                {
+                    "family": "Mohror",
+                    "given": "Kathryn"
+                },
+                {
+                    "family": "Supinski",
+                    "given": "Bro-nis R.",
+                    "particle": "de"
+                }
+            ],
+            "title": "Design, Modeling, and Evaluation of a Scalable Multi-level Checkpointing System",
+            "type": "article-journal",
+            "container_title": [
+                "SC"
+            ],
+            "doi": "",
+            "published_date": "2010"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Udipi",
+                    "given": "Aniruddha N."
+                },
+                {
+                    "family": "Muralimanohar",
+                    "given": "Naveen"
+                },
+                {
+                    "family": "Bala-subramonian",
+                    "given": "Rajeev"
+                },
+                {
+                    "family": "Davis",
+                    "given": "Al"
+                },
+                {
+                    "family": "Jouppi",
+                    "given": "Norman P."
+                }
+            ],
+            "title": "LOT-ECC: Localized and Tiered Reliability Mechanisms for Commodity Memory Systems",
+            "type": "article-journal",
+            "container_title": [
+                "ISCA"
+            ],
+            "doi": "",
+            "published_date": "2012"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Jian",
+                    "given": "X."
+                },
+                {
+                    "family": "Duwe",
+                    "given": "H."
+                },
+                {
+                    "family": "Sartori",
+                    "given": "J."
+                },
+                {
+                    "family": "Sridharan",
+                    "given": "V."
+                },
+                {
+                    "family": "Ku-mar",
+                    "given": "R."
+                }
+            ],
+            "title": "Low-power, Low-storage-overhead Chipkill Correct via Multi-line Error Correction",
+            "type": "article-journal",
+            "container_title": [
+                "SC"
+            ],
+            "doi": "",
+            "published_date": "2013"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Lin",
+                    "given": "S."
+                },
+                {
+                    "family": "Costello",
+                    "given": "D.J."
+                }
+            ],
+            "title": "Error Control Coding",
+            "type": "book",
+            "container_title": "",
+            "doi": "",
+            "published_date": "2004"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Sridharan",
+                    "given": "Vilas"
+                },
+                {
+                    "family": "Stearley",
+                    "given": "Jon"
+                },
+                {
+                    "family": "DeBardeleben",
+                    "given": "Nathan"
+                },
+                {
+                    "family": "Blanchard",
+                    "given": "Sean"
+                },
+                {
+                    "family": "Gurumurthi",
+                    "given": "Sudhanva"
+                }
+            ],
+            "title": "Feng Shui of Super-computer Memory: Positional Effects in DRAM and SRAM Faults",
+            "type": "article-journal",
+            "container_title": [
+                "SC"
+            ],
+            "doi": "",
+            "published_date": "2013"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Sridharan",
+                    "given": "Vilas"
+                },
+                {
+                    "family": "Liberty",
+                    "given": "Dean"
+                }
+            ],
+            "title": "A Study of DRAM Fail-ures in the Field",
+            "type": "article-journal",
+            "container_title": [
+                "SC"
+            ],
+            "doi": "",
+            "published_date": "2012"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Sridharan",
+                    "given": "Vilas"
+                },
+                {
+                    "family": "DeBardeleben",
+                    "given": "Nathan"
+                },
+                {
+                    "family": "Blanchard",
+                    "given": "Sean"
+                },
+                {
+                    "family": "Ferreira",
+                    "given": "Kurt B."
+                },
+                {
+                    "family": "Stearley",
+                    "given": "Jon"
+                },
+                {
+                    "family": "Shalf",
+                    "given": "John"
+                },
+                {
+                    "family": "Gurumurthi",
+                    "given": "Sudhanva"
+                }
+            ],
+            "title": "Memory Errors in Modern Systems: The Good, The Bad, and The Ugly",
+            "type": "article-journal",
+            "container_title": [
+                "ASPLOS"
+            ],
+            "doi": "",
+            "published_date": "2015"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Kim",
+                    "given": "Jungrae"
+                },
+                {
+                    "family": "Sullivan",
+                    "given": "Michael"
+                },
+                {
+                    "family": "Erez",
+                    "given": "Mattan"
+                }
+            ],
+            "title": "Bamboo ECC: Strong, safe, and flexible codes for reliable computer memory",
+            "type": "article-journal",
+            "container_title": [
+                "HPCA"
+            ],
+            "doi": "",
+            "published_date": "2015"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Yoon",
+                    "given": "Doe Hyun"
+                },
+                {
+                    "family": "Erez",
+                    "given": "Mattan"
+                }
+            ],
+            "title": "Virtualized and Flexible ECC for Main Memory",
+            "type": "article-journal",
+            "container_title": [
+                "ASPLOS"
+            ],
+            "doi": "",
+            "published_date": "2010"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Udipi",
+                    "given": "Aniruddha N."
+                },
+                {
+                    "family": "Muralimanohar",
+                    "given": "Naveen"
+                },
+                {
+                    "family": "Chatterjee",
+                    "given": "Niladrish"
+                },
+                {
+                    "family": "Balasubramonian",
+                    "given": "Rajeev"
+                },
+                {
+                    "family": "Davis",
+                    "given": "Al"
+                },
+                {
+                    "family": "Jouppi",
+                    "given": "Nor-man P."
+                }
+            ],
+            "title": "Rethinking DRAM design and organiza-tion for energy-constrained multi-cores",
+            "type": "chapter",
+            "container_title": [
+                "ACM SIGARCH Computer Architecture News"
+            ],
+            "doi": "",
+            "published_date": "2010"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Hursey",
+                    "given": "Joshua"
+                }
+            ],
+            "title": "Coordinated Checkpoint/Restart Process Fault Tolerance for Mpi Applications on Hpc Systems",
+            "type": "thesis",
+            "container_title": "",
+            "doi": "",
+            "published_date": "2010"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Islam",
+                    "given": "Tanzima Zerin"
+                },
+                {
+                    "family": "Mohror",
+                    "given": "Kathryn"
+                },
+                {
+                    "family": "Bagchi",
+                    "given": "Saurabh"
+                },
+                {
+                    "family": "Moody",
+                    "given": "Adam"
+                },
+                {
+                    "family": "Supinski",
+                    "given": "Bronis R.",
+                    "particle": "De"
+                },
+                {
+                    "family": "Eigenmann",
+                    "given": "Rudi"
+                }
+            ],
+            "title": "MCRENGINE: a scalable checkpointing system using data-aware aggregation and compression",
+            "type": "article-journal",
+            "container_title": [
+                "SC"
+            ],
+            "doi": "",
+            "published_date": "2012"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Rajachandrasekar",
+                    "given": "Raghunath"
+                },
+                {
+                    "family": "Moody",
+                    "given": "Adam"
+                },
+                {
+                    "family": "Mohror",
+                    "given": "Kathryn"
+                },
+                {
+                    "family": "Panda",
+                    "given": "Dhabaleswar K."
+                }
+            ],
+            "title": "A 1 PB/s file system to checkpoint three million MPI tasks",
+            "type": "article-journal",
+            "container_title": [
+                "HPDC"
+            ],
+            "doi": "",
+            "published_date": "2013"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Shahzad",
+                    "given": "Faisal"
+                },
+                {
+                    "family": "Wittmann",
+                    "given": "Markus"
+                },
+                {
+                    "family": "Zeiser",
+                    "given": "Thomas"
+                },
+                {
+                    "family": "Hager",
+                    "given": "Georg"
+                },
+                {
+                    "family": "Wellein",
+                    "given": "Gerhard"
+                }
+            ],
+            "title": "An evaluation of different I/O techniques for checkpoint/restart",
+            "type": "article-journal",
+            "container_title": [
+                "IPDPSW"
+            ],
+            "doi": "",
+            "published_date": "2013"
+        },
+        {
+            "authors": [
+                {
+                    "family": "Rajachandrasekar",
+                    "given": "Raghunath"
+                },
+                {
+                    "family": "Moody",
+                    "given": "Adam"
+                },
+                {
+                    "family": "Mohror",
+                    "given": "Kathryn"
+                },
+                {
+                    "family": "Panda",
+                    "given": "Dhabaleswar K."
+                }
+            ],
+            "title": "Thinking Beyond the RAM Disk for In-Memory Checkpointing of HPC Applica-tions",
+            "type": "report",
+            "container_title": "",
+            "doi": "",
+            "published_date": "2013"
+        }
+    ]
+}

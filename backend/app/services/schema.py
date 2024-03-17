@@ -5,110 +5,109 @@ from datetime import date
 from pydantic import BaseModel
 
 
-class ResponseVO(BaseModel):
-    code: int
-    msg: str
-    data: list
+class ResponseSchema(BaseModel):
+    code: int = 200
+    msg: str = "success"
+    data: list | dict | Any = None
 
 
-class AuthorVO(BaseModel):
-    id: int
-    name: str
-    email: str
+class AuthorSchema(BaseModel):
+    id: int = None
+    name: str = None
+    email: str = None
     affiliation: Optional[str] = None
 
 
-class PaperItemVO(BaseModel):
-    id: int
-    title: str
-    authors: list[AuthorVO]
+class TopicSchema(BaseModel):
+    id: int = None
+    name: str = None
+    # original: Optional[bool] = False
 
 
-class PaperResponse(ResponseVO):
-    data: list[PaperItemVO]
+class PaperItemSchema(BaseModel):
+    id: int = None
+    title: str = None
+    authors: list[AuthorSchema] = []
 
 
-class TopicItemVO(BaseModel):
-    id: int
-    topic: str
-    count: int
+class PaperResponse(ResponseSchema):
+    data: list[PaperItemSchema] = []
 
 
-class TopicResponse(ResponseVO):
-    data: list[TopicItemVO]
+class TopicItemSchema(BaseModel):
+    id: int = None
+    topic: str = None
+    count: int = None
 
 
-class AuthorItemVO(BaseModel):
-    id: int
-    name: str
-    count: int
+class TopicResponse(ResponseSchema):
+    data: list[TopicItemSchema] = []
 
 
-class AuthorResponse(ResponseVO):
-    data: list[AuthorItemVO]
+class AuthorItemSchema(BaseModel):
+    id: int = None
+    name: str = None
+    count: int = None
 
 
-class TopicConnectionItemVO(BaseModel):
-    id: int
-    name: str
-    original: bool
+class AuthorResponse(ResponseSchema):
+    data: list[AuthorItemSchema] = []
 
 
-class ConnectionItemVO(BaseModel):
-    topic: int
-    papers: list[int]
+class SameTopicConnectionItemSchema(BaseModel):
+    topic: int = None
+    papers: list[int] = []
 
 
-class TopicConnectionResponseVO(ResponseVO):
-    data: dict[str, Any]
+class SameTopicDataSchema(BaseModel):
+    connections: list[SameTopicConnectionItemSchema] = []
+    topics: list[TopicSchema] = []
+    papers: list[PaperItemSchema] = []
 
 
-class SameTopicPaperItemVO(PaperItemVO):
-    original: Optional[bool] = False
+class SameTopicResponseSchema(ResponseSchema):
+    data: SameTopicDataSchema = {}
 
 
-class SameTopicResponseVO(ResponseVO):
-    data: dict[str, Any]
+class CoAuthorConnectionItemSchema(BaseModel):
+    author: int = None
+    papers: list[int] = []
 
 
-class DashboardItemVO(BaseModel):
-    id: int
-    title: str
-    authors: list[str]
-    affiliations: list[str] = []  # 可以使用空列表作为默认值
-    date: date
-    doi: str
-    keywords: list[str]
-    references: int
+class CoAuthorDataSchema(BaseModel):
+    connections: list[CoAuthorConnectionItemSchema] = []
+    authors: list[AuthorSchema] = []
+    papers: list[PaperItemSchema] = []
 
 
-class DashboardResponseVO(ResponseVO):
-    data: DashboardItemVO
+class CoAuthorResponseSchema(ResponseSchema):
+    data: CoAuthorDataSchema = {}
 
 
-class CoAuthorItemVO(BaseModel):
-    id: int
-    name: str
-    original: Optional[bool] = False  # Optional field to indicate if this is the original author
+class DashboardItemSchema(BaseModel):
+    id: int = None
+    title: str = None
+    authors: list[str] = []
+    affiliations: list[str] = []
+    date: date = None
+    doi: str = None
+    keywords: list[str] = []
+    references: int = None
 
 
-class CoAuthorConnectionItemVO(BaseModel):
-    author: int
-    papers: list[int]
+class DashboardResponseSchema(ResponseSchema):
+    data: DashboardItemSchema = None
 
 
-class CoAuthorResponseVO(ResponseVO):
-    data: dict[str, Any]  # Use a flexible type to accommodate the nested structure of "co-author" data
+class CitedConnectionItemSchema(BaseModel):
+    from_paper: int
+    to_paper: list[int]
 
 
-class CitedConnectionItemVO(BaseModel):
-    from_paper: int  # Renamed from 'from' to 'from_paper' to avoid using Python reserved keyword
-    to: list[int]
+class CitedTreeDataSchema(BaseModel):
+    connections: list[CitedConnectionItemSchema]
+    papers: list[PaperItemSchema]
 
 
-class CitedPaperItemVO(PaperItemVO):
-    original: Optional[bool] = False  # Add an optional field to indicate the original paper
-
-
-class CitedTreeResponseVO(ResponseVO):
-    data: dict[str, Any]  # Use a flexible type for the complex nested structure
+class CitedTreeResponseSchema(ResponseSchema):
+    data: CitedTreeDataSchema = {}

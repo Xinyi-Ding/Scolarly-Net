@@ -5,6 +5,7 @@
 
 # Ignore grobid
 grobid-0.8.0/
+.gradle/
 
 # History file
 historyPSD.txt
