@@ -37,7 +37,10 @@ async def upload_document(file: UploadFile = File(...)):
         print("Article object created")
         articleVO = save_parse_article(article)
         print("Article saved to database")
-        res = {"code": 200, "message": "File uploaded successfully", "data": article.to_json(article_id=articleVO.article_id)}
+        res = {"code": 200,
+               "message": "File uploaded successfully",
+               "data": article.to_json(article_id=articleVO.article_id)
+               }
         return JSONResponse(status_code=200, content=res)
     except Exception as e:
         print(e)
