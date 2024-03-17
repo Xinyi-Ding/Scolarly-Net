@@ -8,6 +8,7 @@ import searchResultExample from "@/lib/searchResults.json";
 import citedTreeExample from "@/lib/exampleCitedTree.json";
 import { authors2Str, generateOptions } from "@/utils/network.js";
 import PaperList from "@/components/PaperList.vue";
+import req from "@/utils/req.js";
 
 const search = ref('');
 const searchLoading = ref(false);
@@ -24,15 +25,15 @@ const selectedNodeId = ref(null);
 
 const generateLoading = ref(false);
 
-const handleSearch = () => {
-  searchLoading.value = true;
-  setTimeout(() => {
-    if (search.value !== '') {
-      searchResults.value = searchResultExample.data;
-      resultModal.value = true;
-    }
+const handleSearch = async () => {
+  if (search.value !== '') {
+    searchLoading.value = true;
+    const data = await req.get('/catalog/papers/search', { title: search.value });
+    console.log('search', data.data)
+    searchResults.value = data.data.data;
+    resultModal.value = true;
     searchLoading.value = false;
-  }, 1000);
+  }
 };
 
 const handleResultSelect = (id) => {
@@ -42,14 +43,13 @@ const handleResultSelect = (id) => {
   generateLoading.value = true;
   nodes.clear();
   edges.clear();
-  setTimeout(() => {
-    generateLoading.value = false;
-    const data = citedTreeExample.data;
-    originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
-    netResults.value = data;
-    search.value = '';
-    initializeNetwork();
-  }, 1000);
+  generateLoading.value = false;
+  let data = req.get('/catalog/cited-tree', { article_id: id });
+  data = data.data.data;
+  originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
+  netResults.value = data;
+  search.value = '';
+  initializeNetwork();
 };
 
 const route = useRoute();

@@ -4,11 +4,9 @@ import { useRoute } from "vue-router";
 import { DataSet, Network } from 'vis-network/standalone';
 import Net from "@/layouts/NetLayout.vue";
 import SearchResult from "@/components/SearchResult.vue";
-import searchResultExample from "@/lib/searchResults.json";
-import sameTopicExample from "@/lib/exampleSameTopic.json";
 import { authors2Str, generateOptions } from "@/utils/network.js";
 import PaperList from "@/components/PaperList.vue";
-// import req from "@/utils/req.js";
+import req from "@/utils/req.js";
 
 const search = ref('');
 const searchLoading = ref(false);
@@ -28,29 +26,29 @@ const generateLoading = ref(false);
 const handleSearch = async () => {
   if (search.value !== '') {
     searchLoading.value = true;
-    setTimeout(() => {
-      searchResults.value = searchResultExample.data;
-      resultModal.value = true;
-      searchLoading.value = false;
-    }, 1000);
+    const data = await req.get('/catalog/papers/search', { title: search.value });
+    console.log('search', data.data)
+    searchResults.value = data.data.data;
+    resultModal.value = true;
+    searchLoading.value = false;
   }
 };
 
-const handleResultSelect = (id) => {
+const handleResultSelect = async (id) => {
   originalPaper.value.articleId = id;
   netResults.value = null; // clear the previous network data
   resultModal.value = false;
   generateLoading.value = true;
   nodes.clear();
   edges.clear();
-  setTimeout(() => {
-    generateLoading.value = false;
-    const data = sameTopicExample.data;
-    originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
-    netResults.value = data;
-    search.value = '';
-    initializeNetwork();
-  }, 3000);
+  let data = await req.get('/catalog/same-topi', { article_id: id });
+  data = data.data.data;
+  console.log('same topic', data);
+  originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
+  netResults.value = data;
+  search.value = '';
+  generateLoading.value = false;
+  initializeNetwork();
 };
 
 const route = useRoute();

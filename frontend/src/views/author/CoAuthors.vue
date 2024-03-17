@@ -8,6 +8,7 @@ import searchResultExample from "@/lib/searchResults.json";
 import topicConnectionExample from "@/lib/exampleCoAuthor.json";
 import { authors2Str, generateOptions } from "@/utils/network.js";
 import PaperList from "@/components/PaperList.vue";
+import req from "@/utils/req.js";
 
 // search related variables
 const search = ref('');
@@ -27,20 +28,15 @@ const selectedNodeId = ref(null);
 // loading related variables
 const generateLoading = ref(false);
 
-const handleSearch = () => {
-  searchLoading.value = true;
-  setTimeout(() => {
-    if (search.value !== '') {
-      // searchResults.value = searchResultExample.data.map(item => ({
-      //   id: item.id,
-      //   title: item.name,
-      //   subtitle: item.count + ' papers related',
-      // }));
-      searchResults.value = searchResultExample.data;
-      resultModal.value = true; // open the search result modal
-    }
+const handleSearch = async () => {
+  if (search.value !== '') {
+    searchLoading.value = true;
+    const data = await req.get('/catalog/papers/search', { title: search.value });
+    console.log('search', data.data)
+    searchResults.value = data.data.data;
+    resultModal.value = true;
     searchLoading.value = false;
-  }, 1000);
+  }
 };
 
 const handleResultSelect = (id) => {
@@ -50,14 +46,13 @@ const handleResultSelect = (id) => {
   generateLoading.value = true;
   nodes.clear();
   edges.clear();
-  setTimeout(() => {
-    generateLoading.value = false;
-    const data = topicConnectionExample.data;
-    originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
-    netResults.value = data;
-    search.value = '';
-    initializeNetwork();
-  }, 1000);
+  generateLoading.value = false;
+  let data = req.get('/catalog/topic-connections', { article_id: id });
+  data = data.data.data;
+  originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
+  netResults.value = data;
+  search.value = '';
+  initializeNetwork();
 };
 
 // check if the paperId is in the query, if so, generate the network

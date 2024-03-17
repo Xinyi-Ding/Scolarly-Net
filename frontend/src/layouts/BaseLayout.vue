@@ -6,9 +6,10 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const header = ref('Null');
 const accordionValue = ref(new Array(routesConfig.length).fill(true));
-const minimized = ref(true);
 const activeElement = ref(null);
 const activeRouteName = ref('');
+
+const minimized = ref(localStorage.getItem('minimized') === 'true');
 
 function generateActive() {
   if (router.currentRoute.value.matched.length > 2) {
@@ -34,14 +35,19 @@ function setRouteActive(route) {
   router.push(route.path);
 }
 
+function toggleSidebar() {
+  minimized.value = !minimized.value;
+  localStorage.setItem('minimized', minimized.value.toString());
+}
+
 watch(() => router.currentRoute.value, (newRoute) => {
   const matchedRoute = newRoute.matched.slice().reverse().find(r => r.meta && r.meta.title);
   if (matchedRoute && matchedRoute.meta && matchedRoute.meta.title) {
     header.value = matchedRoute.meta.title;
   }
   generateActive();
-
 }, { immediate: true });
+
 
 </script>
 
@@ -59,7 +65,7 @@ watch(() => router.currentRoute.value, (newRoute) => {
           <VaNavbarItem>
             <VaButton
                 :icon="minimized ? 'menu' : 'menu_open'"
-                @click="minimized = !minimized"
+                @click="toggleSidebar"
             />
           </VaNavbarItem>
           <VaNavbarItem>
@@ -135,7 +141,7 @@ watch(() => router.currentRoute.value, (newRoute) => {
 
         <VaSidebarItem
             :active="'Settings' === activeElement"
-            @click="console.log('Settings')"
+            @click="console.log('Settings coming soon...')"
         >
           <VaSidebarItemContent>
             <VaIcon name="settings" />

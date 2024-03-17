@@ -1,7 +1,10 @@
 <script setup>
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
+const route = useRoute();
+const message = route.query.msg;
+console.log('message', message);
 
 const handleBack = () => {
   router.push('/');
@@ -23,6 +26,7 @@ const handleBack = () => {
       <template #default>
         <div class="my-3">
           Something went wrong. Please try again later.
+          {{ message }}
         </div>
       </template>
       <template #close>

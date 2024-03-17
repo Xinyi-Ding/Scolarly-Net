@@ -13,9 +13,7 @@ sysInstance.interceptors.request.use(
   },
   // if the request is not successful, it will be caught by the catch block and redirected to the error page
   (error) => {
-    router.push('/error').then(() => {
-      console.log('error msg', error);
-    });
+    router.push({path: '/error', query: { msg: error }}).then();
     return Promise.reject(error);
   }
 );
@@ -23,10 +21,6 @@ sysInstance.interceptors.request.use(
 // response interceptor
 sysInstance.interceptors.response.use(
   (response) => {
-    // if the response is not 200, it will be caught by the catch block and redirected to the error page
-    // router.push({path: '/error'}).then(() => {
-    //   console.log('error msg', response.data.msg);
-    // });
     return response;
   },
   (error) => {
