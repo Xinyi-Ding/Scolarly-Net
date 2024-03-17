@@ -31,6 +31,15 @@ class Metadata:
             self.journal == other.journal and \
             self.published_date == other.published_date
 
+    def to_json(self):
+        return {
+            "title": self.title,
+            "doi": self.doi,
+            "publisher": self.publisher,
+            "journal": self.journal,
+            "published_date": self.published_date
+        }
+
 
 @dataclass
 class Content:
@@ -45,6 +54,12 @@ class Content:
         if not isinstance(other, Content):
             return False
         return self.abstract == other.abstract and self.keywords == other.keywords
+
+    def to_json(self):
+        return {
+            "abstract": self.abstract,
+            "keywords": self.keywords
+        }
 
 
 @dataclass
@@ -62,6 +77,13 @@ class Author:
         if not isinstance(other, Author):
             return False
         return self.name == other.name and self.affiliation == other.affiliation and self.email == other.email
+
+    def to_json(self):
+        return {
+            "name": self.name,
+            "affiliation": self.affiliation,
+            "email": self.email
+        }
 
 
 @dataclass
@@ -107,3 +129,12 @@ class Artical:
 
     def to_dict(self):
         return asdict(self)
+
+    def to_json(self):
+        return {
+            "metadata": self.metadata.to_json(),
+            "content": self.content.to_json(),
+            "authors": [author.to_json() for author in self.authors],
+            "references": len(self.references)
+        }
+

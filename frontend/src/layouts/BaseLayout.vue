@@ -3,14 +3,12 @@ import { ref, watch } from "vue";
 import { routesConfig } from "@/lib/routesConfig.js";
 import { useRouter } from "vue-router";
 
-const minimized = ref(false);
-
-const activeElement = ref(null);
-
 const router = useRouter();
 const header = ref('Null');
+const accordionValue = ref(new Array(routesConfig.length).fill(true));
+const minimized = ref(true);
+const activeElement = ref(null);
 const activeRouteName = ref('');
-const accordionValue = ref(new Array(routesConfig.length).fill(false));
 
 function generateActive() {
   if (router.currentRoute.value.matched.length > 2) {
@@ -151,11 +149,12 @@ watch(() => router.currentRoute.value, (newRoute) => {
       <main class="p-4">
         <h1 class="text-3xl font-black ml-2 mb-3 uppercase">{{header}}</h1>
         <div class="h-[80vh] bg-white shadow-lg overflow-auto">
-          <router-view v-slot="{ Component }">
-            <keep-alive>
-              <component :is="Component" />
-            </keep-alive>
-          </router-view>
+          <!--<router-view v-slot="{ Component }">-->
+          <!--  <keep-alive>-->
+          <!--    <component :is="Component" />-->
+          <!--  </keep-alive>-->
+          <!--</router-view>-->
+          <RouterView />
         </div>
       </main>
     </template>

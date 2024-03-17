@@ -59,3 +59,12 @@ export const generateOptions = (customOptions) => {
     },
   };
 };
+
+export const authors2Str = (authors) => {
+  let str = '';
+  for (let i = 0; i < authors.length - 1; i++) {
+    str += authors[i].name + ', ';
+  }
+  str += authors[authors.length - 1].name;
+  return str;
+}

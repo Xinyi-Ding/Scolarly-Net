@@ -1,9 +1,9 @@
 import json
 from pathlib import Path
 
-from Extractor.extractor import Extractor
-from Parser.parser import Parser
-from Parser.types import Artical
+from .Extractor.extractor import Extractor
+from .Parser.parser import Parser
+from .Parser.types import Artical
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem.wordnet import WordNetLemmatizer

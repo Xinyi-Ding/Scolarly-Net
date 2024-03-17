@@ -24,9 +24,9 @@ sysInstance.interceptors.request.use(
 sysInstance.interceptors.response.use(
   (response) => {
     // if the response is not 200, it will be caught by the catch block and redirected to the error page
-    router.push({path: '/error'}).then(() => {
-      console.log('error msg', response.data.msg);
-    });
+    // router.push({path: '/error'}).then(() => {
+    //   console.log('error msg', response.data.msg);
+    // });
     return response;
   },
   (error) => {

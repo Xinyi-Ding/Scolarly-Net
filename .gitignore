@@ -3,9 +3,6 @@
 .vscode
 .idea/
 
-# ignore pycache
-__pycache__/
-
 # Ignore grobid
 grobid-0.8.0/
 
@@ -38,3 +35,5 @@ __pycache__/
 #*.json
 #.env
 
+# Ignore src
+backend/src/

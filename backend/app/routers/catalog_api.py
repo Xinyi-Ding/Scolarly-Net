@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends
 
-from backend.app.services.catalog import search_papers_by_filter_as_response, search_topics_by_filter_as_response, \
+from ...app.services.catalog import search_papers_by_filter_as_response, search_topics_by_filter_as_response, \
     search_authors_by_filter_as_response, search_same_topic_by_filter_as_response, \
     search_co_author_by_filter_as_response, search_cited_tree_by_filter_as_response
-from backend.app.services.models import ArticleFilter, TopicFilter, AuthorFilter
-from backend.app.services.schema import PaperResponse, TopicResponse, SameTopicResponseSchema, CoAuthorResponseSchema, \
+from ...app.services.models import ArticleFilter, TopicFilter, AuthorFilter
+from ...app.services.schema import PaperResponse, TopicResponse, SameTopicResponseSchema, CoAuthorResponseSchema, \
     CitedTreeResponseSchema, AuthorResponse
 
 # Initialize the API router

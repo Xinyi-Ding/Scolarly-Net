@@ -121,12 +121,10 @@ def are_similar(text1, text2, threshold=0.8):
 def _are_reference_similar(reference1: List[Reference], reference2: List[Reference], match_threshold=0.8,
                            match_ratio_threshold=0.5):
     """
-
     Check if two lists of references are similar based on their titles.
     A reference is considered similar to another if their titles have more than 80% similarity.
     References in one list are matched to the most similar
     references in the other list without assuming identical order.
-
 
     Args:
         reference1 (List[Reference]): The manually extracted references for comparison.
