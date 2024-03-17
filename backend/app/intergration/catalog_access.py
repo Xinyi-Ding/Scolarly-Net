@@ -2,11 +2,11 @@ from mongoengine import Q, DoesNotExist
 from typing import List, TypeVar, Generic
 
 # Assuming these imports are correctly resolving your actual project structure
-from ...app.db.mongoengine_models import (
+from ..db.mongoengine_models import (
     Article, Topic, Author, Institution, Department, AuthorInstitution, AuthorDepartment,
     ArticleAuthor, ArticleCitation, TopicRelationship, ArticleTopic
 )
-from ...app.services.models import (
+from ..services.models import (
     ArticleVO, TopicVO, AuthorVO, InstitutionVO, DepartmentVO, AuthorInstitutionVO, AuthorDepartmentVO,
     ArticleAuthorVO, ArticleCitationVO, TopicRelationshipVO, ArticleTopicVO, ArticleFilter, TopicFilter,
     AuthorFilter, InstitutionFilter, DepartmentFilter, AuthorInstitutionFilter, AuthorDepartmentFilter,

@@ -1,9 +1,9 @@
 import pytest
 import pytest_asyncio
-from backend.app.intergration.catalog_access import ArticleCRUD, TopicCRUD, InstitutionCRUD, AuthorCRUD, \
+from .catalog_access import ArticleCRUD, TopicCRUD, InstitutionCRUD, AuthorCRUD, \
     DepartmentCRUD, AuthorInstitutionCRUD, AuthorDepartmentCRUD, ArticleAuthorCRUD, ArticleCitationCRUD, \
     TopicRelationshipCRUD, ArticleTopicCRUD
-from backend.app.services.models import ArticleVO, ArticleFilter, TopicVO, TopicFilter, AuthorFilter, AuthorVO, \
+from ..services.models import ArticleVO, ArticleFilter, TopicVO, TopicFilter, AuthorFilter, AuthorVO, \
     InstitutionVO, InstitutionFilter, DepartmentVO, DepartmentFilter, AuthorInstitutionVO, AuthorInstitutionFilter, \
     AuthorDepartmentVO, AuthorDepartmentFilter, ArticleAuthorFilter, ArticleAuthorVO, ArticleCitationVO, \
     ArticleCitationFilter, TopicRelationshipVO, TopicRelationshipFilter, ArticleTopicVO, ArticleTopicFilter

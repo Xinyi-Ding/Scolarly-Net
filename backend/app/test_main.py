@@ -1,6 +1,6 @@
 import pytest
 from httpx import AsyncClient, ASGITransport
-from backend.app.main import app  # Import the FastAPI application instance
+from .main import app  # Import the FastAPI application instance
 
 
 # Test for the root endpoint "/"

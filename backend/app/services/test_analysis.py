@@ -160,16 +160,16 @@ def test_parse_artical_reference():
     """
     Test the parsing of the article reference.
     """
-    json_dir = Path("test/test_data/JSON")
+    json_dir = Path(Path.cwd() / "app/services/test_data/JSON")
     for json_file in json_dir.glob("*.json"):
         print("testing reference:", json_file.name)
         test_case = _parse_test_case_artical_reference(str(json_file))
         # Construct corresponding PDF file path from the JSON file name
         pdf_file_name = json_file.stem + ".pdf"
-        pdf_path = Path("test/test_data/Papers") / pdf_file_name
+        pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
+        xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_artical(xml_path)
         # print("reference test case")
         # print(test_case)
@@ -182,16 +182,16 @@ def test_parse_artical_metadata():
     """
     Test the parsing of the article metadata.
     """
-    json_dir = Path("test/test_data/JSON")
+    json_dir = Path(Path.cwd() / "app/services/test_data/JSON")
     for json_file in json_dir.glob("*.json"):
         test_case = _parse_test_case_artical_metadata(str(json_file))
 
         # Construct corresponding PDF file path from the JSON file name
         pdf_file_name = json_file.stem + ".pdf"
-        pdf_path = Path("test/test_data/Papers") / pdf_file_name
+        pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
+        xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_artical(xml_path)
         # print(test_case.journal)
         # print(article.metadata.journal)
@@ -203,16 +203,16 @@ def test_parse_artical_content():
     """
     Test the parsing of the article content.
     """
-    json_dir = Path("test/test_data/JSON")
+    json_dir = Path(Path.cwd() / "app/services/test_data/JSON")
     for json_file in json_dir.glob("*.json"):
         test_case = _parse_test_case_artical_content(str(json_file))
 
         # Construct corresponding PDF file path from the JSON file name
         pdf_file_name = json_file.stem + ".pdf"
-        pdf_path = Path("test/test_data/Papers") / pdf_file_name
+        pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
+        xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_artical(xml_path)
         # print(test_case)
         # print(article.content.abstract)
@@ -225,16 +225,16 @@ def test_parse_artical_authors():
     """
     Test the parsing of the article authors.
     """
-    json_dir = Path("test/test_data/JSON")
+    json_dir = Path(Path.cwd() / "app/services/test_data/JSON")
     for json_file in json_dir.glob("*.json"):
         test_case = _parse_test_case_artical_authors(str(json_file))
 
         # Construct corresponding PDF file path from the JSON file name
         pdf_file_name = json_file.stem + ".pdf"
-        pdf_path = Path("test/test_data/Papers") / pdf_file_name
+        pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
+        xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_artical(xml_path)
         print(test_case)
         print(article.authors)

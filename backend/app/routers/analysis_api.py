@@ -1,7 +1,7 @@
 from fastapi import APIRouter, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
 from pathlib import Path
-from ...app.services import analysis
+from ..services import analysis
 
 
 # Initialize the API router with a prefix and tags

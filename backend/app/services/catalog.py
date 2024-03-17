@@ -2,13 +2,13 @@ import json
 import os
 from pathlib import Path
 
-from backend.app.intergration.catalog_access import ArticleCRUD, AuthorCRUD, ArticleAuthorCRUD, \
+from ..intergration.catalog_access import ArticleCRUD, AuthorCRUD, ArticleAuthorCRUD, \
     ArticleCitationCRUD, TopicCRUD, ArticleTopicCRUD
-from backend.app.services.Parser.types import Artical
-from backend.app.services.models import ParseArticalVO, ArticleVO, AuthorVO, ArticleAuthorVO, ArticleCitationVO, \
+from ..services.Parser.types import Artical
+from ..services.models import ParseArticalVO, ArticleVO, AuthorVO, ArticleAuthorVO, ArticleCitationVO, \
     AuthorFilter, ArticleFilter, ArticleAuthorFilter, TopicFilter, TopicVO, ArticleTopicVO, ArticleCitationFilter, \
     ArticleTopicFilter
-from backend.app.services.schema import PaperResponse, PaperItemSchema, AuthorSchema, TopicResponse, TopicItemSchema, \
+from ..services.schema import PaperResponse, PaperItemSchema, AuthorSchema, TopicResponse, TopicItemSchema, \
     AuthorResponse, AuthorItemSchema, SameTopicConnectionItemSchema, SameTopicDataSchema, SameTopicResponseSchema, \
     CoAuthorResponseSchema, CoAuthorDataSchema, CoAuthorConnectionItemSchema, TopicSchema, CitedTreeResponseSchema, \
     CitedTreeDataSchema, CitedConnectionItemSchema

@@ -2,7 +2,7 @@ from mongoengine import Document, connect
 from mongoengine.fields import (
     StringField, IntField, DateField
 )
-from ...app.db.config import MONGO_URI, MONGO_TEST_URI, TEST_MODE
+from .config import MONGO_URI, MONGO_TEST_URI, TEST_MODE
 
 # Establish a connection to MongoDB using the variables from config.py
 if TEST_MODE:

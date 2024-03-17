@@ -137,4 +137,3 @@ class Artical:
             "authors": [author.to_json() for author in self.authors],
             "references": len(self.references)
         }
-
