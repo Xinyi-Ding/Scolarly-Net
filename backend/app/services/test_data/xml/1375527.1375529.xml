@@ -6,7 +6,7 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 	<teiHeader xml:lang="en">
 		<fileDesc>
 			<titleStmt>
-				<title level="a" type="main" xml:id="_yHFara6" coord="1,101.46,96.76,409.02,16.72">Challenges on the Road to Exascale Computing</title>
+				<title level="a" type="main" xml:id="_8S9UcjR" coord="1,101.46,96.76,409.02,16.72">Challenges on the Road to Exascale Computing</title>
 			</titleStmt>
 			<publicationStmt>
 				<publisher/>
@@ -44,7 +44,7 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 								</address>
 							</affiliation>
 						</author>
-						<title level="a" type="main" xml:id="_5uYtX6f" coord="1,101.46,96.76,409.02,16.72">Challenges on the Road to Exascale Computing</title>
+						<title level="a" type="main" xml:id="_GvCH2k7" coord="1,101.46,96.76,409.02,16.72">Challenges on the Road to Exascale Computing</title>
 					</analytic>
 					<monogr>
 						<imprint>
@@ -57,7 +57,7 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		</fileDesc>
 		<encodingDesc>
 			<appInfo>
-				<application version="0.8.0" ident="GROBID" when="2024-03-17T17:41+0000">
+				<application version="0.8.0" ident="GROBID" when="2024-03-17T20:12+0000">
 					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
 					<ref target="https://github.com/kermitt2/grobid"/>
 				</application>
@@ -66,14 +66,14 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		<profileDesc>
 			<textClass>
 				<keywords>
-					<term xml:id="_AmnJCYW">B</term>
-					<term xml:id="_SSXztCM">m MISCELLANEOUS, C</term>
-					<term xml:id="_t7dUrU5">5</term>
-					<term xml:id="_PtWWWFA">1 Large and Medium Computers</term>
+					<term xml:id="_7xwn4zX">B</term>
+					<term xml:id="_zWUpAwp">m MISCELLANEOUS, C</term>
+					<term xml:id="_urWSP9M">5</term>
+					<term xml:id="_Rp7sCSs">1 Large and Medium Computers</term>
 				</keywords>
 			</textClass>
 			<abstract>
-<div xmlns="http://www.tei-c.org/ns/1.0" xml:id="_Gkg2Huf"><p xml:id="_vwYbHpC"><s xml:id="_6sB93a8" coords="1,90.00,203.01,432.08,8.74;1,90.00,214.53,431.99,8.74;1,90.00,226.05,34.11,8.74">Supercomputing systems have made great strides in recent years as the extensive computing needs of cutting-edge engineering work and scientific discovery have driven the development of more powerful systems.</s><s xml:id="_6KQCZR4" coords="1,129.88,226.05,392.10,8.74;1,90.00,237.51,354.65,8.74">The first teraflop computer, ASCI Red, came on the scene in late 1996, and now a machine must achieve 5.9 teraflops to gain entry to the very bottom of the Top500 supercomputing list.</s></p><p xml:id="_FyYjErK"><s xml:id="_bcSgxQM" coords="1,90.00,255.03,432.02,8.74;1,90.00,266.49,277.36,8.74">With the emergence of petascale supercomputers expected in 2008 or 2009, we have set our sights on the increased capacity and expected muscle of exascale computing.</s><s xml:id="_th8ZpXZ" coords="1,378.89,266.49,143.06,8.74;1,90.00,278.01,432.11,8.74;1,90.00,289.53,93.24,8.74">This has also been the focus of organizations such as the Institute for Advanced Architectures jointly launched at Sandia and Oak Ridge National Laboratories.</s><s xml:id="_MEmr2xk" coords="1,194.69,289.53,327.30,8.74;1,90.00,300.99,88.04,8.74">However, the challenges of exascale computing will not be solved by the technologies of today.</s><s xml:id="_PhGtYnP" coords="1,90.00,318.51,432.02,8.74;1,90.00,330.03,432.01,8.74;1,90.00,341.49,35.15,8.74">If today's most power and energy efficient supercomputer was linearly scaled to the exascale level, it would consume around 200MWatts of power, contain over 60 million cores, and require over 400M dollars of memory.</s><s xml:id="_YfwjKpA" coords="1,131.38,341.49,390.70,8.74;1,90.00,353.01,132.46,8.74">Such a system will present significant problems in management and programmability as current bounds of parallelism are tested.</s><s xml:id="_qy3XhdV" coords="1,228.76,353.01,293.27,8.74;1,90.00,364.53,432.03,8.74;1,90.00,375.99,19.20,8.74">Data accessibility will also be a significant issue as our ability to sense, generate and calculate on data is growing faster than our ability to access, manage and even "store" that data.</s><s xml:id="_nJz25SM" coords="1,116.03,375.99,326.27,8.74">These problems only get worse as the system's computational power scales up.</s><s xml:id="_5YgQjqW" coords="1,449.12,375.99,72.87,8.74;1,90.00,387.51,432.10,8.74;1,90.00,399.03,143.53,8.74">In this talk, I will discuss exascale computing challenges to be overcome in the areas of power, architecture, programmability, management, and data accessibility.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0" xml:id="_hG6cWzU"><p xml:id="_eYD5unS"><s xml:id="_jBsdFcZ" coords="1,90.00,203.01,432.08,8.74;1,90.00,214.53,431.99,8.74;1,90.00,226.05,34.11,8.74">Supercomputing systems have made great strides in recent years as the extensive computing needs of cutting-edge engineering work and scientific discovery have driven the development of more powerful systems.</s><s xml:id="_JMajZ55" coords="1,129.88,226.05,392.10,8.74;1,90.00,237.51,354.65,8.74">The first teraflop computer, ASCI Red, came on the scene in late 1996, and now a machine must achieve 5.9 teraflops to gain entry to the very bottom of the Top500 supercomputing list.</s></p><p xml:id="_Tc6GEjv"><s xml:id="_6nkFwWe" coords="1,90.00,255.03,432.02,8.74;1,90.00,266.49,277.36,8.74">With the emergence of petascale supercomputers expected in 2008 or 2009, we have set our sights on the increased capacity and expected muscle of exascale computing.</s><s xml:id="_HVVqUt6" coords="1,378.89,266.49,143.06,8.74;1,90.00,278.01,432.11,8.74;1,90.00,289.53,93.24,8.74">This has also been the focus of organizations such as the Institute for Advanced Architectures jointly launched at Sandia and Oak Ridge National Laboratories.</s><s xml:id="_38J5Emr" coords="1,194.69,289.53,327.30,8.74;1,90.00,300.99,88.04,8.74">However, the challenges of exascale computing will not be solved by the technologies of today.</s><s xml:id="_uVbZuBS" coords="1,90.00,318.51,432.02,8.74;1,90.00,330.03,432.01,8.74;1,90.00,341.49,35.15,8.74">If today's most power and energy efficient supercomputer was linearly scaled to the exascale level, it would consume around 200MWatts of power, contain over 60 million cores, and require over 400M dollars of memory.</s><s xml:id="_WpPfmPc" coords="1,131.38,341.49,390.70,8.74;1,90.00,353.01,132.46,8.74">Such a system will present significant problems in management and programmability as current bounds of parallelism are tested.</s><s xml:id="_RqFmef8" coords="1,228.76,353.01,293.27,8.74;1,90.00,364.53,432.03,8.74;1,90.00,375.99,19.20,8.74">Data accessibility will also be a significant issue as our ability to sense, generate and calculate on data is growing faster than our ability to access, manage and even "store" that data.</s><s xml:id="_D35mbhb" coords="1,116.03,375.99,326.27,8.74">These problems only get worse as the system's computational power scales up.</s><s xml:id="_yjWHyMn" coords="1,449.12,375.99,72.87,8.74;1,90.00,387.51,432.10,8.74;1,90.00,399.03,143.53,8.74">In this talk, I will discuss exascale computing challenges to be overcome in the areas of power, architecture, programmability, management, and data accessibility.</s></p></div>
 			</abstract>
 		</profileDesc>
 	</teiHeader>

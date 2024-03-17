@@ -4,7 +4,7 @@ from pathlib import Path
 
 from ..intergration.catalog_access import ArticleCRUD, AuthorCRUD, ArticleAuthorCRUD, \
     ArticleCitationCRUD, TopicCRUD, ArticleTopicCRUD
-from ..services.Parser.types import Artical
+from ..services.Parser.types import ArticleObject
 from ..services.models import ParseArticalVO, ArticleVO, AuthorVO, ArticleAuthorVO, ArticleCitationVO, \
     AuthorFilter, ArticleFilter, ArticleAuthorFilter, TopicFilter, TopicVO, ArticleTopicVO, ArticleCitationFilter, \
     ArticleTopicFilter
@@ -14,7 +14,7 @@ from ..services.schema import PaperResponse, PaperItemSchema, AuthorSchema, Topi
     CitedTreeDataSchema, CitedConnectionItemSchema
 
 
-def save_parse_article(parse_article: ParseArticalVO | dict | Artical):
+def save_parse_article(parse_article: ParseArticalVO | dict | ArticleObject) -> ArticleVO | None:
     """
     This function processes and saves the article metadata, authors, references, and topics to the database.
     :param parse_article: A ParseArticleVO, dict,
@@ -28,7 +28,7 @@ def save_parse_article(parse_article: ParseArticalVO | dict | Artical):
         parse_article_vo = parse_article
     elif isinstance(parse_article, dict):
         parse_article_vo = ParseArticalVO.from_dict(parse_article)
-    elif isinstance(parse_article, Artical):
+    elif isinstance(parse_article, ArticleObject):
         parse_article_vo = ParseArticalVO.from_dict(parse_article.to_dict())
     else:
         raise ValueError("Unsupported type for parse_article_vo")
@@ -71,7 +71,9 @@ def save_parse_article(parse_article: ParseArticalVO | dict | Artical):
             else:
                 # If the author does not exist, save the author
                 try:
-                    saved_author = author_crud.create(AuthorVO(name=parse_author_vo.name, email=parse_author_vo.email))
+                    saved_author = author_crud.create(AuthorVO(name=parse_author_vo.name,
+                                                               email=parse_author_vo.email,
+                                                               affiliation=parse_author_vo.affiliation))
                 except Exception as e:
                     print(f"Error saving author: {e}")
                     continue  # or handle error accordingly
@@ -101,8 +103,9 @@ def save_parse_article(parse_article: ParseArticalVO | dict | Artical):
                     title=parse_reference_vo.title,
                     doi=parse_reference_vo.doi,
                     date=parse_reference_vo.published_date,
-                    container_title=parse_reference_vo.container_title[
-                        0] if parse_reference_vo.container_title else None
+                    container_title=parse_reference_vo.container_title[0]
+                    if parse_reference_vo.container_title
+                    else None
                 )
                 try:
                     reference_article = article_crud.create(article_vo)
@@ -138,6 +141,9 @@ def save_parse_article(parse_article: ParseArticalVO | dict | Artical):
             except Exception as e:
                 print(f"Error creating article-topic relationship: {e}")
                 # Decide whether to continue or handle differently
+        return saved_article
+    else:
+        return None
 
 
 def save_parse_articles_within_dir(folder_path):
@@ -191,7 +197,10 @@ def search_papers_by_filter_as_response(filter_obj: ArticleFilter) -> PaperRespo
             if not author_vo:
                 continue
             # Add the author to the list
-            author_lst.append(AuthorSchema(id=author_vo.author_id, name=author_vo.name, email=author_vo.email))
+            author_lst.append(AuthorSchema(id=author_vo.author_id,
+                                           name=author_vo.name,
+                                           email=author_vo.email,
+                                           affiliation=author_vo.affiliation))
 
         # Create a PaperItemVO for the article
         paper_item = PaperItemSchema(id=article_vo.article_id, title=article_vo.title, authors=author_lst)
@@ -316,7 +325,8 @@ def search_same_topic_by_filter_as_response(filter_obj: ArticleFilter) -> SameTo
             author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
             author_schema_lst.append(AuthorSchema(id=author_vo.author_id,
                                                   name=author_vo.name,
-                                                  email=author_vo.email))
+                                                  email=author_vo.email,
+                                                  affiliation=author_vo.affiliation))
 
         # Append information about the article and its authors
         paper_item_schema_lst.append(PaperItemSchema(id=article_vo.article_id,
@@ -376,7 +386,8 @@ def search_co_author_by_filter_as_response(filter_obj: ArticleFilter) -> CoAutho
         author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
         author_schema_lst.append(AuthorSchema(id=author_vo.author_id,
                                               name=author_vo.name,
-                                              email=author_vo.email))
+                                              email=author_vo.email,
+                                              affiliation=author_vo.affiliation))
 
     paper_item_schema_lst: list[PaperItemSchema] = []
 
@@ -392,7 +403,8 @@ def search_co_author_by_filter_as_response(filter_obj: ArticleFilter) -> CoAutho
             author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
             author_schema_lst.append(AuthorSchema(id=author_vo.author_id,
                                                   name=author_vo.name,
-                                                  email=author_vo.email))
+                                                  email=author_vo.email,
+                                                  affiliation=author_vo.affiliation))
 
         # Append information about the article and its authors
         paper_item_schema_lst.append(PaperItemSchema(id=article_vo.article_id,
@@ -482,7 +494,8 @@ def search_cited_tree_by_filter_as_response(filter_obj: ArticleFilter, level_num
             author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
             author_schema_lst.append(AuthorSchema(id=author_vo.author_id,
                                                   name=author_vo.name,
-                                                  email=author_vo.email))
+                                                  email=author_vo.email,
+                                                  affiliation=author_vo.affiliation))
 
         # Store detailed information about the article, including its authors
         paper_item_schema_lst.append(PaperItemSchema(id=article_vo.article_id,
