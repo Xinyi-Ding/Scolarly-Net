@@ -14,7 +14,7 @@ from ..services.schema import PaperResponse, PaperItemSchema, AuthorSchema, Topi
     CitedTreeDataSchema, CitedConnectionItemSchema
 
 
-def save_parse_article(parse_article: ParseArticalVO | dict | ArticleObject):
+def save_parse_article(parse_article: ParseArticalVO | dict | ArticleObject) -> ArticleVO | None:
     """
     This function processes and saves the article metadata, authors, references, and topics to the database.
     :param parse_article: A ParseArticleVO, dict,
@@ -141,6 +141,9 @@ def save_parse_article(parse_article: ParseArticalVO | dict | ArticleObject):
             except Exception as e:
                 print(f"Error creating article-topic relationship: {e}")
                 # Decide whether to continue or handle differently
+        return saved_article
+    else:
+        return None
 
 
 def save_parse_articles_within_dir(folder_path):

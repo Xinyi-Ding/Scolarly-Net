@@ -130,8 +130,9 @@ class ArticleObject:
     def to_dict(self):
         return asdict(self)
 
-    def to_json(self):
+    def to_json(self, article_id: str = None):
         return {
+            "articleId": article_id,
             "metadata": self.metadata.to_json(),
             "content": self.content.to_json(),
             "authors": [author.to_json() for author in self.authors],
