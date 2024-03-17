@@ -4,11 +4,14 @@ from pathlib import Path
 
 from backend.app.intergration.catalog_access import ArticleCRUD, AuthorCRUD, ArticleAuthorCRUD, \
     ArticleCitationCRUD, TopicCRUD, ArticleTopicCRUD
-
-from models import ParseArticalVO, ArticleVO, AuthorVO, ArticleAuthorVO, ArticleCitationVO, AuthorFilter, \
-    ArticleFilter, ArticleAuthorFilter, TopicFilter, TopicVO, ArticleTopicVO, ArticleCitationFilter
-
-from Parser.types import Artical
+from backend.app.services.Parser.types import Artical
+from backend.app.services.models import ParseArticalVO, ArticleVO, AuthorVO, ArticleAuthorVO, ArticleCitationVO, \
+    AuthorFilter, ArticleFilter, ArticleAuthorFilter, TopicFilter, TopicVO, ArticleTopicVO, ArticleCitationFilter, \
+    ArticleTopicFilter
+from backend.app.services.schema import PaperResponse, PaperItemSchema, AuthorSchema, TopicResponse, TopicItemSchema, \
+    AuthorResponse, AuthorItemSchema, SameTopicConnectionItemSchema, SameTopicDataSchema, SameTopicResponseSchema, \
+    CoAuthorResponseSchema, CoAuthorDataSchema, CoAuthorConnectionItemSchema, TopicSchema, CitedTreeResponseSchema, \
+    CitedTreeDataSchema, CitedConnectionItemSchema
 
 
 def save_parse_article(parse_article: ParseArticalVO | dict | Artical):
@@ -38,7 +41,8 @@ def save_parse_article(parse_article: ParseArticalVO | dict | Artical):
     topic_crud = TopicCRUD()
     article_topic_crud = ArticleTopicCRUD()
 
-    if not article_crud.get_by_filter(ArticleFilter(doi=parse_article_vo.metadata.doi)):
+    if not article_crud.search_by_filter(ArticleFilter(title=parse_article_vo.metadata.title,
+                                                       doi=parse_article_vo.metadata.doi)):
         # Process and save the article metadata
         article_data = ArticleVO(
             title=parse_article_vo.metadata.title,
@@ -59,7 +63,7 @@ def save_parse_article(parse_article: ParseArticalVO | dict | Artical):
         # Process and save authors with their affiliations
         for parse_author_vo in parse_article_vo.authors:
             # Check if the author already exists in the database
-            author_vo_list = author_crud.get_by_filter(
+            author_vo_list = author_crud.search_by_filter(
                 AuthorFilter(name=parse_author_vo.name, email=parse_author_vo.email))
             if author_vo_list:
                 # If the author exists, use the existing author
@@ -87,7 +91,7 @@ def save_parse_article(parse_article: ParseArticalVO | dict | Artical):
         # Process and save references (as articles) and create citation relationships
         for parse_reference_vo in parse_article_vo.references:
             # Check if the reference already exists in the database
-            reference_article_lst = article_crud.get_by_filter(
+            reference_article_lst = article_crud.search_by_filter(
                 ArticleFilter(title=parse_reference_vo.title, doi=parse_reference_vo.doi))
 
             if reference_article_lst:
@@ -160,14 +164,345 @@ def save_parse_articles_within_dir(folder_path):
                     print(f"Error processing file {file_path}: {e}")
 
 
-def main():
-    # Example usage
-    folder_path = r'C:\Users\Qiu\Desktop\frame\Carlson-Johnson\backend\app\data\json'
-    # Process all JSON files within the given folder and its folders
-    save_parse_articles_within_dir(folder_path)
+def search_papers_by_filter_as_response(filter_obj: ArticleFilter) -> PaperResponse:
+    """
+    Get a list of papers based on the given filter and return a PaperResponse object.
+    :param filter_obj: An ArticleFilter object containing the filter criteria.
+    :return: A PaperResponse object containing the list of papers.
+    """
+    article_crud = ArticleCRUD()
+    author_crud = AuthorCRUD()
+    article_author_crud = ArticleAuthorCRUD()
 
-    # analysis.process_articles("app/data/xml", "app/data/json")
+    # Get the list of ArticleVOs based on the filter
+    article_vo_lst = article_crud.search_by_filter(filter_obj)
+
+    # Convert the list of ArticleVOs to a list of PaperItemVOs
+    paper_items = []
+    for article_vo in article_vo_lst:
+        PaperItemSchema(id=article_vo.article_id, title=article_vo.title, authors=[])
+
+        # Get the authors for the article
+        article_author_vo_lst = article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=article_vo.article_id))
+        author_lst = []
+        for article_author_vo in article_author_vo_lst:
+            # Get the author details
+            author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
+            if not author_vo:
+                continue
+            # Add the author to the list
+            author_lst.append(AuthorSchema(id=author_vo.author_id, name=author_vo.name, email=author_vo.email))
+
+        # Create a PaperItemVO for the article
+        paper_item = PaperItemSchema(id=article_vo.article_id, title=article_vo.title, authors=author_lst)
+        paper_items.append(paper_item)
+
+    # Create and return the PaperResponse object
+    paper_response = PaperResponse(code=200, msg="Success", data=paper_items)
+    return paper_response
 
 
-if __name__ == "__main__":
-    main()
+def search_topics_by_filter_as_response(filter_obj: TopicFilter) -> TopicResponse:
+    """
+    Get a list of topics based on the given filter and return a TopicResponse object.
+    :param filter_obj: A TopicFilter object containing the filter criteria.
+    :return: A TopicResponse object containing the list of topics.
+    """
+    topic_crud = TopicCRUD()
+    article_topic_crud = ArticleTopicCRUD()
+
+    # Get the list of TopicVOs based on the filter
+    topic_vo_lst = topic_crud.search_by_filter(filter_obj)
+
+    # Convert the list of TopicVOs to a list of TopicItemVOs
+    topic_items = []
+    for topic_vo in topic_vo_lst:
+        count = len(article_topic_crud.get_by_filter(ArticleTopicFilter(topic_id=topic_vo.topic_id)))
+        # Create a TopicItemVO for the topic
+        topic_item = TopicItemSchema(id=topic_vo.topic_id, topic=topic_vo.name, count=count)  # Set count to 0 for now
+        topic_items.append(topic_item)
+
+    # Create and return the TopicResponse object
+    topic_response = TopicResponse(code=200, msg="Success", data=topic_items)
+    return topic_response
+
+
+def search_authors_by_filter_as_response(filter_obj: AuthorFilter) -> AuthorResponse:
+    """
+    Get a list of authors based on the given filter and return an AuthorResponse object.
+    :param filter_obj: An AuthorFilter object containing the filter criteria.
+    :return: An AuthorResponse object containing the list of authors.
+    """
+    author_crud = AuthorCRUD()
+    article_author_crud = ArticleAuthorCRUD()
+
+    # Get the list of AuthorVOs based on the filter
+    author_vo_lst = author_crud.search_by_filter(filter_obj)
+
+    # Convert the list of AuthorVOs to a list of AuthorItemVOs
+    author_items = []
+    for author_vo in author_vo_lst:
+        count = len(article_author_crud.get_by_filter(ArticleAuthorFilter(author_id=author_vo.author_id)))
+        # Create an AuthorItemVO for the author
+        author_item = AuthorItemSchema(id=author_vo.author_id, name=author_vo.name, count=count)
+        author_items.append(author_item)
+
+    # Create and return the AuthorResponse object
+    author_response = AuthorResponse(code=200, msg="Success", data=author_items)
+    return author_response
+
+
+def search_same_topic_by_filter_as_response(filter_obj: ArticleFilter) -> SameTopicResponseSchema:
+    """
+    Based on the provided ArticleFilter, this function identifies articles that share the same topic(s)
+    and aggregates information related to these articles, such as related topics and authors. It returns
+    a structured response that includes connections between topics and articles, a list of topics with their
+    details, and a list of papers with their authors.
+
+    :param filter_obj: An ArticleFilter object containing the filter criteria.
+    :return: A SameTopicResponseSchema object containing structured information about topics, articles, and authors.
+    """
+    # Initialize CRUD operations for articles, topics, and authors
+    article_crud = ArticleCRUD()
+    topic_crud = TopicCRUD()
+    author_crud = AuthorCRUD()
+    article_author_crud = ArticleAuthorCRUD()
+
+    # Fetch the first article that matches the filter criteria
+    article_vo = article_crud.get_by_filter(filter_obj)[0]
+
+    # Initialize CRUD operation for article-topic relationships
+    article_topic_crud = ArticleTopicCRUD()
+
+    # Fetch topics related to the article
+    article_topic_vo_lst = article_topic_crud.get_by_filter(ArticleTopicFilter(article_id=article_vo.article_id))
+
+    same_topic_connection_item_schema_lst: list[SameTopicConnectionItemSchema] = []
+    article_id_set: set[int] = set()
+
+    # Iterate over each topic related to the article
+    for article_topic_vo in article_topic_vo_lst:
+        # Fetch articles related to the current topic
+        paper_id_lst: list[int] = [item.article_id for item in article_topic_crud.get_by_filter(
+            ArticleTopicFilter(topic_id=article_topic_vo.topic_id))]
+
+        # Update the set of unique article IDs
+        for paper_id in paper_id_lst:
+            article_id_set.add(paper_id)
+
+        # Append information about the topic and related articles
+        same_topic_connection_item_schema_lst.append(SameTopicConnectionItemSchema(topic=article_topic_vo.topic_id,
+                                                                                   papers=paper_id_lst))
+
+    topic_item_schema_lst: list[TopicSchema] = []
+
+    # Iterate over each topic again to fetch detailed topic information
+    for article_topic_vo in article_topic_vo_lst:
+        topic_vo = topic_crud.get_by_filter(TopicFilter(topic_id=article_topic_vo.topic_id))[0]
+        topic_item_schema_lst.append(TopicSchema(id=topic_vo.topic_id,
+                                                 name=topic_vo.name))
+
+    paper_item_schema_lst: list[PaperItemSchema] = []
+
+    # Iterate over each unique article ID to fetch detailed article and author information
+    for article_id in article_id_set:
+        article_vo = article_crud.get_by_filter(ArticleFilter(article_id=article_id))[0]
+        article_author_vo_lst = article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=article_id))
+
+        author_schema_lst: list[AuthorSchema] = []
+
+        # Fetch detailed author information for each article
+        for article_author_vo in article_author_vo_lst:
+            author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
+            author_schema_lst.append(AuthorSchema(id=author_vo.author_id,
+                                                  name=author_vo.name,
+                                                  email=author_vo.email))
+
+        # Append information about the article and its authors
+        paper_item_schema_lst.append(PaperItemSchema(id=article_vo.article_id,
+                                                     title=article_vo.title,
+                                                     authors=author_schema_lst))
+
+    # Return the structured response containing topics, articles, and authors
+    return SameTopicResponseSchema(code=200,
+                                   msg="Success",
+                                   data=SameTopicDataSchema(connections=same_topic_connection_item_schema_lst,
+                                                            topics=topic_item_schema_lst,
+                                                            papers=paper_item_schema_lst))
+
+
+def search_co_author_by_filter_as_response(filter_obj: ArticleFilter) -> CoAuthorResponseSchema:
+    """
+    Based on the provided ArticleFilter, this function identifies articles and aggregates information about their
+    authors, specifically focusing on co-authorship relations. It returns a structured response that includes
+    co-authorship connections, detailed author information, and a list of related papers.
+
+    :param filter_obj: An ArticleFilter object containing the filter criteria.
+    :return: A CoAuthorResponseSchema object containing structured information about co-authorships, authors,
+    and papers.
+    """
+    # Initialize CRUD operations for articles and authors
+    article_crud = ArticleCRUD()
+    author_crud = AuthorCRUD()
+    article_author_crud = ArticleAuthorCRUD()
+
+    # Fetch the first article that matches the filter criteria
+    article_vo = article_crud.get_by_filter(filter_obj)[0]
+
+    # Fetch authorship information for the article
+    article_author_vo_lst = article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=article_vo.article_id))
+
+    co_author_connection_item_schema_lst: list[CoAuthorConnectionItemSchema] = []
+    article_id_set: set[int] = set()
+
+    # Iterate over each author of the article
+    for article_author_vo in article_author_vo_lst:
+        # Fetch articles co-authored by the current author
+        paper_id_lst: list[int] = [item.article_id for item in article_author_crud.get_by_filter(
+            ArticleAuthorFilter(author_id=article_author_vo.author_id))]
+
+        # Update the set of unique article IDs
+        for paper_id in paper_id_lst:
+            article_id_set.add(paper_id)
+
+        # Append information about the author and their co-authored papers
+        co_author_connection_item_schema_lst.append(CoAuthorConnectionItemSchema(author=article_author_vo.author_id,
+                                                                                 papers=paper_id_lst))
+
+    author_schema_lst: list[AuthorSchema] = []
+
+    # Iterate over each author again to fetch detailed author information
+    for article_author_vo in article_author_vo_lst:
+        author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
+        author_schema_lst.append(AuthorSchema(id=author_vo.author_id,
+                                              name=author_vo.name,
+                                              email=author_vo.email))
+
+    paper_item_schema_lst: list[PaperItemSchema] = []
+
+    # Iterate over each unique article ID to fetch detailed article information
+    for article_id in article_id_set:
+        article_vo = article_crud.get_by_filter(ArticleFilter(article_id=article_id))[0]
+        article_author_vo_lst = article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=article_id))
+
+        author_schema_lst: list[AuthorSchema] = []
+
+        # Fetch detailed author information for each article
+        for article_author_vo in article_author_vo_lst:
+            author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
+            author_schema_lst.append(AuthorSchema(id=author_vo.author_id,
+                                                  name=author_vo.name,
+                                                  email=author_vo.email))
+
+        # Append information about the article and its authors
+        paper_item_schema_lst.append(PaperItemSchema(id=article_vo.article_id,
+                                                     title=article_vo.title,
+                                                     authors=author_schema_lst))
+
+    # Return the structured response containing co-authorships, authors, and papers
+    return CoAuthorResponseSchema(code=200,
+                                  msg="Success",
+                                  data=CoAuthorDataSchema(connections=co_author_connection_item_schema_lst,
+                                                          authors=author_schema_lst,
+                                                          papers=paper_item_schema_lst))
+
+
+def search_cited_tree_by_filter_as_response(filter_obj: ArticleFilter, level_num: int = 5) -> CitedTreeResponseSchema:
+    """
+    Retrieves a structured response that outlines the citation relationships between articles
+    and their associated metadata, based on the given filter criteria and up to a certain level of citation depth.
+    This function maps out how articles cite each other, forming a tree-like structure of citations.
+
+    :param filter_obj: An object containing filter criteria for article retrieval.
+    :param level_num: The maximum depth of citation connections to retrieve, defining how far the citation
+                      chain should be explored. Level 0 starts with the initial article.
+    :return: A structured response with citation connections and article metadata, including titles and authors.
+    """
+
+    # Initialize CRUD operations for articles, citations, and authors
+    article_crud = ArticleCRUD()
+    article_citation_crud = ArticleCitationCRUD()
+    article_author_crud = ArticleAuthorCRUD()
+    author_crud = AuthorCRUD()
+
+    # Retrieve the initial article based on the filter criteria
+    article_vo = article_crud.get_by_filter(filter_obj)[0]
+
+    # Initialize a set with the ID of the initial article
+    article_id_set: set[int] = {article_vo.article_id}
+
+    # Initialize the list to store connections between citing and cited articles
+    cited_connection_item_schema_lst: list[CitedConnectionItemSchema] = []
+
+    # Iterate through each level of citation from the initial article to the maximum specified level
+    current_level_citing_articles = [article_vo.article_id]
+    for level in range(level_num):
+        if not current_level_citing_articles:
+            break  # Exit the loop if there are no more articles citing at the current level
+
+        # Prepare to collect articles cited by those at the current level
+        next_level_cited_articles = []
+
+        # Iterate through each article at the current level to find articles they cite
+        for citing_article_id in current_level_citing_articles:
+            # Retrieve articles cited by the current article
+            article_citation_vo_lst = article_citation_crud.get_by_filter(
+                ArticleCitationFilter(citing_article_id=citing_article_id)
+            )
+
+            # Process each citation to collect cited article IDs and prepare for the next level
+            cited_article_id_lst: list[int] = []
+            for article_citation_vo in article_citation_vo_lst:
+                cited_article_id = article_citation_vo.cited_article_id
+                article_id_set.add(cited_article_id)  # Add to the set of all encountered article IDs
+                cited_article_id_lst.append(cited_article_id)
+                next_level_cited_articles.append(cited_article_id)
+
+            # Log or debug output to track the citation chain; this line can be commented out or removed in production
+            print(f"Level {level}: {citing_article_id} -> {cited_article_id_lst}")
+
+            # Store the citation connection if the current article cites others
+            if cited_article_id_lst:
+                cited_connection_item_schema_lst.append(CitedConnectionItemSchema(from_paper=citing_article_id,
+                                                                                  to_paper=cited_article_id_lst))
+
+        # Move to the next level with the list of articles cited in the current level
+        current_level_citing_articles = next_level_cited_articles
+
+    # Collect detailed metadata for all articles encountered in the citation tree
+    paper_item_schema_lst: list[PaperItemSchema] = []
+    for article_id in article_id_set:
+        # Retrieve the article and its authors' details
+        article_vo = article_crud.get_by_filter(ArticleFilter(article_id=article_id))[0]
+        article_author_vo_lst = article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=article_id))
+
+        # Collect author information for the current article
+        author_schema_lst: list[AuthorSchema] = []
+        for article_author_vo in article_author_vo_lst:
+            author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
+            author_schema_lst.append(AuthorSchema(id=author_vo.author_id,
+                                                  name=author_vo.name,
+                                                  email=author_vo.email))
+
+        # Store detailed information about the article, including its authors
+        paper_item_schema_lst.append(PaperItemSchema(id=article_vo.article_id,
+                                                     title=article_vo.title,
+                                                     authors=author_schema_lst))
+
+    # Construct and return the response schema with all collected data
+    return CitedTreeResponseSchema(code=200,
+                                   msg="Success",
+                                   data=CitedTreeDataSchema(connections=cited_connection_item_schema_lst,
+                                                            papers=paper_item_schema_lst))
+
+# def main():
+# Example usage
+# folder_path = r'C:\Users\Qiu\Desktop\frame\Carlson-Johnson\backend\app\data\json'
+# Process all JSON files within the given folder and its folders
+# save_parse_articles_within_dir(folder_path)
+
+# analysis.process_articles("app/data/xml", "app/data/json")
+
+
+# if __name__ == "__main__":
+#     main()

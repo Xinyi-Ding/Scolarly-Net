@@ -71,7 +71,18 @@ class Article(Document):
     # etc.). This field can be null.
     container_title = StringField(max_length=255)
 
-    meta = {'collection': 'article'}
+    meta = {'collection': 'article',
+            'indexes': [
+                'title',
+                'date',
+                {'fields': ['issn'], 'unique': True},
+                {'fields': ['eissn'], 'unique': True},
+                {'fields': ['doi'], 'unique': True},
+                {'fields': ['$title'],
+                 'default_language': 'english',
+                 'weights': {'title': 10}}
+            ]
+            }
 
     def clean(self):
         # Convert empty strings or other "empty" values to None for unique fields
@@ -87,7 +98,14 @@ class Topic(Document):
     # The name of the topic. It must be unique.
     name = StringField(required=True, max_length=200, unique=True, sparse=True)
 
-    meta = {'collection': 'topic'}
+    meta = {'collection': 'topic',
+            'indexes': [
+                'name',
+                {'fields': ['$name'],
+                 'default_language': 'english',
+                 }
+            ]
+            }
 
 
 # Author model
@@ -111,6 +129,9 @@ class Author(Document):
                     'fields': ['name', 'email'],
                     'unique': True
                 },
+                {'fields': ['$name'],
+                 'default_language': 'english',
+                 }
             ]
             }
 
@@ -122,7 +143,13 @@ class Institution(Document):
     # The name of the institution. It must be unique.
     name = StringField(required=True, max_length=255, unique=True, sparse=True)
 
-    meta = {'collection': 'institution'}
+    meta = {'collection': 'institution',
+            'indexes': [
+                'name',
+                {'fields': ['$name'],
+                 'default_language': 'english',
+                 }
+            ]}
 
 
 # Department model
@@ -240,3 +267,25 @@ class TopicRelationship(Document):
             },
         ]
     }
+
+
+def ensure_indexes():
+    """
+    Ensure that all indexes are created for the models.
+    """
+    Article.ensure_indexes()
+    Sequence.ensure_indexes()
+    Topic.ensure_indexes()
+    Author.ensure_indexes()
+    Institution.ensure_indexes()
+    Department.ensure_indexes()
+    AuthorInstitution.ensure_indexes()
+    AuthorDepartment.ensure_indexes()
+    ArticleAuthor.ensure_indexes()
+    ArticleCitation.ensure_indexes()
+    ArticleTopic.ensure_indexes()
+    TopicRelationship.ensure_indexes()
+
+
+# Ensure indexes are created
+# ensure_indexes()

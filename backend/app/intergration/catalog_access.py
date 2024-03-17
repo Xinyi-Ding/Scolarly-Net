@@ -77,7 +77,7 @@ class ArticleCRUD(CRUDOperations[Article, ArticleVO, ArticleFilter]):
     def search_by_filter(self, filter_obj: TFilter) -> List[TVO]:
         query = Q()
         for field, value in filter_obj.dict(exclude_none=True).items():
-            query &= Q(**{f"{field}__icontains": value})
+            query |= Q(**{f"{field}__icontains": value})
         mongo_objs = self.mongo_model.objects.filter(query)
         return [self.vo_model.from_orm(obj) for obj in mongo_objs]
 
@@ -89,7 +89,7 @@ class TopicCRUD(CRUDOperations[Topic, TopicVO, TopicFilter]):
     def search_by_filter(self, filter_obj: TFilter) -> List[TVO]:
         query = Q()
         for field, value in filter_obj.dict(exclude_none=True).items():
-            query &= Q(**{f"{field}__icontains": value})
+            query |= Q(**{f"{field}__icontains": value})
         mongo_objs = self.mongo_model.objects.filter(query)
         return [self.vo_model.from_orm(obj) for obj in mongo_objs]
 
@@ -101,7 +101,7 @@ class AuthorCRUD(CRUDOperations[Author, AuthorVO, AuthorFilter]):
     def search_by_filter(self, filter_obj: TFilter) -> List[TVO]:
         query = Q()
         for field, value in filter_obj.dict(exclude_none=True).items():
-            query &= Q(**{f"{field}__icontains": value})
+            query |= Q(**{f"{field}__icontains": value})
         mongo_objs = self.mongo_model.objects.filter(query)
         return [self.vo_model.from_orm(obj) for obj in mongo_objs]
 
@@ -113,7 +113,7 @@ class InstitutionCRUD(CRUDOperations[Institution, InstitutionVO, InstitutionFilt
     def search_by_filter(self, filter_obj: TFilter) -> List[TVO]:
         query = Q()
         for field, value in filter_obj.dict(exclude_none=True).items():
-            query &= Q(**{f"{field}__icontains": value})
+            query |= Q(**{f"{field}__icontains": value})
         mongo_objs = self.mongo_model.objects.filter(query)
         return [self.vo_model.from_orm(obj) for obj in mongo_objs]
 
@@ -125,7 +125,7 @@ class DepartmentCRUD(CRUDOperations[Department, DepartmentVO, DepartmentFilter])
     def search_by_filter(self, filter_obj: TFilter) -> List[TVO]:
         query = Q()
         for field, value in filter_obj.dict(exclude_none=True).items():
-            query &= Q(**{f"{field}__icontains": value})
+            query |= Q(**{f"{field}__icontains": value})
         mongo_objs = self.mongo_model.objects.filter(query)
         return [self.vo_model.from_orm(obj) for obj in mongo_objs]
 
