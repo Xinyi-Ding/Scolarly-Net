@@ -3,7 +3,7 @@ from pathlib import Path
 
 from .Extractor.extractor import Extractor
 from .Parser.parser import Parser
-from .Parser.types import Artical
+from .Parser.types import ArticleObject
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -28,7 +28,7 @@ def _clean_doc(doc):
     return normalized
 
 
-def get_topics_from_article(article: Artical) -> list:
+def get_topics_from_article(article: ArticleObject) -> list:
     """
     Extracts unique keywords that represent topics from a given article using LDA.
 
@@ -81,7 +81,7 @@ def get_topics_from_article(article: Artical) -> list:
     return topic_list
 
 
-def get_artical(xml_path) -> Artical:
+def get_article_object(xml_path) -> ArticleObject:
     parser = Parser(xml_path)
     artical = parser.artical
     return artical
@@ -96,7 +96,7 @@ def get_extracted_xml(pdf_path, grobid_server="http://10.1.0.10:8070") -> str:
 def parse_xml_to_article(xml_file_path):
     try:
         # Use the analysis module to parse the XML file into an Artical object
-        article = get_artical(str(xml_file_path))
+        article = get_article_object(str(xml_file_path))
         return article  # Return the Artical object if parsing is successful
     except Exception as e:
         # Handle any exceptions that might occur during parsing

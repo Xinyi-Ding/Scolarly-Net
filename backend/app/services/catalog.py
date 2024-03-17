@@ -4,7 +4,7 @@ from pathlib import Path
 
 from ..intergration.catalog_access import ArticleCRUD, AuthorCRUD, ArticleAuthorCRUD, \
     ArticleCitationCRUD, TopicCRUD, ArticleTopicCRUD
-from ..services.Parser.types import Artical
+from ..services.Parser.types import ArticleObject
 from ..services.models import ParseArticalVO, ArticleVO, AuthorVO, ArticleAuthorVO, ArticleCitationVO, \
     AuthorFilter, ArticleFilter, ArticleAuthorFilter, TopicFilter, TopicVO, ArticleTopicVO, ArticleCitationFilter, \
     ArticleTopicFilter
@@ -14,7 +14,7 @@ from ..services.schema import PaperResponse, PaperItemSchema, AuthorSchema, Topi
     CitedTreeDataSchema, CitedConnectionItemSchema
 
 
-def save_parse_article(parse_article: ParseArticalVO | dict | Artical):
+def save_parse_article(parse_article: ParseArticalVO | dict | ArticleObject):
     """
     This function processes and saves the article metadata, authors, references, and topics to the database.
     :param parse_article: A ParseArticleVO, dict,
@@ -28,7 +28,7 @@ def save_parse_article(parse_article: ParseArticalVO | dict | Artical):
         parse_article_vo = parse_article
     elif isinstance(parse_article, dict):
         parse_article_vo = ParseArticalVO.from_dict(parse_article)
-    elif isinstance(parse_article, Artical):
+    elif isinstance(parse_article, ArticleObject):
         parse_article_vo = ParseArticalVO.from_dict(parse_article.to_dict())
     else:
         raise ValueError("Unsupported type for parse_article_vo")

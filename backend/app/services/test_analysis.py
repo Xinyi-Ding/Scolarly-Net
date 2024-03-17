@@ -156,7 +156,7 @@ def _are_reference_similar(reference1: List[Reference], reference2: List[Referen
 
 
 # Test cases for the article reference
-def test_parse_artical_reference():
+def test_parse_article_reference():
     """
     Test the parsing of the article reference.
     """
@@ -169,8 +169,8 @@ def test_parse_artical_reference():
         pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path))
-        article = analysis.get_artical(xml_path)
+        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
+        article = analysis.get_article_object(xml_path)
         # print("reference test case")
         # print(test_case)
         # print(article.references)
@@ -178,7 +178,7 @@ def test_parse_artical_reference():
 
 
 # Test cases for the article metadata
-def test_parse_artical_metadata():
+def test_parse_article_metadata():
     """
     Test the parsing of the article metadata.
     """
@@ -191,15 +191,15 @@ def test_parse_artical_metadata():
         pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path))
-        article = analysis.get_artical(xml_path)
+        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
+        article = analysis.get_article_object(xml_path)
         # print(test_case.journal)
         # print(article.metadata.journal)
         assert test_case == article.metadata, f"Metadata mismatch for {json_file.name}"
 
 
 # Test cases for the article content
-def test_parse_artical_content():
+def test_parse_article_content():
     """
     Test the parsing of the article content.
     """
@@ -212,8 +212,8 @@ def test_parse_artical_content():
         pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path))
-        article = analysis.get_artical(xml_path)
+        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
+        article = analysis.get_article_object(xml_path)
         # print(test_case)
         # print(article.content.abstract)
         assert are_similar(normalize_text(test_case.abstract),
@@ -221,7 +221,7 @@ def test_parse_artical_content():
 
 
 # Test cases for the article authors
-def test_parse_artical_authors():
+def test_parse_article_authors():
     """
     Test the parsing of the article authors.
     """
@@ -234,8 +234,8 @@ def test_parse_artical_authors():
         pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path))
-        article = analysis.get_artical(xml_path)
+        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
+        article = analysis.get_article_object(xml_path)
         print(test_case)
         print(article.authors)
         for i, author in enumerate(article.authors):

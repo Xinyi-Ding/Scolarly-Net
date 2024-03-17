@@ -28,7 +28,7 @@ async def upload_document(file: UploadFile = File(...)):
             content = await file.read()
             file_object.write(content)
         await file.close()
-        article = analysis.get_artical(
+        article = analysis.get_article_object(
             analysis.get_extracted_xml(str(file_location), grobid_server="http://localhost:8070"))
         article.content.keywords = analysis.get_topics_from_article(article)
         res = {"code": 200, "message": "File uploaded successfully", "data": article.to_json()}
