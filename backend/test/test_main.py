@@ -4,7 +4,8 @@
 #
 #
 # # Test for the root endpoint "/"
-# @pytest.mark.asynciols
+
+# @pytest.mark.asyncio
 # async def test_root():
 #     """
 #     Asynchronously test the root endpoint "/"
