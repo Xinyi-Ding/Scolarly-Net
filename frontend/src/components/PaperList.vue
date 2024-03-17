@@ -3,7 +3,7 @@
     <VaListItem
         :class="{'highlight': selectedNodeId === originalPaper.articleId}"
         class="p-2 cursor-pointer bg-blue-50 hover:bg-gray-100 border-b border-gray-200 border-solid"
-        @click="highlightNode(originalPaper.articleId)"
+        @click="() => $emit('highlightNode', originalPaper.articleId)"
     >
       <VaListItemSection>
         <p class="ml-1 mb-1 text-sm text-blue-600 font-bold">Origin Paper</p>

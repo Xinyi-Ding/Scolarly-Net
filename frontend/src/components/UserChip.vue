@@ -13,7 +13,7 @@ defineProps({
       <VaIcon name="account_circle" size="large"/>
     </template>
     <template #title>
-      <p class="mb-1">{{ author.name }}</p>
+      <p class="mb-1">{{ author?.name }}</p>
     </template>
     <template #body>
       <div v-if="author.email" class=" flex items-center justify-start text-sm">
@@ -27,7 +27,7 @@ defineProps({
     </template>
 
     <VaChip class="mr-1 leading-none" icon="person" size="small" square outline>
-      {{ author.name }}
+      {{ author?.name }}
     </VaChip>
   </VaPopover>
 </template>

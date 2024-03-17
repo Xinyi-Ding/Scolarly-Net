@@ -26,8 +26,8 @@ const handleBack = () => {
       <template #default>
         <div class="my-3">
           Something went wrong. Please try again later.
-          {{ message }}
         </div>
+        <p>Caused By: {{ message }}</p>
       </template>
       <template #close>
         <VaButton

@@ -111,8 +111,12 @@ class CoAuthorResponseSchema(ResponseSchema):
 
 
 class CitedConnectionItemSchema(BaseModel):
-    from_paper: int
-    to_paper: list[int]
+    from_paper: int = Field(None, alias="fromPaper")
+    to_paper: list[int] = Field(None, alias="toPaper")
+
+    class Config:
+        alias_generator = to_camel
+        allow_population_by_field_name = True
 
 
 class CitedTreeDataSchema(BaseModel):

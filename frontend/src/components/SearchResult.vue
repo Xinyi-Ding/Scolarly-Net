@@ -35,13 +35,14 @@ const handleClose = () => {
   >
     <VaList>
       <VaListLabel class="sticky top-0 pb-4 bg-white/90 z-10">
+        <span v-if="searchResults.length === 0" class="font-bold">No</span>
         Results for <span class="ml-1 font-bold text-xl">{{ search }}</span>
       </VaListLabel>
       <VaListItem
           v-for="result in searchResults"
-          :key="result.id"
+          :key="result.articleId"
           class="p-2 my-1 cursor-pointer hover:bg-gray-100 border-b border-gray-200 border-solid"
-          @click="selectResult(result.id)"
+          @click="selectResult(result.articleId)"
       >
         <VaListItemSection>
           <VaListItemLabel class="mb-3">
@@ -50,7 +51,7 @@ const handleClose = () => {
           <VaListItemLabel v-if="result.authors.length > 0" caption>
             <UserChip
                 v-for="author in result.authors"
-                :key="author.id"
+                :key="author.authorId"
                 :author="author"
             />
           </VaListItemLabel>

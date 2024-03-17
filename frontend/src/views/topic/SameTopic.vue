@@ -35,16 +35,18 @@ const handleSearch = async () => {
 };
 
 const handleResultSelect = async (id) => {
+  console.log('selected', id)
   originalPaper.value.articleId = id;
   netResults.value = null; // clear the previous network data
   resultModal.value = false;
   generateLoading.value = true;
   nodes.clear();
   edges.clear();
-  let data = await req.get('/catalog/same-topi', { article_id: id });
+  let data = await req.get('/catalog/same-topic', { article_id: id });
   data = data.data.data;
   console.log('same topic', data);
   originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
+  console.log('original paper', originalPaper.value)
   netResults.value = data;
   search.value = '';
   generateLoading.value = false;
@@ -60,7 +62,7 @@ const initializeNetwork = () => {
   if (networkContainer.value && netResults.value) {
     // convert topics to nodes
     const topicNodes = netResults.value.topics.map(topic => ({
-      id: `topic-${topic.id}`,
+      id: `topic-${topic.topicId}`,
       label: topic.name,
       shape: 'star',
       color: '#4ade80',
@@ -112,6 +114,7 @@ const highlightListItem = (nodeId) => {
 };
 
 const highlightNode = (nodeId) => {
+  console.log('highlight', nodeId)
   if (network && nodeId) {
     // select the node
     network.selectNodes([nodeId], false);
@@ -158,7 +161,9 @@ const highlightNode = (nodeId) => {
           :selectedNodeId="selectedNodeId"
           @highlightNode="highlightNode"
       />
-      <p v-else v-show="!generateLoading" class="mt-4 text-center text-gray-500">- Search for a paper first -</p>
+      <p v-else v-show="!generateLoading" class="mt-4 text-center text-gray-500 uppercase">
+        * Search for a paper first *
+      </p>
       <div v-if="generateLoading" class="w-full text-center">
         <VaProgressCircle
             class="mx-auto mt-8 mb-2"

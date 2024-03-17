@@ -4,8 +4,6 @@ import { useRoute } from "vue-router";
 import { DataSet, Network } from 'vis-network/standalone';
 import Net from "@/layouts/NetLayout.vue";
 import SearchResult from "@/components/SearchResult.vue";
-import searchResultExample from "@/lib/searchResults.json";
-import topicConnectionExample from "@/lib/exampleCoAuthor.json";
 import { authors2Str, generateOptions } from "@/utils/network.js";
 import PaperList from "@/components/PaperList.vue";
 import req from "@/utils/req.js";
@@ -39,7 +37,7 @@ const handleSearch = async () => {
   }
 };
 
-const handleResultSelect = (id) => {
+const handleResultSelect = async (id) => {
   originalPaper.value.articleId = id;
   netResults.value = null; // clear the previous network data
   resultModal.value = false;
@@ -47,7 +45,7 @@ const handleResultSelect = (id) => {
   nodes.clear();
   edges.clear();
   generateLoading.value = false;
-  let data = req.get('/catalog/topic-connections', { article_id: id });
+  let data = await req.get('/catalog/co-author', { article_id: id });
   data = data.data.data;
   originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
   netResults.value = data;
@@ -69,7 +67,7 @@ const initializeNetwork = () => {
 
     // convert authors to nodes
     const authorNodes = authors.map(author => ({
-      id: `author-${author.id}`,
+      id: `author-${author.authorId}`,
       label: author.name,
       shape: 'triangle',
       color: '#4ade80',
@@ -167,7 +165,9 @@ const highlightNode = (nodeId) => {
           :selectedNodeId="selectedNodeId"
           @highlightNode="highlightNode"
       />
-      <p v-else v-show="!generateLoading" class="mt-4 text-center text-gray-500">- Search for a paper first -</p>
+      <p v-else v-show="!generateLoading" class="mt-4 text-center text-gray-500 uppercase">
+        * Search for a paper first *
+      </p>
       <div v-if="generateLoading" class="w-full text-center">
         <VaProgressCircle
             class="mx-auto mt-8 mb-2"

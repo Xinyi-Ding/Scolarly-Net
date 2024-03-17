@@ -460,9 +460,6 @@ def search_cited_tree_by_filter_as_response(filter_obj: ArticleFilter, level_num
                 cited_article_id_lst.append(cited_article_id)
                 next_level_cited_articles.append(cited_article_id)
 
-            # Log or debug output to track the citation chain; this line can be commented out or removed in production
-            print(f"Level {level}: {citing_article_id} -> {cited_article_id_lst}")
-
             # Store the citation connection if the current article cites others
             if cited_article_id_lst:
                 cited_connection_item_schema_lst.append(CitedConnectionItemSchema(from_paper=citing_article_id,

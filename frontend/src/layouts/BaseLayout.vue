@@ -9,7 +9,10 @@ const accordionValue = ref(new Array(routesConfig.length).fill(true));
 const activeElement = ref(null);
 const activeRouteName = ref('');
 
-const minimized = ref(localStorage.getItem('minimized') === 'true');
+const minimized = ref(false);
+if (localStorage.getItem('minimized') === 'true') {
+  minimized.value = true;
+}
 
 function generateActive() {
   if (router.currentRoute.value.matched.length > 2) {
