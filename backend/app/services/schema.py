@@ -2,7 +2,12 @@
 from typing import Any, Optional
 from datetime import date
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+
+
+def to_camel(string: str) -> str:
+    parts = string.split('_')
+    return parts[0] + ''.join(word.capitalize() for word in parts[1:])
 
 
 class ResponseSchema(BaseModel):
@@ -12,22 +17,35 @@ class ResponseSchema(BaseModel):
 
 
 class AuthorSchema(BaseModel):
-    id: int = None
+    author_id: int = Field(None, alias="authorId")
     name: str = None
     email: str = None
     affiliation: Optional[str] = None
 
+    class Config:
+        alias_generator = to_camel
+        allow_population_by_field_name = True
+
 
 class TopicSchema(BaseModel):
-    id: int = None
+    topic_id: int = Field(None, alias="topicId")
     name: str = None
+
     # original: Optional[bool] = False
+
+    class Config:
+        alias_generator = to_camel
+        allow_population_by_field_name = True
 
 
 class PaperItemSchema(BaseModel):
-    id: int = None
+    article_id: int = Field(None, alias="articleId")
     title: str = None
     authors: list[AuthorSchema] = []
+
+    class Config:
+        alias_generator = to_camel
+        allow_population_by_field_name = True
 
 
 class PaperResponse(ResponseSchema):
@@ -35,9 +53,13 @@ class PaperResponse(ResponseSchema):
 
 
 class TopicItemSchema(BaseModel):
-    id: int = None
+    topic_id: int = Field(None, alias="topicId")
     topic: str = None
     count: int = None
+
+    class Config:
+        alias_generator = to_camel
+        allow_population_by_field_name = True
 
 
 class TopicResponse(ResponseSchema):
@@ -45,9 +67,13 @@ class TopicResponse(ResponseSchema):
 
 
 class AuthorItemSchema(BaseModel):
-    id: int = None
+    author_id: int = Field(None, alias="authorId")
     name: str = None
     count: int = None
+
+    class Config:
+        alias_generator = to_camel
+        allow_population_by_field_name = True
 
 
 class AuthorResponse(ResponseSchema):
@@ -82,21 +108,6 @@ class CoAuthorDataSchema(BaseModel):
 
 class CoAuthorResponseSchema(ResponseSchema):
     data: CoAuthorDataSchema = {}
-
-
-class DashboardItemSchema(BaseModel):
-    id: int = None
-    title: str = None
-    authors: list[str] = []
-    affiliations: list[str] = []
-    date: date = None
-    doi: str = None
-    keywords: list[str] = []
-    references: int = None
-
-
-class DashboardResponseSchema(ResponseSchema):
-    data: DashboardItemSchema = None
 
 
 class CitedConnectionItemSchema(BaseModel):

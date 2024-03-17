@@ -180,7 +180,7 @@ def search_papers_by_filter_as_response(filter_obj: ArticleFilter) -> PaperRespo
     # Convert the list of ArticleVOs to a list of PaperItemVOs
     paper_items = []
     for article_vo in article_vo_lst:
-        PaperItemSchema(id=article_vo.article_id, title=article_vo.title, authors=[])
+        PaperItemSchema(article_id=article_vo.article_id, title=article_vo.title, authors=[])
 
         # Get the authors for the article
         article_author_vo_lst = article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=article_vo.article_id))
@@ -191,10 +191,10 @@ def search_papers_by_filter_as_response(filter_obj: ArticleFilter) -> PaperRespo
             if not author_vo:
                 continue
             # Add the author to the list
-            author_lst.append(AuthorSchema(id=author_vo.author_id, name=author_vo.name, email=author_vo.email))
+            author_lst.append(AuthorSchema(author_id=author_vo.author_id, name=author_vo.name, email=author_vo.email))
 
         # Create a PaperItemVO for the article
-        paper_item = PaperItemSchema(id=article_vo.article_id, title=article_vo.title, authors=author_lst)
+        paper_item = PaperItemSchema(article_id=article_vo.article_id, title=article_vo.title, authors=author_lst)
         paper_items.append(paper_item)
 
     # Create and return the PaperResponse object
@@ -219,7 +219,9 @@ def search_topics_by_filter_as_response(filter_obj: TopicFilter) -> TopicRespons
     for topic_vo in topic_vo_lst:
         count = len(article_topic_crud.get_by_filter(ArticleTopicFilter(topic_id=topic_vo.topic_id)))
         # Create a TopicItemVO for the topic
-        topic_item = TopicItemSchema(id=topic_vo.topic_id, topic=topic_vo.name, count=count)  # Set count to 0 for now
+        topic_item = TopicItemSchema(topic_id=topic_vo.topic_id,
+                                     topic=topic_vo.name,
+                                     count=count)  # Set count to 0 for now
         topic_items.append(topic_item)
 
     # Create and return the TopicResponse object
@@ -244,7 +246,7 @@ def search_authors_by_filter_as_response(filter_obj: AuthorFilter) -> AuthorResp
     for author_vo in author_vo_lst:
         count = len(article_author_crud.get_by_filter(ArticleAuthorFilter(author_id=author_vo.author_id)))
         # Create an AuthorItemVO for the author
-        author_item = AuthorItemSchema(id=author_vo.author_id, name=author_vo.name, count=count)
+        author_item = AuthorItemSchema(author_id=author_vo.author_id, name=author_vo.name, count=count)
         author_items.append(author_item)
 
     # Create and return the AuthorResponse object
@@ -299,7 +301,7 @@ def search_same_topic_by_filter_as_response(filter_obj: ArticleFilter) -> SameTo
     # Iterate over each topic again to fetch detailed topic information
     for article_topic_vo in article_topic_vo_lst:
         topic_vo = topic_crud.get_by_filter(TopicFilter(topic_id=article_topic_vo.topic_id))[0]
-        topic_item_schema_lst.append(TopicSchema(id=topic_vo.topic_id,
+        topic_item_schema_lst.append(TopicSchema(topic_id=topic_vo.topic_id,
                                                  name=topic_vo.name))
 
     paper_item_schema_lst: list[PaperItemSchema] = []
@@ -314,12 +316,12 @@ def search_same_topic_by_filter_as_response(filter_obj: ArticleFilter) -> SameTo
         # Fetch detailed author information for each article
         for article_author_vo in article_author_vo_lst:
             author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
-            author_schema_lst.append(AuthorSchema(id=author_vo.author_id,
+            author_schema_lst.append(AuthorSchema(author_id=author_vo.author_id,
                                                   name=author_vo.name,
                                                   email=author_vo.email))
 
         # Append information about the article and its authors
-        paper_item_schema_lst.append(PaperItemSchema(id=article_vo.article_id,
+        paper_item_schema_lst.append(PaperItemSchema(article_id=article_vo.article_id,
                                                      title=article_vo.title,
                                                      authors=author_schema_lst))
 
@@ -374,7 +376,7 @@ def search_co_author_by_filter_as_response(filter_obj: ArticleFilter) -> CoAutho
     # Iterate over each author again to fetch detailed author information
     for article_author_vo in article_author_vo_lst:
         author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
-        author_schema_lst.append(AuthorSchema(id=author_vo.author_id,
+        author_schema_lst.append(AuthorSchema(author_id=author_vo.author_id,
                                               name=author_vo.name,
                                               email=author_vo.email))
 
@@ -390,12 +392,12 @@ def search_co_author_by_filter_as_response(filter_obj: ArticleFilter) -> CoAutho
         # Fetch detailed author information for each article
         for article_author_vo in article_author_vo_lst:
             author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
-            author_schema_lst.append(AuthorSchema(id=author_vo.author_id,
+            author_schema_lst.append(AuthorSchema(author_id=author_vo.author_id,
                                                   name=author_vo.name,
                                                   email=author_vo.email))
 
         # Append information about the article and its authors
-        paper_item_schema_lst.append(PaperItemSchema(id=article_vo.article_id,
+        paper_item_schema_lst.append(PaperItemSchema(article_id=article_vo.article_id,
                                                      title=article_vo.title,
                                                      authors=author_schema_lst))
 
@@ -480,12 +482,12 @@ def search_cited_tree_by_filter_as_response(filter_obj: ArticleFilter, level_num
         author_schema_lst: list[AuthorSchema] = []
         for article_author_vo in article_author_vo_lst:
             author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
-            author_schema_lst.append(AuthorSchema(id=author_vo.author_id,
+            author_schema_lst.append(AuthorSchema(author_id=author_vo.author_id,
                                                   name=author_vo.name,
                                                   email=author_vo.email))
 
         # Store detailed information about the article, including its authors
-        paper_item_schema_lst.append(PaperItemSchema(id=article_vo.article_id,
+        paper_item_schema_lst.append(PaperItemSchema(article_id=article_vo.article_id,
                                                      title=article_vo.title,
                                                      authors=author_schema_lst))
 

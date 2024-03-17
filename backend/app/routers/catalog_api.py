@@ -15,6 +15,26 @@ router = APIRouter(
 )
 
 
+def to_camel_case(snake_str):
+    """Convert a snake_case string to camelCase."""
+    components = snake_str.split('_')
+    # Keep the first component as-is, capitalize the first letter of the remaining components
+    return components[0] + ''.join(x.title() for x in components[1:])
+
+
+def transform_keys_to_camel_case(data):
+    """Recursively transform all dictionary keys from snake_case to camelCase."""
+    if isinstance(data, dict):
+        # Recurse into dictionaries
+        return {to_camel_case(k): transform_keys_to_camel_case(v) for k, v in data.items()}
+    elif isinstance(data, list):
+        # Recurse into lists
+        return [transform_keys_to_camel_case(item) for item in data]
+    else:
+        # Return other data types unchanged
+        return data
+
+
 @router.get("/")
 async def root():
     return {"uri": "/catalog"}
@@ -27,7 +47,7 @@ async def search_papers(article_filter: ArticleFilter = Depends(ArticleFilter)):
     :param article_filter: The filter of the article
     :return: The response of the papers
     """
-    return search_papers_by_filter_as_response(article_filter)
+    return search_papers_by_filter_as_response(article_filter).dict()
 
 
 @router.get("/topics/search", response_model=TopicResponse)
