@@ -15,12 +15,12 @@ FROM nginx:stable as prod-stage
 
 COPY --from=build-stage /frontend/dist/ /usr/share/nginx/html/
 
-#COPY default.conf /etc/nginx/conf.d/default.conf
-CMD ["ls", "/etc/nginx/conf.d"]
-CMD ["cat", "/etc/nginx/conf.d/default.conf"]
-CMD ["lsof", "-i:80"]
-CMD ["lsof", "-i:8000"]
+COPY default.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+RUN ["ls", "/etc/nginx/conf.d"]
+RUN ["cat", "/etc/nginx/nginx.conf"]
+RUN ["cat", "/etc/nginx/conf.d/default.conf"]
+
+EXPOSE 90
 
 CMD ["nginx", "-g", "daemon off;"]
