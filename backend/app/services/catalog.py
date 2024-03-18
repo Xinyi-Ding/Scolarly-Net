@@ -41,8 +41,10 @@ def save_parse_article(parse_article: ParseArticleVO | dict | ArticleObject) -> 
     topic_crud = TopicCRUD()
     article_topic_crud = ArticleTopicCRUD()
 
-    if not article_crud.search_by_filter(ArticleFilter(title=parse_article_vo.metadata.title,
-                                                       doi=parse_article_vo.metadata.doi)):
+    article_data_lst = article_crud.search_by_filter(ArticleFilter(title=parse_article_vo.metadata.title,
+                                                                   doi=parse_article_vo.metadata.doi))
+
+    if not article_data_lst:
         # Process and save the article metadata
         article_data = ArticleVO(
             title=parse_article_vo.metadata.title,
@@ -179,7 +181,7 @@ def save_parse_article(parse_article: ParseArticleVO | dict | ArticleObject) -> 
                 # Decide whether to continue or handle differently
         return saved_article
     else:
-        return None
+        return article_data_lst[0]
 
 
 def save_parse_article_with_filepath(file_path: str) -> ArticleVO:
