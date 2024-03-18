@@ -1,18 +1,15 @@
 <script setup>
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { routesConfig } from "@/lib/routesConfig.js";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 const header = ref('Null');
-const accordionValue = ref(new Array(routesConfig.length).fill(true));
 const activeElement = ref(null);
 const activeRouteName = ref('');
-
+const accordionValue = ref([]);
 const minimized = ref(false);
-if (localStorage.getItem('minimized') === 'true') {
-  minimized.value = true;
-}
+
 
 function generateActive() {
   if (router.currentRoute.value.matched.length > 2) {
@@ -51,6 +48,22 @@ watch(() => router.currentRoute.value, (newRoute) => {
   generateActive();
 }, { immediate: true });
 
+onMounted(() => {
+  const savedAccordionValue = localStorage.getItem('accordionValue');
+  if (savedAccordionValue) {
+    accordionValue.value = JSON.parse(savedAccordionValue);
+  } else {
+    accordionValue.value = new Array(routesConfig.length).fill(true);
+  }
+  const savedMinimized = localStorage.getItem('minimized');
+  if (savedMinimized) {
+    minimized.value = savedMinimized === 'true';
+  }
+
+  watch(accordionValue, (newValue) => {
+    localStorage.setItem('accordionValue', JSON.stringify(newValue));
+  }, { deep: true, immediate: true });
+});
 
 </script>
 
