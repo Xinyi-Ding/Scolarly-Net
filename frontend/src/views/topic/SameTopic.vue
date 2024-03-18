@@ -49,8 +49,8 @@ const handleResultSelect = async (id) => {
   console.log('original paper', originalPaper.value)
   netResults.value = data;
   search.value = '';
-  generateLoading.value = false;
   initializeNetwork();
+  generateLoading.value = false;
 };
 
 const route = useRoute();
@@ -71,10 +71,9 @@ const initializeNetwork = () => {
     // convert papers to nodes
     const paperNodes = netResults.value.papers.map(paper => ({
       id: paper.articleId,
-      label: paper.title,
+      title: `${paper.title}${authors2Str(paper.authors)}`,
       shape: 'dot',
       color: paper.articleId === originalPaper.value.articleId ? '#FFC107' : null,
-      title: authors2Str(paper.authors)
     }));
 
     // convert connections to edges
@@ -114,13 +113,9 @@ const highlightListItem = (nodeId) => {
 };
 
 const highlightNode = (nodeId) => {
-  console.log('highlight', nodeId)
   if (network && nodeId) {
-    // select the node
-    network.selectNodes([nodeId], false);
-    // find and select the edges connected to the node
-    const connectedEdges = network.getConnectedEdges(nodeId);
-    network.selectEdges(connectedEdges);
+    // select the node and highlight the edges
+    network.selectNodes([nodeId], true);
     // highlight the list item
     highlightListItem(nodeId);
   }
@@ -142,6 +137,7 @@ const highlightNode = (nodeId) => {
             v-model="search"
             class="w-full"
             label="search for a paper"
+            @keyup.enter="handleSearch"
         >
           <template #append>
             <VaButton

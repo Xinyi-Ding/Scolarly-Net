@@ -47,7 +47,7 @@ const onFileAdded = async (file) => {
     // const res = dashboardExample.data;
     console.log('analyzed result', res);
     paper.value = {
-      articleId: 2,
+      articleId: res.articleId,
       title: res.metadata?.title,
       authors: res.authors,
       doi: res.metadata?.doi,

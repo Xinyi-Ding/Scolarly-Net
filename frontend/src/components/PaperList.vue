@@ -21,6 +21,7 @@
     </VaListItem>
     <template v-for="paper in papers" :key="paper.id">
       <VaListItem
+          ref="listItemRefs"
           v-if="paper.articleId !== originalPaper.articleId"
           :class="{'highlight': paper.articleId === selectedNodeId}"
           class="p-2 cursor-pointer hover:bg-gray-100 border-b border-gray-200 border-solid"
@@ -45,12 +46,28 @@
 
 <script setup>
 import UserChip from '@/components/UserChip.vue';
+import { ref } from "vue";
+
+const listItemRefs = ref([]);
 
 defineProps({
   originalPaper: Object,
   papers: Array,
   selectedNodeId: [Number, String]
 });
+
+// watch(() => props.selectedNodeId, () => {
+//   scrollIntoHighlighted();
+// });
+//
+// function scrollIntoHighlighted() {
+//   console.log(listItemRefs.value);
+//   listItemRefs.value.forEach((el, index) => {
+//     if (props.papers[index].articleId === props.selectedNodeId && props.papers[index].articleId !== props.originalPaper.articleId) {
+//       el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+//     }
+//   });
+// }
 </script>
 
 <style scoped>

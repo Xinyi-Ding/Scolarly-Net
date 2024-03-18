@@ -4,28 +4,28 @@
   "data": {
     "connections": [
       {
-        "from": 1,
-        "to": [2, 3, 4, 5]
+        "fromPaper": 1,
+        "toPaper": [2, 3, 4, 5]
       },
       {
-        "from": 2,
-        "to": [6, 7, 8]
+        "fromPaper": 2,
+        "toPaper": [6, 7, 8]
       },
       {
-        "from": 4,
-        "to": [9, 10]
+        "fromPaper": 4,
+        "toPaper": [9, 10]
       },
       {
-        "from": 5,
-        "to": [11, 12, 13, 14]
+        "fromPaper": 5,
+        "toPaper": [11, 12, 13, 14]
       },
       {
-        "from": 6,
-        "to": [15, 16]
+        "fromPaper": 6,
+        "toPaper": [15, 16]
       },
       {
-        "from": 8,
-        "to": [17]
+        "fromPaper": 8,
+        "toPaper": [17]
       }
     ],
     "papers": [
@@ -61,8 +61,7 @@
             "name": "author 5",
             "email": "test@test.test"
           }
-        ],
-        "original": true
+        ]
       },
       {
         "articleId": 2,

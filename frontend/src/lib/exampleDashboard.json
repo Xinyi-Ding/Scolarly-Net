@@ -2,6 +2,7 @@
   "code": 200,
   "msg": "success",
   "data": {
+    "articleId": 728,
     "authors": [
       {
         "id": 1,

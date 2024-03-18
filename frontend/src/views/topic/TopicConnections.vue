@@ -3,8 +3,8 @@
 </script>
 
 <template>
-  <div>
-    Topic Connection
+  <div class="text-center text-xl pt-8">
+    Coming soon ...
     <!--<VaList v-if="netResults" class="p-2">-->
     <!--  <VaListItem-->
     <!--      :class="{'highlight': selectedNodeId === originalPaper.articleId}"-->

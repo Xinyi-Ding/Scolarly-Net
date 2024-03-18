@@ -44,13 +44,13 @@ const handleResultSelect = async (id) => {
   generateLoading.value = true;
   nodes.clear();
   edges.clear();
-  generateLoading.value = false;
   let data = await req.get('/catalog/co-author', { article_id: id });
   data = data.data.data;
   originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
   netResults.value = data;
   search.value = '';
   initializeNetwork();
+  generateLoading.value = false;
 };
 
 // check if the paperId is in the query, if so, generate the network
@@ -76,8 +76,7 @@ const initializeNetwork = () => {
     // convert papers to nodes
     const paperNodes = papers.map(paper => ({
       id: paper.articleId,
-      label: paper.title,
-      title: authors2Str(paper.authors),
+      title: `${paper.title}${authors2Str(paper.authors)}`,
       color: paper.articleId === originalPaper.value.articleId ? '#F39C12' : null,
     }));
 
@@ -121,11 +120,8 @@ const highlightListItem = (nodeId) => {
 
 const highlightNode = (nodeId) => {
   if (network && nodeId) {
-    // select the node
-    network.selectNodes([nodeId], false);
-    // find and select the edges connected to the node
-    const connectedEdges = network.getConnectedEdges(nodeId);
-    network.selectEdges(connectedEdges);
+    // select the node and highlight the edges
+    network.selectNodes([nodeId], true);
     // highlight the list item
     highlightListItem(nodeId);
   }
@@ -146,6 +142,7 @@ const highlightNode = (nodeId) => {
             v-model="search"
             class="w-full"
             label="search for a paper"
+            @keyup.enter="handleSearch"
         >
           <template #append>
             <VaButton

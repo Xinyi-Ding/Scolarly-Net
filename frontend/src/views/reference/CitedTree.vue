@@ -35,19 +35,20 @@ const handleSearch = async () => {
 };
 
 const handleResultSelect = async (id) => {
+  id = 1;
   originalPaper.value.articleId = id;
   netResults.value = null;
   resultModal.value = false;
   generateLoading.value = true;
   nodes.clear();
   edges.clear();
-  generateLoading.value = false;
   let data = await req.get('/catalog/cited-tree', { article_id: id });
   data = data.data.data;
   originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
   netResults.value = data;
   search.value = '';
   initializeNetwork();
+  generateLoading.value = false;
 };
 
 const route = useRoute();
@@ -60,15 +61,14 @@ const initializeNetwork = () => {
     // convert papers to nodes
     const paperNodes = netResults.value.papers.map(paper => ({
       id: paper.articleId,
-      label: paper.title,
+      title: `${paper.title}${authors2Str(paper.authors)}`,
       color: paper.articleId === originalPaper.value.articleId ? '#FFC107' : null, // highlight the original paper
-      title: authors2Str(paper.authors)
     }));
 
     // convert connections to edges
     const edgesArray = netResults.value.connections.flatMap(connection =>
-        connection.to_paper.map(toId => ({
-          from: connection.from_paper,
+        connection.toPaper.map(toId => ({
+          from: connection.fromPaper,
           to: toId,
         }))
     );
@@ -101,6 +101,7 @@ const initializeNetwork = () => {
     network.on("selectNode", params => {
       if (params.nodes.length > 0) {
         const selectedNodeId = params.nodes[0];
+        console.log('selectedNodeId', selectedNodeId)
         highlightListItem(selectedNodeId); // function to highlight the list item corresponding to the selected node
       }
     });
@@ -116,11 +117,8 @@ const highlightListItem = (nodeId) => {
 
 const highlightNode = (nodeId) => {
   if (network && nodeId) {
-    // select the node
-    network.selectNodes([nodeId], false);
-    // find and select the edges connected to the node
-    const connectedEdges = network.getConnectedEdges(nodeId);
-    network.selectEdges(connectedEdges);
+    // select the node and highlight the edges
+    network.selectNodes([nodeId], true);
     // highlight the list item
     highlightListItem(nodeId);
   }
@@ -141,6 +139,7 @@ const highlightNode = (nodeId) => {
             v-model="search"
             class="w-full"
             label="search for a paper"
+            @keyup.enter="handleSearch"
         >
           <template #append>
             <VaButton
