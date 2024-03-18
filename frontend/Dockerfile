@@ -21,6 +21,6 @@ RUN ["ls", "/etc/nginx/conf.d"]
 RUN ["cat", "/etc/nginx/nginx.conf"]
 RUN ["cat", "/etc/nginx/conf.d/default.conf"]
 
-EXPOSE 90
+EXPOSE 5173
 
 CMD ["nginx", "-g", "daemon off;"]
