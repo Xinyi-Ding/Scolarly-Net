@@ -77,7 +77,7 @@ frontend_deploy:
       - sudo docker stop frontend-container || true
       - sudo docker rm frontend-container || true
       - sudo docker build -t frontend-image .
-      - sudo docker run -d --network host -p 5173:81 --name frontend-container frontend-image
+      - sudo docker run -d --network host -p 5173:80 --name frontend-container frontend-image
       - echo "Deployed!"
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
