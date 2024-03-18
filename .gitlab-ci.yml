@@ -3,6 +3,7 @@ stages:
   - lint
   - test
   - build
+  - deploy
 
 # define yaml anchors for frontend and backend before_script
 .change_to_frontend_dir: &change_to_frontend_dir
@@ -66,23 +67,24 @@ frontend_test:
       - frontend/**/*
       - .gitlab-ci.yml
 
-frontend_build:
-  stage: build
-  image: node:20
+frontend_deploy:
+  stage: delpoy
   tags:
     - frontend
   <<: *change_to_frontend_dir
   script:
-    - echo "Building application..."
-    - npm run build
-    - echo "Built!"
-    - ls
-  needs:
-    - frontend_test
+      - echo "Deploying application..."
+      - sudo docker stop frontend-container || true
+      - sudo docker rm frontend-container || true
+      - sudo docker build -t frontend-image .
+      - sudo docker run -d -p 5173:80 --name frontend-container frontend-image
+      - echo "Deployed!"
+  only:
+    - master
   rules:
     - changes:
-      - frontend/**/*
-      - .gitlab-ci.yml
+        - frontend/**/*
+        - .gitlab-ci.yml
 
 # backend jobs
 backend_lint:
@@ -114,3 +116,54 @@ backend_test:
     - changes:
       - backend/**/*
       - .gitlab-ci.yml
+
+backend_deploy:
+  stage: deploy
+  tags:
+    - backend
+  <<: *change_to_backend_dir
+  script:
+    - echo "Deploying application..."
+    - sudo docker stop backend-container || true
+    - sudo docker rm backend-container || true
+    - sudo docker build -t backend-image .
+    - sudo docker run -d -p 8000:80 --name backend-container backend-image
+    - echo "Deployed!"
+  only:
+    - master
+  rules:
+    - changes:
+        - backend/**/*
+        - .gitlab-ci.yml
+
+grobid_deploy:
+  stage: deploy
+  tags:
+    - backend
+  <<: *change_to_backend_dir
+  script:
+    - echo "Deploying grobid..."
+    - sudo docker stop grobid-container || true
+    - sudo docker rm grobid-container || true
+    - sudo docker run -d -p 8070:8070 --name grobid-container grobid/grobid:0.8.0
+    - |
+      echo "Checking Grobid service status..."
+      timeout=300  # 5 minutes
+      while [ $timeout -gt 0 ]; do
+        response=$(curl -s http://localhost:8070/api/isalive || echo "fail")
+        if [ "$response" = "true" ]; then
+          echo "Grobid is alive. Deployment successful."
+          exit 0
+        fi
+        sleep 10
+        timeout=$((timeout-10))
+      done
+      echo "Grobid deployment verification failed after 5 minutes."
+      exit 1
+    - echo "Deployed!"
+  only:
+    - master
+  rules:
+    - changes:
+        - backend/**/*
+        - .gitlab-ci.yml
