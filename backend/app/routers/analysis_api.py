@@ -38,7 +38,7 @@ async def upload_document(file: UploadFile = File(...)):
         xml_location = analysis.get_extracted_xml(str(file_location), grobid_server="http://localhost:8070")
         article = analysis.get_article_object(xml_location)
         print("Article object created")
-        articleVO = save_parse_article(article)
+        # articleVO = save_parse_article(article)
         print("Article saved to database")
         res = {"code": 200,
                "message": "File uploaded successfully",
