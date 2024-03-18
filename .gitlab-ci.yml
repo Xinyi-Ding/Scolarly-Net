@@ -2,7 +2,6 @@ stages:
   - install
   - lint
   - test
-  - build
   - deploy
 
 # define yaml anchors for frontend and backend before_script
@@ -68,7 +67,7 @@ frontend_test:
       - .gitlab-ci.yml
 
 frontend_deploy:
-  stage: delpoy
+  stage: deploy
   tags:
     - frontend
   <<: *change_to_frontend_dir
