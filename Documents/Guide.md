@@ -11,10 +11,11 @@ Our application is hosted on EIDF, so you can access it from the device that has
 
 To get started, our application's layout is divided into three sections: the sidebar, the app bar, and the main content.
 
-- **Sidebar** contains the clickable navigation links to different pages of the application, and all these links are
-divided into four categories with each containing a few sub-links. You can expand or collapse each category by clicking
-on the category name, and the system will remember your choice.
-- **App Bar** contains the title of the application and the user's profile(disabled). There is a button on the left side
+- **Sidebar**, located on the left side of the application, contains the clickable navigation links to different pages
+of the application, and all these links are divided into four categories with each containing a few sub-links. You can 
+expand or collapse each category by clicking on the category name, and the system will remember your choice.
+- **App Bar**, located on the top of the application, contains the title of the application and the user's
+profile(disabled). There is a button on the left side
 of the app bar that can be used to expand or collapse the sidebar, and the system will remember your choice.
 - **Main Content** is where the main content of the application is displayed. The content will change according to the
 navigation link you clicked on the sidebar.

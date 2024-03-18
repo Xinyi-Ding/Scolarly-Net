@@ -77,6 +77,7 @@ const initializeNetwork = () => {
     const paperNodes = papers.map(paper => ({
       id: paper.articleId,
       title: `${paper.title}${authors2Str(paper.authors)}`,
+      label: paper.authors[0]?.name,
       color: paper.articleId === originalPaper.value.articleId ? '#F39C12' : null,
     }));
 

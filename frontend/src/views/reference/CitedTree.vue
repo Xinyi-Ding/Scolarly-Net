@@ -62,12 +62,13 @@ const initializeNetwork = () => {
     const paperNodes = netResults.value.papers.map(paper => ({
       id: paper.articleId,
       title: `${paper.title}${authors2Str(paper.authors)}`,
+      label: paper.authors[0]?.name,
       color: paper.articleId === originalPaper.value.articleId ? '#FFC107' : null, // highlight the original paper
     }));
 
     // convert connections to edges
     const edgesArray = netResults.value.connections.flatMap(connection =>
-        connection.toPaper.map(toId => ({
+        connection?.toPaper?.map(toId => ({
           from: connection.fromPaper,
           to: toId,
         }))

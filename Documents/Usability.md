@@ -24,11 +24,11 @@ link cards that are available.
   - [] Generate the graph from the uploaded paper.
 
 #### Task 1 Feedback
-**Is the process of uploading a paper is clear and easy to understand?**
+**Is the process of uploading a paper clear and easy to understand?**
 
 **Is the information extracted from the paper is accurate?**
 
-**Does the way to generate the graph from the uploaded paper make sense?**
+**Does the link cards work as expected?**
 
 **What difficulties did you encounter?**
 
@@ -42,7 +42,7 @@ link cards that are available.
   - [] Select a paper from the list.
 
 #### Task 2 Feedback
-**Is the process of searching for a paper is clear and easy to understand?**
+**Is the process of searching for a paper clear and easy to understand?**
 
 **Is the search result accurate?**
 
