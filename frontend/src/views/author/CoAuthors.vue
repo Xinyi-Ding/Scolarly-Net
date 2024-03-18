@@ -4,10 +4,9 @@ import { useRoute } from "vue-router";
 import { DataSet, Network } from 'vis-network/standalone';
 import Net from "@/layouts/NetLayout.vue";
 import SearchResult from "@/components/SearchResult.vue";
-import searchResultExample from "@/lib/searchResults.json";
-import topicConnectionExample from "@/lib/exampleCoAuthor.json";
 import { authors2Str, generateOptions } from "@/utils/network.js";
 import PaperList from "@/components/PaperList.vue";
+import req from "@/utils/req.js";
 
 // search related variables
 const search = ref('');
@@ -27,37 +26,33 @@ const selectedNodeId = ref(null);
 // loading related variables
 const generateLoading = ref(false);
 
-const handleSearch = () => {
-  searchLoading.value = true;
-  setTimeout(() => {
-    if (search.value !== '') {
-      // searchResults.value = searchResultExample.data.map(item => ({
-      //   id: item.id,
-      //   title: item.name,
-      //   subtitle: item.count + ' papers related',
-      // }));
-      searchResults.value = searchResultExample.data;
-      resultModal.value = true; // open the search result modal
-    }
+const handleSearch = async () => {
+  if (search.value !== '') {
+    searchLoading.value = true;
+    const data = await req.get('/catalog/papers/search', { title: search.value });
+    console.log('search', data.data)
+    searchResults.value = data.data.data;
+    resultModal.value = true;
     searchLoading.value = false;
-  }, 1000);
+  }
 };
 
-const handleResultSelect = (id) => {
+const handleResultSelect = async (id) => {
+  console.log('selected paper id', id);
   originalPaper.value.articleId = id;
   netResults.value = null; // clear the previous network data
   resultModal.value = false;
   generateLoading.value = true;
   nodes.clear();
   edges.clear();
-  setTimeout(() => {
-    generateLoading.value = false;
-    const data = topicConnectionExample.data;
-    originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
-    netResults.value = data;
-    search.value = '';
-    initializeNetwork();
-  }, 1000);
+  let data = await req.get('/catalog/co-author', { article_id: id });
+  data = data.data.data;
+  console.log('co-author', data);
+  originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
+  netResults.value = data;
+  search.value = '';
+  initializeNetwork();
+  generateLoading.value = false;
 };
 
 // check if the paperId is in the query, if so, generate the network
@@ -74,7 +69,7 @@ const initializeNetwork = () => {
 
     // convert authors to nodes
     const authorNodes = authors.map(author => ({
-      id: `author-${author.id}`,
+      id: `author-${author.authorId}`,
       label: author.name,
       shape: 'triangle',
       color: '#4ade80',
@@ -83,8 +78,8 @@ const initializeNetwork = () => {
     // convert papers to nodes
     const paperNodes = papers.map(paper => ({
       id: paper.articleId,
+      title: `${paper.title}${authors2Str(paper.authors)}`,
       label: paper.title,
-      title: authors2Str(paper.authors),
       color: paper.articleId === originalPaper.value.articleId ? '#F39C12' : null,
     }));
 
@@ -128,11 +123,8 @@ const highlightListItem = (nodeId) => {
 
 const highlightNode = (nodeId) => {
   if (network && nodeId) {
-    // select the node
-    network.selectNodes([nodeId], false);
-    // find and select the edges connected to the node
-    const connectedEdges = network.getConnectedEdges(nodeId);
-    network.selectEdges(connectedEdges);
+    // select the node and highlight the edges
+    network.selectNodes([nodeId], true);
     // highlight the list item
     highlightListItem(nodeId);
   }
@@ -153,6 +145,7 @@ const highlightNode = (nodeId) => {
             v-model="search"
             class="w-full"
             label="search for a paper"
+            @keyup.enter="handleSearch"
         >
           <template #append>
             <VaButton
@@ -172,7 +165,9 @@ const highlightNode = (nodeId) => {
           :selectedNodeId="selectedNodeId"
           @highlightNode="highlightNode"
       />
-      <p v-else v-show="!generateLoading" class="mt-4 text-center text-gray-500">- Search for a paper first -</p>
+      <p v-else v-show="!generateLoading" class="mt-4 text-center text-gray-500 uppercase">
+        * Search for a paper first *
+      </p>
       <div v-if="generateLoading" class="w-full text-center">
         <VaProgressCircle
             class="mx-auto mt-8 mb-2"

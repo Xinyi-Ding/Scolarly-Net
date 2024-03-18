@@ -41,7 +41,7 @@ export const routesConfig = [
     path: '/author',
     name: 'author',
     icon: 'person',
-    redirect: '/author/co-author',
+    redirect: '/author/co-authors',
     meta: {
       title: 'Author',
     },

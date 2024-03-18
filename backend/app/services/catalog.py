@@ -536,8 +536,9 @@ def search_cited_tree_by_filter_as_response(filter_obj: ArticleFilter, level_num
             for article_citation_vo in article_citation_vo_lst:
                 cited_article_id = article_citation_vo.cited_article_id
                 article_id_set.add(cited_article_id)  # Add to the set of all encountered article IDs
-                cited_article_id_lst.append(cited_article_id)
-                next_level_cited_articles.append(cited_article_id)
+                if cited_article_id not in current_level_citing_articles:
+                    cited_article_id_lst.append(cited_article_id)
+                    next_level_cited_articles.append(cited_article_id)
 
             # Log or debug output to track the citation chain; this line can be commented out or removed in production
             # print(f"Level {level}: {citing_article_id} -> {cited_article_id_lst}")

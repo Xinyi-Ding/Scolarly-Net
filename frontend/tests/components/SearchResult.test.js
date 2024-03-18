@@ -7,8 +7,8 @@ describe('SearchResult', () => {
 
   beforeEach(() => {
     const searchResults = [
-      { id: 1, title: 'First Result', authors: [{'id': 1, 'name': 'test'}] },
-      { id: 2, title: 'Second Result', authors: [{'id': 1, 'name': 'test'}] }
+      { articleId: 1, title: 'First Result', authors: [{authorId: 1, name: 'test'}] },
+      { articleId: 2, title: 'Second Result', authors: [{authorId: 1, name: 'test'}] }
     ];
 
     wrapper = mount(SearchResult, {
@@ -28,7 +28,7 @@ describe('SearchResult', () => {
         searchResults: []
       }
     });
-    const searchResults = wrapper.findAll('.p-2.cursor-pointer.hover:bg-gray-100');
+    const searchResults = wrapper.findAll('.va-list-item');
     expect(searchResults.length).toBe(0);
   });
 

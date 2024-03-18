@@ -1,14 +1,15 @@
 <script setup>
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { routesConfig } from "@/lib/routesConfig.js";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 const header = ref('Null');
-const accordionValue = ref(new Array(routesConfig.length).fill(true));
-const minimized = ref(true);
 const activeElement = ref(null);
 const activeRouteName = ref('');
+const accordionValue = ref([]);
+const minimized = ref(false);
+
 
 function generateActive() {
   if (router.currentRoute.value.matched.length > 2) {
@@ -34,14 +35,35 @@ function setRouteActive(route) {
   router.push(route.path);
 }
 
+function toggleSidebar() {
+  minimized.value = !minimized.value;
+  localStorage.setItem('minimized', minimized.value.toString());
+}
+
 watch(() => router.currentRoute.value, (newRoute) => {
   const matchedRoute = newRoute.matched.slice().reverse().find(r => r.meta && r.meta.title);
   if (matchedRoute && matchedRoute.meta && matchedRoute.meta.title) {
     header.value = matchedRoute.meta.title;
   }
   generateActive();
-
 }, { immediate: true });
+
+onMounted(() => {
+  const savedAccordionValue = localStorage.getItem('accordionValue');
+  if (savedAccordionValue) {
+    accordionValue.value = JSON.parse(savedAccordionValue);
+  } else {
+    accordionValue.value = new Array(routesConfig.length).fill(true);
+  }
+  const savedMinimized = localStorage.getItem('minimized');
+  if (savedMinimized) {
+    minimized.value = savedMinimized === 'true';
+  }
+
+  watch(accordionValue, (newValue) => {
+    localStorage.setItem('accordionValue', JSON.stringify(newValue));
+  }, { deep: true, immediate: true });
+});
 
 </script>
 
@@ -59,7 +81,7 @@ watch(() => router.currentRoute.value, (newRoute) => {
           <VaNavbarItem>
             <VaButton
                 :icon="minimized ? 'menu' : 'menu_open'"
-                @click="minimized = !minimized"
+                @click="toggleSidebar"
             />
           </VaNavbarItem>
           <VaNavbarItem>
@@ -135,7 +157,7 @@ watch(() => router.currentRoute.value, (newRoute) => {
 
         <VaSidebarItem
             :active="'Settings' === activeElement"
-            @click="console.log('Settings')"
+            @click="console.log('Settings coming soon...')"
         >
           <VaSidebarItemContent>
             <VaIcon name="settings" />
@@ -149,12 +171,13 @@ watch(() => router.currentRoute.value, (newRoute) => {
       <main class="p-4">
         <h1 class="text-3xl font-black ml-2 mb-3 uppercase">{{header}}</h1>
         <div class="h-[80vh] bg-white shadow-lg overflow-auto">
-          <!--<router-view v-slot="{ Component }">-->
-          <!--  <keep-alive>-->
-          <!--    <component :is="Component" />-->
-          <!--  </keep-alive>-->
-          <!--</router-view>-->
-          <RouterView />
+          <router-view v-slot="{ Component }">
+            <keep-alive>
+              <component :is="Component" />
+            </keep-alive>
+          </router-view>
+          <!--without keep-alive-->
+          <!--<RouterView />-->
         </div>
       </main>
     </template>

@@ -4,10 +4,9 @@ import { useRoute } from "vue-router";
 import { DataSet, Network } from 'vis-network/standalone';
 import Net from "@/layouts/NetLayout.vue";
 import SearchResult from "@/components/SearchResult.vue";
-import searchResultExample from "@/lib/searchResults.json";
-import citedTreeExample from "@/lib/exampleCitedTree.json";
 import { authors2Str, generateOptions } from "@/utils/network.js";
 import PaperList from "@/components/PaperList.vue";
+import req from "@/utils/req.js";
 
 const search = ref('');
 const searchLoading = ref(false);
@@ -24,32 +23,33 @@ const selectedNodeId = ref(null);
 
 const generateLoading = ref(false);
 
-const handleSearch = () => {
-  searchLoading.value = true;
-  setTimeout(() => {
-    if (search.value !== '') {
-      searchResults.value = searchResultExample.data;
-      resultModal.value = true;
-    }
+const handleSearch = async () => {
+  if (search.value !== '') {
+    searchLoading.value = true;
+    const data = await req.get('/catalog/papers/search', { title: search.value });
+    console.log('search', data.data)
+    searchResults.value = data.data.data;
+    resultModal.value = true;
     searchLoading.value = false;
-  }, 1000);
+  }
 };
 
-const handleResultSelect = (id) => {
+const handleResultSelect = async (id) => {
+  console.log('selected paper id', id);
   originalPaper.value.articleId = id;
   netResults.value = null;
   resultModal.value = false;
   generateLoading.value = true;
   nodes.clear();
   edges.clear();
-  setTimeout(() => {
-    generateLoading.value = false;
-    const data = citedTreeExample.data;
-    originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
-    netResults.value = data;
-    search.value = '';
-    initializeNetwork();
-  }, 1000);
+  let data = await req.get('/catalog/cited-tree', { article_id: id });
+  data = data.data.data;
+  console.log('cited tree', data);
+  originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
+  netResults.value = data;
+  search.value = '';
+  initializeNetwork();
+  generateLoading.value = false;
 };
 
 const route = useRoute();
@@ -62,15 +62,15 @@ const initializeNetwork = () => {
     // convert papers to nodes
     const paperNodes = netResults.value.papers.map(paper => ({
       id: paper.articleId,
-      label: paper.title,
+      title: `${paper.title}${authors2Str(paper.authors)}`,
+      label: paper.authors[0]?.name,
       color: paper.articleId === originalPaper.value.articleId ? '#FFC107' : null, // highlight the original paper
-      title: authors2Str(paper.authors)
     }));
 
     // convert connections to edges
     const edgesArray = netResults.value.connections.flatMap(connection =>
-        connection.to.map(toId => ({
-          from: connection.from,
+        connection?.toPaper?.map(toId => ({
+          from: connection.fromPaper,
           to: toId,
         }))
     );
@@ -84,7 +84,7 @@ const initializeNetwork = () => {
     const options = generateOptions({
       layout: {
         hierarchical: {
-          enabled: true,
+          enabled: false,
           direction: 'UD', // from up to down
           sortMethod: 'directed', // or 'hubsize'
         }
@@ -103,6 +103,7 @@ const initializeNetwork = () => {
     network.on("selectNode", params => {
       if (params.nodes.length > 0) {
         const selectedNodeId = params.nodes[0];
+        console.log('selectedNodeId', selectedNodeId)
         highlightListItem(selectedNodeId); // function to highlight the list item corresponding to the selected node
       }
     });
@@ -118,11 +119,8 @@ const highlightListItem = (nodeId) => {
 
 const highlightNode = (nodeId) => {
   if (network && nodeId) {
-    // select the node
-    network.selectNodes([nodeId], false);
-    // find and select the edges connected to the node
-    const connectedEdges = network.getConnectedEdges(nodeId);
-    network.selectEdges(connectedEdges);
+    // select the node and highlight the edges
+    network.selectNodes([nodeId], true);
     // highlight the list item
     highlightListItem(nodeId);
   }
@@ -143,6 +141,7 @@ const highlightNode = (nodeId) => {
             v-model="search"
             class="w-full"
             label="search for a paper"
+            @keyup.enter="handleSearch"
         >
           <template #append>
             <VaButton
@@ -163,7 +162,9 @@ const highlightNode = (nodeId) => {
           :selectedNodeId="selectedNodeId"
           @highlightNode="highlightNode"
       />
-      <p v-else v-show="!generateLoading" class="mt-4 text-center text-gray-500">- Search for a paper first -</p>
+      <p v-else v-show="!generateLoading" class="mt-4 text-center text-gray-500 uppercase">
+        * Search for a paper first *
+      </p>
       <div v-if="generateLoading" class="w-full text-center">
         <VaProgressCircle
             class="mx-auto mt-8 mb-2"

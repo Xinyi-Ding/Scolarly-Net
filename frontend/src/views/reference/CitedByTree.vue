@@ -3,8 +3,8 @@
 </script>
 
 <template>
-  <div>
-    <h1>Cited By Tree</h1>
+  <div class="text-center text-xl pt-8">
+    Coming soon ...
   </div>
 </template>
 

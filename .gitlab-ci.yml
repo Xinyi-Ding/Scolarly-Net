@@ -81,7 +81,7 @@ frontend_deploy:
       - echo "Deployed!"
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
-    - changes:
+      changes:
         - frontend/**/*
         - .gitlab-ci.yml
 
@@ -130,7 +130,7 @@ backend_deploy:
     - echo "Deployed!"
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
-    - changes:
+      changes:
         - backend/**/*
         - .gitlab-ci.yml
 
@@ -161,7 +161,7 @@ grobid_deploy:
     - echo "Deployed!"
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
-    - changes:
+      changes:
         - backend/**/*
         - .gitlab-ci.yml
 
