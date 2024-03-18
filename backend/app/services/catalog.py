@@ -281,6 +281,7 @@ def search_same_topic_by_filter_as_response(filter_obj: ArticleFilter) -> SameTo
 
     same_topic_connection_item_schema_lst: list[SameTopicConnectionItemSchema] = []
     article_id_set: set[int] = set()
+    article_id_set.add(article_vo.article_id)
 
     # Iterate over each topic related to the article
     for article_topic_vo in article_topic_vo_lst:
@@ -356,6 +357,7 @@ def search_co_author_by_filter_as_response(filter_obj: ArticleFilter) -> CoAutho
 
     co_author_connection_item_schema_lst: list[CoAuthorConnectionItemSchema] = []
     article_id_set: set[int] = set()
+    article_id_set.add(article_vo.article_id)
 
     # Iterate over each author of the article
     for article_author_vo in article_author_vo_lst:
