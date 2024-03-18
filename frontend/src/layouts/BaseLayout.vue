@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
 import { routesConfig } from "@/lib/routesConfig.js";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
 const header = ref('Null');
@@ -10,6 +10,16 @@ const activeRouteName = ref('');
 const accordionValue = ref([]);
 const minimized = ref(false);
 
+const route = useRoute();
+const componentKey = ref(Date.now());
+
+// 监听route的变化，特别是query参数
+watch(() => route.query.paperId, (newPaperId, oldPaperId) => {
+  if (newPaperId !== oldPaperId) {
+    // 改变componentKey来强制重新加载组件
+    componentKey.value = Date.now();
+  }
+});
 
 function generateActive() {
   if (router.currentRoute.value.matched.length > 2) {
@@ -173,9 +183,15 @@ onMounted(() => {
         <div class="h-[80vh] bg-white shadow-lg overflow-auto">
           <router-view v-slot="{ Component }">
             <keep-alive>
-              <component :is="Component" />
+              <component :is="Component"  v-if="$route.meta.keepAlive"/>
             </keep-alive>
+            <component :is="Component"  v-if="!$route.meta.keepAlive"/>
           </router-view>
+          <!--<router-view v-slot="{ Component }">-->
+          <!--  <keep-alive>-->
+          <!--    <component :is="Component" />-->
+          <!--  </keep-alive>-->
+          <!--</router-view>-->
           <!--without keep-alive-->
           <!--<RouterView />-->
         </div>

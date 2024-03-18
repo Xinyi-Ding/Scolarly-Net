@@ -5,6 +5,7 @@ export const routesConfig = [
     icon: 'dashboard',
     component: () => import('@/views/PaperDashboard.vue'),
     meta: {
+      keepAlive: true,
       title: 'Dashboard',
     }
   },
