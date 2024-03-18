@@ -79,9 +79,8 @@ frontend_deploy:
       - sudo docker build -t frontend-image .
       - sudo docker run -d -p 5173:80 --name frontend-container frontend-image
       - echo "Deployed!"
-  only:
-    - master
   rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
     - changes:
         - frontend/**/*
         - .gitlab-ci.yml
@@ -129,9 +128,8 @@ backend_deploy:
     - sudo docker build -t backend-image .
     - sudo docker run -d -p 8000:80 --name backend-container backend-image
     - echo "Deployed!"
-  only:
-    - master
   rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
     - changes:
         - backend/**/*
         - .gitlab-ci.yml
@@ -161,9 +159,8 @@ grobid_deploy:
       echo "Grobid deployment verification failed after 5 minutes."
       exit 1
     - echo "Deployed!"
-  only:
-    - master
   rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
     - changes:
         - backend/**/*
         - .gitlab-ci.yml
