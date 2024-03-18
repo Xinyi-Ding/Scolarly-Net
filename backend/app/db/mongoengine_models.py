@@ -1,3 +1,10 @@
+"""
+This Python module sets up a data model for an academic paper management system using the MongoEngine ODM (
+Object-Document Mapper). It defines data schemas and relationships for articles, authors, topics, institutions,
+and departments with MongoDB as the underlying database. The module handles the database connection, which can be
+toggled between a test and production environment using a configuration setting.
+"""
+
 from mongoengine import Document, connect
 from mongoengine.fields import (
     StringField, IntField, DateField

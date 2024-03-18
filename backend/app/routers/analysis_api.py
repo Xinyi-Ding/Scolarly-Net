@@ -1,3 +1,11 @@
+"""
+This module defines endpoints for the Analysis API within a scholarly communication platform, facilitating
+document upload and processing. It includes an API root for status checks and a document upload endpoint where files
+can be submitted for analysis. The uploaded documents are saved, parsed, and their extracted metadata such as title,
+authors, abstract, and keywords are processed and stored. This setup is integral for automating the ingestion and
+analysis of academic papers, thereby enriching the platform's database with valuable scholarly content.
+"""
+
 from fastapi import APIRouter, File, UploadFile, HTTPException
 from pathlib import Path
 
