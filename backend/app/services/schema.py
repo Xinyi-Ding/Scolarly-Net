@@ -9,6 +9,16 @@ from typing import Any, Optional
 from pydantic import BaseModel, Field
 
 
+def to_camel(string: str) -> str:
+    """
+    Convert a string to camel case.
+    @param string: str: The input string.
+    @return: str: The string in camel case.
+    """
+    parts = string.split('_')
+    return parts[0] + ''.join(word.capitalize() for word in parts[1:])
+
+
 class ResponseSchema(BaseModel):
     code: int = Field(200, title="HTTP status code", description="The HTTP status code of the response.")
     # By default, the response is successful (But in practice, it should be "error" if failed)
@@ -17,22 +27,35 @@ class ResponseSchema(BaseModel):
 
 
 class AuthorSchema(BaseModel):
-    id: int = Field(None, title="Author ID", description="The unique identifier of the author.")
+    author_id: int = Field(None, title="Author ID", description="The unique identifier of the author.")
     name: str = Field(None, title="Author Name", description="The name of the author.")
     email: str = Field(None, title="Author Email", description="The email of the author.")
     affiliation: Optional[str] = Field(None, title="Author Affiliation", description="The affiliation of the author.")
 
+    class Config:
+        alias_generator = to_camel
+        allow_population_by_field_name = True
+
 
 class TopicSchema(BaseModel):
-    id: int = Field(None, title="Topic ID", description="The unique identifier of the topic.")
+    topic_id: int = Field(None, title="Topic ID", description="The unique identifier of the topic.")
     name: str = Field(None, title="Topic Name", description="The name of the topic.")
+
     # original: Optional[bool] = False
+
+    class Config:
+        alias_generator = to_camel
+        allow_population_by_field_name = True
 
 
 class PaperItemSchema(BaseModel):
-    id: int = Field(None, title="Paper ID", description="The unique identifier of the paper.")
+    article_id: int = Field(None, title="Paper ID", description="The unique identifier of the paper.")
     title: str = Field(None, title="Paper Title", description="The title of the paper.")
     authors: list[AuthorSchema] = Field([], title="Paper Authors", description="The authors of the paper.")
+
+    class Config:
+        alias_generator = to_camel
+        allow_population_by_field_name = True
 
 
 class PaperResponse(ResponseSchema):
@@ -40,9 +63,13 @@ class PaperResponse(ResponseSchema):
 
 
 class TopicItemSchema(BaseModel):
-    id: int = Field(None, title="Topic ID", description="The unique identifier of the topic.")
+    topic_id: int = Field(None, title="Topic ID", description="The unique identifier of the topic.")
     topic: str = Field(None, title="Topic Name", description="The name of the topic.")
     count: int = Field(None, title="Paper Count", description="The number of papers in the topic.")
+
+    class Config:
+        alias_generator = to_camel
+        allow_population_by_field_name = True
 
 
 class TopicResponse(ResponseSchema):
@@ -50,9 +77,13 @@ class TopicResponse(ResponseSchema):
 
 
 class AuthorItemSchema(BaseModel):
-    id: int = Field(None, title="Author ID", description="The unique identifier of the author.")
+    author_id: int = Field(None, title="Author ID", description="The unique identifier of the author.")
     name: str = Field(None, title="Author Name", description="The name of the author.")
     count: int = Field(None, title="Paper Count", description="The number of papers by the author.")
+
+    class Config:
+        alias_generator = to_camel
+        allow_population_by_field_name = True
 
 
 class AuthorResponse(ResponseSchema):
@@ -96,6 +127,10 @@ class CoAuthorResponseSchema(ResponseSchema):
 class CitedConnectionItemSchema(BaseModel):
     from_paper: int = Field(..., title="From Paper ID", description="The unique identifier of the paper.")
     to_paper: list[int] = Field([], title="To Paper List", description="The list of papers cited by the from paper.")
+
+    class Config:
+        alias_generator = to_camel
+        allow_population_by_field_name = True
 
 
 class CitedTreeDataSchema(BaseModel):
