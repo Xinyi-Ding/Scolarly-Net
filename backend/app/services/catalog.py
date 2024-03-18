@@ -1,3 +1,12 @@
+"""
+This module contains a collection of functions for processing and importing academic articles into a database. It
+includes functions for parsing article data from various formats, saving articles and associated entities such as
+authors and citations to the database, and generating structured responses for queries related to papers, authors,
+and citation networks. It supports operations such as searching for articles by different filters and constructing
+citation trees to analyze the interconnections between academic works.
+"""
+
+
 import json
 import os
 from pathlib import Path
