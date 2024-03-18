@@ -13,10 +13,10 @@ RUN npm run build
 # run the app in a nginx server
 FROM nginx:stable as prod-stage
 
-COPY --from=build-stage /frontend/dist /usr/share/nginx/html
+COPY --from=build-stage /frontend/dist/ /usr/share/nginx/html/
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY default.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 5173
+EXPOSE 81
 
 CMD ["nginx", "-g", "daemon off;"]
