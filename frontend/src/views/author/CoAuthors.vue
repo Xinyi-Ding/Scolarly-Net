@@ -38,6 +38,7 @@ const handleSearch = async () => {
 };
 
 const handleResultSelect = async (id) => {
+  console.log('selected paper id', id);
   originalPaper.value.articleId = id;
   netResults.value = null; // clear the previous network data
   resultModal.value = false;
@@ -46,6 +47,7 @@ const handleResultSelect = async (id) => {
   edges.clear();
   let data = await req.get('/catalog/co-author', { article_id: id });
   data = data.data.data;
+  console.log('co-author', data);
   originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
   netResults.value = data;
   search.value = '';
@@ -77,7 +79,7 @@ const initializeNetwork = () => {
     const paperNodes = papers.map(paper => ({
       id: paper.articleId,
       title: `${paper.title}${authors2Str(paper.authors)}`,
-      label: paper.authors[0]?.name,
+      label: paper.title,
       color: paper.articleId === originalPaper.value.articleId ? '#F39C12' : null,
     }));
 

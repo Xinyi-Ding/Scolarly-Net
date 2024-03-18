@@ -35,7 +35,7 @@ const handleSearch = async () => {
 };
 
 const handleResultSelect = async (id) => {
-  id = 1;
+  console.log('selected paper id', id);
   originalPaper.value.articleId = id;
   netResults.value = null;
   resultModal.value = false;
@@ -44,6 +44,7 @@ const handleResultSelect = async (id) => {
   edges.clear();
   let data = await req.get('/catalog/cited-tree', { article_id: id });
   data = data.data.data;
+  console.log('cited tree', data);
   originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
   netResults.value = data;
   search.value = '';

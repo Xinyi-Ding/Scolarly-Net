@@ -35,7 +35,7 @@ const handleSearch = async () => {
 };
 
 const handleResultSelect = async (id) => {
-  console.log('selected', id)
+  console.log('selected paper id', id);
   originalPaper.value.articleId = id;
   netResults.value = null; // clear the previous network data
   resultModal.value = false;
@@ -46,7 +46,6 @@ const handleResultSelect = async (id) => {
   data = data.data.data;
   console.log('same topic', data);
   originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
-  console.log('original paper', originalPaper.value)
   netResults.value = data;
   search.value = '';
   initializeNetwork();

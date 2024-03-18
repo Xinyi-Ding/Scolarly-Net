@@ -40,7 +40,6 @@ sysMethods.forEach((method) => {
     } else {
       config.data = paramsOrData;
     }
-    console.log(config)
     return sysInstance(config);
   }
 });
