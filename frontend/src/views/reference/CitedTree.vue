@@ -84,7 +84,7 @@ const initializeNetwork = () => {
     const options = generateOptions({
       layout: {
         hierarchical: {
-          enabled: true,
+          enabled: false,
           direction: 'UD', // from up to down
           sortMethod: 'directed', // or 'hubsize'
         }
