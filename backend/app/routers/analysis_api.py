@@ -33,7 +33,6 @@ async def upload_document(file: UploadFile = File(...)):
         print("File saved to disk: ", file_location)
         article = analysis.get_article_object(
             analysis.get_extracted_xml(str(file_location), grobid_server="http://localhost:8070"))
-        article.content.keywords = analysis.get_topics_from_article(article)
         print("Article object created")
         articleVO = save_parse_article(article)
         print("Article saved to database")
