@@ -20,16 +20,18 @@ This backend service is structured to support various functionalities including 
     - `dependencies.py`: Dependency definitions for API routes.
     - `__init__.py`: Initializes the routers module.
   - `services/`: Core business logic and service layer.
+    - `Extractors/`: Contains extractors for different types of data.
+    - `Parser/`:` Contains parsers for different types of data.
     - `analysis.py`: Analysis service logic.
     - `catalog.py`: Catalog service logic.
     - `models.py`: Service layer models.
+    - `schema.py`: Schema definitions for routers layer.
     - `__init__.py`: Initializes the services module.
   - `main.py`: Entry point of the application.
   - `__init__.py`: Initializes the application module.
 - `test/`: Contains unit tests.
   - `test_main.py`: Test cases for the main application.
   - `__init__.py`: Initializes the test module.
-- `__pycache__/`: Python cache files.
 - `README.md`: This file.
 - `requirements.txt`: Project dependencies.
 
@@ -44,16 +46,23 @@ This backend service is structured to support various functionalities including 
 
 ## Running the Application
 
-Execute the following command from the project root:
-
-```
-python app/main.py
-```
+1. Enter the `backend` directory.
+    ```
+    cd backend
+    ```
+2. (Optional) Cancel TEST MODE (default is True) by setting the environment variable `TEST_MODE` to `False`:
+    ```
+    export TEST_MODE=False
+    ```
+3. Execute the following command:
+    ```
+    python -m app.main
+    ```
 
 ## Testing
 
-To run tests, execute:
+1/ To run tests, execute:
 
 ```
-pytest test/
+python -m pytest
 ```
