@@ -69,7 +69,7 @@ frontend_test:
 frontend_deploy:
   stage: deploy
   tags:
-    - frontend
+    - shell
   <<: *change_to_frontend_dir
   script:
       - echo "Deploying application..."
@@ -79,7 +79,7 @@ frontend_deploy:
       - sudo docker run -d -p 5173:80 --name frontend-container frontend-image
       - echo "Deployed!"
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
     - changes:
         - frontend/**/*
         - .gitlab-ci.yml
@@ -118,7 +118,7 @@ backend_test:
 backend_deploy:
   stage: deploy
   tags:
-    - backend
+    - shell
   <<: *change_to_backend_dir
   script:
     - echo "Deploying application..."
@@ -128,7 +128,7 @@ backend_deploy:
     - sudo docker run -d -p 8000:80 --name backend-container backend-image
     - echo "Deployed!"
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
     - changes:
         - backend/**/*
         - .gitlab-ci.yml
@@ -136,7 +136,7 @@ backend_deploy:
 grobid_deploy:
   stage: deploy
   tags:
-    - backend
+    - shell
   <<: *change_to_backend_dir
   script:
     - echo "Deploying grobid..."
@@ -159,7 +159,15 @@ grobid_deploy:
       exit 1
     - echo "Deployed!"
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
     - changes:
         - backend/**/*
         - .gitlab-ci.yml
+
+cleanup:
+  stage: clean
+  tags:
+    - shell
+  script:
+    - sudo docker image prune -f
+  when: always
