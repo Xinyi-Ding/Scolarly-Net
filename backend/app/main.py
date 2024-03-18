@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI
 from .routers import catalog_api, analysis_api
 from starlette.middleware.cors import CORSMiddleware
@@ -33,4 +35,5 @@ async def root():
 
 if __name__ == '__main__':
     import uvicorn
+    os.environ["TEST_MODE"] = "False"
     uvicorn.run(app, host="localhost", port=8000)
