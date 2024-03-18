@@ -15,7 +15,8 @@ FROM nginx:stable as prod-stage
 
 COPY --from=build-stage /frontend/dist/ /usr/share/nginx/html/
 
-COPY default.conf /etc/nginx/conf.d/default.conf
+#COPY default.conf /etc/nginx/conf.d/default.conf
+CMD ["cat", "/etc/nginx/nginx.conf"]
 
 EXPOSE 81
 
