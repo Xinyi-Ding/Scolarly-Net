@@ -3,6 +3,7 @@ stages:
   - lint
   - test
   - deploy
+  - clean
 
 # define yaml anchors for frontend and backend before_script
 .change_to_frontend_dir: &change_to_frontend_dir
