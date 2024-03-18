@@ -1,3 +1,14 @@
+"""
+This Python module defines various Pydantic models and dataclasses to represent the structure and relationships
+within an academic database system. These models include representations for articles, topics, authors, institutions,
+departments, and various relationships among them, such as author-institution, author-department, article-author,
+article-topic, and article-citation relationships. The models are designed to validate and manage data related to
+academic articles, their metadata, authors, affiliations, and references, ensuring data integrity and facilitating
+data operations in an object-relational mapping (ORM) context. The module utilizes Pydantic for data validation,
+enforcing type hints, and providing detailed error messages for invalid data. It also includes custom validators for
+specific fields like publication dates and DOIs to ensure they meet the required formats.
+"""
+
 import re
 import warnings
 from dataclasses import dataclass
@@ -14,21 +25,51 @@ class SequenceVO(BaseModel):
 
 # Pydantic model for the Article
 class ArticleVO(BaseModel):
-    article_id: Optional[int] = Field(None)
-    title: str
-    abstract: Optional[str] = None
-    publisher: Optional[str] = None
-    date: Optional[str] = None
-    issn: Optional[str] = None
-    eissn: Optional[str] = None
-    volume: Optional[str] = None
-    issue: Optional[str] = None
-    page: Optional[str] = None
-    doi: Optional[str] = None
-    meeting: Optional[str] = None
-    file_path: Optional[str] = None
-    type: Optional[str] = None
-    container_title: Optional[str] = None
+    article_id: Optional[int] = Field(None,
+                                      tile="Article ID",
+                                      description="The unique identifier of the article.")
+    title: str = Field(...,
+                       title="Title",
+                       description="The title of the article.")
+    abstract: Optional[str] = Field(None,
+                                    title="Abstract",
+                                    description="The abstract of the article.")
+    publisher: Optional[str] = Field(None,
+                                     title="Publisher",
+                                     description="The publisher of the article.")
+    date: Optional[str] = Field(None,
+                                title="Publication Date",
+                                description="The publication date of the article.")
+    issn: Optional[str] = Field(None,
+                                title="ISSN",
+                                description="The International Standard Serial Number of the article.")
+    eissn: Optional[str] = Field(None,
+                                 title="EISSN",
+                                 description="The Electronic International Standard Serial Number of the article.")
+    volume: Optional[str] = Field(None,
+                                  title="Volume",
+                                  description="The volume of the article.")
+    issue: Optional[str] = Field(None,
+                                 title="Issue",
+                                 description="The issue of the article.")
+    page: Optional[str] = Field(None,
+                                title="Page",
+                                description="The page number of the article.")
+    doi: Optional[str] = Field(None,
+                               title="DOI",
+                               description="The Digital Object Identifier of the article.")
+    meeting: Optional[str] = Field(None,
+                                   title="Meeting",
+                                   description="The meeting where the article was presented.")
+    file_path: Optional[str] = Field(None,
+                                     title="File Path",
+                                     description="The file path of the article.")
+    type: Optional[str] = Field(None,
+                                title="Type",
+                                description="The type of the article.")
+    container_title: Optional[str] = Field(None,
+                                           title="Container Title",
+                                           description="The title of the container holding the article.")
 
     @validator('date', pre=True, allow_reuse=True)
     def validate_date(cls, v):
@@ -114,30 +155,53 @@ class ArticleVO(BaseModel):
 
 
 class ArticleFilter(ArticleVO):
-    article_id: Optional[int] = None
-    title: Optional[str] = None
-    file_path: Optional[str] = None
+    article_id: Optional[int] = Field(None,
+                                      title="Article ID",
+                                      description="The unique identifier of the article.")
+    title: Optional[str] = Field(None,
+                                 title="Title",
+                                 description="The title of the article.")
+    file_path: Optional[str] = Field(None,
+                                     title="File Path",
+                                     description="The file path of the article.")
 
 
 # Pydantic model for the Topic
 class TopicVO(BaseModel):
-    topic_id: Optional[int] = Field(None)
-    name: str
+    topic_id: Optional[int] = Field(None,
+                                    title="Topic ID",
+                                    description="The unique identifier of the topic.")
+    name: str = Field(...,
+                      title="Name",
+                      description="The name of the topic.")
 
     class Config:
         orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
 
 
 class TopicFilter(TopicVO):
-    topic_id: Optional[int] = None
-    name: Optional[str] = None
+    topic_id: Optional[int] = Field(None,
+                                    title="Topic ID",
+                                    description="The unique identifier of the topic.")
+    name: Optional[str] = Field(None,
+                                title="Name",
+                                description="The name of the topic.")
 
 
 # Pydantic model for the Author
 class AuthorVO(BaseModel):
-    author_id: Optional[int] = Field(None)
-    name: str
-    email: Optional[str] = None
+    author_id: Optional[int] = Field(None,
+                                     title="Author ID",
+                                     description="The unique identifier of the author.")
+    name: str = Field(...,
+                      title="Name",
+                      description="The name of the author.")
+    email: Optional[str] = Field(None,
+                                 title="Email",
+                                 description="The email address of the author.")
+    affiliation: Optional[str] = Field(None,
+                                       title="Affiliation",
+                                       description="The affiliation of the author.")
 
     @validator('email', pre=True, allow_reuse=True)
     def validate_email(cls, v):
@@ -161,112 +225,174 @@ class AuthorVO(BaseModel):
 
 
 class AuthorFilter(AuthorVO):
-    author_id: Optional[int] = None
-    name: Optional[str] = None
+    author_id: Optional[int] = Field(None,
+                                     title="Author ID",
+                                     description="The unique identifier of the author.")
+    name: Optional[str] = Field(None,
+                                title="Name",
+                                description="The name of the author.")
 
 
 # Pydantic model for the Institution
 class InstitutionVO(BaseModel):
-    institution_id: Optional[int] = Field(None)
-    name: str
+    institution_id: Optional[int] = Field(None,
+                                          title="Institution ID",
+                                          description="The unique identifier of the institution.")
+    name: str = Field(...,
+                      title="Name",
+                      description="The name of the institution.")
 
     class Config:
         orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
 
 
 class InstitutionFilter(InstitutionVO):
-    institution_id: Optional[int] = None
-    name: Optional[str] = None
+    institution_id: Optional[int] = Field(None,
+                                          title="Institution ID",
+                                          description="The unique identifier of the institution.")
+    name: Optional[str] = Field(None, title="Name", description="The name of the institution.")
 
 
 # Pydantic model for the Department
 class DepartmentVO(BaseModel):
-    department_id: Optional[int] = Field(None)
-    name: str
-    institution_id: Optional[int] = None  # Assuming you want to reference the Institution by its ID
+    department_id: Optional[int] = Field(None,
+                                         title="Department ID",
+                                         description="The unique identifier of the department.")
+    name: str = Field(...,
+                      title="Name",
+                      description="The name of the department.")
+    institution_id: Optional[int] = Field(None,
+                                          title="Institution ID",
+                                          description="The unique identifier of the institution.")
 
     class Config:
         orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
 
 
 class DepartmentFilter(DepartmentVO):
-    department_id: Optional[int] = None
-    name: Optional[str] = None
+    department_id: Optional[int] = Field(None,
+                                         title="Department ID",
+                                         description="The unique identifier of the department.")
+    name: Optional[str] = Field(None,
+                                title="Name",
+                                description="The name of the department.")
 
 
 # Pydantic model for Author-Institution relationship
 class AuthorInstitutionVO(BaseModel):
-    author_id: int  # Assuming you want to reference the Author by its ID
-    institution_id: int  # Assuming you want to reference the Institution by its ID
+    author_id: int = Field(...,
+                           title="Author ID",
+                           description="The unique identifier of the author.")
+    institution_id: int = Field(...,
+                                title="Institution ID",
+                                description="The unique identifier of the institution.")
 
     class Config:
         orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
 
 
 class AuthorInstitutionFilter(AuthorInstitutionVO):
-    author_id: Optional[int] = None
-    institution_id: Optional[int] = None
+    author_id: Optional[int] = Field(None,
+                                     title="Author ID",
+                                     description="The unique identifier of the author.")
+    institution_id: Optional[int] = Field(None,
+                                          title="Institution ID",
+                                          description="The unique identifier of the institution.")
 
 
 # Pydantic model for Author-Department relationship
 class AuthorDepartmentVO(BaseModel):
-    author_id: int  # Assuming you want to reference the Author by its ID
-    department_id: int  # Assuming you want to reference the Department by its ID
+    author_id: int = Field(...,
+                           title="Author ID",
+                           description="The unique identifier of the author.")
+    department_id: int = Field(...,
+                               title="Department ID",
+                               description="The unique identifier of the department.")
 
     class Config:
         orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
 
 
 class AuthorDepartmentFilter(AuthorDepartmentVO):
-    author_id: Optional[int] = None
-    department_id: Optional[int] = None
+    author_id: Optional[int] = Field(None,
+                                     title="Author ID",
+                                     description="The unique identifier of the author.")
+    department_id: Optional[int] = Field(None,
+                                         title="Department ID",
+                                         description="The unique identifier of the department.")
 
 
 # Pydantic model for Article-Author relationship
 class ArticleAuthorVO(BaseModel):
-    article_id: int  # Assuming you want to reference the Article by its ID
-    author_id: int  # Assuming you want to reference the Author by its ID
+    article_id: int = Field(...,
+                            title="Article ID",
+                            description="The unique identifier of the article.")
+    author_id: int = Field(...,
+                           title="Author ID",
+                           description="The unique identifier of the author.")
 
     class Config:
         orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
 
 
 class ArticleAuthorFilter(ArticleAuthorVO):
-    article_id: Optional[int] = None
-    author_id: Optional[int] = None
+    article_id: Optional[int] = Field(None,
+                                      title="Article ID",
+                                      description="The unique identifier of the article.")
+    author_id: Optional[int] = Field(None,
+                                     title="Author ID",
+                                     description="The unique identifier of the author.")
 
 
 # Pydantic model for Article-Author relationship
 class ArticleTopicVO(BaseModel):
-    article_id: int  # Assuming you want to reference the Article by its ID
-    topic_id: int  # Assuming you want to reference the Topic by its ID
+    article_id: int = Field(...,
+                            title="Article ID",
+                            description="The unique identifier of the article.")
+    topic_id: int = Field(...,
+                          title="Topic ID",
+                          description="The unique identifier of the topic.")
 
     class Config:
         orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
 
 
 class ArticleTopicFilter(ArticleTopicVO):
-    article_id: Optional[int] = None
-    topic_id: Optional[int] = None
+    article_id: Optional[int] = Field(None,
+                                      title="Article ID",
+                                      description="The unique identifier of the article.")
+    topic_id: Optional[int] = Field(None,
+                                    title="Topic ID",
+                                    description="The unique identifier of the topic.")
 
 
 # Pydantic model for Article-Citation relationship
 class ArticleCitationVO(BaseModel):
-    citing_article_id: int  # Assuming you want to reference the citing Article by its ID
-    cited_article_id: int  # Assuming you want to reference the cited Article by its ID
+    citing_article_id: int = Field(...,
+                                   title="Citing Article ID",
+                                   description="The unique identifier of the citing article.")
+    cited_article_id: int = Field(...,
+                                  title="Cited Article ID",
+                                  description="The unique identifier of the cited article.")
 
     class Config:
         orm_mode = True  # Enable ORM mode to allow the model to work with ORM objects.
 
 
 class ArticleCitationFilter(ArticleCitationVO):
-    citing_article_id: Optional[int] = None
-    cited_article_id: Optional[int] = None
+    citing_article_id: Optional[int] = Field(None,
+                                             title="Citing Article ID",
+                                             description="The unique identifier of the citing article.")
+    cited_article_id: Optional[int] = Field(None,
+                                            title="Cited Article ID",
+                                            description="The unique identifier of the cited article.")
 
 
 # Pydantic model for TopicRelationship
 class TopicRelationshipVO(BaseModel):
-    parent_topic_id: int  # Assuming you want to reference the parent Topic by its ID
+    parent_topic_id: int = Field(...,
+                                 title="Parent Topic ID",
+                                 description="The unique identifier of the parent topic.")
     child_topic_id: int  # Assuming you want to reference the child Topic by its ID
 
     class Config:
@@ -274,8 +400,10 @@ class TopicRelationshipVO(BaseModel):
 
 
 class TopicRelationshipFilter(TopicRelationshipVO):
-    parent_topic_id: Optional[int] = None
-    child_topic_id: Optional[int] = None
+    parent_topic_id: Optional[int] = Field(None, title="Parent Topic ID",
+                                           description="The unique identifier of the parent topic.")
+    child_topic_id: Optional[int] = Field(None, title="Child Topic ID",
+                                          description="The unique identifier of the child topic.")
 
 
 # VO class for Metadata, representing the metadata of an article
@@ -303,10 +431,22 @@ class ParseAuthorVO:
     email: Optional[str]  # The email address of the author, which is optional
 
 
+class ParseReferenceAuthorVO(BaseModel):
+    family: str = ''
+    given: str = ''
+
+    @staticmethod
+    def from_dict(data: dict):
+        return ParseReferenceAuthorVO(
+            family=data.get('family', ''),
+            given=data.get('given', '')
+        )
+
+
 # VO class for Reference, representing a reference cited in the article
 @dataclass
 class ParseReferenceVO:
-    authors: List[str]  # A list of authors of the reference
+    authors: List[ParseReferenceAuthorVO]  # A list of authors of the reference
     title: str  # The title of the reference
     type: str  # The type of the reference (e.g., journal article, book)
     container_title: str  # The title of the container holding the reference (e.g., journal name)
@@ -317,9 +457,9 @@ class ParseReferenceVO:
         pass
 
 
-# VO class for Artical, representing the entire article including metadata, content, authors, and references
+# VO class for Article, representing the entire article including metadata, content, authors, and references
 @dataclass
-class ParseArticalVO:
+class ParseArticleVO:
     metadata: ParseMetadataVO  # The metadata of the article
     content: ParseContentVO  # The content of the article
     authors: List[ParseAuthorVO]  # A list of authors of the article
@@ -327,7 +467,7 @@ class ParseArticalVO:
 
     @staticmethod
     def from_dict(data: dict):
-        return ParseArticalVO(
+        return ParseArticleVO(
             metadata=ParseMetadataVO(**data['metadata']),
             content=ParseContentVO(**data['content']),
             authors=[ParseAuthorVO(**author) for author in data['authors']],

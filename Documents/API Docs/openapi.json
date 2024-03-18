@@ -1,0 +1,1780 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/catalog/": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Catalog API Root",
+                "description": "This is the root endpoint of the Catalog API. It provides a quick check to ensure the API is operational and to discover the base URI.",
+                "operationId": "root_catalog__get",
+                "responses": {
+                    "200": {
+                        "description": "Provides a welcome message along with the root URI for the Catalog API.",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/catalog/papers/search": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Search for Papers",
+                "description": "Search for papers based on various filters like title, publication date, DOI, and more.",
+                "operationId": "search_papers_catalog_papers_search_get",
+                "parameters": [
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Article Id",
+                            "type": "integer"
+                        },
+                        "name": "article_id",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Title",
+                            "type": "string"
+                        },
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Abstract",
+                            "type": "string"
+                        },
+                        "name": "abstract",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Publisher",
+                            "type": "string"
+                        },
+                        "name": "publisher",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Date",
+                            "type": "string"
+                        },
+                        "name": "date",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Issn",
+                            "type": "string"
+                        },
+                        "name": "issn",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Eissn",
+                            "type": "string"
+                        },
+                        "name": "eissn",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Volume",
+                            "type": "string"
+                        },
+                        "name": "volume",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Issue",
+                            "type": "string"
+                        },
+                        "name": "issue",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Page",
+                            "type": "string"
+                        },
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Doi",
+                            "type": "string"
+                        },
+                        "name": "doi",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Meeting",
+                            "type": "string"
+                        },
+                        "name": "meeting",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "File Path",
+                            "type": "string"
+                        },
+                        "name": "file_path",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Container Title",
+                            "type": "string"
+                        },
+                        "name": "container_title",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Papers found based on the search criteria",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaperResponse"
+                                },
+                                "example": {
+                                    "code": 200,
+                                    "msg": "Success",
+                                    "data": [
+                                        {
+                                            "id": 98,
+                                            "title": "A method for deriving order compatible fuzzy relations from convex fuzzy partitions",
+                                            "authors": [
+                                                {
+                                                    "id": 219,
+                                                    "name": "Sandra Sandri",
+                                                    "email": "sandra.sandri@inpe.br",
+                                                    "affiliation": "Brazilian National Institute for Space Research (INPE) "
+                                                },
+                                                {
+                                                    "id": 220,
+                                                    "name": "Flávia Toledo Martins-Bedê",
+                                                    "affiliation": "Brazilian National Institute for Space Research (INPE) "
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "code": 500,
+                                    "msg": "Internal Server Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/catalog/topics/search": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Search for Topics",
+                "description": "Search for topics based on topic ID or name.",
+                "operationId": "search_topics_catalog_topics_search_get",
+                "parameters": [
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Topic Id",
+                            "type": "integer"
+                        },
+                        "name": "topic_id",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Name",
+                            "type": "string"
+                        },
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Topics found based on the search criteria",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TopicResponse"
+                                },
+                                "example": {
+                                    "code": 200,
+                                    "msg": "Success",
+                                    "data": [
+                                        {
+                                            "id": 98,
+                                            "topic": "Network data models",
+                                            "count": 1
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "code": 500,
+                                    "msg": "Internal Server Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/catalog/authors/search": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Search for Authors",
+                "description": "Search for authors based on various filters like author ID, name, email, or affiliation.",
+                "operationId": "search_authors_catalog_authors_search_get",
+                "parameters": [
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Author Id",
+                            "type": "integer"
+                        },
+                        "name": "author_id",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Name",
+                            "type": "string"
+                        },
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Email",
+                            "type": "string"
+                        },
+                        "name": "email",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Affiliation",
+                            "type": "string"
+                        },
+                        "name": "affiliation",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Authors found based on the search criteria",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthorResponse"
+                                },
+                                "example": {
+                                    "code": 200,
+                                    "msg": "Success",
+                                    "data": [
+                                        {
+                                            "id": 98,
+                                            "name": "A method for deriving order compatible fuzzy relations from convex fuzzy partitions",
+                                            "count": 1
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "code": 500,
+                                    "msg": "Internal Server Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/catalog/same-topic": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Articles under the Same Topic",
+                "description": "Retrieve articles that are related to the same topic based on a comprehensive set of article filters.",
+                "operationId": "get_same_topic_catalog_same_topic_get",
+                "parameters": [
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Article Id",
+                            "type": "integer"
+                        },
+                        "name": "article_id",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Title",
+                            "type": "string"
+                        },
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Abstract",
+                            "type": "string"
+                        },
+                        "name": "abstract",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Publisher",
+                            "type": "string"
+                        },
+                        "name": "publisher",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Date",
+                            "type": "string"
+                        },
+                        "name": "date",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Issn",
+                            "type": "string"
+                        },
+                        "name": "issn",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Eissn",
+                            "type": "string"
+                        },
+                        "name": "eissn",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Volume",
+                            "type": "string"
+                        },
+                        "name": "volume",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Issue",
+                            "type": "string"
+                        },
+                        "name": "issue",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Page",
+                            "type": "string"
+                        },
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Doi",
+                            "type": "string"
+                        },
+                        "name": "doi",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Meeting",
+                            "type": "string"
+                        },
+                        "name": "meeting",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "File Path",
+                            "type": "string"
+                        },
+                        "name": "file_path",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Container Title",
+                            "type": "string"
+                        },
+                        "name": "container_title",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Articles found based on the search criteria",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SameTopicResponseSchema"
+                                },
+                                "example": {
+                                    "code": 200,
+                                    "msg": "Success",
+                                    "data": {
+                                        "connections": [
+                                            {
+                                                "topic": 10,
+                                                "papers": [
+                                                    98
+                                                ]
+                                            },
+                                            {
+                                                "topic": 11,
+                                                "papers": [
+                                                    98
+                                                ]
+                                            },
+                                            {
+                                                "topic": 12,
+                                                "papers": [
+                                                    98
+                                                ]
+                                            },
+                                            {
+                                                "topic": 13,
+                                                "papers": [
+                                                    98
+                                                ]
+                                            },
+                                            {
+                                                "topic": 14,
+                                                "papers": [
+                                                    98
+                                                ]
+                                            }
+                                        ],
+                                        "topics": [
+                                            {
+                                                "id": 10,
+                                                "name": "Similarity relations"
+                                            },
+                                            {
+                                                "id": 11,
+                                                "name": "Fuzzy relations"
+                                            },
+                                            {
+                                                "id": 12,
+                                                "name": "Fuzzy partitions"
+                                            },
+                                            {
+                                                "id": 13,
+                                                "name": "Total order"
+                                            },
+                                            {
+                                                "id": 14,
+                                                "name": "T-indistinguishable operators"
+                                            }
+                                        ],
+                                        "papers": [
+                                            {
+                                                "id": 98,
+                                                "title": "A method for deriving order compatible fuzzy relations from convex fuzzy partitions",
+                                                "authors": [
+                                                    {
+                                                        "id": 219,
+                                                        "name": "Sandra Sandri",
+                                                        "email": "sandra.sandri@inpe.br",
+                                                        "affiliation": "Brazilian National Institute for Space Research (INPE) "
+                                                    },
+                                                    {
+                                                        "id": 220,
+                                                        "name": "Flávia Toledo Martins-Bedê",
+                                                        "affiliation": "Brazilian National Institute for Space Research (INPE) "
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "code": 500,
+                                    "msg": "Internal Server Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/catalog/co-author": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Co-authorship Information",
+                "description": "Retrieve co-authorship information based on an article's filter.",
+                "operationId": "get_co_author_catalog_co_author_get",
+                "parameters": [
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Article Id",
+                            "type": "integer"
+                        },
+                        "name": "article_id",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Title",
+                            "type": "string"
+                        },
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Abstract",
+                            "type": "string"
+                        },
+                        "name": "abstract",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Publisher",
+                            "type": "string"
+                        },
+                        "name": "publisher",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Date",
+                            "type": "string"
+                        },
+                        "name": "date",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Issn",
+                            "type": "string"
+                        },
+                        "name": "issn",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Eissn",
+                            "type": "string"
+                        },
+                        "name": "eissn",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Volume",
+                            "type": "string"
+                        },
+                        "name": "volume",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Issue",
+                            "type": "string"
+                        },
+                        "name": "issue",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Page",
+                            "type": "string"
+                        },
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Doi",
+                            "type": "string"
+                        },
+                        "name": "doi",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Meeting",
+                            "type": "string"
+                        },
+                        "name": "meeting",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "File Path",
+                            "type": "string"
+                        },
+                        "name": "file_path",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Container Title",
+                            "type": "string"
+                        },
+                        "name": "container_title",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Co-authorship information found based on the search criteria",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CoAuthorResponseSchema"
+                                },
+                                "example": {
+                                    "code": 200,
+                                    "msg": "Success",
+                                    "data": {
+                                        "connections": [
+                                            {
+                                                "author": 219,
+                                                "papers": [
+                                                    98
+                                                ]
+                                            },
+                                            {
+                                                "author": 220,
+                                                "papers": [
+                                                    98
+                                                ]
+                                            }
+                                        ],
+                                        "authors": [
+                                            {
+                                                "id": 219,
+                                                "name": "Sandra Sandri",
+                                                "email": "sandra.sandri@inpe.br",
+                                                "affiliation": "Brazilian National Institute for Space Research (INPE)"
+                                            },
+                                            {
+                                                "id": 220,
+                                                "name": "Flávia Toledo Martins-Bedê",
+                                                "affiliation": "Brazilian National Institute for Space Research (INPE)"
+                                            }
+                                        ],
+                                        "papers": [
+                                            {
+                                                "id": 98,
+                                                "title": "A method for deriving order compatible fuzzy relations from convex fuzzy partitions",
+                                                "authors": [
+                                                    {
+                                                        "id": 219,
+                                                        "name": "Sandra Sandri",
+                                                        "email": "sandra.sandri@inpe.br",
+                                                        "affiliation": "Brazilian National Institute for Space Research (INPE) "
+                                                    },
+                                                    {
+                                                        "id": 220,
+                                                        "name": "Flávia Toledo Martins-Bedê",
+                                                        "affiliation": "Brazilian National Institute for Space Research (INPE) "
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "code": 500,
+                                    "msg": "Internal Server Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/catalog/cited-tree": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Cited Tree of an Article",
+                "description": "Retrieve the citation tree of an article based on an article's filter.",
+                "operationId": "get_cited_tree_catalog_cited_tree_get",
+                "parameters": [
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Article Id",
+                            "type": "integer"
+                        },
+                        "name": "article_id",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Title",
+                            "type": "string"
+                        },
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Abstract",
+                            "type": "string"
+                        },
+                        "name": "abstract",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Publisher",
+                            "type": "string"
+                        },
+                        "name": "publisher",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Date",
+                            "type": "string"
+                        },
+                        "name": "date",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Issn",
+                            "type": "string"
+                        },
+                        "name": "issn",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Eissn",
+                            "type": "string"
+                        },
+                        "name": "eissn",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Volume",
+                            "type": "string"
+                        },
+                        "name": "volume",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Issue",
+                            "type": "string"
+                        },
+                        "name": "issue",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Page",
+                            "type": "string"
+                        },
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Doi",
+                            "type": "string"
+                        },
+                        "name": "doi",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Meeting",
+                            "type": "string"
+                        },
+                        "name": "meeting",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "File Path",
+                            "type": "string"
+                        },
+                        "name": "file_path",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Container Title",
+                            "type": "string"
+                        },
+                        "name": "container_title",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cited tree found based on the search criteria",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CitedTreeResponseSchema"
+                                },
+                                "example": {
+                                    "code": 200,
+                                    "msg": "Success",
+                                    "data": {
+                                        "connections": [
+                                            {
+                                                "from_paper": 98,
+                                                "to_paper": [
+                                                    75,
+                                                    99
+                                                ]
+                                            }
+                                        ],
+                                        "papers": [
+                                            {
+                                                "id": 75,
+                                                "title": "A coloring algorithm for image classification, Inf",
+                                                "authors": [
+                                                    {
+                                                        "id": 142,
+                                                        "name": "J. Montero"
+                                                    },
+                                                    {
+                                                        "id": 169,
+                                                        "name": "R. Mesiar"
+                                                    },
+                                                    {
+                                                        "id": 188,
+                                                        "name": "D. Gómez"
+                                                    },
+                                                    {
+                                                        "id": 189,
+                                                        "name": "J. Yáñez"
+                                                    },
+                                                    {
+                                                        "id": 229,
+                                                        "name": "B. Baets"
+                                                    },
+                                                    {
+                                                        "id": 230,
+                                                        "name": "T.-partitions"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "id": 98,
+                                                "title": "A method for deriving order compatible fuzzy relations from convex fuzzy partitions",
+                                                "authors": [
+                                                    {
+                                                        "id": 219,
+                                                        "name": "Sandra Sandri",
+                                                        "email": "sandra.sandri@inpe.br",
+                                                        "affiliation": "Brazilian National Institute for Space Research (INPE) "
+                                                    },
+                                                    {
+                                                        "id": 220,
+                                                        "name": "Flávia Toledo Martins-Bedê",
+                                                        "affiliation": "Brazilian National Institute for Space Research (INPE) "
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "id": 99,
+                                                "title": "On learning similarity relations in fuzzy case-based reasoning",
+                                                "authors": [
+                                                    {
+                                                        "id": 221,
+                                                        "name": "E. Armengol"
+                                                    },
+                                                    {
+                                                        "id": 222,
+                                                        "name": "F. Esteva"
+                                                    },
+                                                    {
+                                                        "id": 223,
+                                                        "name": "L. Godo"
+                                                    },
+                                                    {
+                                                        "id": 224,
+                                                        "name": "V. Torra"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "code": 500,
+                                    "msg": "Internal Server Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/analysis/": {
+            "get": {
+                "tags": [
+                    "analysis"
+                ],
+                "summary": "Analysis API Root",
+                "description": "This is the root endpoint of the Analysis API. It can be used to check if the API is up and running.",
+                "operationId": "root_analysis__get",
+                "responses": {
+                    "200": {
+                        "description": "A welcome message and the root URI.",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/analysis/upload/": {
+            "post": {
+                "tags": [
+                    "analysis"
+                ],
+                "summary": "Upload a document",
+                "description": "Upload a document to the server and process it. The document will be saved, analyzed, and the extracted information will be stored.",
+                "operationId": "upload_document_analysis_upload__post",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_upload_document_analysis_upload__post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Document uploaded and processed successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "message": "File uploaded successfully",
+                                    "data": {
+                                        "title": "Example Title",
+                                        "authors": [
+                                            {
+                                                "name": "Author One",
+                                                "affiliation": "University of Examples"
+                                            }
+                                        ],
+                                        "abstract": "This is an example of an abstract from the uploaded document.",
+                                        "keywords": [
+                                            "example",
+                                            "document",
+                                            "upload"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "detail": "Could not save file"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/": {
+            "get": {
+                "summary": "API Root",
+                "description": "This is the root endpoint of the API. It serves as an initial point to check the API status and discover the base URI.",
+                "operationId": "root__get",
+                "responses": {
+                    "200": {
+                        "description": "Provides a welcome message and the base URI of the API.",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AuthorItemSchema": {
+                "title": "AuthorItemSchema",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "title": "Author ID",
+                        "type": "integer",
+                        "description": "The unique identifier of the author."
+                    },
+                    "name": {
+                        "title": "Author Name",
+                        "type": "string",
+                        "description": "The name of the author."
+                    },
+                    "count": {
+                        "title": "Paper Count",
+                        "type": "integer",
+                        "description": "The number of papers by the author."
+                    }
+                }
+            },
+            "AuthorResponse": {
+                "title": "AuthorResponse",
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "title": "HTTP status code",
+                        "type": "integer",
+                        "description": "The HTTP status code of the response.",
+                        "default": 200
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string",
+                        "description": "The message of the response.",
+                        "default": "success"
+                    },
+                    "data": {
+                        "title": "Author List",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AuthorItemSchema"
+                        },
+                        "description": "The list of authors.",
+                        "default": []
+                    }
+                }
+            },
+            "AuthorSchema": {
+                "title": "AuthorSchema",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "title": "Author ID",
+                        "type": "integer",
+                        "description": "The unique identifier of the author."
+                    },
+                    "name": {
+                        "title": "Author Name",
+                        "type": "string",
+                        "description": "The name of the author."
+                    },
+                    "email": {
+                        "title": "Author Email",
+                        "type": "string",
+                        "description": "The email of the author."
+                    },
+                    "affiliation": {
+                        "title": "Author Affiliation",
+                        "type": "string",
+                        "description": "The affiliation of the author."
+                    }
+                }
+            },
+            "Body_upload_document_analysis_upload__post": {
+                "title": "Body_upload_document_analysis_upload__post",
+                "required": [
+                    "file"
+                ],
+                "type": "object",
+                "properties": {
+                    "file": {
+                        "title": "File",
+                        "type": "string",
+                        "description": "The document file to be uploaded.",
+                        "format": "binary"
+                    }
+                }
+            },
+            "CitedConnectionItemSchema": {
+                "title": "CitedConnectionItemSchema",
+                "required": [
+                    "from_paper"
+                ],
+                "type": "object",
+                "properties": {
+                    "from_paper": {
+                        "title": "From Paper ID",
+                        "type": "integer",
+                        "description": "The unique identifier of the paper."
+                    },
+                    "to_paper": {
+                        "title": "To Paper List",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "The list of papers cited by the from paper.",
+                        "default": []
+                    }
+                }
+            },
+            "CitedTreeDataSchema": {
+                "title": "CitedTreeDataSchema",
+                "type": "object",
+                "properties": {
+                    "connections": {
+                        "title": "Connection List",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CitedConnectionItemSchema"
+                        },
+                        "description": "The list of connections.",
+                        "default": []
+                    },
+                    "papers": {
+                        "title": "Paper List",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PaperItemSchema"
+                        },
+                        "description": "The list of papers.",
+                        "default": []
+                    }
+                }
+            },
+            "CitedTreeResponseSchema": {
+                "title": "CitedTreeResponseSchema",
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "title": "HTTP status code",
+                        "type": "integer",
+                        "description": "The HTTP status code of the response.",
+                        "default": 200
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string",
+                        "description": "The message of the response.",
+                        "default": "success"
+                    },
+                    "data": {
+                        "title": "Data",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CitedTreeDataSchema"
+                            }
+                        ],
+                        "description": "The data of the response.",
+                        "default": {}
+                    }
+                }
+            },
+            "CoAuthorConnectionItemSchema": {
+                "title": "CoAuthorConnectionItemSchema",
+                "type": "object",
+                "properties": {
+                    "author": {
+                        "title": "Author ID",
+                        "type": "integer",
+                        "description": "The unique identifier of the author."
+                    },
+                    "papers": {
+                        "title": "Paper List",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "The list of papers by the author.",
+                        "default": []
+                    }
+                }
+            },
+            "CoAuthorDataSchema": {
+                "title": "CoAuthorDataSchema",
+                "type": "object",
+                "properties": {
+                    "connections": {
+                        "title": "Connection List",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CoAuthorConnectionItemSchema"
+                        },
+                        "description": "The list of connections.",
+                        "default": []
+                    },
+                    "authors": {
+                        "title": "Author List",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AuthorSchema"
+                        },
+                        "description": "The list of authors.",
+                        "default": []
+                    },
+                    "papers": {
+                        "title": "Paper List",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PaperItemSchema"
+                        },
+                        "description": "The list of papers.",
+                        "default": []
+                    }
+                }
+            },
+            "CoAuthorResponseSchema": {
+                "title": "CoAuthorResponseSchema",
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "title": "HTTP status code",
+                        "type": "integer",
+                        "description": "The HTTP status code of the response.",
+                        "default": 200
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string",
+                        "description": "The message of the response.",
+                        "default": "success"
+                    },
+                    "data": {
+                        "title": "Data",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CoAuthorDataSchema"
+                            }
+                        ],
+                        "description": "The data of the response.",
+                        "default": {}
+                    }
+                }
+            },
+            "HTTPValidationError": {
+                "title": "HTTPValidationError",
+                "type": "object",
+                "properties": {
+                    "detail": {
+                        "title": "Detail",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        }
+                    }
+                }
+            },
+            "PaperItemSchema": {
+                "title": "PaperItemSchema",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "title": "Paper ID",
+                        "type": "integer",
+                        "description": "The unique identifier of the paper."
+                    },
+                    "title": {
+                        "title": "Paper Title",
+                        "type": "string",
+                        "description": "The title of the paper."
+                    },
+                    "authors": {
+                        "title": "Paper Authors",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AuthorSchema"
+                        },
+                        "description": "The authors of the paper.",
+                        "default": []
+                    }
+                }
+            },
+            "PaperResponse": {
+                "title": "PaperResponse",
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "title": "HTTP status code",
+                        "type": "integer",
+                        "description": "The HTTP status code of the response.",
+                        "default": 200
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string",
+                        "description": "The message of the response.",
+                        "default": "success"
+                    },
+                    "data": {
+                        "title": "Paper List",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PaperItemSchema"
+                        },
+                        "description": "The list of papers.",
+                        "default": []
+                    }
+                }
+            },
+            "SameTopicConnectionItemSchema": {
+                "title": "SameTopicConnectionItemSchema",
+                "type": "object",
+                "properties": {
+                    "topic": {
+                        "title": "Topic ID",
+                        "type": "integer",
+                        "description": "The unique identifier of the topic."
+                    },
+                    "papers": {
+                        "title": "Paper List",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "The list of papers in the topic.",
+                        "default": []
+                    }
+                }
+            },
+            "SameTopicDataSchema": {
+                "title": "SameTopicDataSchema",
+                "type": "object",
+                "properties": {
+                    "connections": {
+                        "title": "Connection List",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SameTopicConnectionItemSchema"
+                        },
+                        "description": "The list of connections.",
+                        "default": []
+                    },
+                    "topics": {
+                        "title": "Topic List",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TopicSchema"
+                        },
+                        "description": "The list of topics.",
+                        "default": []
+                    },
+                    "papers": {
+                        "title": "Paper List",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PaperItemSchema"
+                        },
+                        "description": "The list of papers.",
+                        "default": []
+                    }
+                }
+            },
+            "SameTopicResponseSchema": {
+                "title": "SameTopicResponseSchema",
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "title": "HTTP status code",
+                        "type": "integer",
+                        "description": "The HTTP status code of the response.",
+                        "default": 200
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string",
+                        "description": "The message of the response.",
+                        "default": "success"
+                    },
+                    "data": {
+                        "title": "Data",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SameTopicDataSchema"
+                            }
+                        ],
+                        "description": "The data of the response.",
+                        "default": {}
+                    }
+                }
+            },
+            "TopicItemSchema": {
+                "title": "TopicItemSchema",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "title": "Topic ID",
+                        "type": "integer",
+                        "description": "The unique identifier of the topic."
+                    },
+                    "topic": {
+                        "title": "Topic Name",
+                        "type": "string",
+                        "description": "The name of the topic."
+                    },
+                    "count": {
+                        "title": "Paper Count",
+                        "type": "integer",
+                        "description": "The number of papers in the topic."
+                    }
+                }
+            },
+            "TopicResponse": {
+                "title": "TopicResponse",
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "title": "HTTP status code",
+                        "type": "integer",
+                        "description": "The HTTP status code of the response.",
+                        "default": 200
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string",
+                        "description": "The message of the response.",
+                        "default": "success"
+                    },
+                    "data": {
+                        "title": "Topic List",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TopicItemSchema"
+                        },
+                        "description": "The list of topics.",
+                        "default": []
+                    }
+                }
+            },
+            "TopicSchema": {
+                "title": "TopicSchema",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "title": "Topic ID",
+                        "type": "integer",
+                        "description": "The unique identifier of the topic."
+                    },
+                    "name": {
+                        "title": "Topic Name",
+                        "type": "string",
+                        "description": "The name of the topic."
+                    }
+                }
+            },
+            "ValidationError": {
+                "title": "ValidationError",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "type": "object",
+                "properties": {
+                    "loc": {
+                        "title": "Location",
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        }
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string"
+                    },
+                    "type": {
+                        "title": "Error Type",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

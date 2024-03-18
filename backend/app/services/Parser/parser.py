@@ -2,7 +2,7 @@ import io
 import json
 import subprocess
 import tempfile
-from .types import Metadata, Content, Artical, Reference, Author
+from .types import Metadata, Content, ArticleObject, Reference, Author
 from typing import AnyStr, Dict, List, Optional
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
@@ -72,10 +72,10 @@ class Parser(object):
         self.xml_namespace = "http://www.w3.org/XML/1998/namespace"
         self.tei_namespace = "http://www.tei-c.org/ns/1.0"
         self.etree = self._string_to_tree()
-        self.artical = self.parse_artical()
+        self.article = self.parse_article()
 
-    def parse_artical(self):
-        return Artical(
+    def parse_article(self):
+        return ArticleObject(
             metadata=self._parse_metadata(),
             content=self._parse_content(),
             references=self._parse_reference(),

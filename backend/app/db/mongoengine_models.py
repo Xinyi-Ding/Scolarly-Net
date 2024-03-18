@@ -1,3 +1,10 @@
+"""
+This Python module sets up a data model for an academic paper management system using the MongoEngine ODM (
+Object-Document Mapper). It defines data schemas and relationships for articles, authors, topics, institutions,
+and departments with MongoDB as the underlying database. The module handles the database connection, which can be
+toggled between a test and production environment using a configuration setting.
+"""
+
 from mongoengine import Document, connect
 from mongoengine.fields import (
     StringField, IntField, DateField
@@ -116,6 +123,8 @@ class Author(Document):
     name = StringField(required=True, max_length=255)
     # The email address of the author. This field can be null but should be unique if provided.
     email = StringField(unique=True, max_length=255, sparse=True)
+    # The affiliation of the author. This field can be null.
+    affiliation = StringField(max_length=255)
 
     def clean(self):
         # Convert empty strings or other "empty" values to None for unique fields

@@ -1,12 +1,26 @@
 FROM node:20 as build-stage
-WORKDIR /app
+
+WORKDIR /frontend
+
 COPY package*.json ./
+
 RUN npm install
+
 COPY . .
+
 RUN npm run build
 
 # run the app in a nginx server
 FROM nginx:stable as prod-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
-EXPOSE 80
+
+COPY --from=build-stage /frontend/dist/ /usr/share/nginx/html/
+
+COPY default.conf /etc/nginx/conf.d/default.conf
+
+RUN ["ls", "/etc/nginx/conf.d"]
+RUN ["cat", "/etc/nginx/nginx.conf"]
+RUN ["cat", "/etc/nginx/conf.d/default.conf"]
+
+EXPOSE 5173
+
 CMD ["nginx", "-g", "daemon off;"]

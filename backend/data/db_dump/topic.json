@@ -1,0 +1,804 @@
+[{
+  "_id": 1,
+  "name": "Aggregation operators"
+},
+{
+  "_id": 2,
+  "name": "Stability"
+},
+{
+  "_id": 3,
+  "name": "Prioritized operators"
+},
+{
+  "_id": 4,
+  "name": "Hierarchical data"
+},
+{
+  "_id": 5,
+  "name": "Consistency"
+},
+{
+  "_id": 6,
+  "name": "Self-identity"
+},
+{
+  "_id": 7,
+  "name": "Fuzzy sets"
+},
+{
+  "_id": 8,
+  "name": "Home environment"
+},
+{
+  "_id": 9,
+  "name": "Social indexes"
+},
+{
+  "_id": 10,
+  "name": "Similarity relations"
+},
+{
+  "_id": 11,
+  "name": "Fuzzy relations"
+},
+{
+  "_id": 12,
+  "name": "Fuzzy partitions"
+},
+{
+  "_id": 13,
+  "name": "Total order"
+},
+{
+  "_id": 14,
+  "name": "T-indistinguishable operators"
+},
+{
+  "_id": 15,
+  "name": "board games"
+},
+{
+  "_id": 16,
+  "name": "educational games"
+},
+{
+  "_id": 17,
+  "name": "environmental communication"
+},
+{
+  "_id": 18,
+  "name": "games for change"
+},
+{
+  "_id": 19,
+  "name": "sustainability"
+},
+{
+  "_id": 20,
+  "name": "C"
+},
+{
+  "_id": 21,
+  "name": "5"
+},
+{
+  "_id": 22,
+  "name": "0 [Computer Systems Implementation]: General"
+},
+{
+  "_id": 23,
+  "name": "F.1.2 Algorithms"
+},
+{
+  "_id": 24,
+  "name": "Performance"
+},
+{
+  "_id": 25,
+  "name": "Reliability"
+},
+{
+  "_id": 26,
+  "name": "Languages"
+},
+{
+  "_id": 27,
+  "name": "Harry Potter"
+},
+{
+  "_id": 28,
+  "name": "Order of the Phoenix"
+},
+{
+  "_id": 29,
+  "name": "Apocalyptic Literature"
+},
+{
+  "_id": 30,
+  "name": "Apocalypse"
+},
+{
+  "_id": 31,
+  "name": "Armageddon"
+},
+{
+  "_id": 32,
+  "name": "J.K. Rowling"
+},
+{
+  "_id": 33,
+  "name": "Christianity"
+},
+{
+  "_id": 34,
+  "name": "Revelation"
+},
+{
+  "_id": 35,
+  "name": "Symbolism"
+},
+{
+  "_id": 36,
+  "name": "Righteous Remnant"
+},
+{
+  "_id": 37,
+  "name": "Dualism"
+},
+{
+  "_id": 38,
+  "name": "Prophecy"
+},
+{
+  "_id": 39,
+  "name": "Bible"
+},
+{
+  "_id": 40,
+  "name": "D.1.3 [Concurrent Programming]: Parallel Programming exascale"
+},
+{
+  "_id": 41,
+  "name": "many-core"
+},
+{
+  "_id": 42,
+  "name": "parallel"
+},
+{
+  "_id": 43,
+  "name": "program execution model"
+},
+{
+  "_id": 44,
+  "name": "dynamic"
+},
+{
+  "_id": 45,
+  "name": "adaptive"
+},
+{
+  "_id": 46,
+  "name": "runtime"
+},
+{
+  "_id": 47,
+  "name": "codelet"
+},
+{
+  "_id": 48,
+  "name": "H.3.7 [Digital Libraries]: Systems issues Digital library"
+},
+{
+  "_id": 49,
+  "name": "Epidemiology"
+},
+{
+  "_id": 50,
+  "name": "Simulation"
+},
+{
+  "_id": 51,
+  "name": "D.2.4 [Software/Program Verification]: Model checking-Assertion checkers"
+},
+{
+  "_id": 52,
+  "name": "D.2.5 [Testing and Debugging]: Distributed debugging -Error handling and recovery Reliability"
+},
+{
+  "_id": 53,
+  "name": "Verification software verification"
+},
+{
+  "_id": 54,
+  "name": "mock objects"
+},
+{
+  "_id": 55,
+  "name": "MPI"
+},
+{
+  "_id": 56,
+  "name": "exascale"
+},
+{
+  "_id": 57,
+  "name": "HPC application scalability"
+},
+{
+  "_id": 58,
+  "name": "performance analysis"
+},
+{
+  "_id": 59,
+  "name": "in-situ visualisation"
+},
+{
+  "_id": 60,
+  "name": "JUQUEEN"
+},
+{
+  "_id": 61,
+  "name": "IBM Blue Gene/Q"
+},
+{
+  "_id": 62,
+  "name": "High-Q Club"
+},
+{
+  "_id": 63,
+  "name": "Fault tolerance"
+},
+{
+  "_id": 64,
+  "name": "Dynamic memory"
+},
+{
+  "_id": 65,
+  "name": "Nonvolatile memory"
+},
+{
+  "_id": 66,
+  "name": "•Software and its engineering → Checkpoint / restart"
+},
+{
+  "_id": 67,
+  "name": "fault tolerance"
+},
+{
+  "_id": 68,
+  "name": "checkpoint/restart"
+},
+{
+  "_id": 69,
+  "name": "ECC"
+},
+{
+  "_id": 70,
+  "name": "CCS Concepts"
+},
+{
+  "_id": 71,
+  "name": "Human-Centered Computing➝Accessibility➝Accessibility Theory, Concepts and Paradigms Mobile computing"
+},
+{
+  "_id": 72,
+  "name": "mobile accessibility"
+},
+{
+  "_id": 73,
+  "name": "app accessibility"
+},
+{
+  "_id": 74,
+  "name": "accessibility assessment"
+},
+{
+  "_id": 75,
+  "name": "conceptual framework"
+},
+{
+  "_id": 76,
+  "name": "epidemiology"
+},
+{
+  "_id": 77,
+  "name": "Argo"
+},
+{
+  "_id": 78,
+  "name": "In Situ Workflows"
+},
+{
+  "_id": 79,
+  "name": "Exascale"
+},
+{
+  "_id": 80,
+  "name": "System Software"
+},
+{
+  "_id": 81,
+  "name": "Descriptive"
+},
+{
+  "_id": 82,
+  "name": "neonatal death"
+},
+{
+  "_id": 83,
+  "name": "GIS"
+},
+{
+  "_id": 84,
+  "name": "SPH"
+},
+{
+  "_id": 85,
+  "name": "mini-app"
+},
+{
+  "_id": 86,
+  "name": "parallelization"
+},
+{
+  "_id": 87,
+  "name": "performance"
+},
+{
+  "_id": 88,
+  "name": "algorithms"
+},
+{
+  "_id": 89,
+  "name": "Sars-CoV2"
+},
+{
+  "_id": 90,
+  "name": "etiology"
+},
+{
+  "_id": 91,
+  "name": "disease"
+},
+{
+  "_id": 92,
+  "name": "Vulnerability"
+},
+{
+  "_id": 93,
+  "name": "Impact Analysis"
+},
+{
+  "_id": 94,
+  "name": "Repository Mining"
+},
+{
+  "_id": 95,
+  "name": "Patch Detection"
+},
+{
+  "_id": 96,
+  "name": "CCS Concepts:"
+},
+{
+  "_id": 97,
+  "name": "Information systems → Digital libraries and archives"
+},
+{
+  "_id": 98,
+  "name": "Network data models"
+},
+{
+  "_id": 99,
+  "name": "Database performance evaluation Object-Graph Mapping,Graph Databases,Digital Archives, CIDOC CRM,Comparison"
+},
+{
+  "_id": 100,
+  "name": "Computational and data-intensive (CDI) research"
+},
+{
+  "_id": 101,
+  "name": "Xpert Network"
+},
+{
+  "_id": 102,
+  "name": "CDI research support"
+},
+{
+  "_id": 103,
+  "name": "Best practices"
+},
+{
+  "_id": 104,
+  "name": "Collaboration in CDI research"
+},
+{
+  "_id": 105,
+  "name": "Slingshot"
+},
+{
+  "_id": 106,
+  "name": "AMD GPUs"
+},
+{
+  "_id": 107,
+  "name": "Interconnect Technology"
+},
+{
+  "_id": 108,
+  "name": "data distribution"
+},
+{
+  "_id": 109,
+  "name": "software defined networking"
+},
+{
+  "_id": 110,
+  "name": "Energy Eiciency"
+},
+{
+  "_id": 111,
+  "name": "Low Power"
+},
+{
+  "_id": 112,
+  "name": "Speciication"
+},
+{
+  "_id": 113,
+  "name": "Modeling"
+},
+{
+  "_id": 114,
+  "name": "Low Power Optimizations"
+},
+{
+  "_id": 115,
+  "name": "Platform-Level Power Management"
+},
+{
+  "_id": 116,
+  "name": "Dynamic Power Management"
+},
+{
+  "_id": 117,
+  "name": "Black-Box Optimization"
+},
+{
+  "_id": 118,
+  "name": "Distributed Algorithms"
+},
+{
+  "_id": 119,
+  "name": "Parallelization"
+},
+{
+  "_id": 120,
+  "name": "Evolution Strategies"
+},
+{
+  "_id": 121,
+  "name": "Neuroevolution"
+},
+{
+  "_id": 122,
+  "name": "Software and its engineering → Software development process management"
+},
+{
+  "_id": 123,
+  "name": "• Computing methodologies → Ontology engineering"
+},
+{
+  "_id": 124,
+  "name": "Semantic networks"
+},
+{
+  "_id": 125,
+  "name": "• Information systems → Semantic web description languages"
+},
+{
+  "_id": 126,
+  "name": "Information integration knowledge graphs, knowledge graph construction, development process semantic network, information integration"
+},
+{
+  "_id": 127,
+  "name": "Graph summarization"
+},
+{
+  "_id": 128,
+  "name": "minimum description length"
+},
+{
+  "_id": 129,
+  "name": "hierarchical label"
+},
+{
+  "_id": 130,
+  "name": "massively multiplayer online role-playing game"
+},
+{
+  "_id": 131,
+  "name": "multiobjective optimization"
+},
+{
+  "_id": 132,
+  "name": "blackbox optimization"
+},
+{
+  "_id": 133,
+  "name": "trust region methods"
+},
+{
+  "_id": 134,
+  "name": "response surface methodology"
+},
+{
+  "_id": 135,
+  "name": "adaptive weighting schemes"
+},
+{
+  "_id": 136,
+  "name": "Information systems → Data mining;"
+},
+{
+  "_id": 137,
+  "name": "Computing methodologies → Anomaly detection Graph anomaly detection, Graph encoding, Graph motifs"
+},
+{
+  "_id": 138,
+  "name": "Profiling"
+},
+{
+  "_id": 139,
+  "name": "analysis"
+},
+{
+  "_id": 140,
+  "name": "runtime systems"
+},
+{
+  "_id": 141,
+  "name": "heterogeneous memory management"
+},
+{
+  "_id": 142,
+  "name": "Green computing"
+},
+{
+  "_id": 143,
+  "name": "database systems"
+},
+{
+  "_id": 144,
+  "name": "energy consumption modeling"
+},
+{
+  "_id": 145,
+  "name": "energy management"
+},
+{
+  "_id": 146,
+  "name": "energy eiciency"
+},
+{
+  "_id": 147,
+  "name": "energy proportionality"
+},
+{
+  "_id": 148,
+  "name": "Information systems → Graph-based database models"
+},
+{
+  "_id": 149,
+  "name": "Temporal data"
+},
+{
+  "_id": 150,
+  "name": "Database query processing Graph index, Transmission cluster, COVID-19"
+},
+{
+  "_id": 151,
+  "name": "Numerical software"
+},
+{
+  "_id": 152,
+  "name": "object-oriented design"
+},
+{
+  "_id": 153,
+  "name": "time integration"
+},
+{
+  "_id": 154,
+  "name": "nonlinear solvers"
+},
+{
+  "_id": 155,
+  "name": "highperformance computing"
+},
+{
+  "_id": 156,
+  "name": "Computing methodologies → Natural language generation;"
+},
+{
+  "_id": 157,
+  "name": "Theory of computation → Machine learning theory Graph pooling, Multimodal Graph, Multimodal sequence analysis, Sentiment analysis"
+},
+{
+  "_id": 158,
+  "name": "Vincent van Gogh"
+},
+{
+  "_id": 159,
+  "name": "color extraction"
+},
+{
+  "_id": 160,
+  "name": "color theory"
+},
+{
+  "_id": 161,
+  "name": "color harmony"
+},
+{
+  "_id": 162,
+  "name": "data visualization"
+},
+{
+  "_id": 163,
+  "name": "timeline"
+},
+{
+  "_id": 164,
+  "name": "digital museum"
+},
+{
+  "_id": 165,
+  "name": "game-based learning"
+},
+{
+  "_id": 166,
+  "name": "board game"
+},
+{
+  "_id": 167,
+  "name": "adult education"
+},
+{
+  "_id": 168,
+  "name": "competences and skills"
+},
+{
+  "_id": 169,
+  "name": "learning outcome"
+},
+{
+  "_id": 170,
+  "name": "adolescence"
+},
+{
+  "_id": 171,
+  "name": "hero"
+},
+{
+  "_id": 172,
+  "name": "anima/animus"
+},
+{
+  "_id": 173,
+  "name": "literature"
+},
+{
+  "_id": 174,
+  "name": "narcissism"
+},
+{
+  "_id": 175,
+  "name": "trauma"
+},
+{
+  "_id": 176,
+  "name": "Mathematical Modelling"
+},
+{
+  "_id": 177,
+  "name": "Celebrity"
+},
+{
+  "_id": 178,
+  "name": "Board game"
+},
+{
+  "_id": 179,
+  "name": "Chess"
+},
+{
+  "_id": 180,
+  "name": "Dementia"
+},
+{
+  "_id": 181,
+  "name": "Go"
+},
+{
+  "_id": 182,
+  "name": "Lifestyle modification"
+},
+{
+  "_id": 183,
+  "name": "Shogi"
+},
+{
+  "_id": 184,
+  "name": "Systematic review"
+},
+{
+  "_id": 185,
+  "name": "Education"
+},
+{
+  "_id": 186,
+  "name": "Cognitive function"
+},
+{
+  "_id": 187,
+  "name": "G.2.2 [Discrete Mathematics]: Graph Theory-Graph labeling"
+},
+{
+  "_id": 188,
+  "name": "Hypergraphs"
+},
+{
+  "_id": 189,
+  "name": "Network problems"
+},
+{
+  "_id": 190,
+  "name": "Path and circuit problems"
+},
+{
+  "_id": 191,
+  "name": "H.2.1 [Database Management]: Logical Design-Data models"
+},
+{
+  "_id": 192,
+  "name": "schema and Subschema"
+},
+{
+  "_id": 193,
+  "name": "H.2.3 [Database Management]: Languages-Query languages"
+},
+{
+  "_id": 194,
+  "name": "Data description languages (DDL)"
+},
+{
+  "_id": 195,
+  "name": "Data manipulation languages (DML)"
+},
+{
+  "_id": 196,
+  "name": "Query languages"
+},
+{
+  "_id": 197,
+  "name": "H.2.5 [Database Management]: Heterogeneous Databases"
+},
+{
+  "_id": 199,
+  "name": "speaking"
+},
+{
+  "_id": 200,
+  "name": "education"
+},
+{
+  "_id": 201,
+  "name": "English"
+},
+{
+  "_id": 202,
+  "name": "pupils' perceptions"
+}]

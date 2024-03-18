@@ -1,3 +1,10 @@
+"""
+This module provides generic CRUD (Create, Read, Update, Delete) operations classes for interacting with MongoDB
+using the MongoEngine ODM. It defines type-safe interfaces to perform database operations on various entities such as
+articles, topics, authors, institutions, and their relationships. Each CRUD class is specialized for a particular
+entity and extends from a generic base class, ensuring a consistent and type-checked way to handle database
+operations across different parts of the application.
+"""
 from mongoengine import Q, DoesNotExist
 from typing import List, TypeVar, Generic
 
