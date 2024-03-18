@@ -304,10 +304,22 @@ class ParseAuthorVO:
     email: Optional[str]  # The email address of the author, which is optional
 
 
+class ParseReferenceAuthorVO(BaseModel):
+    family: str = ''
+    given: str = ''
+
+    @staticmethod
+    def from_dict(data: dict):
+        return ParseReferenceAuthorVO(
+            family=data.get('family', ''),
+            given=data.get('given', '')
+        )
+
+
 # VO class for Reference, representing a reference cited in the article
 @dataclass
 class ParseReferenceVO:
-    authors: List[str]  # A list of authors of the reference
+    authors: List[ParseReferenceAuthorVO]  # A list of authors of the reference
     title: str  # The title of the reference
     type: str  # The type of the reference (e.g., journal article, book)
     container_title: str  # The title of the container holding the reference (e.g., journal name)
@@ -318,9 +330,9 @@ class ParseReferenceVO:
         pass
 
 
-# VO class for Artical, representing the entire article including metadata, content, authors, and references
+# VO class for Article, representing the entire article including metadata, content, authors, and references
 @dataclass
-class ParseArticalVO:
+class ParseArticleVO:
     metadata: ParseMetadataVO  # The metadata of the article
     content: ParseContentVO  # The content of the article
     authors: List[ParseAuthorVO]  # A list of authors of the article
@@ -328,7 +340,7 @@ class ParseArticalVO:
 
     @staticmethod
     def from_dict(data: dict):
-        return ParseArticalVO(
+        return ParseArticleVO(
             metadata=ParseMetadataVO(**data['metadata']),
             content=ParseContentVO(**data['content']),
             authors=[ParseAuthorVO(**author) for author in data['authors']],
