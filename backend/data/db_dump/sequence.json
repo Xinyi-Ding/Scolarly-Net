@@ -1,21 +1,21 @@
 [{
   "_id": {
-    "$oid": "65f3818718183c58de1f62fb"
+    "$oid": "65f836b5ee5c40631b2657e4"
   },
   "name": "article",
-  "value": 2317
+  "value": 2339
 },
 {
   "_id": {
-    "$oid": "65f3818918183c58de1f62fc"
+    "$oid": "65f836b5ee5c40631b2657e5"
   },
   "name": "author",
-  "value": 184
+  "value": 6199
 },
 {
   "_id": {
-    "$oid": "65f3824018183c58de1f6365"
+    "$oid": "65f836e9ee5c40631b265959"
   },
   "name": "topic",
-  "value": 178
+  "value": 202
 }]
