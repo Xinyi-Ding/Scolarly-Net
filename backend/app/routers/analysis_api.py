@@ -5,6 +5,7 @@ from starlette.responses import JSONResponse
 
 from ..services import analysis
 from ..services.catalog import save_parse_article
+import os
 
 
 # Initialize the API router with a prefix and tags
@@ -14,8 +15,10 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-papers_directory = Path('app') / 'data' / 'Papers'
+papers_directory = Path().cwd() / "app" / "tmp" / "Papers"
+xml_directory = Path().cwd() / "app" / "tmp" / "xml"
 papers_directory.mkdir(parents=True, exist_ok=True)
+xml_directory.mkdir(parents=True, exist_ok=True)
 
 
 @router.get("/",
@@ -88,9 +91,8 @@ async def upload_document(file: UploadFile = File(..., description="The document
             file_object.write(content)
         await file.close()
         print("File saved to disk: ", file_location)
-        article = analysis.get_article_object(
-            analysis.get_extracted_xml(str(file_location), grobid_server="http://localhost:8070"))
-        article.content.keywords = analysis.get_topics_from_article(article)
+        xml_location = analysis.get_extracted_xml(str(file_location), grobid_server="http://localhost:8070")
+        article = analysis.get_article_object(xml_location)
         print("Article object created")
         article_vo = save_parse_article(article)
         print("Article saved to database")
@@ -98,6 +100,9 @@ async def upload_document(file: UploadFile = File(..., description="The document
                "message": "File uploaded successfully",
                "data": article.to_json(article_id=article_vo.article_id)
                }
+        os.remove(file_location)
+        os.remove(xml_location)
+        print("tmp files removed")
         return JSONResponse(status_code=200, content=res)
     except Exception as e:
         print(e)

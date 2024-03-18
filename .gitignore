@@ -24,6 +24,14 @@ frontend/*.log
 # Backend files
 # Byte-compiled / optimized / DLL files
 __pycache__/
+backend/app/__pycache__/
+backend/app/db/__pycache__/
+backend/app/services/__pycache__/
+backend/app/services/Extractor/__pycache__/
+backend/app/services/Parser/__pycache__/
+backend/app/routers/__pycache__/
+backend/app/intergration/__pycache__/
+
 *.py[cod]
 *$py.class
 

@@ -72,9 +72,9 @@ class Parser(object):
         self.xml_namespace = "http://www.w3.org/XML/1998/namespace"
         self.tei_namespace = "http://www.tei-c.org/ns/1.0"
         self.etree = self._string_to_tree()
-        self.artical = self.parse_artical()
+        self.article = self.parse_article()
 
-    def parse_artical(self):
+    def parse_article(self):
         return ArticleObject(
             metadata=self._parse_metadata(),
             content=self._parse_content(),

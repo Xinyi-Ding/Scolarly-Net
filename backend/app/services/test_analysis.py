@@ -100,7 +100,7 @@ def _parse_test_case_artical_authors(path: str) -> List[Author]:
         ]
 
 
-def are_similar(text1, text2, threshold=0.8):
+def _are_similar(text1, text2, threshold=0.8):
     """
     Check if two texts are similar based on the Levenshtein distance.
 
@@ -169,7 +169,7 @@ def test_parse_article_reference():
         pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path))
+        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
         article = analysis.get_article_object(xml_path)
         # print("reference test case")
         # print(test_case)
@@ -191,7 +191,7 @@ def test_parse_article_metadata():
         pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path))
+        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
         article = analysis.get_article_object(xml_path)
         # print(test_case.journal)
         # print(article.metadata.journal)
@@ -212,12 +212,14 @@ def test_parse_article_content():
         pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path))
+        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
         article = analysis.get_article_object(xml_path)
+        # print("Test Case:\n")
         # print(test_case)
-        # print(article.content.abstract)
-        assert are_similar(normalize_text(test_case.abstract),
-                           normalize_text(article.content.abstract)), f"Abstract mismatch for {json_file.name}"
+        # print("Article:\n")
+        # print(article.content)
+        assert _are_similar(normalize_text(test_case.abstract),
+                            normalize_text(article.content.abstract)), f"Abstract mismatch for {json_file.name}"
 
 
 # Test cases for the article authors
@@ -234,9 +236,9 @@ def test_parse_article_authors():
         pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path))
+        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
         article = analysis.get_article_object(xml_path)
-        print(test_case)
-        print(article.authors)
+        # print(test_case)
+        # print(article.authors)
         for i, author in enumerate(article.authors):
             assert test_case[i].name == author.name, f"Author mismatch for {json_file.name}"
