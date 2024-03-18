@@ -5,16 +5,16 @@ from pathlib import Path
 from ..intergration.catalog_access import ArticleCRUD, AuthorCRUD, ArticleAuthorCRUD, \
     ArticleCitationCRUD, TopicCRUD, ArticleTopicCRUD
 from ..services.Parser.types import ArticleObject
-from ..services.models import ParseArticalVO, ArticleVO, AuthorVO, ArticleAuthorVO, ArticleCitationVO, \
+from ..services.models import ParseArticleVO, ArticleVO, AuthorVO, ArticleAuthorVO, ArticleCitationVO, \
     AuthorFilter, ArticleFilter, ArticleAuthorFilter, TopicFilter, TopicVO, ArticleTopicVO, ArticleCitationFilter, \
-    ArticleTopicFilter
+    ArticleTopicFilter, ParseReferenceAuthorVO
 from ..services.schema import PaperResponse, PaperItemSchema, AuthorSchema, TopicResponse, TopicItemSchema, \
     AuthorResponse, AuthorItemSchema, SameTopicConnectionItemSchema, SameTopicDataSchema, SameTopicResponseSchema, \
     CoAuthorResponseSchema, CoAuthorDataSchema, CoAuthorConnectionItemSchema, TopicSchema, CitedTreeResponseSchema, \
     CitedTreeDataSchema, CitedConnectionItemSchema
 
 
-def save_parse_article(parse_article: ParseArticalVO | dict | ArticleObject) -> ArticleVO | None:
+def save_parse_article(parse_article: ParseArticleVO | dict | ArticleObject) -> ArticleVO | None:
     """
     This function processes and saves the article metadata, authors, references, and topics to the database.
     :param parse_article: A ParseArticleVO, dict,
@@ -23,13 +23,13 @@ def save_parse_article(parse_article: ParseArticalVO | dict | ArticleObject) -> 
     """
 
     # Type checking and conversion
-    if isinstance(parse_article, ParseArticalVO):
+    if isinstance(parse_article, ParseArticleVO):
         # If the input is already a ParseArticleVO instance, use it directly
         parse_article_vo = parse_article
     elif isinstance(parse_article, dict):
-        parse_article_vo = ParseArticalVO.from_dict(parse_article)
+        parse_article_vo = ParseArticleVO.from_dict(parse_article)
     elif isinstance(parse_article, ArticleObject):
-        parse_article_vo = ParseArticalVO.from_dict(parse_article.to_dict())
+        parse_article_vo = ParseArticleVO.from_dict(parse_article.to_dict())
     else:
         raise ValueError("Unsupported type for parse_article_vo")
 
@@ -94,11 +94,15 @@ def save_parse_article(parse_article: ParseArticalVO | dict | ArticleObject) -> 
         for parse_reference_vo in parse_article_vo.references:
             # Check if the reference already exists in the database
             reference_article_lst = article_crud.search_by_filter(
-                ArticleFilter(title=parse_reference_vo.title, doi=parse_reference_vo.doi))
+                ArticleFilter(title=parse_reference_vo.title,
+                              doi=parse_reference_vo.doi))
 
+            # If the reference exists, use the existing reference
             if reference_article_lst:
+                # If the reference exists, use the existing reference
                 reference_article = reference_article_lst[0]
             else:
+                # If the reference does not exist, save the reference
                 article_vo = ArticleVO(
                     title=parse_reference_vo.title,
                     doi=parse_reference_vo.doi,
@@ -108,15 +112,47 @@ def save_parse_article(parse_article: ParseArticalVO | dict | ArticleObject) -> 
                     else None
                 )
                 try:
+                    # Save the reference article to the database
                     reference_article = article_crud.create(article_vo)
                 except Exception as e:
                     print(f"Error saving reference article: {e}")
                     continue  # or handle error accordingly
 
+            # Check if the authors of reference article already exist in the database
+            for reference_author_vo in parse_reference_vo.authors:
+                if isinstance(reference_author_vo, dict):
+                    reference_author_vo = ParseReferenceAuthorVO.from_dict(reference_author_vo)
+                if not isinstance(reference_author_vo, ParseReferenceAuthorVO):
+                    continue
+                reference_author_name = f"{reference_author_vo.given} {reference_author_vo.family}".strip()
+                reference_author_vo_list = author_crud.search_by_filter(
+                    AuthorFilter(name=reference_author_name))
+                if reference_author_vo_list:
+                    # If the author exists, use the existing author
+                    reference_author = reference_author_vo_list[0]
+                else:
+                    # If the author does not exist, save the author
+                    try:
+                        reference_author = author_crud.create(AuthorVO(name=reference_author_name))
+                    except Exception as e:
+                        print(f"Error saving reference author: {e}")
+                        continue
+
+                # Associate the author with the saved article
+                if not article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=reference_article.article_id,
+                                                                             author_id=reference_author.author_id)):
+                    try:
+                        article_author_crud.create(
+                            ArticleAuthorVO(article_id=reference_article.article_id,
+                                            author_id=reference_author.author_id))
+                    except Exception as e:
+                        print(f"Error creating article-author relationship: {e}")
+                        # Decide whether to continue or handle differently
+
             try:
-                if not article_citation_crud. \
-                        get_by_filter(ArticleCitationFilter(citing_article_id=saved_article.article_id,
-                                                            cited_article_id=reference_article.article_id)):
+                if not article_citation_crud \
+                        .get_by_filter(ArticleCitationFilter(citing_article_id=saved_article.article_id,
+                                                             cited_article_id=reference_article.article_id)):
                     article_citation_crud.create(ArticleCitationVO(citing_article_id=saved_article.article_id,
                                                                    cited_article_id=reference_article.article_id))
             except Exception as e:
@@ -146,12 +182,28 @@ def save_parse_article(parse_article: ParseArticalVO | dict | ArticleObject) -> 
         return None
 
 
-def save_parse_articles_within_dir(folder_path):
+def save_parse_article_with_filepath(file_path: str) -> ArticleVO:
+    """
+    Processes a JSON file containing article metadata and saves the article to the database.
+    :param file_path: The path to the JSON file containing article metadata.
+    :return: The saved ArticleVO object.
+    """
+    # Open the JSON file and load its content
+    with open(file_path, 'r', encoding='utf-8') as f:
+        # Load the JSON content into a ParseParseArticleVO object
+        parse_article_vo = ParseArticleVO.from_dict(json.load(f))
+        # Call the function to process the parsed article object
+        return save_parse_article(parse_article_vo)
+
+
+def save_parse_articles_within_dir(folder_path) -> list[ArticleVO]:
     """
     Recursively processes each JSON file in a given folder and its subfolders.
     :param folder_path: The path to the folder containing JSON files to process.
     :return: None
     """
+    # Initialize an empty list to store the parsed article objects
+    parse_article_vo_lst: list[ArticleVO] = []
     # Traverse all files and subdirectories within the given folder
     for root, dirs, files in os.walk(folder_path):
         for file in files:
@@ -162,12 +214,14 @@ def save_parse_articles_within_dir(folder_path):
                 try:
                     # Open the JSON file and load its content
                     with open(file_path, 'r', encoding='utf-8') as f:
-                        parse_article_vo = ParseArticalVO.from_dict(json.load(f))
+                        parse_article_vo = ParseArticleVO.from_dict(json.load(f))
+                        parse_article_vo_lst.append(parse_article_vo)
                     # Call the function to process the parsed article object
                     save_parse_article(parse_article_vo)
                 except Exception as e:
                     # Print an error message if something goes wrong
                     print(f"Error processing file {file_path}: {e}")
+    return parse_article_vo_lst
 
 
 def search_papers_by_filter_as_response(filter_obj: ArticleFilter) -> PaperResponse:
@@ -471,13 +525,17 @@ def search_cited_tree_by_filter_as_response(filter_obj: ArticleFilter, level_num
                 next_level_cited_articles.append(cited_article_id)
 
             # Log or debug output to track the citation chain; this line can be commented out or removed in production
-            print(f"Level {level}: {citing_article_id} -> {cited_article_id_lst}")
+            # print(f"Level {level}: {citing_article_id} -> {cited_article_id_lst}")
 
             # Store the citation connection if the current article cites others
             if cited_article_id_lst:
                 cited_connection_item_schema_lst.append(CitedConnectionItemSchema(from_paper=citing_article_id,
                                                                                   to_paper=cited_article_id_lst))
-
+        # Make sure to remove duplicates from the list of articles cited in the next level
+        next_level_cited_articles = list(set(next_level_cited_articles))
+        for article_id in current_level_citing_articles:
+            if article_id in next_level_cited_articles:
+                next_level_cited_articles.remove(article_id)
         # Move to the next level with the list of articles cited in the current level
         current_level_citing_articles = next_level_cited_articles
 
@@ -508,14 +566,20 @@ def search_cited_tree_by_filter_as_response(filter_obj: ArticleFilter, level_num
                                    data=CitedTreeDataSchema(connections=cited_connection_item_schema_lst,
                                                             papers=paper_item_schema_lst))
 
-# def main():
-# Example usage
-# folder_path = r'C:\Users\Qiu\Desktop\frame\Carlson-Johnson\backend\app\data\json'
-# Process all JSON files within the given folder and its folders
-# save_parse_articles_within_dir(folder_path)
 
-# analysis.process_articles("app/data/xml", "app/data/json")
+def main():
+    # # Example usage
+    folder_path = r'C:\Users\Qiu\Desktop\frame\psd\Carlson-Johnson\backend\app\data\json'
+    print("run")
+    # Process all JSON files within the given folder and its folders
+    save_parse_articles_within_dir(folder_path)
+
+    # Test one file
+    # print(save_parse_article_with_filepath(r"C:\Users\Qiu\Desktop\frame\psd\Carlson-Johnson\backend\app\data\json\1"
+    #                                        r"-s2.0-S0165011413002583-main.json"))
+
+    # analysis.process_articles("app/data/xml", "app/data/json")
 
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
