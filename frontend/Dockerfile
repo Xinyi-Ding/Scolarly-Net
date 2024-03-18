@@ -15,7 +15,7 @@ FROM nginx:stable as prod-stage
 
 COPY --from=build-stage /frontend/dist /usr/share/nginx/html
 
-COPY frontend/nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
