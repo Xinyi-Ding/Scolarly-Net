@@ -45,7 +45,7 @@ const handleResultSelect = async (id) => {
   edges.clear(); // clear the edges
   let data = await req.get('/catalog/same-topic', { article_id: id }); // request data from the server
   data = data.data.data; // get the data
-  console.log('same topic', data);
+  console.log('Same Topic: Network Data', data);
   originalPaper.value = data.papers.find(paper =>
       paper.articleId === originalPaper.value.articleId); // get the original paper
   netResults.value = data; // set the network data
