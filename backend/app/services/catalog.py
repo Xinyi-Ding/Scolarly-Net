@@ -585,7 +585,7 @@ def search_cited_tree_by_filter_as_response(filter_obj: ArticleFilter, level_num
 
 def main():
     # # Example usage
-    folder_path = r'C:\Users\Qiu\Desktop\frame\psd\Carlson-Johnson\backend\app\data\json'
+    folder_path = r'C:\Users\Qiu\Desktop\frame\psd\Carlson-Johnson\backend\data\json'
     print("run")
     # Process all JSON files within the given folder and its folders
     save_parse_articles_within_dir(folder_path)
