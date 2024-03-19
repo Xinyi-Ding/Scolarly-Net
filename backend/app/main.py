@@ -4,6 +4,7 @@ from fastapi import FastAPI
 
 from .routers import catalog_api, analysis_api
 from starlette.middleware.cors import CORSMiddleware
+from .db.config import TEST_MODE
 
 app = FastAPI()
 
