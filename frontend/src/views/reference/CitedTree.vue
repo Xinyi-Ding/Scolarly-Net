@@ -8,26 +8,27 @@ import { authors2Str, generateOptions } from "@/utils/network.js";
 import PaperList from "@/components/PaperList.vue";
 import req from "@/utils/req.js";
 
-const search = ref('');
-const searchLoading = ref(false);
-const resultModal = ref(false);
-const searchResults = ref(null);
+const search = ref(''); // search input value
+const resultModal = ref(false); // search result modal state
+const searchResults = ref(null); // search results
 
-const netResults = ref(null);
-const networkContainer = ref(null);
-let nodes = new DataSet([]);
-let edges = new DataSet([]);
-let network = null;
-const originalPaper = ref({});
-const selectedNodeId = ref(null);
+const netResults = ref(null); // network data
+const networkContainer = ref(null); // network container
+let nodes = new DataSet([]); // network nodes
+let edges = new DataSet([]); // network edges
+let network = null; // network instance
+const originalPaper = ref({}); // original paper
+const selectedNodeId = ref(null); // selected node id
 
-const generateLoading = ref(false);
+const searchLoading = ref(false); // search loading state
+const generateLoading = ref(false); // generate network loading state
 
+// method to handle the search action
 const handleSearch = async () => {
   if (search.value !== '') {
-    searchLoading.value = true;
-    const data = await req.get('/catalog/papers/search', { title: search.value });
-    console.log('search', data.data)
+    searchLoading.value = true; // start search button loading
+    const data = await req.get('/catalog/papers/search', { title: search.value }); // request data from the server
+    console.log('Cited Tree: Searched Results', data.data)
     searchResults.value = data.data.data;
     resultModal.value = true;
     searchLoading.value = false;
@@ -35,28 +36,31 @@ const handleSearch = async () => {
 };
 
 const handleResultSelect = async (id) => {
-  console.log('selected paper id', id);
+  console.log('Cited Tree: Selected Paper ID', id);
   originalPaper.value.articleId = id;
-  netResults.value = null;
-  resultModal.value = false;
-  generateLoading.value = true;
-  nodes.clear();
-  edges.clear();
-  let data = await req.get('/catalog/cited-tree', { article_id: id });
+  netResults.value = null; // clear the previous network data
+  resultModal.value = false; // close the search result modal
+  generateLoading.value = true; // start generating network loading
+  nodes.clear(); // clear the nodes
+  edges.clear(); // clear the edges
+  let data = await req.get('/catalog/cited-tree', { article_id: id }); // request data from the server
   data = data.data.data;
-  console.log('cited tree', data);
-  originalPaper.value = data.papers.find(paper => paper.articleId === originalPaper.value.articleId);
-  netResults.value = data;
-  search.value = '';
+  console.log('Cited Tree: Network Data', data);
+  originalPaper.value = data.papers.find(paper =>
+      paper.articleId === originalPaper.value.articleId); // get the original paper
+  netResults.value = data; // set the network data
+  search.value = ''; // clear the search input
   initializeNetwork();
-  generateLoading.value = false;
+  generateLoading.value = false; // stop generating network loading
 };
 
+// check if the paperId is in the query, if so, generate the network
 const route = useRoute();
 if (route.query.paperId) {
   handleResultSelect(+route.query.paperId);
 }
 
+// initialize the network
 const initializeNetwork = () => {
   if (networkContainer.value) {
     // convert papers to nodes
@@ -76,14 +80,14 @@ const initializeNetwork = () => {
     );
 
     // create DataSet instances for nodes and edges
-    const nodes = new DataSet(paperNodes);
-    const edges = new DataSet(edgesArray);
+    nodes = new DataSet(paperNodes);
+    edges = new DataSet(edgesArray);
 
     // define the data and options for the network
     const data = { nodes, edges };
     const options = generateOptions({
       layout: {
-        hierarchical: {
+        hierarchical: { // hierarchical layout
           enabled: false,
           direction: 'UD', // from up to down
           sortMethod: 'directed', // or 'hubsize'
@@ -99,7 +103,7 @@ const initializeNetwork = () => {
     // initialize the network
     network = new Network(networkContainer.value, data, options);
 
-    // event listeners for node selection
+    // event listener for node selection
     network.on("selectNode", params => {
       if (params.nodes.length > 0) {
         const selectedNodeId = params.nodes[0];
@@ -107,16 +111,20 @@ const initializeNetwork = () => {
         highlightListItem(selectedNodeId); // function to highlight the list item corresponding to the selected node
       }
     });
+
+    // event listener for node deselection
     network.on("deselectNode", () => {
       selectedNodeId.value = null; // clear selected node ID when a node is deselected
     });
   }
 };
 
+// method to highlight the list item
 const highlightListItem = (nodeId) => {
   selectedNodeId.value = nodeId;
 };
 
+// method to highlight the node and the list item at the same time
 const highlightNode = (nodeId) => {
   if (network && nodeId) {
     // select the node and highlight the edges
@@ -128,15 +136,18 @@ const highlightNode = (nodeId) => {
 </script>
 
 <template>
+  <!-- search result modal -->
   <SearchResult
       v-model="resultModal"
       :search="search"
       :searchResults="searchResults"
       @select="handleResultSelect"
   />
+  <!-- network layout -->
   <Net>
     <template #list>
       <div class="p-4 sticky top-0 shadow bg-white/20 backdrop-blur z-10">
+        <!-- search input -->
         <VaInput
             v-model="search"
             class="w-full"
@@ -154,7 +165,7 @@ const highlightNode = (nodeId) => {
           </template>
         </VaInput>
       </div>
-
+      <!-- list of papers -->
       <PaperList
           v-if="netResults"
           :originalPaper="originalPaper"
@@ -165,6 +176,7 @@ const highlightNode = (nodeId) => {
       <p v-else v-show="!generateLoading" class="mt-4 text-center text-gray-500 uppercase">
         * Search for a paper first *
       </p>
+      <!-- loading state -->
       <div v-if="generateLoading" class="w-full text-center">
         <VaProgressCircle
             class="mx-auto mt-8 mb-2"
@@ -174,12 +186,9 @@ const highlightNode = (nodeId) => {
         <p class="text-gray-500">Generating ...</p>
       </div>
     </template>
+    <!-- network graph -->
     <template #graph>
       <div ref="networkContainer" class="mx-auto w-full h-full"></div>
     </template>
   </Net>
 </template>
-
-<style scoped>
-
-</style>

@@ -1,23 +1,28 @@
 <script setup>
 import UserChip from "@/components/UserChip.vue";
 
+// define the props passed from the parent component
 defineProps({
   modelValue: Boolean,
   search: String,
   searchResults: Array
 });
 
+// define the emits to pass the events to the parent component
 const emit = defineEmits(['update:modelValue', 'select']);
 
+// method to emit the event to update the model value
 const updateModelValue = (value) => {
   emit('update:modelValue', value);
 };
 
+// method to emit the event to select the result
 const selectResult = (id) => {
   emit('select', id);
   updateModelValue(false); // close modal
 };
 
+// method to close the modal
 const handleClose = () => {
   updateModelValue(false);
 };
@@ -34,10 +39,12 @@ const handleClose = () => {
       @update:model-value="updateModelValue"
   >
     <VaList>
+      <!-- label(title) for the search results -->
       <VaListLabel class="sticky top-0 pb-4 bg-white/90 z-10">
         <span v-if="searchResults.length === 0" class="font-bold">No</span>
         Results for <span class="ml-1 font-bold text-xl">{{ search }}</span>
       </VaListLabel>
+      <!-- list of search results -->
       <VaListItem
           v-for="result in searchResults"
           :key="result.articleId"
@@ -58,6 +65,7 @@ const handleClose = () => {
         </VaListItemSection>
       </VaListItem>
     </VaList>
+    <!-- footer for the modal with close button -->
     <template #footer>
       <VaButton @click="handleClose"> Close </VaButton>
     </template>

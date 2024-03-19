@@ -46,9 +46,9 @@ describe('DashboardCard.vue', () => {
         link: '/topic/same-topic',
       },
     })
-    // Await the handleClick to ensure navigation is complete
+    // await the handleClick to ensure navigation is complete
     await wrapper.vm.handleClick('/topic/same-topic')
-    // Now perform the assertion
+    // now perform the assertion
     expect(router.currentRoute.value.fullPath).toBe('/topic/same-topic')
   })
 
@@ -64,4 +64,5 @@ describe('DashboardCard.vue', () => {
     // now perform the assertion
     expect(router.currentRoute.value.fullPath).toBe('/topic/same-topic?paperId=123')
   })
+
 })
