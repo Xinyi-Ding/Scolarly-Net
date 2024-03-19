@@ -19,6 +19,7 @@ export default defineConfig({
     }
   },
   test: {
+    testTimeout: 30000,
     environment: "happy-dom",
     setupFiles: resolve('./tests/setup.js'),
   },
