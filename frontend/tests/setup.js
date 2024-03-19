@@ -13,6 +13,10 @@ const router = createRouter({
       component: () => import('@/layouts/BaseLayout.vue'),
       children: routesConfig,
     },
+    {
+      path: '/error',
+      component: () => import('@/views/ErrorPage.vue')
+    }
   ],
 });
 
