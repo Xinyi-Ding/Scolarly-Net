@@ -6,7 +6,7 @@ import { createVuestic } from 'vuestic-ui'
 // configure the router
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes: [
+  routes:  [
     {
       path: '/',
       redirect: '/dashboard',
@@ -22,7 +22,7 @@ const router = createRouter({
 
 // set up the router
 export function setupRouter() {
-  router.push('/').then(); // Navigate to initial route if needed
+  // router.push('/').then(); // Navigate to initial route
   return router;
 }
 
