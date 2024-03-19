@@ -338,75 +338,82 @@ def search_same_topic_by_filter_as_response(filter_obj: ArticleFilter) -> SameTo
     :param filter_obj: An ArticleFilter object containing the filter criteria.
     :return: A SameTopicResponseSchema object containing structured information about topics, articles, and authors.
     """
-    # Initialize CRUD operations for articles, topics, and authors
-    article_crud = ArticleCRUD()
-    topic_crud = TopicCRUD()
-    author_crud = AuthorCRUD()
-    article_author_crud = ArticleAuthorCRUD()
+    try:
+        # Initialize CRUD operations for articles, topics, and authors
+        article_crud = ArticleCRUD()
+        topic_crud = TopicCRUD()
+        author_crud = AuthorCRUD()
+        article_author_crud = ArticleAuthorCRUD()
 
-    # Fetch the first article that matches the filter criteria
-    article_vo = article_crud.get_by_filter(filter_obj)[0]
+        # Fetch the first article that matches the filter criteria
+        article_vo = article_crud.get_by_filter(filter_obj)[0]
 
-    # Initialize CRUD operation for article-topic relationships
-    article_topic_crud = ArticleTopicCRUD()
+        # Initialize CRUD operation for article-topic relationships
+        article_topic_crud = ArticleTopicCRUD()
 
-    # Fetch topics related to the article
-    article_topic_vo_lst = article_topic_crud.get_by_filter(ArticleTopicFilter(article_id=article_vo.article_id))
+        # Fetch topics related to the article
+        article_topic_vo_lst = article_topic_crud.get_by_filter(ArticleTopicFilter(article_id=article_vo.article_id))
 
-    same_topic_connection_item_schema_lst: list[SameTopicConnectionItemSchema] = []
-    article_id_set: set[int] = set()
-    article_id_set.add(article_vo.article_id)
+        same_topic_connection_item_schema_lst: list[SameTopicConnectionItemSchema] = []
+        article_id_set: set[int] = set()
+        article_id_set.add(article_vo.article_id)
 
-    # Iterate over each topic related to the article
-    for article_topic_vo in article_topic_vo_lst:
-        # Fetch articles related to the current topic
-        paper_id_lst: list[int] = [item.article_id for item in article_topic_crud.get_by_filter(
-            ArticleTopicFilter(topic_id=article_topic_vo.topic_id))]
+        # Iterate over each topic related to the article
+        for article_topic_vo in article_topic_vo_lst:
+            # Fetch articles related to the current topic
+            paper_id_lst: list[int] = [item.article_id for item in article_topic_crud.get_by_filter(
+                ArticleTopicFilter(topic_id=article_topic_vo.topic_id))]
 
-        # Update the set of unique article IDs
-        for paper_id in paper_id_lst:
-            article_id_set.add(paper_id)
+            # Update the set of unique article IDs
+            for paper_id in paper_id_lst:
+                article_id_set.add(paper_id)
 
-        # Append information about the topic and related articles
-        same_topic_connection_item_schema_lst.append(SameTopicConnectionItemSchema(topic=article_topic_vo.topic_id,
-                                                                                   papers=paper_id_lst))
+            # Append information about the topic and related articles
+            same_topic_connection_item_schema_lst.append(SameTopicConnectionItemSchema(topic=article_topic_vo.topic_id,
+                                                                                       papers=paper_id_lst))
 
-    topic_item_schema_lst: list[TopicSchema] = []
+        topic_item_schema_lst: list[TopicSchema] = []
 
-    # Iterate over each topic again to fetch detailed topic information
-    for article_topic_vo in article_topic_vo_lst:
-        topic_vo = topic_crud.get_by_filter(TopicFilter(topic_id=article_topic_vo.topic_id))[0]
-        topic_item_schema_lst.append(TopicSchema(topic_id=topic_vo.topic_id,
-                                                 name=topic_vo.name))
+        # Iterate over each topic again to fetch detailed topic information
+        for article_topic_vo in article_topic_vo_lst:
+            topic_vo = topic_crud.get_by_filter(TopicFilter(topic_id=article_topic_vo.topic_id))[0]
+            topic_item_schema_lst.append(TopicSchema(topic_id=topic_vo.topic_id,
+                                                     name=topic_vo.name))
 
-    paper_item_schema_lst: list[PaperItemSchema] = []
+        paper_item_schema_lst: list[PaperItemSchema] = []
 
-    # Iterate over each unique article ID to fetch detailed article and author information
-    for article_id in article_id_set:
-        article_vo = article_crud.get_by_filter(ArticleFilter(article_id=article_id))[0]
-        article_author_vo_lst = article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=article_id))
+        # Iterate over each unique article ID to fetch detailed article and author information
+        for article_id in article_id_set:
+            article_vo = article_crud.get_by_filter(ArticleFilter(article_id=article_id))[0]
+            article_author_vo_lst = article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=article_id))
 
-        author_schema_lst: list[AuthorSchema] = []
+            author_schema_lst: list[AuthorSchema] = []
 
-        # Fetch detailed author information for each article
-        for article_author_vo in article_author_vo_lst:
-            author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
-            author_schema_lst.append(AuthorSchema(author_id=author_vo.author_id,
-                                                  name=author_vo.name,
-                                                  email=author_vo.email,
-                                                  affiliation=author_vo.affiliation))
+            # Fetch detailed author information for each article
+            for article_author_vo in article_author_vo_lst:
+                author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
+                author_schema_lst.append(AuthorSchema(author_id=author_vo.author_id,
+                                                      name=author_vo.name,
+                                                      email=author_vo.email,
+                                                      affiliation=author_vo.affiliation))
 
-        # Append information about the article and its authors
-        paper_item_schema_lst.append(PaperItemSchema(article_id=article_vo.article_id,
-                                                     title=article_vo.title,
-                                                     authors=author_schema_lst))
+            # Append information about the article and its authors
+            paper_item_schema_lst.append(PaperItemSchema(article_id=article_vo.article_id,
+                                                         title=article_vo.title,
+                                                         authors=author_schema_lst))
 
-    # Return the structured response containing topics, articles, and authors
-    return SameTopicResponseSchema(code=200,
-                                   msg="Success",
-                                   data=SameTopicDataSchema(connections=same_topic_connection_item_schema_lst,
-                                                            topics=topic_item_schema_lst,
-                                                            papers=paper_item_schema_lst))
+        # Return the structured response containing topics, articles, and authors
+        return SameTopicResponseSchema(code=200,
+                                       msg="Success",
+                                       data=SameTopicDataSchema(connections=same_topic_connection_item_schema_lst,
+                                                                topics=topic_item_schema_lst,
+                                                                papers=paper_item_schema_lst))
+    except Exception as e:
+        # Handle exceptions and return an appropriate error response
+        # This is a generic handler; you might want to catch and handle different exceptions differently
+        return SameTopicResponseSchema(code=500,
+                                       msg=f"An error occurred: {str(e)}",
+                                       data=[])
 
 
 def search_co_author_by_filter_as_response(filter_obj: ArticleFilter) -> CoAuthorResponseSchema:
@@ -419,55 +426,39 @@ def search_co_author_by_filter_as_response(filter_obj: ArticleFilter) -> CoAutho
     :return: A CoAuthorResponseSchema object containing structured information about co-authorships, authors,
     and papers.
     """
-    # Initialize CRUD operations for articles and authors
-    article_crud = ArticleCRUD()
-    author_crud = AuthorCRUD()
-    article_author_crud = ArticleAuthorCRUD()
+    try:
+        # Initialize CRUD operations for articles and authors
+        article_crud = ArticleCRUD()
+        author_crud = AuthorCRUD()
+        article_author_crud = ArticleAuthorCRUD()
 
-    # Fetch the first article that matches the filter criteria
-    article_vo = article_crud.get_by_filter(filter_obj)[0]
+        # Fetch the first article that matches the filter criteria
+        article_vo = article_crud.get_by_filter(filter_obj)[0]
 
-    # Fetch authorship information for the article
-    article_author_vo_lst = article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=article_vo.article_id))
+        # Fetch authorship information for the article
+        article_author_vo_lst = article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=article_vo.article_id))
 
-    co_author_connection_item_schema_lst: list[CoAuthorConnectionItemSchema] = []
-    article_id_set: set[int] = set()
-    article_id_set.add(article_vo.article_id)
+        co_author_connection_item_schema_lst: list[CoAuthorConnectionItemSchema] = []
+        article_id_set: set[int] = set()
+        article_id_set.add(article_vo.article_id)
 
-    # Iterate over each author of the article
-    for article_author_vo in article_author_vo_lst:
-        # Fetch articles co-authored by the current author
-        paper_id_lst: list[int] = [item.article_id for item in article_author_crud.get_by_filter(
-            ArticleAuthorFilter(author_id=article_author_vo.author_id))]
+        # Iterate over each author of the article
+        for article_author_vo in article_author_vo_lst:
+            # Fetch articles co-authored by the current author
+            paper_id_lst: list[int] = [item.article_id for item in article_author_crud.get_by_filter(
+                ArticleAuthorFilter(author_id=article_author_vo.author_id))]
 
-        # Update the set of unique article IDs
-        for paper_id in paper_id_lst:
-            article_id_set.add(paper_id)
+            # Update the set of unique article IDs
+            for paper_id in paper_id_lst:
+                article_id_set.add(paper_id)
 
-        # Append information about the author and their co-authored papers
-        co_author_connection_item_schema_lst.append(CoAuthorConnectionItemSchema(author=article_author_vo.author_id,
-                                                                                 papers=paper_id_lst))
-
-    author_schema_lst: list[AuthorSchema] = []
-
-    # Iterate over each author again to fetch detailed author information
-    for article_author_vo in article_author_vo_lst:
-        author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
-        author_schema_lst.append(AuthorSchema(author_id=author_vo.author_id,
-                                              name=author_vo.name,
-                                              email=author_vo.email,
-                                              affiliation=author_vo.affiliation))
-
-    paper_item_schema_lst: list[PaperItemSchema] = []
-
-    # Iterate over each unique article ID to fetch detailed article information
-    for article_id in article_id_set:
-        article_vo = article_crud.get_by_filter(ArticleFilter(article_id=article_id))[0]
-        article_author_vo_lst = article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=article_id))
+            # Append information about the author and their co-authored papers
+            co_author_connection_item_schema_lst.append(CoAuthorConnectionItemSchema(author=article_author_vo.author_id,
+                                                                                     papers=paper_id_lst))
 
         author_schema_lst: list[AuthorSchema] = []
 
-        # Fetch detailed author information for each article
+        # Iterate over each author again to fetch detailed author information
         for article_author_vo in article_author_vo_lst:
             author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
             author_schema_lst.append(AuthorSchema(author_id=author_vo.author_id,
@@ -475,17 +466,40 @@ def search_co_author_by_filter_as_response(filter_obj: ArticleFilter) -> CoAutho
                                                   email=author_vo.email,
                                                   affiliation=author_vo.affiliation))
 
-        # Append information about the article and its authors
-        paper_item_schema_lst.append(PaperItemSchema(article_id=article_vo.article_id,
-                                                     title=article_vo.title,
-                                                     authors=author_schema_lst))
+        paper_item_schema_lst: list[PaperItemSchema] = []
 
-    # Return the structured response containing co-authorships, authors, and papers
-    return CoAuthorResponseSchema(code=200,
-                                  msg="Success",
-                                  data=CoAuthorDataSchema(connections=co_author_connection_item_schema_lst,
-                                                          authors=author_schema_lst,
-                                                          papers=paper_item_schema_lst))
+        # Iterate over each unique article ID to fetch detailed article information
+        for article_id in article_id_set:
+            article_vo = article_crud.get_by_filter(ArticleFilter(article_id=article_id))[0]
+            article_author_vo_lst = article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=article_id))
+
+            author_schema_lst: list[AuthorSchema] = []
+
+            # Fetch detailed author information for each article
+            for article_author_vo in article_author_vo_lst:
+                author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
+                author_schema_lst.append(AuthorSchema(author_id=author_vo.author_id,
+                                                      name=author_vo.name,
+                                                      email=author_vo.email,
+                                                      affiliation=author_vo.affiliation))
+
+            # Append information about the article and its authors
+            paper_item_schema_lst.append(PaperItemSchema(article_id=article_vo.article_id,
+                                                         title=article_vo.title,
+                                                         authors=author_schema_lst))
+
+        # Return the structured response containing co-authorships, authors, and papers
+        return CoAuthorResponseSchema(code=200,
+                                      msg="Success",
+                                      data=CoAuthorDataSchema(connections=co_author_connection_item_schema_lst,
+                                                              authors=author_schema_lst,
+                                                              papers=paper_item_schema_lst))
+    except Exception as e:
+        # Handle exceptions and return an appropriate error response
+        # This is a generic handler; specific exceptions can be caught and handled differently if needed
+        return CoAuthorResponseSchema(code=500,
+                                      msg=f"An error occurred: {str(e)}",
+                                      data=[])
 
 
 def search_cited_tree_by_filter_as_response(filter_obj: ArticleFilter, level_num: int = 5) -> CitedTreeResponseSchema:
