@@ -448,7 +448,8 @@ search_papers_example = {
         },
         {
             "articleId": 2314,
-            "title": "Improving students' speaking performance through language board game at the eight grade of SMPIT Permata Bunda",
+            "title": "Improving students' speaking performance through language board game at the eight grade of "
+                     "SMPIT Permata Bunda",
             "authors": [
                 {
                     "authorId": 6088,
@@ -934,7 +935,8 @@ search_papers_example = {
         },
         {
             "articleId": 1713,
-            "title": "What makes the diference? An empirical comparison of fusion strategies for multimodal language analysis",
+            "title": "What makes the diference? An empirical comparison of fusion strategies for multimodal language "
+                     "analysis",
             "authors": [
                 {
                     "authorId": 3353,
@@ -1211,7 +1213,8 @@ same_topic_example = {
             },
             {
                 "articleId": 53,
-                "title": "Development of child's home environment indexes based on consistent families of aggregation operators with prioritized hierarchical information",
+                "title": "Development of child's home environment indexes based on consistent families of aggregation "
+                         "operators with prioritized hierarchical information",
                 "authors": [
                     {
                         "authorId": 135,
@@ -1328,7 +1331,8 @@ co_author_example = {
             },
             {
                 "articleId": 13,
-                "title": "Elementare mathematische Bildung im Alltag der Kindertagesstätte: Grundlegung und Evaluation eines "
+                "title": "Elementare mathematische Bildung im Alltag der Kindertagesstätte: Grundlegung und "
+                         "Evaluation eines "
                          "kompetenzorientierten Förderansatzes",
                 "authors": [
                     {
@@ -1341,7 +1345,8 @@ co_author_example = {
             },
             {
                 "articleId": 14,
-                "title": "Fostering early mathematical competencies in natural learning situations-Foundation and challenges "
+                "title": "Fostering early mathematical competencies in natural learning situations-Foundation and "
+                         "challenges "
                          "of a competence-oriented concept of mathematics education in kindergarten",
                 "authors": [
                     {
@@ -1354,7 +1359,8 @@ co_author_example = {
             },
             {
                 "articleId": 15,
-                "title": "Professionalization of early childhood educators with a focus on natural learning situations and "
+                "title": "Professionalization of early childhood educators with a focus on natural learning "
+                         "situations and "
                          "individual development of mathematical competencies: Results from an evaluation study",
                 "authors": [
                     {
@@ -1928,7 +1934,8 @@ cited_tree_example = {
             },
             {
                 "articleId": 121,
-                "title": "Modelling a linguistic variable as a hierarchical family of partitions induced by an indistinguishability operator",
+                "title": "Modelling a linguistic variable as a hierarchical family of partitions induced by an "
+                         "indistinguishability operator",
                 "authors": [
                     {
                         "authorId": 254,
@@ -1958,7 +1965,8 @@ cited_tree_example = {
             },
             {
                 "articleId": 123,
-                "title": "On the learning of weights in some aggregation operators: the weighted mean and owa operators",
+                "title": "On the learning of weights in some aggregation operators: the weighted mean "
+                         "and owa operators",
                 "authors": [
                     {
                         "authorId": 224,

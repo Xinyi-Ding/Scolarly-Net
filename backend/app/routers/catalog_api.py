@@ -14,8 +14,8 @@ from ..services.catalog import search_papers_by_filter_as_response, search_topic
 from ..services.models import ArticleFilter, TopicFilter, AuthorFilter
 from ..services.schema import PaperResponse, TopicResponse, SameTopicResponseSchema, CoAuthorResponseSchema, \
     CitedTreeResponseSchema, AuthorResponse
-from .response_example import search_papers_example, search_topics_example, search_authors_example, same_topic_example, \
-    co_author_example, cited_tree_example
+from .response_example import search_papers_example, search_topics_example, search_authors_example, \
+    same_topic_example, co_author_example, cited_tree_example
 
 # Initialize the API router
 router = APIRouter(
