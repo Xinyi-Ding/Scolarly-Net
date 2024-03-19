@@ -86,23 +86,22 @@ The proposed architecture employs Vue coupled with Axios for front-end developme
 ### **Overal Decision-Making for Technology Selection**
 The architecture and choice of technologies for the this system were methodically planned to align with the project's objectives, the proficiency of the development team, and the specific needs of our target users.
 
-#### 1. Development Team Background
-Our team comprises skilled developers with a strong background in modern JavaScript frameworks, experience in Python for data processing, and proficiency with NoSQL databases. This existing expertise strongly influenced the selection of Vue.js, FastAPI, and MongoDB to capitalize on our team's strengths and ensure a smooth development process.
+#### 1. *Development Team Background*
+- Our team comprises skilled developers with a strong background in modern JavaScript frameworks, experience in Python for data processing, and proficiency with NoSQL databases. This existing expertise strongly influenced the selection of Vue.js, FastAPI, and MongoDB to capitalize on our team's strengths and ensure a smooth development process.
 
-#### 2. Client Communication and Requirements
-Through in-depth discussions and iterative feedback sessions with stakeholders, we mapped out the crucial features and performance expectations for the system. The client emphasized the need for a responsive UI, robust data processing capabilities, and a flexible data storage approach that can accommodate complex queries, leading to our technology choices.
+#### 2. *Project and User Requirements Fit*
+- Through in-depth discussions and iterative feedback sessions with stakeholders, we mapped out the crucial features and performance expectations for the system. The client emphasized the need for a responsive UI, robust data processing capabilities, and a flexible data storage approach that can accommodate complex queries, leading to our technology choices.
 
-#### 3. Project and User Requirements Fit
-The technology stack was designed to strike a balance between development efficiency and product scalability. Vue.js, along with its associated libraries, was chosen for its reactive nature and ease of integration, which aligns with our aim to deliver a responsive user experience. FastAPI, paired with Python's rapid development and rich library ecosystem, addresses our backend data processing requirements. MongoDB's schema-less design is particularly suited to our needs, offering the flexibility necessary for the varied and evolving datasets encountered in academic research. Additionally, most PDF article extractors, including plugins and libraries, output data in formats like Python dictionaries, XML, or JSON. For instance, the format used by Grobid, the tool we employ for article extraction, is XML. These formats are inherently compatible with MongoDB's storage mechanism, which uses BSON objects. This compatibility is a considerable advantage for storing and managing the data efficiently within our system.
+- The technology stack was designed to strike a balance between development efficiency and product scalability. Vue.js, along with its associated libraries, was chosen for its reactive nature and ease of integration, which aligns with our aim to deliver a responsive user experience. FastAPI, paired with Python's rapid development and rich library ecosystem, addresses our backend data processing requirements. MongoDB's schema-less design is particularly suited to our needs, offering the flexibility necessary for the varied and evolving datasets encountered in academic research. Additionally, most PDF article extractors, including plugins and libraries, output data in formats like Python dictionaries, XML, or JSON. For instance, the format used by Grobid, the tool we employ for article extraction, is XML. These formats are inherently compatible with MongoDB's storage mechanism, which uses BSON objects. This compatibility is a considerable advantage for storing and managing the data efficiently within our system.
 
-#### 4. Security and Data Integrity
-Security and data integrity are paramount in academic research platforms. Our backend technologies provide robust security features and the ability to handle sensitive data with the necessary precautions, ensuring users' data remain protected and intact.
+#### 3. *Security and Data Integrity*
+- Security and data integrity are paramount in academic research platforms. Our backend technologies provide robust security features and the ability to handle sensitive data with the necessary precautions, ensuring users' data remain protected and intact.
 
-#### 5. Data Volume Considerations
-Initially, the project deals with approximately 10,000 records. MongoDB is well-suited for this data volume due to its performance efficiency. Moreover, it offers excellent horizontal scalability, reassuring us that as the project's data grows over time, we can expand our database infrastructure seamlessly.
+#### 4. *Data Volume Considerations*
+- Initially, the project deals with approximately 10,000 records. MongoDB is well-suited for this data volume due to its performance efficiency. Moreover, it offers excellent horizontal scalability, reassuring us that as the project's data grows over time, we can expand our database infrastructure seamlessly.
 
-#### 6. Concurrency and Scalability
-The current concurrency requirements for the system are modest, with access provided primarily to internal staff and select clients. The backend, built on FastAPI, is deployed in Docker containers, which are lightweight and portable. Looking ahead, we can utilize Kubernetes (k8s) to orchestrate these containers, enabling horizontal scaling to accommodate any surge in user traffic without compromising performance.
+#### 5. *Concurrency and Scalability*
+- The current concurrency requirements for the system are modest, with access provided primarily to internal staff and select clients. The backend, built on FastAPI, is deployed in Docker containers, which are lightweight and portable. Looking ahead, we can utilize Kubernetes (k8s) to orchestrate these containers, enabling horizontal scaling to accommodate any surge in user traffic without compromising performance.
 
 #### Conclusion
 The chosen technology stack is a reflection of a strategic alignment with the project goals, our team's capabilities, and the user's best interests. This harmony between technology and project requirements is expected to result in a platform that is not only effective in meeting the diverse needs of its users but also robust, secure, and scalable for future expansion.
