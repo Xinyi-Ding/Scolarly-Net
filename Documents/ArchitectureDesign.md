@@ -174,6 +174,7 @@ The selection of each technology component within our stack was the result of a 
 In conclusion, the selected technology stack not only fulfills the individual requirements of performance, scalability, and usability but also integrates into a cohesive architecture that aligns with the overall purpose of the PSD system. Each technology component has been chosen with a strategic perspective, ensuring that the system is well-equipped to support the intricate tasks of academic literature research and analysis, catering to the diverse needs of students, researchers.
 
 ### **Example of Alternative Technology Stack**
+Here is an alternative technology stack that could have been chosen for the system, along with a comparative analysis of its advantages and limitations compared to the selected stack.
 
 #### `React + Redux`
 - **Chosen Over:** Vue.js + Vuex  
