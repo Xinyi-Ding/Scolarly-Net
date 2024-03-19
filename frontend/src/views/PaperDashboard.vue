@@ -107,7 +107,6 @@ const onFileAdded = async (file) => {
           class="min-h-32 relative mb-4"
       >
         <VaCardTitle>
-          <!--<VaIcon v-if="uploading" name="loop" spin />-->
           <span v-if="paper?.title" class="ml-3 font-black text-lg">
             {{ paper.title }}
           </span>
