@@ -37,3 +37,4 @@ if __name__ == '__main__':
     import uvicorn
     os.environ["TEST_MODE"] = "False"
     uvicorn.run(app, host="localhost", port=8000)
+

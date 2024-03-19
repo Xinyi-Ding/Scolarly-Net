@@ -7,6 +7,4 @@ MONGO_TEST_URI = "mongodb+srv://s2606445:Carlson@cluster0.lckhdjd.mongodb.net/te
                  "&appName=Cluster0"
 
 # The name of the database to use
-TEST_MODE = os.environ.get('TEST_MODE', 'False') == "True"
-
-print("Test Mode: ", TEST_MODE)
+TEST_MODE = os.environ.setdefault("TEST_MODE", "True")
