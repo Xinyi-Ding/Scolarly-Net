@@ -6,7 +6,7 @@ const defaultOptions = {
     shape: 'dot',
     font: {
       size: 10,
-      vadjust: -5,
+      vadjust: -5, // vertical adjustment of the label
       face: 'Consolas',
     },
     color: '#154ec1'
@@ -15,6 +15,7 @@ const defaultOptions = {
     font: {
       face: 'Consolas',
     },
+    // apply smooth edges if needed
     // smooth: {
     //   type: 'cubicBezier',
     //   forceDirection: 'horizontal',
@@ -60,6 +61,7 @@ export const generateOptions = (customOptions) => {
   };
 };
 
+// convert list of author objects to string
 export const authors2Str = (authors) => {
   if (authors.length === 0) return null;
   let str = '\nBy: ';

@@ -1,3 +1,4 @@
+// Define the routes for the application
 export const routesConfig = [
   {
     path: '/dashboard',
@@ -13,7 +14,7 @@ export const routesConfig = [
     path: '/topic',
     name: 'topic',
     icon: 'topic',
-    redirect: '/topic/same-topic',
+    redirect: '/topic/same-topic', // redirect to the first child route
     meta: {
       title: 'Topic',
     },
@@ -42,7 +43,7 @@ export const routesConfig = [
     path: '/author',
     name: 'author',
     icon: 'person',
-    redirect: '/author/co-authors',
+    redirect: '/author/co-authors', // redirect to the first child route
     meta: {
       title: 'Author',
     },
@@ -71,7 +72,7 @@ export const routesConfig = [
     path: '/reference',
     name: 'reference',
     icon: 'link',
-    redirect: '/reference/cited',
+    redirect: '/reference/cited', // redirect to the first child route
     meta: {
       title: 'Reference',
     },

@@ -1,6 +1,7 @@
 import axios from "axios";
 import router from "@/router";
 
+// create a new axios instance
 const sysInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API,
 });
@@ -13,6 +14,7 @@ sysInstance.interceptors.request.use(
   },
   // if the request is not successful, it will be caught by the catch block and redirected to the error page
   (error) => {
+    console.log('Error Message:', error)
     router.push({path: '/error', query: { msg: error }}).then();
     return Promise.reject(error);
   }
@@ -23,7 +25,9 @@ sysInstance.interceptors.response.use(
   (response) => {
     return response;
   },
+  // if the response is not successful, it will be caught by the catch block and redirected to the error page
   (error) => {
+    console.log('Error Message:', error)
     router.push({path: '/error', query: { msg: error }}).then();
     return Promise.reject(error);
   }

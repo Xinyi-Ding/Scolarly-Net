@@ -1,10 +1,9 @@
-// setup.js
 import { config } from '@vue/test-utils';
 import { createRouter, createWebHistory } from 'vue-router';
 import { routesConfig } from '@/lib/routesConfig';
 import { createVuestic } from 'vuestic-ui'
 
-// Configure the router
+// configure the router
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes: [
@@ -17,11 +16,12 @@ const router = createRouter({
   ],
 });
 
+// set up the router
 export function setupRouter() {
   router.push('/').then(); // Navigate to initial route if needed
   return router;
 }
 
-// Use the router with Vue Test Utils
+// use the router with Vue Test Utils
 config.global.plugins.push([router]);
 config.global.plugins.push(createVuestic({}))

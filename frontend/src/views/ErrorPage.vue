@@ -1,11 +1,11 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 
-const router = useRouter();
-const route = useRoute();
-const message = route.query.msg;
-console.log('message', message);
+const router = useRouter(); // router instance
+const route = useRoute(); // route instance
+const message = route.query.msg; // error message
 
+// method to handle the back action
 const handleBack = () => {
   router.push('/');
 };
@@ -27,6 +27,7 @@ const handleBack = () => {
         <div class="my-3">
           Something went wrong. Please try again later.
         </div>
+        <!-- error message -->
         <p>Caused By: {{ message }}</p>
       </template>
       <template #close>
@@ -40,7 +41,3 @@ const handleBack = () => {
     </VaAlert>
   </div>
 </template>
-
-<style scoped>
-
-</style>
