@@ -6,6 +6,25 @@
 ### **Description**
 The proposed architecture employs Vue coupled with Axios for front-end development, FastAPI for backend API services, Python for backend data processing, and MongoDB as the data storage solution. The defined dependencies ensure a fluid exchange of data and operations between the front-end and back-end components, promoting a cohesive and efficient workflow.
 
+#### *Why Front-End*?
+The architectural choice of a separated front-end in our system architecture is essential for several strategic reasons:
+
+1. **Specialized Focus:** Front-end separation allows for a focused approach to user experience design, tailored specifically to the varied needs of our users. By decoupling the user interface from the server-side logic, we can tailor the front-end to support scenarios such as data-driven academic research, policy analysis, and comprehensive literature reviews without being constrained by back-end processes.
+
+2. **Agility and Scalability:** A separated front-end facilitates agile development and deployment. As the needs of students, academics, and professionals evolve, the front-end can be updated and scaled independently of the back-end services, ensuring the system remains responsive to the changing demands of evidence-based decision-making.
+
+3. **Performance and Optimization:** This separation allows for the optimization of front-end resources for speed and efficiency, critical for tasks such as rendering complex data visualizations or managing extensive literature databases, ensuring that the system is both powerful and responsive.
+
+4. **Enhanced User Interaction:** By focusing on the front-end, we can ensure that features such as citation tracking, note-taking, and customizable searches are implemented in a way that is intuitive and efficient, enhancing the overall user experience and facilitating the academic writing process.
+
+5. **Flexibility in Technology Stack:** The separation allows us to choose the most appropriate technologies for the front-end, ensuring that the system's interface is built using tools best suited for creating a dynamic and user-friendly environment. It also means that as new front-end technologies emerge, the system can adapt without the need for extensive back-end overhauls.
+
+6. **Streamlined Development Workflow:** A separate front-end enables a streamlined workflow for developers, where front-end and back-end teams can work in parallel on different aspects of the system. This approach reduces bottlenecks and accelerates the development process, which is essential for a complex system designed to handle a vast array of academic research functions.
+
+7. **Ease of Testing and Maintenance:** Testing the user interface becomes more manageable when it is decoupled from the back-end logic. The front-end can be tested for usability and performance independently, ensuring that the system remains reliable and effective for user-driven exploration and analysis.
+
+In essence, the decision to architect a distinct front-end directly supports the system's ambition to be a comprehensive research and analysis platform that remains user-centric, agile, and technologically robust. This separation is vital for ensuring that the system not only meets but exceeds the expectations of its diverse user base.
+
 ### **Frontend Components**
 #### *Components List:*
 - `Vue`
@@ -83,7 +102,7 @@ The proposed architecture employs Vue coupled with Axios for front-end developme
 - `Pytest → FastAPI`
     - Pytest is also used to test FastAPI endpoints, verifying the correct behavior of API calls and responses.
 
-### **Overal Decision-Making for Technology Selection**
+### **Decision-Making for Technology Selection**
 The architecture and choice of technologies for the this system were methodically planned to align with the project's objectives, the proficiency of the development team, and the specific needs of our target users.
 
 #### 1. *Development Team Background*
