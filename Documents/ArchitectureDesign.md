@@ -26,32 +26,32 @@ In essence, the decision to architect a distinct front-end directly supports the
 - `Vuex`
     - This state management pattern library is tailored for Vue.js. It serves as a centralized store for all the components in an application, with rules ensuring the state can only be mutated in a predictable fashion. 
     - [**Vuex Official Documentation**](https://vuex.vuejs.org/)
-- `ElementUI`
-    - A Vue.js UI toolkit for web development, ElementUI offers a collection of high-quality components and tools for building rich, responsive interfaces. 
-    - [**ElementUI Official Documentation**](https://element.eleme.io/#/en-US)
+- `VuesticUI`
+    - A Vue.js UI toolkit for web development, VuesticUI offers a collection of high-quality components and tools for building rich, responsive interfaces. 
+    - [**VuesticUI Official Documentation**](https://ui.vuestic.dev/)
 - `Webpack` 
     - As a static module bundler for modern JavaScript applications, Webpack processes your application's modules and efficiently bundles them into static assets. 
     - [**Webpack Official Documentation**](https://webpack.js.org/concepts/)
 - `Axios`
     - A promise-based HTTP client for making HTTP requests from the browser or Node.js applications, Axios integrates easily with Vue.js and provides a straightforward API for interaction. 
     - [**Axios Official Documentation**](https://axios-http.com/docs/intro)
-- `ECharts` 
+- `vis.js` 
     - A powerful, interactive charting and data visualization library for the browser. It offers a variety of chart types and can be easily integrated into Vue applications. 
-    - [**ECharts Official Documentation**](https://echarts.apache.org/en/index.html)
+    - [**vis.js Official Documentation**](https://visjs.org/)
 
 #### *Component Dependencies:*
 - `Vue → Vuex` 
     - Vuex serves as the state management pattern for applications using Vue. It is essential for maintaining a centralized and coherent state across the application.
-- `Vue → ElementUI` 
-    - Vue utilizes ElementUI for rich UI components, which are integral to crafting an engaging user interface.
+- `Vue → VuesticUI` 
+    - Vue utilizes VuesticUI for rich UI components, which are integral to crafting an engaging user interface.
 - `Vue → Axios` 
     - Axios is crucial for Vue applications to handle HTTP requests, allowing seamless communication with back-end services.
-- `Vue → ECharts`
-    - integration of ECharts with Vue enables the creation of interactive data visualizations within the user interface.
+- `Vue → vis.js`
+    - integration of vis.js with Vue enables the creation of interactive data visualizations within the user interface.
 - `Webpack → Vue` 
     - Webpack is leveraged to bundle Vue components efficiently, enhancing application performance and asset management.
-- `Webpack → ElementUI` 
-    - ElementUI components are managed and bundled within the Webpack ecosystem, ensuring correct integration and styling.
+- `Webpack → VuesticUI` 
+    - VuesticUI components are managed and bundled within the Webpack ecosystem, ensuring correct integration and styling.
 - `Webpack → Axios`
     - Axios is configured within Webpack to handle asynchronous HTTP requests as part of the build process.
 
@@ -100,7 +100,7 @@ In essence, the decision to architect a distinct front-end directly supports the
 - `Docker`: A containerization platform that encapsulates applications and their environments for consistent deployment across different systems. Docker ensures that applications run the same, regardless of where they are deployed. It provides a way to package the application with its environment and dependencies into a container, which can be transported and run anywhere Docker is supported.
 
 #### *Component Dependencies:*
-- `Frontend Container -> All Frontend Components`: The frontend container bundles all frontend components including Vue, Vuex, ElementUI, Webpack, Axios, and ECharts. This container is responsible for the presentation layer of the application, providing the user interface and handling interactions with the user.
+- `Frontend Container -> All Frontend Components`: The frontend container bundles all frontend components including Vue, Vuex, VuesticUI, Webpack, Axios, and vis.js. This container is responsible for the presentation layer of the application, providing the user interface and handling interactions with the user.
   
 - `Backend Container -> All Backend Components (Except Grobid Component)`: The backend container encompasses the components required for the application's server-side operations, such as FastAPI, Python, and MongoDB. This container handles API requests, business logic, data processing, and analysis. It interacts with the frontend container to serve processed data and accept user inputs.
   
@@ -162,10 +162,10 @@ The selection of each technology component within our stack was the result of a 
 - **Advantages:** Offers a streamlined state management system, essential for maintaining cohesive state throughout the application.  
 - **Justification:** Vuex's native integration with Vue.js significantly simplifies state management. For a system that includes complex features like user-defined filters and search, this simplicity is invaluable.
 
-#### `ElementUI`
+#### `VuesticUI`
 - **Chosen Over:** Ant Design, BootstrapVue  
-- **Advantages:** Delivers a rich suite of pre-designed components, well-integrated with Vue.js, which expedites the UI development process.  
-- **Justification:** ElementUI’s consistent design language fits perfectly with our vision of an intuitive user interface that caters to the platform's wide-ranging functionality from data visualization to literature management.
+- **Advantages:** Offers an extensive collection of pre-designed components that are seamlessly integrated with Vue.js, enhancing the speed of UI development.
+- **Justification:** The cohesive design system of VuesticUI aligns with our goal for a user-friendly interface that supports diverse features, from data visualization to literature management, enhancing user experience and engagement.
 
 #### `Webpack`
 - **Chosen Over:** Rollup, Parcel  
@@ -177,10 +177,10 @@ The selection of each technology component within our stack was the result of a 
 - **Advantages:** Presents a robust solution for HTTP requests with a promise-based API, simplifying server communication.  
 - **Justification:** Axios's widespread adoption and ease of use make it the best choice for our project, especially considering the need for efficient communication between the system's front end and the back end.
 
-#### `ECharts`
-- **Chosen Over:** D3.js, Chart.js  
-- **Advantages:** Offers comprehensive charting and interactive visualization capabilities, crucial for academic data representation.  
-- **Justification**:_ ECharts strikes a balance between customization and ease of use, making it suitable for the advanced data analysis and visualization required by our users, from students conducting literature reviews to companies engaging in market analysis.
+#### `vis.js`
+- **Chosen Over:** ECharts, Chart.js  
+- **Advantages:** Provides extensive charting and dynamic visualization features essential for detailed academic data presentation.
+- **Justification:** vis.js offers an optimal mix of customizability and user-friendliness, catering to our user base's sophisticated data analysis and visualization needs, ranging from students performing literature reviews to businesses conducting market research.
 
 #### `FastAPI`
 - **Chosen Over:** Flask, Django REST framework  
@@ -224,9 +224,9 @@ Here is an alternative technology stack that could have been chosen for the syst
 - **Limitations:** React and Redux introduce a steeper learning curve and added complexity, which might not align with the ease of use required for our academic-focused platform.
 
 #### `Tailwind CSS`
-- **Chosen Over:** ElementUI  
-- **Advantages:** Provides a utility-first approach for more granular control over design and responsive features.
-- **Limitations:** Lacks a comprehensive suite of pre-designed components, potentially slowing down the development process.
+- **Chosen Over:** VuesticUI  
+- **Advantages:** Tailwind CSS offers a utility-first approach that grants detailed control over styling and responsive design, allowing for more custom and finely-tuned UI elements.
+- **Limitations:** Unlike VuesticUI, Tailwind CSS does not come with a wide range of ready-made components. This might require additional time for component development and design customization, potentially extending the overall development timeline.
 
 #### `Vite`
 - **Chosen Over:** Webpack  
@@ -239,9 +239,9 @@ Here is an alternative technology stack that could have been chosen for the syst
 - **Limitations:** Does not provide features like automatic JSON data transformation that Axios offers.
 
 #### `Chart.js`
-- **Chosen Over:** ECharts  
-- **Advantages:** Lightweight with a straightforward API, suitable for basic charting requirements.
-- **Limitations:** Does not support complex and interactive visualizations that our system requires for academic data analysis.
+- **Chosen Over:** vis.js  
+- **Advantages:** Provides a lightweight solution with a simple API, perfect for fundamental charting needs.
+- **Limitations:** Falls short in offering the advanced and interactive visualization features essential for the detailed academic data analysis our platform necessitates.
 
 #### `Django + Django REST Framework`
 - **Chosen Over:** FastAPI  
