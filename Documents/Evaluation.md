@@ -172,12 +172,32 @@ While utilizing the grobid package, known for its precision and efficiency in ex
 ### Frontend
 
 1. **Sidebar Navigation Active State**
-   The sidebar navigation feature, which allows users to expand or collapse the sidebar, does not retain the active state of the current page when the page is refreshed. This limitation is due to 
+   The sidebar navigation feature, which allows users to expand or collapse the sidebar, does not retain the active state of the current page when the page is refreshed. This limitation is due to initialize sidebar active state to same value every time the page is refreshed. To address this, we considered to continuously watch the value of the path, and then set the active state of the sidebar according to the path once the path changes or the page is refreshed.
 
-2. **Graph Visualization with Large Dataset Challenge**
-   The graph visualization tool used in frontend is `vis-network.js`, which is a powerful and flexible tool for visualizing large datasets in a network. However, when the dataset is large, the graph visualization can become cluttered and difficult to interpret. To address this challenge, we implemented a feature that allows users to filter the graph by searching for specific papers. This feature significantly enhances the usability of the graph visualization tool, enabling users to focus on specific papers and their connections.
+   ![sidebar navigation active state](./Image/router_link.gif)
+
+   *Figure 7: Sidebar navigation link retains active after page refresh.*
+
+2. **Generate Graphs from Paper Data to Connection**
+   It is hard to connect each paper and other nodes together using JS to find the relationship between them. The current version of the project is to generate the connections in the backend and then send the data to the frontend, so it does not need frontend to process the data and find relationship 
+
+    ![connection data](./Image/connection_data.png)
+
+    *Figure 8: Connection data in the backend.*
+
+3. **Graph Visualization with Large Dataset Challenge**
+   The graph visualization tool used in frontend is `vis-network.js`, which is a powerful and flexible tool for visualizing large datasets in a network. However, when the dataset is large, the graph visualization can become cluttered and difficult to interpret.
+
+   ![large dataset graph](./Image/large_dataset_graph.png)
+
+   *Figure 9: Graph visualization problem with large dataset.*
+
+   The problem is caused by the network visualization tool's inability to prevent overlapping nodes and edge in the display method we used. To address this, we can consider using another kind of graph instead of normal one. But it is not resolved in the current version, so this could be a limitation.
 
 ### Database
+
+
+
 
 
 ### General Limitation
@@ -248,31 +268,31 @@ Our comprehensive evaluation of the prototype's functionality involved a series 
 
 ![Successful Metadata Extraction Example](./Image/parsing_example.png)
 
-*Figure 7: Example of Successful Metadata Extraction.*
+*Figure 10: Example of Successful Metadata Extraction.*
 
 - **Keyword-Based Article Search**: The search functionality of the prototype underwent testing to ascertain its accuracy in locating articles based on title keywords. The system displayed commendable performance, adeptly matching user queries with the corresponding articles in the database. This feature was instrumental in facilitating easy access to relevant academic content, as evidenced by the search results showcasing the prototype's effectiveness in retrieving accurate matches.
 
 ![Search Results Example](./Image/search_result.jpg)
 
-*Figure 8: Example of Search Results.*
+*Figure 11: Example of Search Results.*
 
 - **topic Relationship Mapping**: A distinguishing aspect of the prototype is its ability to discern and visually represent topic connections across the dataset. Testing this feature revealed the prototype's capacity to generate detailed topic graphs, offering users an intuitive understanding of topic interrelations. These visualizations were particularly useful in highlighting underlying patterns and trends within the academic landscape.
 
 ![topic Relationship Graph Example](./Image/topic_map.jpg)
 
-*Figure 9: Example of a topic Relationship Graph. (Circles represent articles, pentagrams represent topics, and the yellow circle denotes the currently selected or uploaded article.)*
+*Figure 12: Example of a topic Relationship Graph. (Circles represent articles, pentagrams represent topics, and the yellow circle denotes the currently selected or uploaded article.)*
 
 - **Co-Authorship Networks**: The prototype's functionality extends to mapping networks of co-authorship, a feature that was rigorously tested. The system successfully identified collaborative networks among authors, visually mapping these connections in a comprehensive manner. This functionality adds a layer of depth to academic research analysis by elucidating the collaborative dynamics within the scholarly community.
 
 ![Co-Authorship Network Example](./Image/author_relation.jpg)
 
-*Figure 10: Example of a Co-Authorship Network. (The yellow circle represents the selected or uploaded current article, while triangles denote the authors involved in the co-authorship network.)*
+*Figure 13: Example of a Co-Authorship Network. (The yellow circle represents the selected or uploaded current article, while triangles denote the authors involved in the co-authorship network.)*
 
 - **Citation Mapping**: Another pivotal feature evaluated was the prototype's ability to construct citation maps. These maps are instrumental in tracing the lineage and impact of scholarly works. The evaluation confirmed the prototype's adeptness in creating detailed and informative citation trees, offering valuable insights into the citation networks that underpin academic research.
 
 ![Citation Tree Example](./Image/citation_tree.png)
 
-*Figure 11: Example of a Citation Tree.(The yellow circle represents the selected or uploaded current article, whereas blue circles denote the articles cited by the current article.)*
+*Figure 14: Example of a Citation Tree.(The yellow circle represents the selected or uploaded current article, whereas blue circles denote the articles cited by the current article.)*
 
 
 ### Usability Analysis

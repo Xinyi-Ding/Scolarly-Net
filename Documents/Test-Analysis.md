@@ -433,7 +433,7 @@ This section provides a comprehensive analysis of the usability testing conducte
      - **UTC ID: 2.4**
        - **Goals Achieved**: 3 passes, 0 fails
        - **Feedback**: The search process is clear and straightforward, and the search results are relevant to the search keyword. But there is no search bar in the Dashboard page, which is a bit inconvenient.
-       - **Suggestions**: Since every page has a search bar and can search for paper title only, it might be clearer to the user if the search bar is put in the app bar on the top of the page.
+       - **Suggestions**: Since every page has a search bar and can search for paper title only, it might be clearer to the user if the search bar is put in the app bar on the top of the page. In the paper list, there is a label could be added on top of each paper showing it is 'similar paper' like the 'original paper' label.
        - **Analysis**: The user experienced is partly satisfied in this case. The search bar problem is caused by the redundant search bar in each page all of which can only search for paper title, so it is a bit confusing.
        - **Future Improvement**: Add search bar in the app bar on the top of the page, change search bar in each page to an expandable icon that can be optional to show.
    - **Overall Analysis**: The search process is clear and straightforward, and the search results are relevant to the search keyword. More adjustments can be made to enhance the user experience, which should be pay attention to in the future design and development.
