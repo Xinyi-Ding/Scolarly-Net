@@ -44,7 +44,7 @@ To sum up, the project's progress largely adhered to the planned schedule. Howev
 
 4. **Extended Development Time**: The timeline extended beyond our initial estimates due to unforeseen challenges encountered during the development phase. Issues such as accuracy in data extraction, database deployment intricacies, interface design refinement, backend-frontend integration, and CI/CD pipeline testing contributed to these delays.
 
-5. **Data Model Adjustments**: We expanded the types of data stored in our tables and altered the relationship schema between authors, institutions, and departments. This modification was made to achieve a more normalized data model that aligned with requirement 3b. The contrasts between the initial and final data models are depicted in Figures 1.1 and 1.2, with further details available in [data_model.md](./data_model.md):
+5. **Data Model Adjustments**: We expanded the types of data stored in our tables and altered the relationship schema between authors, institutions, and departments. This modification was made to achieve a more normalized data model that aligned with requirement 3b. The contrasts between the initial and final data models are depicted in Figures 1.1 and 1.2, with further details available in [data_model.md](./Data-Model.md):
     ![original data model](./Image/data_model_v1.svg)
 
     *Figure 1.1: The original data model at project launch.*

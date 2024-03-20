@@ -130,8 +130,6 @@ The table below provides a structured overview of potential risks by category, a
 | Scheduling | Inaccurate time estimations for development milestones | Possible | Severe | Medium |
 | Scheduling | Unexpected occurrences delaying project timelines | Possible | Moderate | Medium |
 | Scheduling | Insufficient resource allocation affecting project pace | Possible | Severe | Medium |
-| Budget | Underestimation of overall project costs | Possible | Severe | Medium |
-| Budget | Unforeseen cost increases due to scope changes | Possible | Moderate | Medium |
 | Operational | Challenges in process implementation | Probable | Moderate | Medium |
 | Operational | Integration with external systems causing delays | Possible | Moderate | Medium |
 | Technical | System performance issues under heavy load | Probable | Severe | High |
