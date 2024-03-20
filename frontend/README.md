@@ -69,28 +69,23 @@ This frontend service is structured to support various functionalities including
 
 ## Installation
 
-> Please make sure the Node.js (>v20) and npm are available on your machine.
+> Please make sure the Node.js (>v20) and npm are available on your machine. Go [Setup.md](../Documents/Setup.md) for more information
 
-install dependencies
-
-```
-npm install
-```
+1. enter the `frontend` directory if still in root directory
+   ```
+   cd frontend
+   ```
+2. install dependencies
+   ```
+   npm install
+   ```
 
 ## Running the Application in Development Mode
 
-enter the `frontend` directory if still in root directory
-
-```
-cd frontend
-```
-
 start the application in development mode
-
 ```
 npm run dev
 ```
-
 Now the application is running in development mode. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 
 ## Testing
@@ -103,17 +98,17 @@ npm test
 
 ## Deployment Preview (if needed)
 
-build the application first
+1. build the application first
 
-```
-npm run build
-```
+   ```
+   npm run build
+   ```
 
-start the application deployment preview
+2. start the application deployment preview
 
-```
-npm run preview
-```
+   ```
+   npm run preview
+   ```
 
 Now the application deployment preview is running. Open [http://localhost:4173](http://localhost:4173) to view it in the browser.
 
