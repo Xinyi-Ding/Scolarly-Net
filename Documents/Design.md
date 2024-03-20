@@ -548,37 +548,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - **Columns:** article_id (Foreign Key referencing Article), author_id (Foreign Key referencing Author).
 
 ### Data Model Diagram:
-```
-                            +------------------+
-                            |      Article     |
-                            +------------------+
-                            | article_id (PK)  |
-                            | title            |
-                            | content          |
-                            | publication_date |
-                            | ...              |
-                            +------------------+
-                                    |
-                                    |
-           +------------------------+------------------------+
-           |                        |                        |
-           |                        |                        |
-   +----------------+       +----------------+     +------------------+
-   |  Topic         |       |  Author        |     |    Reference     |
-   +----------------+       +----------------+     +------------------+
-   | topic_id (PK)  |       | author_id (PK) |     | reference_id (PK)|
-   | name           |       | name           |     | reference_text   |
-   +----------------+       | affiliation    |     | article_id (FK)  |
-                            | contact_details|     +------------------+
-                            +----------------+
-
-   +----------------+     +----------------+
-   | Article_Topic  |     | Article_Author |
-   +----------------+     +----------------+
-   | article_id (FK)|     | article_id (FK)|
-   | topic_id (FK)  |     | author_id (FK) |
-   +----------------+     +----------------+
-```
+![data model](./Image/data_model_v1.svg)
 *Figure 3: The design of the structure of the data model.*
 
 ## Test Plan
