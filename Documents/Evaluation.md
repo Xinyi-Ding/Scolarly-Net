@@ -117,56 +117,65 @@ Our prototype's development and assessment have uncovered a number of critical f
 - **Reliability and Stability**: Throughout the testing phase, the prototype demonstrated high levels of reliability and stability, with minimal errors and disruptions. This robust performance is crucial for maintaining user trust and ensuring consistent access to the system's features.
 
 ## Challenges, Solutions and Limitation
+
 ### Metadata Extraction Challenges
+
 While utilizing the grobid package, known for its precision and efficiency in extracting metadata, we encountered unforeseen issues that impacted the extraction process.
+
 1. **Topic and Keyword Extraction Challenge**:
-Although our keyword extraction process was generally successful, we encountered issues with certain articles that exhibited problematic keywords, including complex categorization codes and non-standard phrases. These issues were highlighted in cases such as the one depicted in Figure 1, where extracted keywords did not align with conventional academic nomenclature.
+   Although our keyword extraction process was generally successful, we encountered issues with certain articles that exhibited problematic keywords, including complex categorization codes and non-standard phrases. These issues were highlighted in cases such as the one depicted in Figure 1, where extracted keywords did not align with conventional academic nomenclature.
+   
+   ![Keyword Example](Image/keywords_example.jpg)
+   
+   *Figure 2: An example of keyword extraction results with complex categorization codes and phrases.*
 
-![Keyword Example](Image/keywords_example.jpg)
+   To solve this, we decided to forgo displaying the extracted keywords directly and instead utilized them in the process of topic extraction. We refined the process by combining the problematic keywords with the article's abstract and title. We then employed Latent Dirichlet Allocation (LDA) to discern the principal topics from this amalgamated text. LDA was tasked with the identification and grouping of words into topics based on their co-occurrence across the documents, thus revealing the underlying topic structures. 
 
-*Figure 2: An example of keyword extraction results with complex categorization codes and phrases.* 
-
-    To solve this, we decided to forgo displaying the extracted keywords directly and instead utilized them in the process of topic extraction. We refined the process by combining the problematic keywords with the article's abstract and title. We then employed Latent Dirichlet Allocation (LDA) to discern the principal topics from this amalgamated text. LDA was tasked with the identification and grouping of words into topics based on their co-occurrence across the documents, thus revealing the underlying topic structures. 
-
-    The process involved preprocessing the text to facilitate the recognition of significant word patterns, applying bigram models to capture phrases, and then constructing a dictionary and corpus suitable for LDA. After performing the LDA topic modeling, we extracted and consolidated the keywords, ensuring they represent distinct and meaningful topics. The result was a set of refined and representative topics, extracted from the harmonized data of titles, abstracts, and keywords, which were then presented as the distilled essence of the articles on our platform.
+   The process involved preprocessing the text to facilitate the recognition of significant word patterns, applying bigram models to capture phrases, and then constructing a dictionary and corpus suitable for LDA. After performing the LDA topic modeling, we extracted and consolidated the keywords, ensuring they represent distinct and meaningful topics. The result was a set of refined and representative topics, extracted from the harmonized data of titles, abstracts, and keywords, which were then presented as the distilled essence of the articles on our platform.
 
 2. **Abstract Extraction Challenge**:
-Even though it wasn't specified as a requirement, extracting the abstract is crucial for determining the article's theme. The abstracts that were extracted sometimes included special characters, such as `↵`, or had incorrect line breaks. To standardize the output, we undertook data cleaning, which is depicted in the before-and-after comparison shown below.
+   Even though it wasn't specified as a requirement, extracting the abstract is crucial for determining the article's theme. The abstracts that were extracted sometimes included special characters, such as `↵`, or had incorrect line breaks. To standardize the output, we undertook data cleaning, which is depicted in the before-and-after comparison shown below.
+   
+   ![omparison of abstract format before and after cleanin](./Image/abstract_compare.jpg)
+   
+   *Figure 3: Comparison of abstract format before and after cleaning.*
 
-![omparison of abstract format before and after cleanin](./Image/abstract_compare.jpg)
+   In comparison, networks generated using only keywords lacked the comprehensive linkages achievable through Latent Dirichlet Allocation (LDA), see detail examples in Figure 5.1 and 5.2. LDA's advantage lies in its ability to use the root form of topics, maintaining consistency and avoiding the risk of unrecognized illegal characters in keywords. However, LDA heavily relies on the article's content and parameter settings, sometimes highlighting common words despite part-of-speech filtering, such as filtering out adverbs and adjectives. Efforts to use packages like NLTK for phrase combination were only partially successful, especially for uncommon terms. For instance, "Vincent van Gogh," ideally a single entity, was erroneously extracted as three separate topics, as marked in the first box in Figure 4.
 
-*Figure 3: Comparison of abstract format before and after cleaning.*
+   Furthermore, while LDA can cover key topics, it struggles to filter out irrelevant common words like "usage," as indicated in the second box in Figure 4.
 
-    In comparison, networks generated using only keywords lacked the comprehensive linkages achievable through Latent Dirichlet Allocation (LDA), see detail examples in Figure 5.1 and 5.2. LDA's advantage lies in its ability to use the root form of topics, maintaining consistency and avoiding the risk of unrecognized illegal characters in keywords. However, LDA heavily relies on the article's content and parameter settings, sometimes highlighting common words despite part-of-speech filtering, such as filtering out adverbs and adjectives. Efforts to use packages like NLTK for phrase combination were only partially successful, especially for uncommon terms. For instance, "Vincent van Gogh," ideally a single entity, was erroneously extracted as three separate topics, as marked in the first box in Figure 4.
-    Furthermore, while LDA can cover key topics, it struggles to filter out irrelevant common words like "usage," as indicated in the second box in Figure 4.
+   ![topic limitation example](./Image/topic_limitation.png)
 
-    ![topic limitation example](./Image/topic_limitation.png)
+   *Figure 4: Example of topic extraction results (This article was contributed by a team member for testing purposes with their consent.)*
 
-    *Figure 4: Example of topic extraction results (This article was contributed by a team member for testing purposes with their consent.)*
+   Below is a comparison between the network generated using keywords and the revised network generated using topics after the modifications:
 
-    Below is a comparison between the network generated using keywords and the revised network generated using topics after the modifications:
+   ![keywords mapping](./Image/kewords_map.jpg)
 
-    ![keywords mapping](./Image/kewords_map.jpg)
+   *Figure 5.1: Network generated using keywords.*
 
-    *Figure 5.1: Network generated using keywords.*
+   ![topic mapping](./Image/topic_map.jpg)
 
-    ![topic mapping](./Image/topic_map.jpg)
+   *Figure 5.2: Revised network generated using topics.*
 
-    *Figure 5.2: Revised network generated using topics.*
-
-    However, some unique articles do not include a subheading with `Abstract` in the abstract section (like [2629451.pdf](../backend/data/Papers/2629451.pdf)), some have the abstract in a special format (like `a b s t r a c t` in [nursing.pdf](../backend/data/Papers/nursing.pdf)), and others do not have an abstract at all, such as [296274270.pdf](../backend/data/Papers/296274270.pdf).
+   However, some unique articles do not include a subheading with `Abstract` in the abstract section (like [2629451.pdf](../backend/data/Papers/2629451.pdf)), some have the abstract in a special format (like `a b s t r a c t` in [nursing.pdf](../backend/data/Papers/nursing.pdf)), and others do not have an abstract at all, such as [296274270.pdf](../backend/data/Papers/296274270.pdf).
 
 3. **Reference Extraction Challenge**:
-The metadata extracted from references using the Grobid package was inaccurate; some references were missing titles, and some had incorrect author names. Fortunately, the original reference field was mostly intact, leading us to decide on using the `Anystyle` package for re-extracting metadata from this field. Compared to Grobid, Anystyle yielded more accurate results; however, it lacked the functionality to automatically fill in the authors' first names. Despite this limitation, we prioritized the accuracy of reference extraction, resulting in a compromise on the completeness of the authors' first names.
+   The metadata extracted from references using the Grobid package was inaccurate; some references were missing titles, and some had incorrect author names. Fortunately, the original reference field was mostly intact, leading us to decide on using the `Anystyle` package for re-extracting metadata from this field. Compared to Grobid, Anystyle yielded more accurate results; however, it lacked the functionality to automatically fill in the authors' first names. Despite this limitation, we prioritized the accuracy of reference extraction, resulting in a compromise on the completeness of the authors' first names.
 
-    Even with the use of `Anystyle` for more accurate metadata extraction from raw references, initial errors in extracting these references (such as incorrect segmentation, leading to a single reference being split into two, as shown in Figure 3) remain challenging to avoid and currently lack a solution. Future efforts will consider optimizing this functionality, given more time.
-4. 
-![a single reference into two](./Image/reference_segements.jpg)
-4. 
-*Figure 6: Error case in reference extraction: Segments 1 and 2 of the raw reference actually belong to the same reference.*
+   Even with the use of `Anystyle` for more accurate metadata extraction from raw references, initial errors in extracting these references (such as incorrect segmentation, leading to a single reference being split into two, as shown in Figure 3) remain challenging to avoid and currently lack a solution. Future efforts will consider optimizing this functionality, given more time.
+
+   ![a single reference into two](./Image/reference_segements.jpg)
+
+   *Figure 6: Error case in reference extraction: Segments 1 and 2 of the raw reference actually belong to the same reference.*
 
 ### Frontend
 
+1. **Sidebar Navigation Active State**
+   The sidebar navigation feature, which allows users to expand or collapse the sidebar, does not retain the active state of the current page when the page is refreshed. This limitation is due to 
+
+2. **Graph Visualization with Large Dataset Challenge**
+   The graph visualization tool used in frontend is `vis-network.js`, which is a powerful and flexible tool for visualizing large datasets in a network. However, when the dataset is large, the graph visualization can become cluttered and difficult to interpret. To address this challenge, we implemented a feature that allows users to filter the graph by searching for specific papers. This feature significantly enhances the usability of the graph visualization tool, enabling users to focus on specific papers and their connections.
 
 ### Database
 
