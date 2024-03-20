@@ -471,17 +471,6 @@ def search_co_author_by_filter_as_response(filter_obj: ArticleFilter) -> CoAutho
         # Iterate over each unique article ID to fetch detailed article information
         for article_id in article_id_set:
             article_vo = article_crud.get_by_filter(ArticleFilter(article_id=article_id))[0]
-            article_author_vo_lst = article_author_crud.get_by_filter(ArticleAuthorFilter(article_id=article_id))
-
-            author_schema_lst: list[AuthorSchema] = []
-
-            # Fetch detailed author information for each article
-            for article_author_vo in article_author_vo_lst:
-                author_vo = author_crud.get_by_filter(AuthorFilter(author_id=article_author_vo.author_id))[0]
-                author_schema_lst.append(AuthorSchema(author_id=author_vo.author_id,
-                                                      name=author_vo.name,
-                                                      email=author_vo.email,
-                                                      affiliation=author_vo.affiliation))
 
             # Append information about the article and its authors
             paper_item_schema_lst.append(PaperItemSchema(article_id=article_vo.article_id,
