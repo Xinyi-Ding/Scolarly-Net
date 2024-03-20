@@ -295,6 +295,5 @@ def ensure_indexes():
     ArticleTopic.ensure_indexes()
     TopicRelationship.ensure_indexes()
 
-
 # Ensure indexes are created
 # ensure_indexes()
