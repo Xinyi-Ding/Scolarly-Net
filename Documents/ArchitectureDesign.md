@@ -1,5 +1,44 @@
+
 # Architecture and Components Design
-## Technology Stack Architecture
+This document provides a comprehensive overview of the architecture and design of various components within a specified technology stack. It outlines the structure and interrelations between frontend, backend, testing, and deployment elements, along with the rationale behind technology selection. Furthermore, it delves into alternative technological frameworks, offering insights into potential variations in the system's architecture. The document also details the design and functionalities of individual components, contributing to a holistic understanding of the system's operation and potential scalability.
+
+## Table of Content
+- [**Technology Stack Architecture**](#technology-stack-architecture)
+    - [**Description**](#description)
+    - [**Frontend Components**](#frontend-components)
+    - [**Backend Components**](#backend-components)
+    - [**Test Components**](#test-components)
+    - [**Deployment Components**](#deployment-components)
+    - [**Decision-Making for Technology Selection**](#decision-making-for-technology-selection)
+    - [**Horizontal comparison of each component**](#horizontal-comparison-of-each-component)
+    - [**Alternative Technology Stack**](#alternative-technology-stack)
+- [**Software Architecture**](#software-architecture)
+    - [**Overview**](#overview)
+    - [**Alternative Software Architecture**](#alternative-software-architecture)
+- [**Components Design**](#components-design)
+    - [`ClientUI`](#clientui)
+    - [`CoAuthors`](#coauthors)
+    - [`CitedTree`](#citedtree)
+    - [`SameTopic`](#sametopic)
+    - [`TopicConnections`](#topicconnections)
+    - [`PaperDashboard`](#paperdashboard)
+    - [`CatalogAPI`](#catalogapi)
+    - [`AnalysisAPI`](#analysisapi)
+    - [`Models`](#models)
+    - [`Schema`](#schema)
+    - [`Catalog`](#catalog)
+    - [`Analysis`](#analysis)
+    - [`Extractor`](#extractor)
+    - [`GrobidClient`](#grobidclient)
+    - [`Client`](#client)
+    - [`Parser`](#parser)
+    - [`Types`](#types)
+    - [`CatalogAccess`](#catalogaccess)
+    - [`MongoengineModels`](#mongoenginemodels)
+    - [`Config`](#config)
+
+
+## **Technology Stack Architecture**
 ![Technology Stack Architecture](/Documents/Image/TechStack.jpg)
 *Figure 1: Technology stack architecture.*
 
@@ -271,7 +310,7 @@ Here is an alternative technology stack that could have been chosen for the syst
 #### Comparative Analysis
 The alternative stack provides certain benefits; however, it poses significant limitations in terms of the complexity of learning and managing the technologies, the development speed, performance, and flexibility in handling unstructured data, as well as in scalability and deployment management. These limitations underscore the reasons for our selected technology stack, which provides a more user-friendly, efficient, and scalable solution tailored to the needs of a diverse academic audience.
 
-## Software Architecture
+## **Software Architecture**
 ![Component Architecture](/Documents/Image/ComponentGraph.png)
 *Figure 2: Component architecture for the application.*
 
@@ -335,7 +374,7 @@ The system adopts a 5-tier architecture, strategically designed to modularize th
 
 Each tier’s design considers the project’s goals and user needs, ensuring that students, academics, and professionals can effectively conduct literature research, analysis, and visualization without facing the complexities of the underlying system. The architecture provides the framework to support the advanced research functionality, data management tools, citation tracking, and analysis and visualization capabilities that are key to meeting the diverse requirements of the system's users. However, the layered approach, while beneficial for organization and scalability, introduces additional complexity and may necessitate careful consideration of performance and security implications at each level.
 
-### Alternative Software Architecture
+### **Alternative Software Architecture**
 While the 5-tier architecture described provides a robust and scalable framework for the system, an alternative architecture could be considered to address specific needs or constraints. One such alternative might be a microservices-based architecture. In this approach, the system is decomposed into a set of small, autonomous services, each implementing a specific business capability.
 
 #### Microservices-based Architecture
@@ -364,7 +403,7 @@ While the 5-tier architecture described provides a robust and scalable framework
 
 In conclusion, while a microservices architecture offers certain advantages such as independence and scalability, it may not align well with the system's current goals and user requirements. The complexity, potential for tight coupling, challenges in maintaining data consistency, deployment overhead, and security considerations present significant limitations for the project. The original 5-tier architecture is better suited to the system’s need for a coherent, secure, and user-friendly platform for academic literature research and analysis.
 
-## Components Design
+## **Components Design**
 ### `ClientUI`
 #### *Description*
 The `ClientUI` serves as the user interface layer of the system, providing an interactive web-based front end for users to access and interact with the system's features. It handles user input, displays data, and provides a seamless user experience by integrating with the backend services.
