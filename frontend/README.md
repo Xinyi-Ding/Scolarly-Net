@@ -96,7 +96,7 @@ run tests using Vitest
 npm test
 ```
 
-## Deployment Preview (if needed)
+## Deployment Preview (Optional)
 
 1. build the application first
 

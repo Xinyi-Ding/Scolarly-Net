@@ -9,6 +9,8 @@ edge represents a connection between two papers.
 ## Getting Started
 Our application is hosted on EIDF, so you can access it from the device that has access to it.
 
+It is deployed at [localhost:90](http://localhost:90) the EIDF VM.
+
 To get started, our application's layout is divided into three sections: the sidebar, the app bar, and the main content.
 
 ![Base Layout](./Image/base_layout.png)
