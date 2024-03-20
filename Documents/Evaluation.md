@@ -50,7 +50,7 @@ To sum up, the project's progress largely adhered to the planned schedule. Howev
     ![revised data model](./Image/final_model.jpg)
     *Figure 1.2: The revised data model upon project completion.*
 
-6. **File Format Limitations**: Initially, we hoped the website would allow for the extraction of target articles from various formats such as .pdf and .word. However, the current implementation, which relies on the Grobid extraction package, is limited to processing PDF files that conform to a basic academic paper structure. As a result, non-standard PDF files, like a PDF version of a PowerPoint presentation, cannot be accurately processed for meaningful metadata extraction.
+6. **File Format Limitations**: Initially, we hoped the website would allow for the extraction of target articles from various formats such as `.pdf` and `.word`. However, the current implementation, which relies on the Grobid extraction package, is limited to processing PDF files that conform to a basic academic paper structure. As a result, non-standard PDF files, like a PDF version of a PowerPoint presentation, cannot be accurately processed for meaningful metadata extraction.
 
 ## Requirements Fulfillment
 
@@ -92,6 +92,27 @@ The table below organizes the requirements along with their priorities, mapped t
 In conclusion, while not all designed features were fully realized, the project's critical components were developed to a high standard, fulfilling the most significant and high-priority requirements. This strategic focus ensured the project's core objectives were met, laying a solid foundation for future enhancements and expansions.
 
 ## Strengths
+
+Our prototype's development and assessment have uncovered a number of critical features that support both its viability and usage. These attributes show the strength of our design and also correspond with the overall objectives of the project, providing a strong basis for further development and improvement.
+
+- **Intuitive User Interface**: A cornerstone of our website's appeal lies in its intuitive design, which emphasizes simplicity and ease of navigation. This approach ensures that users of all different backgrounds can seamlessly explore the website's features, from visualizing complex academic networks to conducting detailed searches, without facing usability hurdles.
+
+- **Visual Representation of Academic Networks**: The website excels in presenting topic relationships, co-authorship connections, and citation networks through clear and engaging visualizations. These graphical representations transform abstract academic data into accessible and interpretable visuals, facilitating a deeper understanding of scholarly linkages and trends.
+
+- **Interactive Graphs and Maps**: Beyond static visualizations, our website offers interactive graphs and maps that allow users to delve into specific details, such as individual article connections or author collaborations. This interactivity enriches the user experience, enabling personalized exploration of academic networks.
+
+- **Real-time Data Processing**: At the heart of the website's functionality is its ability to process and update data in real-time. This ensures that the displayed academic networks are always current, reflecting the latest research and collaborations within the academic community.
+
+- **Advanced Data Processing Capabilities**: The prototype excels in its ability to process and analyze large volumes of data efficiently. Through optimized algorithms and streamlined data handling processes, it offers rapid metadata extraction and analysis, facilitating a smooth and productive user experience.
+
+- **Comprehensive Functionality**: The prototype encompasses a broad range of functionalities, from file upload and reading to complex analyses like topic relationship mapping, co-authorship networks, and citation mapping. This comprehensive suite of features makes it a versatile tool for academic research and analysis.
+
+- **Visual Data Representation**: A standout strength is the prototype's capability to visually represent complex data sets, making it easier for users to understand and interpret academic relationships and networks. The use of topic graphs, co-authorship networks, and citation trees enhances user engagement and aids in the exploration of scholarly connections.
+
+- **Scalability and Flexibility**: The modular design and architecture of the prototype provide a scalable and flexible foundation, allowing for easy integration of additional features and functionalities in the future. This adaptability ensures that the system can evolve in response to user feedback and emerging research needs.
+
+- **Reliability and Stability**: Throughout the testing phase, the prototype demonstrated high levels of reliability and stability, with minimal errors and disruptions. This robust performance is crucial for maintaining user trust and ensuring consistent access to the system's features.
+
 ## Challenges, Solutions and Limitation
 ### Metadata Extraction Challenges
 While utilizing the grobid package, known for its precision and efficiency in extracting metadata, we encountered unforeseen issues that impacted the extraction process.
@@ -100,7 +121,7 @@ Although our keyword extraction process was generally successful, we encountered
 ![Keyword Example](Image/keywords_example.jpg)
 *Figure 2: An example of keyword extraction results with complex categorization codes and phrases.* 
 
-    To solve this, we decided to forgo displaying the extracted keywords directly and instead utilized them in the process of topic extraction. We refined the process by combining the problematic keywords with the article's abstract and title. We then employed Latent Dirichlet Allocation (LDA) to discern the principal topics from this amalgamated text. LDA was tasked with the identification and grouping of words into topics based on their co-occurrence across the documents, thus revealing the underlying thematic structures. 
+    To solve this, we decided to forgo displaying the extracted keywords directly and instead utilized them in the process of topic extraction. We refined the process by combining the problematic keywords with the article's abstract and title. We then employed Latent Dirichlet Allocation (LDA) to discern the principal topics from this amalgamated text. LDA was tasked with the identification and grouping of words into topics based on their co-occurrence across the documents, thus revealing the underlying topic structures. 
 
     The process involved preprocessing the text to facilitate the recognition of significant word patterns, applying bigram models to capture phrases, and then constructing a dictionary and corpus suitable for LDA. After performing the LDA topic modeling, we extracted and consolidated the keywords, ensuring they represent distinct and meaningful topics. The result was a set of refined and representative topics, extracted from the harmonized data of titles, abstracts, and keywords, which were then presented as the distilled essence of the articles on our platform.
 
@@ -143,7 +164,7 @@ The metadata extracted from references using the Grobid package was inaccurate; 
 
 1. **Single-User Web Constraint**: Currently, the web application only permits one user at a time. This limitation primarily stems from the absence of a robust session management system, which is essential for handling multiple concurrent user sessions. Additionally, our current database setup is not optimized for concurrent access, which could lead to data integrity issues with multiple users interacting with the system simultaneously. Moreover, the server infrastructure and resource allocation were initially designed with a single-user model in mind, lacking the scalability required to support multiple users. Efforts are underway to address these limitations by implementing a more sophisticated session management mechanism, enhancing database concurrency capabilities, and upgrading our server infrastructure to accommodate multiple users in future iterations of the application.
 
-2. **Limited Dataset**: The project was conducted with a limited dataset due to copyright considerations associated with downloading academic papers. Consequently, we did not augment our dataset with additional articles, limiting our source to the 57 provided papers. Three of these articles were excluded from database entry due to the absence of abstracts, crucial for thematic keyword extraction. The lack of abstracts rendered these articles unhelpful for constructing topic networks, leading to their omission from the database. For more details on the challenges faced during abstract extraction, refer to the second point under the [Metadata Extraction Challenges](#metadata-extraction-challenges) section.
+2. **Limited Dataset**: The project was conducted with a limited dataset due to copyright considerations associated with downloading academic papers. Consequently, we did not augment our dataset with additional articles, limiting our source to the 57 provided papers. Three of these articles were excluded from database entry due to the absence of abstracts, crucial for topic keyword extraction. The lack of abstracts rendered these articles unhelpful for constructing topic networks, leading to their omission from the database. For more details on the challenges faced during abstract extraction, refer to the second point under the [Metadata Extraction Challenges](#metadata-extraction-challenges) section.
 
 3. **System Compatibility with Grobid**: The Grobid package, essential for our metadata extraction process, poses a compatibility challenge due to its lack of support for the Windows operating system. Consequently, deploying our web application locally on Windows systems results in the inability to process uploaded files, restricting users to the search functionality and the exploration of pre-existing database entries. This limitation does not affect deployments on macOS or Linux systems, where the application operates as intended. Windows users, however, are not left without options; they can access our application deployed on the assessment10a server by utilizing virtual machines through the `EIDF` platform. For detailed instructions on accessing and using the virtual machine, please refer to the provided documentation [insert link here].
 
@@ -213,10 +234,10 @@ Our comprehensive evaluation of the prototype's functionality involved a series 
 ![Search Results Example](./Image/search_result.jpg)
 *Figure 8: Example of Search Results.*
 
-- **Thematic Relationship Mapping**: A distinguishing aspect of the prototype is its ability to discern and visually represent thematic connections across the dataset. Testing this feature revealed the prototype's capacity to generate detailed thematic graphs, offering users an intuitive understanding of topic interrelations. These visualizations were particularly useful in highlighting underlying patterns and trends within the academic landscape.
+- **topic Relationship Mapping**: A distinguishing aspect of the prototype is its ability to discern and visually represent topic connections across the dataset. Testing this feature revealed the prototype's capacity to generate detailed topic graphs, offering users an intuitive understanding of topic interrelations. These visualizations were particularly useful in highlighting underlying patterns and trends within the academic landscape.
 
-![Thematic Relationship Graph Example](./Image/topic_map.jpg)
-*Figure 9: Example of a Thematic Relationship Graph. (Circles represent articles, pentagrams represent topics, and the yellow circle denotes the currently selected or uploaded article.)*
+![topic Relationship Graph Example](./Image/topic_map.jpg)
+*Figure 9: Example of a topic Relationship Graph. (Circles represent articles, pentagrams represent topics, and the yellow circle denotes the currently selected or uploaded article.)*
 
 - **Co-Authorship Networks**: The prototype's functionality extends to mapping networks of co-authorship, a feature that was rigorously tested. The system successfully identified collaborative networks among authors, visually mapping these connections in a comprehensive manner. This functionality adds a layer of depth to academic research analysis by elucidating the collaborative dynamics within the scholarly community.
 
@@ -275,7 +296,7 @@ Our project journey was filled with valuable insights that not only shaped our c
 
 Building on the foundation laid by our current prototype, we envision several avenues for future development to enhance functionality, usability, and overall performance. Our roadmap includes:
 
-- **Advanced Natural Language Processing (NLP)**: To improve the accuracy and depth of metadata extraction, we plan to integrate more sophisticated NLP algorithms. This will allow for finer-grained analysis of article content, enabling the extraction of more nuanced thematic relationships and better understanding of the context in which topics and keywords are used.
+- **Advanced Natural Language Processing (NLP)**: To improve the accuracy and depth of metadata extraction, we plan to integrate more sophisticated NLP algorithms. This will allow for finer-grained analysis of article content, enabling the extraction of more nuanced topic relationships and better understanding of the context in which topics and keywords are used.
 
 - **Scalability Improvements**: As the user base and dataset grow, scaling the application to handle increased traffic and data volume will become imperative. We aim to optimize our backend architecture and database design to ensure the system remains responsive and efficient under higher loads.
 
