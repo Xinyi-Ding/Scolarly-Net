@@ -37,31 +37,32 @@ This backend service is structured to support various functionalities including 
 
 ## Installation
 
-1. Clone the repository.
-2. Install dependencies:
+1. Clone the repository
+2. Install dependencies
    ```
+   cd backend
    pip install -r requirements.txt
    ```
-3. Configure your environment variables as necessary.
+3. Configure your environment variables as necessary
 
 ## Running the Application
 
-1. Enter the `backend` directory.
+1. Enter the `backend` directory
     ```
     cd backend
     ```
-2. (Optional) Cancel TEST MODE (default is True) by setting the environment variable `TEST_MODE` to `False`:
+2. (Optional) Cancel TEST MODE (default is True) by setting the environment variable `TEST_MODE` to `False`
     ```
     export TEST_MODE=False
     ```
-3. Execute the following command:
+3. Execute the following command
     ```
     python -m app.main
     ```
 
 ## Testing
 
-1/ To run tests, execute:
+1. To run tests, execute
 
 ```
 python -m pytest
