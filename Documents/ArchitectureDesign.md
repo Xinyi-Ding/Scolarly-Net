@@ -271,46 +271,108 @@ Here is an alternative technology stack that could have been chosen for the syst
 #### Comparative Analysis
 The alternative stack provides certain benefits; however, it poses significant limitations in terms of the complexity of learning and managing the technologies, the development speed, performance, and flexibility in handling unstructured data, as well as in scalability and deployment management. These limitations underscore the reasons for our selected technology stack, which provides a more user-friendly, efficient, and scalable solution tailored to the needs of a diverse academic audience.
 
-### Component Architecture
+## Software Architecture
 ![Component Architecture](/Documents/Image/ComponentGraph.png)
-*Figure 2: The overview of the component architecture for the application.*
+*Figure 2: Component architecture for the application.*
 
-#### Overview
-the system utilizes a 5-tier architecture to separate concerns, enhance scalability, and improve maintainability. This architecture allows for a clear distinction between the client interface, presentation logic, business processes, integration services, and resource management. By dividing the system into these layers, the system benefits from increased modularity, which simplifies updates and maintenance. Each tier can be developed and scaled independently, facilitating easier upgrades and integration with other systems or services. The separation also aids in security, as each layer acts as a gatekeeper to the next, ensuring that only authorized operations are performed.
+### **Overview**
+The system adopts a 5-tier architecture, strategically designed to modularize the functional aspects of academic literature research and analysis. This tiered approach enables effective separation of concerns, fostering enhanced scalability, improved maintainability, and secure operation. It ensures that the client interface, presentation logic, business processes, integration services, and resource management remain distinct yet seamlessly interact. This design not only streamlines development and maintenance but also optimizes the system’s security by layering access controls and operational permissions.
 
-#### Client Tier
-- **ClientUI**: 
-  - Description: The user interface through which users interact with the system. It is designed to be intuitive and facilitate easy access to the system's features.
-  - Relation: This is the primary interface for users to input queries and view results related to academic paper analysis.
+#### **Client Tier**
+- **Description:** The Client Tier is the system's front-facing layer, hosting the ClientUI that users interact with. This tier is dedicated to delivering the user interface through which all user inputs and interactions occur, designed for accessibility and usability.
+- **Relation:** It directly interacts with the Presentation Tier, sending user requests down the tier hierarchy and presenting processed data back to the user.
+- **Components:**
+    - `ClientUI`
+- **Advantages:** Provides a centralized interface for all user interactions, simplifying the user experience and offering a gateway to the underlying functionalities.
+- **Potential Downsides:** As the most exposed layer, it's vulnerable to attacks; hence, it requires robust security measures.
 
-#### Presentation Tier
-- **Controller**: 
-  - Description: Manages user input, processes user requests, and sends commands to the model to update the view accordingly.
-  - Relation: Acts as an intermediary between the ClientUI and the business logic, ensuring that user actions are translated into operations on the model.
-- **View**: 
-  - Description: Displays data to the user and sends user commands to the controller.
-  - Relation: Represents the visualization of the data that the system handles, such as showing the extracted paper details and connection maps.
+#### **Presentation Tier**
+- **Description:** The Presentation Tier manages the application's logic for presenting data to the user. It interprets commands from the Client Tier and decides how to represent information to users effectively.
+- **Relation:** It acts as an intermediary, transforming data from the Business Tier into a user-friendly format and vice versa.
+- **Components:**
+    - `AuthorAffilliation`
+    - `CoAuthors`
+    - `CitedTree`
+    - `SameTopic`
+    - `TopicConnection`
+    - `PaperDashboard`
+    - `CatalogAPI`
+    - `AnalysisAPI`
+- **Advantages:** Separates the logic of how data is displayed from the core business logic, allowing designers and developers to work independently.
+- **Potential Downsides:** Increased complexity in data handling and potential performance bottlenecks if not well-optimized.
 
-#### Business Tier
-- **SessionFacade**: 
-  - Description: Provides a simplified interface to complex subsystems in the business tier, often used to reduce network calls.
-  - Relation: In the system, it could manage user sessions and streamline interactions with complex data processing tasks for paper analysis.
-- **ValueObject**: 
-  - Description: Holds data that is passed between components, reducing the number of method calls required.
-  - Relation: Transfers relevant data like paper details and metadata across different components of the system.
+#### **Business Tier**
+- **Description:** This tier contains the core business logic of the system, processing user requests, performing operations, and making logical decisions.
+- **Relation:** It interfaces with the Presentation Tier to receive processed user inputs and interacts with the Integration Tier to fetch and manipulate data.
+- **Components:**
+    - `Models`
+    - `Schema`
+    - `Catalog`
+    - `Analysis`
+    - `Extractor`
+    - `GrobidClient`
+    - `Client`
+    - `Parser`
+    - `Types`
+- **Advantages:** Centralizes business logic, promoting reusability and consistency across the system.
+- **Potential Downsides:** Complex logic can be difficult to manage and may become a bottleneck for performance if not carefully architected.
 
-#### Integration Tier
-- **DataAccessObject (DAO)**: 
-  - Description: Abstracts and encapsulates all access to the data source, managing the connection to the database and the execution of queries.
-  - Relation: Responsible for retrieving and storing data related to academic papers from the database in the system.
-- **ServiceActivator**: 
-  - Description: Invokes services in an asynchronous fashion, can be used for message-driven beans or to initiate services without a direct client request.
-  - Relation: In the system, it may handle asynchronous tasks such as initiating analysis of new academic papers or updating the reference tree.
+#### **Integration Tier**
+- **Description:** This tier orchestrates the communication between the Business Tier and the Resource Tier, facilitating the integration of different data sources and external services.
+- **Relation:** It serves as a conduit for data, ensuring that requests and responses flow between the front-end and back-end systems correctly and efficiently.
+- **Components:**
+    - `CatalogAccess`
+- **Advantages:** Allows for a decoupled architecture where the core business logic is insulated from changes in data sources and external services.
+- **Potential Downsides:** Adds another layer of complexity and can be a point of failure if not robustly designed.
 
-#### Resource Tier
-- **DataBase**: 
-  - Description: Stores all the persistent data needed for the system to function, such as user accounts, paper details, and connection data.
-  - Relation: Acts as the central repository for the system, where all the academic papers and related metadata are stored.
-- **WebService**: 
-  - Description: Provides a way for the system to communicate with external services over the internet, such as external databases of academic papers.
-  - Relation: Could be used in the system to fetch paper details from external sources or to integrate with other academic research tools.
+#### **Resource Tier**
+- **Description:** The Resource Tier is responsible for managing all data storage and retrieval operations, ensuring data integrity and security.
+- **Relation:** It interacts directly with the Integration Tier to provide the necessary data to fulfill business operations.
+- **Components:**
+    - `MongoengineModels`
+- **Advantages:** Provides a dedicated layer for data operations, allowing for optimized data management and scalability.
+- **Potential Downsides:** Requires careful management to prevent data bottlenecks and maintain performance, especially under high load conditions.
+
+Each tier’s design considers the project’s goals and user needs, ensuring that students, academics, and professionals can effectively conduct literature research, analysis, and visualization without facing the complexities of the underlying system. The architecture provides the framework to support the advanced research functionality, data management tools, citation tracking, and analysis and visualization capabilities that are key to meeting the diverse requirements of the system's users. However, the layered approach, while beneficial for organization and scalability, introduces additional complexity and may necessitate careful consideration of performance and security implications at each level.
+
+### Components Design
+
+#### `ClientUI`
+#### `AuthorAffilliation`
+#### `CoAuthors`
+#### `CitedTree`
+#### `SameTopic`
+#### `TopicConnection`
+#### `PaperDashboard`
+#### `CatalogAPI`
+#### `AnalysisAPI`
+
+
+### Alternative Software Architecture
+While the 5-tier architecture described provides a robust and scalable framework for the system, an alternative architecture could be considered to address specific needs or constraints. One such alternative might be a microservices-based architecture. In this approach, the system is decomposed into a set of small, autonomous services, each implementing a specific business capability.
+
+#### Microservices-based Architecture
+- **Description:** A microservices architecture structures an application as a collection of loosely coupled services, each designed to execute a unique business function. Each service is self-contained and can be developed, deployed, and scaled independently.
+- **Components:**
+    - `Search Service`: Manages literature search functionalities.
+    - `User Management Service`: Handles authentication and user profiles.
+    - `Data Processing Service`: Executes extraction, analysis, and parsing of academic papers.
+    - `Data Storage Service`: Manages data persistence and retrieval.
+    - `API Gateway`: Provides a single entry point for all client requests.
+
+#### Limitations and Misalignments with Business and Project Goals
+- **Tight Coupling with Components**: While microservices offer independence, they may require more coordination when changes occur that span multiple services. This could lead to a tightly coupled system if not managed correctly, which contradicts the goal of having a modular system that simplifies updates and maintenance.
+
+- **Complex Service Interactions**: The system aims to create dynamic networks of connections between articles, authors, and topics. Microservices communicating over a network can introduce complexity and latency in these interactions, potentially reducing the system's responsiveness and user experience.
+
+- **Data Consistency**: The Resource Tier in the 5-tier architecture ensures consistent and centralized data management. In a microservices architecture, each service may have its own database, leading to challenges in maintaining data consistency across services, which is critical for the system's intended use in academia and policy analysis.
+
+- **Deployment Overhead**: The intended users include students and academics who may not have extensive technical expertise. A microservices architecture could introduce overhead in deployment and management, potentially complicating the operational aspect for such users.
+
+- **Security**: Each microservice might expose its own API, which could increase the attack surface of the system. The 5-tier architecture's layering of access controls might be more straightforward to secure compared to the numerous endpoints that microservices would introduce.
+
+- **Resource Utilization**: Microservices can be more resource-intensive, as each service may require its own runtime environment. For smaller user groups like individual researchers or small companies, this might not align with the project goal of providing a user-friendly and cost-effective system.
+
+- **User Experience Consistency**: Given the system’s diverse user base, consistent user experience is crucial. The 5-tier architecture facilitates a unified user interface, whereas a microservices approach might lead to fragmentation, affecting usability for students and academics who are the primary users.
+
+In conclusion, while a microservices architecture offers certain advantages such as independence and scalability, it may not align well with the system's current goals and user requirements. The complexity, potential for tight coupling, challenges in maintaining data consistency, deployment overhead, and security considerations present significant limitations for the project. The original 5-tier architecture is better suited to the system’s need for a coherent, secure, and user-friendly platform for academic literature research and analysis.
