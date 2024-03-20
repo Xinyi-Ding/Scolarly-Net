@@ -14,6 +14,8 @@ from ..services.catalog import search_papers_by_filter_as_response, search_topic
 from ..services.models import ArticleFilter, TopicFilter, AuthorFilter
 from ..services.schema import PaperResponse, TopicResponse, SameTopicResponseSchema, CoAuthorResponseSchema, \
     CitedTreeResponseSchema, AuthorResponse
+from .response_example import search_papers_example, search_topics_example, search_authors_example, \
+    same_topic_example, co_author_example, cited_tree_example
 
 # Initialize the API router
 router = APIRouter(
@@ -27,14 +29,32 @@ router = APIRouter(
             summary="Catalog API Root",
             description="This is the root endpoint of the Catalog API. It provides a quick check to ensure the API is "
                         "operational and to discover the base URI.",
-            response_description="Provides a welcome message along with the root URI for the Catalog API.")
+            response_description="Provides the root URI for the Catalog API.",
+            responses={
+                200: {
+                    "description": "Successful Response",
+                    "content": {
+                        "application/json": {
+                            "example": {"uri": "/catalog"}
+                        }
+                    },
+                },
+                500: {
+                    "description": "Internal Server Error",
+                    "content": {
+                        "application/json": {
+                            "example": {"detail": "Internal server error"}
+                        }
+                    },
+                },
+            })
 async def root():
     """
     The root endpoint of the Catalog API.
 
-    This endpoint returns a simple JSON response indicating the base URI for the Catalog routes and a welcoming message.
+    This endpoint returns a simple JSON response indicating the base URI for the Catalog routes.
     """
-    return {'uri': '/catalog'}
+    return {"uri": "/catalog"}
 
 
 @router.get("/papers/search",
@@ -47,33 +67,7 @@ async def root():
                     "description": "Papers found based on the search criteria",
                     "content": {
                         "application/json": {
-                            "example": {
-                                "code": 200,
-                                "msg": "Success",
-                                "data": [
-                                    {
-                                        "id": 98,
-                                        "title": "A method for deriving order compatible fuzzy relations from "
-                                                 "convex fuzzy partitions",
-                                        "authors": [
-                                            {
-                                                "id": 219,
-                                                "name": "Sandra Sandri",
-                                                "email": "sandra.sandri@inpe.br",
-                                                "affiliation": "Brazilian National Institute for Space Research ("
-                                                               "INPE) "
-                                            },
-                                            {
-                                                "id": 220,
-                                                "name": "Flávia Toledo Martins-Bedê",
-                                                "email": None,
-                                                "affiliation": "Brazilian National Institute for Space Research ("
-                                                               "INPE) "
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "example": search_papers_example
                         }
                     },
                 },
@@ -115,7 +109,7 @@ async def search_papers(article_filter: ArticleFilter = Depends(ArticleFilter)):
     The endpoint returns a list of papers that match the provided filters.
 
     ### Example request
-    `GET /catalog/papers/search?article_id=98`
+    `GET /catalog/papers/search?title=mpi`
     """
     return search_papers_by_filter_as_response(article_filter)
 
@@ -130,17 +124,7 @@ async def search_papers(article_filter: ArticleFilter = Depends(ArticleFilter)):
                     "description": "Topics found based on the search criteria",
                     "content": {
                         "application/json": {
-                            "example": {
-                                "code": 200,
-                                "msg": "Success",
-                                "data": [
-                                    {
-                                        "id": 98,
-                                        "topic": "Network data models",
-                                        "count": 1
-                                    }
-                                ]
-                            }
+                            "example": search_topics_example
                         }
                     },
                 },
@@ -157,7 +141,7 @@ async def search_papers(article_filter: ArticleFilter = Depends(ArticleFilter)):
                     }
                 }
             })
-async def search_topics(topic_filter: TopicFilter = Depends(TopicFilter)):
+async def search_topics(topic_filter: TopicFilter = Depends()):
     """
     Search topics by filter.
 
@@ -169,7 +153,7 @@ async def search_topics(topic_filter: TopicFilter = Depends(TopicFilter)):
     while filtering by name allows for broader searches based on topic titles or keywords within the titles.
 
     ### Example request
-    `GET /catalog/topics/search?topic_id=98`
+    `GET /catalog/topics/search?topic_id=22`
     """
     return search_topics_by_filter_as_response(topic_filter)
 
@@ -184,18 +168,7 @@ async def search_topics(topic_filter: TopicFilter = Depends(TopicFilter)):
                     "description": "Authors found based on the search criteria",
                     "content": {
                         "application/json": {
-                            "example": {
-                                "code": 200,
-                                "msg": "Success",
-                                "data": [
-                                    {
-                                        "id": 98,
-                                        "name": "A method for deriving order compatible fuzzy relations from "
-                                                "convex fuzzy partitions",
-                                        "count": 1
-                                    }
-                                ]
-                            }
+                            "example": search_authors_example
                         }
                     },
                 },
@@ -227,7 +200,7 @@ async def search_authors(author_filter: AuthorFilter = Depends(AuthorFilter)):
     disambiguating authors with common names by using additional filters like email or affiliation.
 
     ### Example request
-    `GET /catalog/authors/search?name=Jack`
+    `GET /catalog/authors/search?name=tom`
     """
     return search_authors_by_filter_as_response(author_filter)
 
@@ -269,89 +242,7 @@ async def search_authors(author_filter: AuthorFilter = Depends(AuthorFilter)):
                     "description": "Articles found based on the search criteria",
                     "content": {
                         "application/json": {
-                            "example": {
-                                "code": 200,
-                                "msg": "Success",
-                                "data": {
-                                    "connections": [
-                                        {
-                                            "topic": 10,
-                                            "papers": [
-                                                98
-                                            ]
-                                        },
-                                        {
-                                            "topic": 11,
-                                            "papers": [
-                                                98
-                                            ]
-                                        },
-                                        {
-                                            "topic": 12,
-                                            "papers": [
-                                                98
-                                            ]
-                                        },
-                                        {
-                                            "topic": 13,
-                                            "papers": [
-                                                98
-                                            ]
-                                        },
-                                        {
-                                            "topic": 14,
-                                            "papers": [
-                                                98
-                                            ]
-                                        }
-                                    ],
-                                    "topics": [
-                                        {
-                                            "id": 10,
-                                            "name": "Similarity relations"
-                                        },
-                                        {
-                                            "id": 11,
-                                            "name": "Fuzzy relations"
-                                        },
-                                        {
-                                            "id": 12,
-                                            "name": "Fuzzy partitions"
-                                        },
-                                        {
-                                            "id": 13,
-                                            "name": "Total order"
-                                        },
-                                        {
-                                            "id": 14,
-                                            "name": "T-indistinguishable operators"
-                                        }
-                                    ],
-                                    "papers": [
-                                        {
-                                            "id": 98,
-                                            "title": "A method for deriving order compatible fuzzy relations from"
-                                                     " convex fuzzy partitions",
-                                            "authors": [
-                                                {
-                                                    "id": 219,
-                                                    "name": "Sandra Sandri",
-                                                    "email": "sandra.sandri@inpe.br",
-                                                    "affiliation": "Brazilian National Institute for Space Research ("
-                                                                   "INPE) "
-                                                },
-                                                {
-                                                    "id": 220,
-                                                    "name": "Flávia Toledo Martins-Bedê",
-                                                    "email": None,
-                                                    "affiliation": "Brazilian National Institute for Space Research ("
-                                                                   "INPE) "
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            }
+                            "example": same_topic_example
                         }
                     }
                 },
@@ -409,63 +300,7 @@ async def get_same_topic(article_filter: ArticleFilter = Depends(ArticleFilter))
                     "description": "Co-authorship information found based on the search criteria",
                     "content": {
                         "application/json": {
-                            "example": {
-                                "code": 200,
-                                "msg": "Success",
-                                "data": {
-                                    "connections": [
-                                        {
-                                            "author": 219,
-                                            "papers": [
-                                                98
-                                            ]
-                                        },
-                                        {
-                                            "author": 220,
-                                            "papers": [
-                                                98
-                                            ]
-                                        }
-                                    ],
-                                    "authors": [
-                                        {
-                                            "id": 219,
-                                            "name": "Sandra Sandri",
-                                            "email": "sandra.sandri@inpe.br",
-                                            "affiliation": "Brazilian National Institute for Space Research (INPE)"
-                                        },
-                                        {
-                                            "id": 220,
-                                            "name": "Flávia Toledo Martins-Bedê",
-                                            "email": None,
-                                            "affiliation": "Brazilian National Institute for Space Research (INPE)"
-                                        }
-                                    ],
-                                    "papers": [
-                                        {
-                                            "id": 98,
-                                            "title": "A method for deriving order compatible fuzzy relations from "
-                                                     "convex fuzzy partitions",
-                                            "authors": [
-                                                {
-                                                    "id": 219,
-                                                    "name": "Sandra Sandri",
-                                                    "email": "sandra.sandri@inpe.br",
-                                                    "affiliation": "Brazilian National Institute for Space Research ("
-                                                                   "INPE) "
-                                                },
-                                                {
-                                                    "id": 220,
-                                                    "name": "Flávia Toledo Martins-Bedê",
-                                                    "email": None,
-                                                    "affiliation": "Brazilian National Institute for Space Research ("
-                                                                   "INPE) "
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            }
+                            "example": co_author_example
                         }
                     }
                 },
@@ -482,7 +317,7 @@ async def get_same_topic(article_filter: ArticleFilter = Depends(ArticleFilter))
                     }
                 }
             })
-async def get_co_author(article_filter: ArticleFilter = Depends(ArticleFilter)):
+async def get_co_author_by_filter(article_filter: ArticleFilter = Depends(ArticleFilter)):
     """
     Get co-authorship information based on the article filter.
 
@@ -507,7 +342,7 @@ async def get_co_author(article_filter: ArticleFilter = Depends(ArticleFilter)):
     based on the filters applied to an initial article.
 
     ### Example request
-    `GET /catalog/co-author?article_id=98`
+    `GET /catalog/co-author?article_id=9`
     """
     return search_co_author_by_filter_as_response(article_filter)
 
@@ -522,116 +357,7 @@ async def get_co_author(article_filter: ArticleFilter = Depends(ArticleFilter)):
                     "description": "Cited tree found based on the search criteria",
                     "content": {
                         "application/json": {
-                            "example": {
-                                "code": 200,
-                                "msg": "Success",
-                                "data": {
-                                    "connections": [
-                                        {
-                                            "from_paper": 98,
-                                            "to_paper": [
-                                                75,
-                                                99,
-                                            ]
-                                        }
-                                    ],
-                                    "papers": [
-                                        {
-                                            "id": 75,
-                                            "title": "A coloring algorithm for image classification, Inf",
-                                            "authors": [
-                                                {
-                                                    "id": 142,
-                                                    "name": "J. Montero",
-                                                    "email": None,
-                                                    "affiliation": None
-                                                },
-                                                {
-                                                    "id": 169,
-                                                    "name": "R. Mesiar",
-                                                    "email": None,
-                                                    "affiliation": None
-                                                },
-                                                {
-                                                    "id": 188,
-                                                    "name": "D. Gómez",
-                                                    "email": None,
-                                                    "affiliation": None
-                                                },
-                                                {
-                                                    "id": 189,
-                                                    "name": "J. Yáñez",
-                                                    "email": None,
-                                                    "affiliation": None
-                                                },
-                                                {
-                                                    "id": 229,
-                                                    "name": "B. Baets",
-                                                    "email": None,
-                                                    "affiliation": None
-                                                },
-                                                {
-                                                    "id": 230,
-                                                    "name": "T.-partitions",
-                                                    "email": None,
-                                                    "affiliation": None
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "id": 98,
-                                            "title": "A method for deriving order compatible fuzzy relations from "
-                                                     "convex fuzzy partitions",
-                                            "authors": [
-                                                {
-                                                    "id": 219,
-                                                    "name": "Sandra Sandri",
-                                                    "email": "sandra.sandri@inpe.br",
-                                                    "affiliation": "Brazilian National Institute for Space Research ("
-                                                                   "INPE) "
-                                                },
-                                                {
-                                                    "id": 220,
-                                                    "name": "Flávia Toledo Martins-Bedê",
-                                                    "email": None,
-                                                    "affiliation": "Brazilian National Institute for Space Research ("
-                                                                   "INPE) "
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "id": 99,
-                                            "title": "On learning similarity relations in fuzzy case-based reasoning",
-                                            "authors": [
-                                                {
-                                                    "id": 221,
-                                                    "name": "E. Armengol",
-                                                    "email": None,
-                                                    "affiliation": None
-                                                },
-                                                {
-                                                    "id": 222,
-                                                    "name": "F. Esteva",
-                                                    "email": None,
-                                                    "affiliation": None
-                                                },
-                                                {
-                                                    "id": 223,
-                                                    "name": "L. Godo",
-                                                    "email": None,
-                                                    "affiliation": None
-                                                },
-                                                {
-                                                    "id": 224,
-                                                    "name": "V. Torra",
-                                                    "email": None,
-                                                    "affiliation": None
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            }
+                            "example": cited_tree_example
                         }
                     }
                 },
@@ -648,7 +374,7 @@ async def get_co_author(article_filter: ArticleFilter = Depends(ArticleFilter)):
                     }
                 }
             })
-async def get_cited_tree(article_filter: ArticleFilter = Depends(ArticleFilter)):
+async def get_cited_tree_by_filter(article_filter: ArticleFilter = Depends(ArticleFilter)):
     """
     Get the citation tree of an article based on the article filter.
 

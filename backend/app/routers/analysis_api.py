@@ -33,12 +33,30 @@ xml_directory.mkdir(parents=True, exist_ok=True)
             summary="Analysis API Root",
             description="This is the root endpoint of the Analysis API. It can be used to check if the API is up and "
                         "running.",
-            response_description="A welcome message and the root URI.")
+            response_description="Provides the root URI for the Analysis API.",
+            responses={
+                200: {
+                    "description": "Successful Response",
+                    "content": {
+                        "application/json": {
+                            "example": {"uri": "/analysis"}
+                        }
+                    },
+                },
+                500: {
+                    "description": "Internal Server Error",
+                    "content": {
+                        "application/json": {
+                            "example": {"detail": "Internal server error"}
+                        }
+                    },
+                },
+            })
 async def root():
     """
     The root endpoint of the Analysis API.
 
-    This endpoint provides a simple JSON response indicating the base URI for the analysis routes and a welcome message.
+    This endpoint provides a simple JSON response indicating the base URI for the analysis routes.
     """
     return {'uri': '/analysis'}
 
