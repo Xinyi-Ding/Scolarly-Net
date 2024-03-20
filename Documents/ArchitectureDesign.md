@@ -330,23 +330,11 @@ The system adopts a 5-tier architecture, strategically designed to modularize th
 - **Relation:** It interacts directly with the Integration Tier to provide the necessary data to fulfill business operations.
 - **Components:**
     - `MongoengineModels`
+    - `Config`
 - **Advantages:** Provides a dedicated layer for data operations, allowing for optimized data management and scalability.
 - **Potential Downsides:** Requires careful management to prevent data bottlenecks and maintain performance, especially under high load conditions.
 
 Each tier’s design considers the project’s goals and user needs, ensuring that students, academics, and professionals can effectively conduct literature research, analysis, and visualization without facing the complexities of the underlying system. The architecture provides the framework to support the advanced research functionality, data management tools, citation tracking, and analysis and visualization capabilities that are key to meeting the diverse requirements of the system's users. However, the layered approach, while beneficial for organization and scalability, introduces additional complexity and may necessitate careful consideration of performance and security implications at each level.
-
-### Components Design
-
-#### `ClientUI`
-#### `AuthorAffilliation`
-#### `CoAuthors`
-#### `CitedTree`
-#### `SameTopic`
-#### `TopicConnection`
-#### `PaperDashboard`
-#### `CatalogAPI`
-#### `AnalysisAPI`
-
 
 ### Alternative Software Architecture
 While the 5-tier architecture described provides a robust and scalable framework for the system, an alternative architecture could be considered to address specific needs or constraints. One such alternative might be a microservices-based architecture. In this approach, the system is decomposed into a set of small, autonomous services, each implementing a specific business capability.
@@ -376,3 +364,75 @@ While the 5-tier architecture described provides a robust and scalable framework
 - **User Experience Consistency**: Given the system’s diverse user base, consistent user experience is crucial. The 5-tier architecture facilitates a unified user interface, whereas a microservices approach might lead to fragmentation, affecting usability for students and academics who are the primary users.
 
 In conclusion, while a microservices architecture offers certain advantages such as independence and scalability, it may not align well with the system's current goals and user requirements. The complexity, potential for tight coupling, challenges in maintaining data consistency, deployment overhead, and security considerations present significant limitations for the project. The original 5-tier architecture is better suited to the system’s need for a coherent, secure, and user-friendly platform for academic literature research and analysis.
+
+## Components Design
+### `ClientUI`
+#### *Description*
+The ClientUI serves as the user interface layer of the system, providing an interactive web-based front end for users to access and interact with the system's features. It handles user input, displays data, and provides a seamless user experience by integrating with the backend services.
+
+### `AuthorAffilliation`
+### `CoAuthors`
+### `CitedTree`
+### `SameTopic`
+### `TopicConnection`
+### `PaperDashboard`
+### `CatalogAPI`
+### `AnalysisAPI`
+### `Models`
+### `Schema`
+### `Catalog`
+#### *Description*
+The Catalog component is crucial for the system’s ability to import and manage academic articles within the database. It includes a series of interfaces and functions that work together to parse article data from various formats, save articles and their related information (authors, citations, topics), and generate structured responses for user queries.
+
+#### *Corresponding File*
+[/backend/app/services/catalog.py](/backend/app/services/catalog.py)
+
+#### *Provided Interfaces*
+This component provides several interfaces for:
+- Importing and parsing article metadata, content, and references from input data structures or JSON files.
+- Creating and managing relationships between articles, authors, and topics within the database.
+- Searching for articles, authors, and topics based on a set of criteria or filters.
+- Constructing citation trees to analyze the interconnections between academic works.
+- Generating structured response objects in accordance with the defined schemas to facilitate the consumption of data by client applications or other system components.
+
+#### *Functionalities*
+- Article Management
+    - `save_parse_article()`
+        - Processes and saves article metadata to the database.
+    - `save_parse_article_with_filepath()`
+        - Parses a JSON file containing article metadata and saves it to the database.
+    - `save_parse_articles_within_dir()`: 
+        - Recursively processes and saves articles from JSON files within a directory.
+
+- Query and Response Generation
+    - `search_papers_by_filter_as_response()`
+        - Retrieves a list of papers based on filters and returns a `PaperResponse`.
+    - `search_topics_by_filter_as_response()`: 
+        - Fetches topics based on filters and returns a `TopicResponse`.
+    - `search_authors_by_filter_as_response()`: 
+        - Gathers a list of authors based on filters and returns an `AuthorResponse`.
+    - `search_same_topic_by_filter_as_response()`: 
+        - Identifies articles sharing the same topic and returns a `SameTopicResponseSchema`.
+    - `search_co_author_by_filter_as_response()`: 
+        - Identifies co-author relationships and returns a `CoAuthorResponseSchema`.
+    - `search_cited_tree_by_filter_as_response()`: 
+        - Maps citation relationships up to a specified citation depth and returns a `CitedTreeResponseSchema`.
+
+#### *Dependencies*
+The Catalog component relies on several internal modules to perform its functions:
+- CRUD operation classes from the `integration.catalog_access` module for interaction with the database.
+- Types from `services.Parser.types` and `services.models` for data structure definitions.
+- Schemas from `services.schema` for response object formatting.
+
+#### *Usage*
+This component is designed for use within a service-oriented architecture and can be invoked by other system components or services that require access to academic data. It can also be used in batch operations, such as importing a large dataset of articles into the system, or for real-time querying in response to user inputs.
+
+#### `Analysis`
+#### `Extractor`
+#### `GrobidClient`
+#### `Client`
+#### `Parser`
+#### `Types`
+#### `CatalogAccess`
+#### `MongoengineModels`
+#### `Config`
