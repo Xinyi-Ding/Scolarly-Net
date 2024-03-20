@@ -77,6 +77,7 @@ Certainly! Here are the checklists with checkboxes for each item:
 - Design Stage
   - [System Design](./Documents/Design.md)
 - Planning Stage
+  - [Architecture and Components Designn](./Documents/Architecture-And-Components-Design.md)
   - [Project Planning](./Documents/Plan.md)
 - Implementation Stage
   - [Setup Instruction](./Documents/Setup.md)
