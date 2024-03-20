@@ -196,8 +196,40 @@ While utilizing the grobid package, known for its precision and efficiency in ex
 
 ### Database
 
+1. **Normalization and Query Efficiency**
+   The database employs standard normalization modeling techniques, which, while structurally sound, often necessitate multiple table joins for complex queries, leading to decreased query efficiency. To mitigate this issue, denormalization could be considered. By storing some frequently accessed query results within the database, we can enhance query performance and reduce the computational overhead associated with complex joins.
+   
+   ![db example1.png](./Image/db_example1.png)
+   
+   *Figure 10: An example of low query efficiency.*
 
+   This shows an example of inefficient querying, requiring multiple connections to obtain the required data. In this case, you can consider caching some commonly used query results to improve query efficiency.
 
+   *Potential Solution:* Implement a hybrid approach that maintains normalization for data integrity and consistency while selectively denormalizing certain aspects to cache frequent query results or aggregate data, thus striking a balance between efficiency and normalization principles.
+
+2. **Access Control and Security**
+   The current database configuration has its port open to all IP addresses, which poses a significant risk of data breaches as anyone can attempt to access the database. Enhancing the database's security posture is crucial to protect sensitive information and maintain data integrity.
+
+   ![db example2.png](./Image/db_example2.png)
+   
+   *Figure 11: Port open to all IP addresses.*
+   
+   *Immediate Action:* Restrict database access at the network level by implementing firewall rules that only allow connections from specific, authorized IP addresses. Furthermore, employ robust authentication and authorization mechanisms to ensure that only authenticated users with the necessary permissions can access or modify the data.
+
+3. **Data Backup and Recovery Strategy**
+   Ensuring the availability and integrity of data is paramount. Without a comprehensive backup and recovery strategy, the database is vulnerable to data loss due to unforeseen events such as hardware failures, software bugs, or malicious attacks.
+
+   *Recommendation:* Develop and implement a regular backup schedule, including full and incremental backups, along with a clear recovery plan. This strategy should be tested periodically to ensure that data can be restored within acceptable recovery time objectives (RTO) and recovery point objectives (RPO).
+
+4. **Scalability and Performance Optimization**
+   As the application grows, the database will experience increased loads, which could lead to performance bottlenecks. Scalability concerns need to be addressed to accommodate future growth without compromising performance.
+
+   *Strategies for Improvement:* Consider implementing database sharding or partitioning to distribute the load more evenly across multiple servers or partitions. Additionally, performance tuning, such as indexing, query optimization, and hardware upgrades, should be continuously performed based on monitoring and performance analysis.
+
+5. **Data Integrity and Consistency**
+   Maintaining data integrity and consistency is crucial in a multi-user environment where concurrent transactions can lead to anomalies.
+
+   *Enforcement Mechanisms:* Employ database constraints such as primary keys, foreign keys, unique constraints, and check constraints to ensure data integrity. Additionally, use transaction control with appropriate isolation levels to maintain consistency while minimizing the impact on concurrency and performance.
 
 
 ### General Limitation
@@ -268,31 +300,31 @@ Our comprehensive evaluation of the prototype's functionality involved a series 
 
 ![Successful Metadata Extraction Example](./Image/parsing_example.png)
 
-*Figure 10: Example of Successful Metadata Extraction.*
+*Figure 12: Example of Successful Metadata Extraction.*
 
 - **Keyword-Based Article Search**: The search functionality of the prototype underwent testing to ascertain its accuracy in locating articles based on title keywords. The system displayed commendable performance, adeptly matching user queries with the corresponding articles in the database. This feature was instrumental in facilitating easy access to relevant academic content, as evidenced by the search results showcasing the prototype's effectiveness in retrieving accurate matches.
 
 ![Search Results Example](./Image/search_result.jpg)
 
-*Figure 11: Example of Search Results.*
+*Figure 13: Example of Search Results.*
 
 - **topic Relationship Mapping**: A distinguishing aspect of the prototype is its ability to discern and visually represent topic connections across the dataset. Testing this feature revealed the prototype's capacity to generate detailed topic graphs, offering users an intuitive understanding of topic interrelations. These visualizations were particularly useful in highlighting underlying patterns and trends within the academic landscape.
 
 ![topic Relationship Graph Example](./Image/topic_map.jpg)
 
-*Figure 12: Example of a topic Relationship Graph. (Circles represent articles, pentagrams represent topics, and the yellow circle denotes the currently selected or uploaded article.)*
+*Figure 14: Example of a topic Relationship Graph. (Circles represent articles, pentagrams represent topics, and the yellow circle denotes the currently selected or uploaded article.)*
 
 - **Co-Authorship Networks**: The prototype's functionality extends to mapping networks of co-authorship, a feature that was rigorously tested. The system successfully identified collaborative networks among authors, visually mapping these connections in a comprehensive manner. This functionality adds a layer of depth to academic research analysis by elucidating the collaborative dynamics within the scholarly community.
 
 ![Co-Authorship Network Example](./Image/author_relation.jpg)
 
-*Figure 13: Example of a Co-Authorship Network. (The yellow circle represents the selected or uploaded current article, while triangles denote the authors involved in the co-authorship network.)*
+*Figure 15: Example of a Co-Authorship Network. (The yellow circle represents the selected or uploaded current article, while triangles denote the authors involved in the co-authorship network.)*
 
 - **Citation Mapping**: Another pivotal feature evaluated was the prototype's ability to construct citation maps. These maps are instrumental in tracing the lineage and impact of scholarly works. The evaluation confirmed the prototype's adeptness in creating detailed and informative citation trees, offering valuable insights into the citation networks that underpin academic research.
 
 ![Citation Tree Example](./Image/citation_tree.png)
 
-*Figure 14: Example of a Citation Tree.(The yellow circle represents the selected or uploaded current article, whereas blue circles denote the articles cited by the current article.)*
+*Figure 16: Example of a Citation Tree.(The yellow circle represents the selected or uploaded current article, whereas blue circles denote the articles cited by the current article.)*
 
 
 ### Usability Analysis
