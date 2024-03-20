@@ -1,5 +1,4 @@
 ## Test Analysis: Article Parsing Functionality
-
 This detailed analysis scrutinizes the efficacy of the article parsing function, emphasizing its capability to accurately extract and compare metadata, content, author details, and references from PDF article files against a manually curated dataset. The approach adopted for this testing encompasses a tolerance for minor discrepancies in abstracts and references to ensure such variations don't detract from the overall evaluation of extraction accuracy.
 
 ### Test Environment Setup
@@ -9,53 +8,80 @@ This detailed analysis scrutinizes the efficacy of the article parsing function,
 
 Each test component in this analysis is devised to scrutinize a distinct aspect of the parsing function, with a singular test case applied uniformly across all seven selected articles to maintain consistency and rigor in the testing methodology.
 
-### Test Component: Metadata Extraction
-- **Based on Test Topic:** This component was introduced during the development phase as an essential aspect of ensuring the accuracy of metadata displayed on websites or databases, even though it wasn't part of the initial design specification.
-- **Test Component Description:** The focus here is on the precision of extracting crucial metadata elements from academic articles in PDF format, such as article titles, DOIs, journal names, publication dates, and publishers.
-- **Test Component Objective:** The goal is to affirm the parsing function's ability to extract and accurately represent metadata in comparison to a manually vetted benchmark dataset, thus ensuring the integrity and reliability of metadata displayed on digital platforms.
-- **Test Cases:**
-    1. **Test Case: Comprehensive Metadata Extraction**
-        - **TC ID:** ME01
-        - **Input:** A collection of seven sample articles in PDF format, chosen to represent a variety of publication styles and formats.
-        - **Expected Output:** The parsing function is expected to extract metadata that precisely matches the manually curated dataset, ensuring the integrity of titles, DOIs, journal names, publication dates, and publishers.
-        - **Actual Output:** The parsing function succeeded in accurately extracting the complete set of metadata from all seven articles, demonstrating its robustness and reliability in metadata extraction tasks.
-        - **Result Analysis:** The function showcased exemplary performance in metadata extraction across the board. Instances where certain articles lacked specific metadata elements highlight the importance of designing parsing functions that can gracefully handle such anomalies without compromising the overall accuracy.
+### Unit Test Cases: Metadata Extraction
+- **Based on Test Topic**: This component was introduced during the development phase as an essential aspect of ensuring the accuracy of metadata displayed on websites or databases, even though it wasn't part of the initial design specification.
+- **Test  Description**: The focus here is on the precision of extracting crucial metadata elements from academic articles in PDF format, such as article titles, DOIs, journal names, publication dates, and publishers.
+- **Test  Objective**: The goal is to affirm the parsing function's ability to extract and accurately represent metadata in comparison to a manually vetted benchmark dataset, thus ensuring the integrity and reliability of metadata displayed on digital platforms.
+- **Test Cases**:
+  1. **Test Case: Comprehensive Metadata Extraction**
+     - **TC ID**: ME01
+     - **Input**: A collection of seven sample articles in PDF format, chosen to represent a variety of publication styles and formats.
+     - **Expected Output**: The parsing function is expected to extract metadata that precisely matches the manually curated dataset, ensuring the integrity of titles, DOIs, journal names, publication dates, and publishers.
+     - **Actual Output**: The parsing function succeeded in accurately extracting the complete set of metadata from all seven articles, demonstrating its robustness and reliability in metadata extraction tasks.
+     - **Result Analysis**: The function showcased exemplary performance in metadata extraction across the board. Instances where certain articles lacked specific metadata elements highlight the importance of designing parsing functions that can gracefully handle such anomalies without compromising the overall accuracy.
 
-### Test Component: Content Parsing
-- **Based on Test Topic:** Linked to [1a. Topic Extraction](Design.md/#1a-topic-extraction-1) and [1b. Keyword Extraction](Design.md/#1b-keyword-extraction-1), this component examines the function's adeptness in parsing article abstracts, a crucial part of content analysis.
-- **Test Component Description:** This segment evaluates the function's efficiency in parsing and representing abstracts from academic articles, ensuring the extracted content aligns closely with manually extracted benchmarks.
-- **Test Component Objective:** To ascertain the precision of abstract extraction processes and validate their consistency against manually curated data, ensuring that the extracted abstracts maintain the semantic integrity of the original content.
-- **Test Cases:**
+### Unit Test Cases: Content Parsing
+- **Based on Test Topic**: Linked to [1a. Topic Extraction](Design.md/#1a-topic-extraction-1) and [1b. Keyword Extraction](Design.md/#1b-keyword-extraction-1), this component examines the function's adeptness in parsing article abstracts, a crucial part of content analysis.
+- **Test  Description**: This segment evaluates the function's efficiency in parsing and representing abstracts from academic articles, ensuring the extracted content aligns closely with manually extracted benchmarks.
+- **Test  Objective**: To ascertain the precision of abstract extraction processes and validate their consistency against manually curated data, ensuring that the extracted abstracts maintain the semantic integrity of the original content.
+- **Test Cases**:
     1. **Test Case: Abstract Extraction**
-        - **TC ID:** CP01
-        - **Input:** A representative sample of academic articles in PDF format, chosen to test the function's ability to handle various abstract structures and content complexities.
-        - **Expected Output:** The function is expected to extract abstracts with a high degree of accuracy, ensuring that the extracted content is semantically consistent with the manually curated abstracts in the benchmark dataset.
-        - **Actual Output:** The abstracts were extracted with remarkable precision, reflecting the function's capability to handle textual nuances and variances adeptly, thereby maintaining the content's integrity and meaning.
-        - **Result Analysis:** The content parsing component demonstrated its proficiency in accurately extracting abstracts, reinforcing the function's reliability and effectiveness in content analysis tasks. Despite facing initial challenges in the keyword extraction phase, subsequent enhancements significantly improved the function's performance, highlighting the iterative nature of developing robust parsing functions.
+        - **TC ID**: CP01
+        - **Input**: A representative sample of academic articles in PDF format, chosen to test the function's ability to handle various abstract structures and content complexities.
+        - **Expected Output**: The function is expected to extract abstracts with a high degree of accuracy, ensuring that the extracted content is semantically consistent with the manually curated abstracts in the benchmark dataset.
+        - **Actual Output**: The test did not pass due to discrepancies between the extracted results and the benchmark comparisons.
+        - **Root Cause**: A manual review revealed that minor differences such as punctuation variations and special characters led to mismatches, as equality was used to judge consistency, making any slight inconsistency result in a non-match.
+        - **Solution**: The extracted abstracts underwent a normalization process to ensure data uniformity. The similarity between the extracted content and the benchmark items was assessed, with a match declared if the similarity exceeded a predefined threshold.
+        - **Result Analysis**: The content parsing component showcased its capability to accurately extract abstracts, affirming its utility and reliability in content analysis endeavors. Despite initial setbacks encountered during the keyword extraction phase, subsequent refinements in the process significantly bolstered the function's overall performance. This underscores the iterative development process necessary to create efficient and robust parsing functions.
+    2. **Test Case: Enhanced Abstract Extraction Test Function**
+        - **TC ID**: CP01-Retest
+        - **Input**: A representative sample of academic articles in PDF format, chosen to challenge the improved function's ability to accurately parse abstracts with varying structures and content complexities.
+        - **Expected Output**: The function is expected to exhibit a heightened level of accuracy in abstract extraction, ensuring semantic consistency with the manually curated abstracts in the benchmark dataset, despite minor textual variations.
+        - **Actual Output**: The retest demonstrated that the function significantly improved in accurately extracting abstracts, effectively handling minor discrepancies such as punctuation variations and special characters.
+        - **Result Analysis**: The enhancements made to the content parsing component, including text normalization and similarity assessment, significantly improved its ability to extract abstracts accurately. The function now reliably maintains the semantic integrity of the original content, showcasing its effectiveness in content analysis tasks. The iterative development process, guided by thorough testing and reevaluation, has resulted in a robust and efficient parsing function.
+- **Analysis**:
+The reevaluation of the content parsing functionality, specifically in the context of abstract extraction, has confirmed the substantial progress made following the implementation of targeted solutions. The function now demonstrates an advanced capability to parse abstracts accurately, effectively addressing the challenges presented by diverse abstract structures and content complexities. This test component's analysis underscores the importance of iterative testing and refinement in the development of sophisticated text processing functions. The improvements have significantly enhanced the function's performance and reliability, thereby supporting the integrity and effectiveness of content analysis within the academic research domain.
+        
 
-### Test Component: Authors Information Parsing
-- **Based on Test Topic:** [1c. Author Identification](Design.md/#1c-author-identification-1), this component is crucial for attributing the correct authorship and facilitating scholarly communications.
-- **Test Component Description:** Focuses on the precision of extracting detailed author information, including names, affiliations, and email addresses, from the academic articles, which is vital for attributing authorship and facilitating academic communication.
-- **Test Component Objective:** The aim is to verify the function's accuracy in identifying and extracting comprehensive author details, ensuring that the extracted information is consistent with the manually curated dataset and suitable for accurate attribution and correspondence.
-- **Test Cases:**
+### Unit Test Cases: Authors Information Parsing
+- **Based on Test Topic**: [1c. Author Identification](Design.md/#1c-author-identification-1), this component is crucial for attributing the correct authorship and facilitating scholarly communications.
+- **Test  Description**: Focuses on the precision of extracting detailed author information, including names, affiliations, and email addresses, from the academic articles, which is vital for attributing authorship and facilitating academic communication.
+- **Test  Objective**: The aim is to verify the function's accuracy in identifying and extracting comprehensive author details, ensuring that the extracted information is consistent with the manually curated dataset and suitable for accurate attribution and correspondence.
+- **Test Cases**:
     1. **Test Case: Comprehensive Author Information Extraction**
-        - **TC ID:** AI01
-        - **Input:** A selection of academic articles in PDF format, encompassing a range of disciplines and authorship configurations to test the function's versatility.
-        - **Expected Output:** The parsing function is expected to accurately extract author names, affiliations, and email addresses, ensuring that the extracted details align with the manually curated dataset and are accurately represented.
-        - **Actual Output:** The function reliably extracted comprehensive author details from the articles, demonstrating high accuracy and reliability in author information parsing tasks.
-        - **Result Analysis:** The author information parsing component proved highly effective, consistently extracting detailed and accurate author information. Variability in performance due to external library inconsistencies, especially in name extraction, underscores the importance of continuous optimization and refinement to enhance the function's adaptability and reliability across various article formats and presentations.
+        - **TC ID**: AI01
+        - **Input**: A selection of academic articles in PDF format, encompassing a range of disciplines and authorship configurations to test the function's versatility.
+        - **Expected Output**: The parsing function is expected to accurately extract author names, affiliations, and email addresses, ensuring that the extracted details align with the manually curated dataset and are accurately represented.
+        - **Actual Output**: The function reliably extracted comprehensive author details from the articles, demonstrating high accuracy and reliability in author information parsing tasks.
+        - **Result Analysis**: The author information parsing component proved highly effective, consistently extracting detailed and accurate author information. Variability in performance due to external library inconsistencies, especially in name extraction, underscores the importance of continuous optimization and refinement to enhance the function's adaptability and reliability across various article formats and presentations.
 
-### Test Component: References Parsing
-- **Based on Test Topic:** [1d. Reference Extraction](Design.md/#1d-reference-extraction-1), this component evaluates the function's capability to accurately extract and match reference lists, an essential aspect of academic integrity and scholarship.
-- **Test Component Description:** This segment assesses the function's ability to accurately identify, extract, and match reference lists from academic articles, a critical component for supporting academic integrity and facilitating scholarly research.
-- **Test Component Objective:** To evaluate the precision of the reference list extraction process and its ability to accurately match extracted references against a manually curated dataset, thereby ensuring the reliability and integrity of reference management.
-- **Test Cases:**
+### Unit Test Cases: References Parsing
+- **Based on Test Topic**: [1d. Reference Extraction](Design.md/#1d-reference-extraction-1), this component evaluates the function's capability to accurately extract and match reference lists, an essential aspect of academic integrity and scholarship.
+- **Test Description**: This section assesses the function's ability to accurately identify, extract, and match reference lists from academic articles, a critical component for supporting academic integrity and facilitating scholarly research.
+- **Test Objective**: To evaluate the accuracy of the reference list extraction process and its capacity to match extracted references against a manually curated dataset accurately, thereby ensuring the reliability and integrity of reference management.
+- **Test Cases**:
     1. **Test Case: Comprehensive Reference List Extraction**
-        - **TC ID:** RP01
-        - **Input:** A curated set of academic articles in PDF format, including articles with comprehensive reference lists to test the function's accuracy in reference extraction and matching tasks.
-        - **Expected Output:** The function is expected to accurately extract and match reference lists, ensuring that the extracted references are consistent with the manually curated dataset and accurately represented.
-        - **Actual Output:** The function demonstrated high precision in extracting and matching reference lists, effectively navigating through minor discrepancies and variations in reference formats.
-        - **Result Analysis:** The references parsing component exhibited exemplary performance in extracting and matching reference lists,
+        - **TC ID**: RP01
+        - **Input**: A curated set of academic articles in PDF format, including articles with and without reference lists to test the function's accuracy in reference extraction and matching tasks.
+        - **Expected Output**: The function is expected to accurately extract and match reference lists, ensuring that the extracted references are consistent with the manually curated dataset and accurately represented.
+        - **Actual Output**: The test failed due to inconsistencies in the lengths of the reference lists, causing all tests to fail.
+            - **Root Cause**: Errors in extracting the reference list, such as missing or adding 1-2 references due to incorrect line breaks, resulting in length mismatch between reference list than actual. Also, the case where the reference list is empty was not considered.
+            - **Solution**:
+                1. **Similarity Matching**: We used the similarity between titles as the criterion for determining whether two references are similar. If the similarity between the titles of two references exceeds a set threshold (`match_threshold=0.8`), we consider these two references as matched. This method effectively reduces match failures due to format differences or minor input errors.
+
+                2. **Handling Empty Reference Lists**: At the beginning of the function, we check whether both input reference lists are empty. If so, the function immediately returns `True`, indicating a successful match. This addresses the previous issue where the case of empty reference lists was not handled, ensuring the robustness of the function.
+
+                3. **Match Count and Ratio**: Within the function, a `match_count` variable is maintained to record the number of successfully matched references. By calculating the ratio of successfully matched references to the total number of manually extracted references (`match_ratio`), and comparing it with a set ratio threshold (`match_ratio_threshold=0.7`), the function decides whether the automatically extracted reference list is acceptable. This mechanism ensures that even if there are some mismatches, as long as the match ratio is sufficiently high, the overall extraction result is still considered reliable.
+
+        - **Result Analysis**: The initial test results indicated a need for enhancements in the function's ability to handle format variations and missing references. The introduction of similarity matching and improved handling of empty reference lists were identified as potential solutions to improve the accuracy of the reference parsing functionality.
+    2. **Test Case: Reset Reference Parsing**
+        - **TC ID**: RP01-Reset
+        - **Input**: A set of academic articles specifically chosen to include edge cases such as articles with extremely long reference lists, references with non-standard formatting, and articles with embedded references within the text.
+        - **Expected Output**: The function is expected to demonstrate resilience by accurately parsing and matching references even in challenging scenarios, ensuring no loss of integrity in the reference lists.
+        - **Actual Output**: The test concluded passed, with all references extracted from the test cases aligning precisely with the manually extracted results within the established error margin. The `match ratio` for all cases exceeded 0.8, excluding those instances without references.
+        - **Result Analysis**: The successful execution of this test case underlines the function's adaptability in handling a variety of complex reference list scenarios. The capability to maintain a high match ratio across diverse formats and challenging conditions highlights the effectiveness of the implemented enhancements, particularly the similarity matching approach and the consideration for empty reference lists.
+
+    - **Analysis**: The testing phase for the References Parsing component has demonstrated the function's effectiveness in accurately extracting and matching reference lists from academic articles. The introduction of strategies such as similarity matching and special handling for empty reference lists has significantly improved the function's reliability. The tests have shown that the function can effectively manage both standard and complex cases, ensuring the integrity of reference lists and supporting the scholarly research process. Further refinements and optimizations may still be pursued to enhance the function's performance and extend its applicability to even more diverse datasets.
 
 ## Test Analysis: Frontend Interactivity
 
@@ -70,273 +96,273 @@ This section provides an in-depth analysis of the frontend interactivity testing
 ### Unit Test Cases
 
 1. **Paper Dashboard Functionality**
-    - **Test Description:** Verify that the paper dashboard page functions as expected, displaying the file upload section and the cards for navigation works as expected.
-    - **Test Objective:** Ensure that the user can upload a file and navigate to the relevant pages using that paper.
-    - **Test Cases:**
+    - **Test Description**: Verify that the paper dashboard page functions as expected, displaying the file upload section and the cards for navigation works as expected.
+    - **Test Objective**: Ensure that the user can upload a file and navigate to the relevant pages using that paper.
+    - **Test Cases**:
         1. **Mounts Successfully**
-            - **TC ID:** 1.1
-            - **Input:** None
-            - **Expected Output:** The paper dashboard page should be mounted successfully, displaying the file upload section and the navigation cards.
-            - **Actual Output:** The paper dashboard page should be mounted successfully, displaying the file upload section and the navigation cards.
-            - **Result Analysis:** The test case passes, indicating that the paper dashboard page can be successfully mounted.
+            - **TC ID**: 1.1
+            - **Input**: None
+            - **Expected Output**: The paper dashboard page should be mounted successfully, displaying the file upload section and the navigation cards.
+            - **Actual Output**: The paper dashboard page should be mounted successfully, displaying the file upload section and the navigation cards.
+            - **Result Analysis**: The test case passes, indicating that the paper dashboard page can be successfully mounted.
         2. **Populates 'paper' Data After File Upload**
-            - **TC ID:** 1.2
-            - **Input:** A valid file object
-            - **Expected Output:** The 'paper' data is populated with the object after a file object is uploaded.
-            - **Actual Output:** The 'paper' data should be populated with the object after a file object is uploaded.
-            - **Result Analysis:** The test case passes, indicating that the 'paper' data is successfully populated after a file object is uploaded.
+            - **TC ID**: 1.2
+            - **Input**: A valid file object
+            - **Expected Output**: The 'paper' data is populated with the object after a file object is uploaded.
+            - **Actual Output**: The 'paper' data should be populated with the object after a file object is uploaded.
+            - **Result Analysis**: The test case passes, indicating that the 'paper' data is successfully populated after a file object is uploaded.
         3. **Renders Dashboard Cards with Correct 'ready' States**
-        - **TC ID:** 1.3
-        - **Input:** None
-        - **Expected Output:** The dashboard cards should be rendered with ready state set to -1.
-        - **Actual Output:** The dashboard cards are rendered with ready state set to -1.
-        - **Result Analysis:** The test case passes, indicating that the dashboard cards are rendered with the correct 'ready' states.
-    - **Analysis:** The paper dashboard page functions as expected, displaying the file upload section and the navigation cards. The 'paper' data is populated with the object after a file object is uploaded, and the dashboard cards are rendered with the correct 'ready' states.
+        - **TC ID**: 1.3
+        - **Input**: None
+        - **Expected Output**: The dashboard cards should be rendered with ready state set to -1.
+        - **Actual Output**: The dashboard cards are rendered with ready state set to -1.
+        - **Result Analysis**: The test case passes, indicating that the dashboard cards are rendered with the correct 'ready' states.
+    - **Analysis**: The paper dashboard page functions as expected, displaying the file upload section and the navigation cards. The 'paper' data is populated with the object after a file object is uploaded, and the dashboard cards are rendered with the correct 'ready' states.
 2. **Error Page Functionality**
-    - **Test Description:** Verify that the error page is displayed when an error occurs when axios request response with error.
-    - **Test Objective:** Ensure that the user is redirected to the error page when an error occurs.
-    - **Test Cases:**
+    - **Test Description**: Verify that the error page is displayed when an error occurs when axios request response with error.
+    - **Test Objective**: Ensure that the user is redirected to the error page when an error occurs.
+    - **Test Cases**:
         1. **Renders Successfully**
-            - **TC ID:** 2.1
-            - **Input:** None
-            - **Expected Output:** The error page should be mounted successfully, displaying the error message.
-            - **Actual Output:** The error page should be mounted successfully, displaying the error message.
-            - **Result Analysis:** The test case passes, indicating that the error page can be successfully mounted.
+            - **TC ID**: 2.1
+            - **Input**: None
+            - **Expected Output**: The error page should be mounted successfully, displaying the error message.
+            - **Actual Output**: The error page should be mounted successfully, displaying the error message.
+            - **Result Analysis**: The test case passes, indicating that the error page can be successfully mounted.
         2. **Renders Error Message From Route Query**
-            - **TC ID:** 2.2
-            - **Input:** Error message 'Invalid Request' in the route query.
-            - **Expected Output:** The error message 'Invalid Request' should be rendered on the error page.
-            - **Actual Output:** The error message 'Invalid Request' is rendered on the error page.
-            - **Result Analysis:** The test case passes, indicating that the error message is rendered from the route query.
+            - **TC ID**: 2.2
+            - **Input**: Error message 'Invalid Request' in the route query.
+            - **Expected Output**: The error message 'Invalid Request' should be rendered on the error page.
+            - **Actual Output**: The error message 'Invalid Request' is rendered on the error page.
+            - **Result Analysis**: The test case passes, indicating that the error message is rendered from the route query.
         3. **Render Back Button**
-            - **TC ID:** 2.3
-            - **Input:** None
-            - **Expected Output:** The error page should render a back button to navigate back to the paper dashboard.
-            - **Actual Output:** The error page renders a back button to navigate back to the paper dashboard.
-            - **Result Analysis:** The test case passes, indicating that the error page renders a back button to navigate back to the paper dashboard.
-        - **Analysis:** The error page is displayed when an error occurs, and the user is redirected to the error page. The error message is rendered from the route query, and the error page renders a back button to navigate back to the paper dashboard.
+            - **TC ID**: 2.3
+            - **Input**: None
+            - **Expected Output**: The error page should render a back button to navigate back to the paper dashboard.
+            - **Actual Output**: The error page renders a back button to navigate back to the paper dashboard.
+            - **Result Analysis**: The test case passes, indicating that the error page renders a back button to navigate back to the paper dashboard.
+        - **Analysis**: The error page is displayed when an error occurs, and the user is redirected to the error page. The error message is rendered from the route query, and the error page renders a back button to navigate back to the paper dashboard.
 3. **Dashboard Card Component Functionality**
-    - **Test Description:** Verify that the dashboard card component functions as expected, displaying the sections that are clickable and navigates to the relevant pages.
-    - **Test Objective:** Ensure that the user can click on the sections of the dashboard card and navigate to the relevant pages.
-    - **Test Cases:**
+    - **Test Description**: Verify that the dashboard card component functions as expected, displaying the sections that are clickable and navigates to the relevant pages.
+    - **Test Objective**: Ensure that the user can click on the sections of the dashboard card and navigate to the relevant pages.
+    - **Test Cases**:
         1. **Mounts Successfully**
-            - **TC ID:** 3.1
-            - **Input:** None
-            - **Expected Output:** The dashboard card component should be mounted successfully, displaying the clickable sections.
-            - **Actual Output:** The dashboard card component mounts successfully, displaying the clickable sections.
-            - **Result Analysis:** The test case passes, indicating that the dashboard card component can be successfully mounted.
+            - **TC ID**: 3.1
+            - **Input**: None
+            - **Expected Output**: The dashboard card component should be mounted successfully, displaying the clickable sections.
+            - **Actual Output**: The dashboard card component mounts successfully, displaying the clickable sections.
+            - **Result Analysis**: The test case passes, indicating that the dashboard card component can be successfully mounted.
         2. *Props Work Correctly*
-            - **TC ID:** 3.2
-            - **Input:** Card props containing multiple key-value pairs such as title, content, link, etc.
-            - **Expected Output:** The dashboard card should display the title, content, and link as per the props provided.
-            - **Actual Output:** The dashboard card displays the title, content, and link as per the props provided.
-            - **Result Analysis:** The test case passes, indicating that the dashboard card component works correctly with the provided props.
+            - **TC ID**: 3.2
+            - **Input**: Card props containing multiple key-value pairs such as title, content, link, etc.
+            - **Expected Output**: The dashboard card should display the title, content, and link as per the props provided.
+            - **Actual Output**: The dashboard card displays the title, content, and link as per the props provided.
+            - **Result Analysis**: The test case passes, indicating that the dashboard card component works correctly with the provided props.
         3. **getReadyIcon and getReadyStripe Work Correctly**
-            - **TC ID:** 3.3
-            - **Input:** Card props with ready state set to 1.
-            - **Expected Output:** The dashboard card should display the ready icon and the stripe should be in 'success' color.
-            - **Actual Output:** The dashboard card displays the ready icon and the stripe is in 'success' color.
-            - **Result Analysis:** The test case passes, indicating that the getReadyIcon and getReadyStripe functions work correctly.
+            - **TC ID**: 3.3
+            - **Input**: Card props with ready state set to 1.
+            - **Expected Output**: The dashboard card should display the ready icon and the stripe should be in 'success' color.
+            - **Actual Output**: The dashboard card displays the ready icon and the stripe is in 'success' color.
+            - **Result Analysis**: The test case passes, indicating that the getReadyIcon and getReadyStripe functions work correctly.
         4. **handleClick Navigates Correctly When No Paper Uploaded**
-            - **TC ID:** 3.4
-            - **Input:** Card props with a link to a topic page without any paper uploaded.
-            - **Expected Output:** Upon clicking the card, the user should be navigated to the specified topic page without any paper ID appended to the URL.
-            - **Actual Output:** Upon clicking the card, the user is navigated to the specified topic page without any paper ID appended to the URL.
-            - **Result Analysis:** The test case passes, indicating that the navigation occurs correctly to the specified topic page when no paper is uploaded.
+            - **TC ID**: 3.4
+            - **Input**: Card props with a link to a topic page without any paper uploaded.
+            - **Expected Output**: Upon clicking the card, the user should be navigated to the specified topic page without any paper ID appended to the URL.
+            - **Actual Output**: Upon clicking the card, the user is navigated to the specified topic page without any paper ID appended to the URL.
+            - **Result Analysis**: The test case passes, indicating that the navigation occurs correctly to the specified topic page when no paper is uploaded.
         5. **handleClick navigates correctly when paper uploaded**
-            - **TC ID:** 3.5
-            - **Input:** Card props with a link to a topic page and a paper ID provided.
-            - **Expected Output:** Upon clicking the card, the user should be navigated to the specified topic page with the paper ID appended to the URL.
-            - **Actual Output:** Upon clicking the card, the user is navigated to the specified topic page with the paper ID appended to the URL.
-            - **Result Analysis:** The test case passes, indicating that the navigation occurs correctly to the specified topic page with the paper ID appended to the URL when a paper is uploaded.
-    - **Analysis:** The dashboard card component functions as expected, displaying the sections that are clickable and navigates to the relevant pages. The dashboard card works correctly with the provided props, and the getReadyIcon and getReadyStripe functions work correctly. The navigation occurs correctly to the specified topic page when no paper is uploaded, and with the paper ID appended to the URL when a paper is uploaded.
+            - **TC ID**: 3.5
+            - **Input**: Card props with a link to a topic page and a paper ID provided.
+            - **Expected Output**: Upon clicking the card, the user should be navigated to the specified topic page with the paper ID appended to the URL.
+            - **Actual Output**: Upon clicking the card, the user is navigated to the specified topic page with the paper ID appended to the URL.
+            - **Result Analysis**: The test case passes, indicating that the navigation occurs correctly to the specified topic page with the paper ID appended to the URL when a paper is uploaded.
+    - **Analysis**: The dashboard card component functions as expected, displaying the sections that are clickable and navigates to the relevant pages. The dashboard card works correctly with the provided props, and the getReadyIcon and getReadyStripe functions work correctly. The navigation occurs correctly to the specified topic page when no paper is uploaded, and with the paper ID appended to the URL when a paper is uploaded.
 4. **PaperList Component Functionality**
-    - **Test Description:** Verify that the paper list component functions as expected, displaying the list of papers that related to a specific paper.
-    - **Test Objective:** Ensure that the user can view the list of papers related to a specific paper.
-    - **Test Cases:**
+    - **Test Description**: Verify that the paper list component functions as expected, displaying the list of papers that related to a specific paper.
+    - **Test Objective**: Ensure that the user can view the list of papers related to a specific paper.
+    - **Test Cases**:
         1. **renders correctly**
-            - **TC ID:** 4.1
-            - **Input:** Mounting the PaperList component with a list of papers and an original paper.
-            - **Expected Output:** The PaperList component should render without any errors.
-            - **Actual Output:** The PaperList component renders without any errors.
-            - **Result Analysis:** The test case passes, indicating that the PaperList component renders correctly.
+            - **TC ID**: 4.1
+            - **Input**: Mounting the PaperList component with a list of papers and an original paper.
+            - **Expected Output**: The PaperList component should render without any errors.
+            - **Actual Output**: The PaperList component renders without any errors.
+            - **Result Analysis**: The test case passes, indicating that the PaperList component renders correctly.
         2. **renders the original paper**
-            - **TC ID:** 4.2
-            - **Input:** Mounting the PaperList component with a list of papers and an original paper.
-            - **Expected Output:** The original paper should be rendered in the list.
-            - **Actual Output:** The original paper is rendered in the list.
-            - **Result Analysis:** The test case passes, indicating that the original paper is correctly rendered in the list of papers.
+            - **TC ID**: 4.2
+            - **Input**: Mounting the PaperList component with a list of papers and an original paper.
+            - **Expected Output**: The original paper should be rendered in the list.
+            - **Actual Output**: The original paper is rendered in the list.
+            - **Result Analysis**: The test case passes, indicating that the original paper is correctly rendered in the list of papers.
         3. **renders the list of papers**
-            - **TC ID:** 4.3
-            - **Input:** Mounting the PaperList component with a list of papers and an original paper.
-            - **Expected Output:** The PaperList component should render the correct number of papers from the provided list.
-            - **Actual Output:** The PaperList component renders the correct number of papers from the provided list.
-            - **Result Analysis:** The test case passes, indicating that the PaperList component correctly renders the list of papers.
+            - **TC ID**: 4.3
+            - **Input**: Mounting the PaperList component with a list of papers and an original paper.
+            - **Expected Output**: The PaperList component should render the correct number of papers from the provided list.
+            - **Actual Output**: The PaperList component renders the correct number of papers from the provided list.
+            - **Result Analysis**: The test case passes, indicating that the PaperList component correctly renders the list of papers.
 5. **SearchResult Component Functionality**
-    - **Test Description:** Verify that the search result component functions as expected, displaying the search results list for a specific paper title query.
-    - **Test Objective:** Ensure that the user can view the search results list for a specific paper title query, and select a paper from the list.
-    - **Test Cases:**
+    - **Test Description**: Verify that the search result component functions as expected, displaying the search results list for a specific paper title query.
+    - **Test Objective**: Ensure that the user can view the search results list for a specific paper title query, and select a paper from the list.
+    - **Test Cases**:
         1. **renders correctly**
-            - **TC ID:** 5.1
-            - **Input:** Mounting the SearchResult component with search results.
-            - **Expected Output:** The SearchResult component should render without any errors.
-            - **Actual Output:** The SearchResult component renders without any errors.
-            - **Result Analysis:** The test case passes, indicating that the SearchResult component renders correctly.
+            - **TC ID**: 5.1
+            - **Input**: Mounting the SearchResult component with search results.
+            - **Expected Output**: The SearchResult component should render without any errors.
+            - **Actual Output**: The SearchResult component renders without any errors.
+            - **Result Analysis**: The test case passes, indicating that the SearchResult component renders correctly.
         2. **does not render search results when there are none**
-            - **TC ID:** 5.2
-            - **Input:** Mounting the SearchResult component with an empty list of search results.
-            - **Expected Output:** The SearchResult component should not render any search results.
-            - **Actual Output:** The SearchResult component does not render any search results.
-            - **Result Analysis:** The test case passes, indicating that the SearchResult component correctly does not render search results when there are none.
+            - **TC ID**: 5.2
+            - **Input**: Mounting the SearchResult component with an empty list of search results.
+            - **Expected Output**: The SearchResult component should not render any search results.
+            - **Actual Output**: The SearchResult component does not render any search results.
+            - **Result Analysis**: The test case passes, indicating that the SearchResult component correctly does not render search results when there are none.
         3. **renders search results when there are some**
-            - **TC ID:** 5.3
-            - **Input:** Mounting the SearchResult component with a list of search results.
-            - **Expected Output:** The SearchResult component should render the correct number of search results.
-            - **Actual Output:** The SearchResult component renders the correct number of search results.
-            - **Result Analysis:** The test case passes, indicating that the SearchResult component correctly renders search results when there are some.
+            - **TC ID**: 5.3
+            - **Input**: Mounting the SearchResult component with a list of search results.
+            - **Expected Output**: The SearchResult component should render the correct number of search results.
+            - **Actual Output**: The SearchResult component renders the correct number of search results.
+            - **Result Analysis**: The test case passes, indicating that the SearchResult component correctly renders search results when there are some.
         4. **emits "update:modelValue" when the modal is closed**
-            - **TC ID:** 5.4
-            - **Input:** Closing the modal in the SearchResult component.
-            - **Expected Output:** The SearchResult component should emit an "update:modelValue" event with false when the modal is closed.
-            - **Actual Output:** The SearchResult component emits an "update:modelValue" event with false when the modal is closed.
-            - **Result Analysis:** The test case passes, indicating that the SearchResult component emits the expected event when the modal is closed.
-    - **Analysis:** The search result component functions as expected, displaying the search results list for a specific paper title query. The user can view the search results list for a specific paper title query, and select a paper from the list. The SearchResult component renders correctly, does not render search results when there are none, renders search results when there are some, and emits the expected event when the modal is closed.
+            - **TC ID**: 5.4
+            - **Input**: Closing the modal in the SearchResult component.
+            - **Expected Output**: The SearchResult component should emit an "update:modelValue" event with false when the modal is closed.
+            - **Actual Output**: The SearchResult component emits an "update:modelValue" event with false when the modal is closed.
+            - **Result Analysis**: The test case passes, indicating that the SearchResult component emits the expected event when the modal is closed.
+    - **Analysis**: The search result component functions as expected, displaying the search results list for a specific paper title query. The user can view the search results list for a specific paper title query, and select a paper from the list. The SearchResult component renders correctly, does not render search results when there are none, renders search results when there are some, and emits the expected event when the modal is closed.
 6. **UserChip Component Functionality**
-    - **Test Description:** Verify that the user chip component functions as expected, displaying the user's name, email and affiliation if available.
-    - **Test Objective:** Ensure that the user's name, email and affiliation are displayed correctly in the user chip component.
-    - **Test Cases:**
+    - **Test Description**: Verify that the user chip component functions as expected, displaying the user's name, email and affiliation if available.
+    - **Test Objective**: Ensure that the user's name, email and affiliation are displayed correctly in the user chip component.
+    - **Test Cases**:
         1. **renders author name**
-            - **TC ID:** 6.1
-            - **Input:** Mounting the UserChip component with an author object containing a name.
-            - **Expected Output:** The UserChip component should render the author's name.
-            - **Actual Output:** The UserChip component renders the author's name.
-            - **Result Analysis:** The test case passes, indicating that the UserChip component correctly renders the author's name.
+            - **TC ID**: 6.1
+            - **Input**: Mounting the UserChip component with an author object containing a name.
+            - **Expected Output**: The UserChip component should render the author's name.
+            - **Actual Output**: The UserChip component renders the author's name.
+            - **Result Analysis**: The test case passes, indicating that the UserChip component correctly renders the author's name.
         2. **does not render email and affiliation if not provided**
-            - **TC ID:** 6.2
-            - **Input:** Mounting the UserChip component with an incomplete author object.
-            - **Expected Output:** The UserChip component should not render email and affiliation if they are not provided in the author object.
-            - **Actual Output:** The UserChip component does not render email and affiliation when they are not provided in the author object.
-            - **Result Analysis:** The test case passes, indicating that the UserChip component correctly does not render email and affiliation if not provided.
+            - **TC ID**: 6.2
+            - **Input**: Mounting the UserChip component with an incomplete author object.
+            - **Expected Output**: The UserChip component should not render email and affiliation if they are not provided in the author object.
+            - **Actual Output**: The UserChip component does not render email and affiliation when they are not provided in the author object.
+            - **Result Analysis**: The test case passes, indicating that the UserChip component correctly does not render email and affiliation if not provided.
         3. **shows popover when hover**
-            - **TC ID:** 6.3
-            - **Input:** Hovering over the UserChip component.
-            - **Expected Output:** The UserChip component should show a popover when hovered over.
-            - **Actual Output:** The UserChip component shows a popover when hovered over.
-            - **Result Analysis:** The test case passes, indicating that the UserChip component correctly shows a popover when hovered over.
+            - **TC ID**: 6.3
+            - **Input**: Hovering over the UserChip component.
+            - **Expected Output**: The UserChip component should show a popover when hovered over.
+            - **Actual Output**: The UserChip component shows a popover when hovered over.
+            - **Result Analysis**: The test case passes, indicating that the UserChip component correctly shows a popover when hovered over.
 
 ### Manual Test Cases
 
 1. **General Functionality**
-    - **Test Description:** Verify that the general functionality of the system works as expected, including the navigation, file upload, and parsing of articles.
-    - **Test Objective:** Ensure that the user can navigate through the system, upload a file, and view the parsing results.
-    - **Test Cases:**
+    - **Test Description**: Verify that the general functionality of the system works as expected, including the navigation, file upload, and parsing of articles.
+    - **Test Objective**: Ensure that the user can navigate through the system, upload a file, and view the parsing results.
+    - **Test Cases**:
         1. **Search With An Invalid Title**
-            - **TC ID:** 7.1
+            - **TC ID**: 7.1
             - **Action Performed**: Enter an invalid paper title keyword 'xyz' in the search bar and click on the search button.
-            - **Expected Result:** The 'Search Result' pop-up window should show up with title 'NO RESULTS FOR XYZ', and there should be no search results displayed in the list below.
-            - **Actual Result:** The 'Search Result' pop-up window shows up with title 'NO RESULTS FOR XYZ' with empty search results list.
+            - **Expected Result**: The 'Search Result' pop-up window should show up with title 'NO RESULTS FOR XYZ', and there should be no search results displayed in the list below.
+            - **Actual Result**: The 'Search Result' pop-up window shows up with title 'NO RESULTS FOR XYZ' with empty search results list.
         2. **Generate Graph by Searching for a Paper Title**
-            - **TC ID:** 7.2
+            - **TC ID**: 7.2
             - **Action Performed**: Enter a paper title keyword 'mpi' in the search bar and click on the search button, click on one of the search results, and the graph should be generated after waiting for backend to respond.
-            - **Expected Result:** There be a graph generated with the articles related to the selected paper.
-            - **Actual Result:** A graph is generated with the articles related to the selected paper.
-            - **Result Analysis:** The test case passes, indicating that a graph is generated with the articles related to the selected paper.
+            - **Expected Result**: There be a graph generated with the articles related to the selected paper.
+            - **Actual Result**: A graph is generated with the articles related to the selected paper.
+            - **Result Analysis**: The test case passes, indicating that a graph is generated with the articles related to the selected paper.
         3. **Graph Behaviour**
-            - **TC ID:** 7.3
+            - **TC ID**: 7.3
             - **Action Performed**: Generate a graph like test case 7.2, drag the canvas to move the graph, then drag one of the nodes to move it. Use scroll wheel to zoom in and out.
-            - **Expected Result:** The graph should be draggable, the nodes should be draggable, and the graph should be zoom-able.
-            - **Actual Result:** The graph is draggable, the nodes are draggable, and the graph is zoom-able.
-            - **Result Analysis:** The test case passes, indicating that the graph fully behaves as expected.
+            - **Expected Result**: The graph should be draggable, the nodes should be draggable, and the graph should be zoom-able.
+            - **Actual Result**: The graph is draggable, the nodes are draggable, and the graph is zoom-able.
+            - **Result Analysis**: The test case passes, indicating that the graph fully behaves as expected.
         4. **Highlighting the Selected Paper Both In the Graph and the Paper List**
-            - **TC ID:** 7.4
+            - **TC ID**: 7.4
             - **Action Performed**: Generate a graph like test case 7.2, click on a paper node in the graph, then click on another paper node in the graph.
-            - **Expected Result:** The selected paper should be highlighted in the graph and the paper list for these two clicks.
-            - **Actual Result:** The selected paper is highlighted in the graph and the paper list for these two clicks.
-            - **Result Analysis:** The test case passes, indicating that the highlight functionality works as expected.
+            - **Expected Result**: The selected paper should be highlighted in the graph and the paper list for these two clicks.
+            - **Actual Result**: The selected paper is highlighted in the graph and the paper list for these two clicks.
+            - **Result Analysis**: The test case passes, indicating that the highlight functionality works as expected.
 2. **Linking Articles with the Same Topic**
-    - **Based on Test Topic:** [2. Topic Connection](Design.md#2-topic-connection-1)
-    - **Test Description:** Verify that the system can link articles with the same topic and display them in the paper list, and finally generate a network graph with their connections.
-    - **Test Objective:** Ensure that the system can link articles with the same topic and generate graph of them.
-    - **Test Cases:**
+    - **Based on Test Topic**: [2. Topic Connection](Design.md#2-topic-connection-1)
+    - **Test Description**: Verify that the system can link articles with the same topic and display them in the paper list, and finally generate a network graph with their connections.
+    - **Test Objective**: Ensure that the system can link articles with the same topic and generate graph of them.
+    - **Test Cases**:
         1. **Access Page By Sidebar Navigation Link**
-            - **TC ID:** 7.5
+            - **TC ID**: 7.5
             - **Action Performed**: Click on the 'Same Topic' link in the 'topic' section in the sidebar navigation.
-            - **Expected Result:** The user should be navigated to the 'Same Topic' page, and there should be no graph generated.
-            - **Actual Result:** The user is navigated to the 'Same Topic' page, with no graph generated.
-            - **Result Analysis:** The test case passes, indicating that the user is navigated to the 'Same Topic' page as expected.
+            - **Expected Result**: The user should be navigated to the 'Same Topic' page, and there should be no graph generated.
+            - **Actual Result**: The user is navigated to the 'Same Topic' page, with no graph generated.
+            - **Result Analysis**: The test case passes, indicating that the user is navigated to the 'Same Topic' page as expected.
         2. **Access Page By Dashboard Card When New File Uploaded and Parsed**
-            - **TC ID:** 7.6
+            - **TC ID**: 7.6
             - **Action Performed**: Upload a new file in Dashboard page and wait for the parsing to complete. Click on the 'Same Topic' card in the dashboard.
-            - **Expected Result:** The user should be navigated to the 'Same Topic' page, and there should be a graph generated with the articles related to the uploaded paper.
-            - **Actual Result:** The user is navigated to the 'Same Topic' page, with a graph generated with the articles related to the uploaded paper.
-            - **Result Analysis:** The test case passes, indicating that the user is navigated to the 'Same Topic' page as expected, and a graph is generated with the articles related to the uploaded paper.
+            - **Expected Result**: The user should be navigated to the 'Same Topic' page, and there should be a graph generated with the articles related to the uploaded paper.
+            - **Actual Result**: The user is navigated to the 'Same Topic' page, with a graph generated with the articles related to the uploaded paper.
+            - **Result Analysis**: The test case passes, indicating that the user is navigated to the 'Same Topic' page as expected, and a graph is generated with the articles related to the uploaded paper.
         3. **Generate Graph with No Topics Found**
-            - **TC ID:** 7.7
+            - **TC ID**: 7.7
             - **Action Performed**: Search for title keyword 'gpu' and select paper 'A Survey of CPU-GPU Heterogeneous Computing Techniques' from the search results, then wait for the graph to be generated.
-            - **Expected Result:** The graph should be generated with the only one paper node of the selected paper and no other nodes.
-            - **Actual Result:** The graph is generated with the only one paper node of the selected paper and no other nodes.
-            - **Result Analysis:** The test case passes, indicating that the graph is capable of being generated with no topics found.
+            - **Expected Result**: The graph should be generated with the only one paper node of the selected paper and no other nodes.
+            - **Actual Result**: The graph is generated with the only one paper node of the selected paper and no other nodes.
+            - **Result Analysis**: The test case passes, indicating that the graph is capable of being generated with no topics found.
 3. **Associating Authors Collaborating on the Same Paper (Co-author)**
-    - **Based on Test Topic:** [3. Author Relationship](Design.md#3-author-relationship-1)
-    - **Test Description:** Verify that the system can associate authors collaborating on the same paper and display them in the network graph with papers related to them.
-    - **Test Objective:** Ensure that the co-author page functions as expected
-    - **Test Cases:**
+    - **Based on Test Topic**: [3. Author Relationship](Design.md#3-author-relationship-1)
+    - **Test Description**: Verify that the system can associate authors collaborating on the same paper and display them in the network graph with papers related to them.
+    - **Test Objective**: Ensure that the co-author page functions as expected
+    - **Test Cases**:
         1. **Access Page By Sidebar Navigation Link**
-            - **TC ID:** 7.8
+            - **TC ID**: 7.8
             - **Action Performed**: Click on the 'Co-author' link in the 'author' section in the sidebar navigation.
-            - **Expected Result:** The user should be navigated to the 'Co-author' page, and there should be no graph generated.
-            - **Actual Result:** The user is navigated to the 'Co-author' page, with no graph generated.
-            - **Result Analysis:** The test case passes, indicating that the user is navigated to the 'Co-author' page as expected.
+            - **Expected Result**: The user should be navigated to the 'Co-author' page, and there should be no graph generated.
+            - **Actual Result**: The user is navigated to the 'Co-author' page, with no graph generated.
+            - **Result Analysis**: The test case passes, indicating that the user is navigated to the 'Co-author' page as expected.
         2. **Access Page By Dashboard Card When New File Uploaded and Parsed**
-            - **TC ID:** 7.9
+            - **TC ID**: 7.9
             - **Action Performed**: Upload a new file in Dashboard page and wait for the parsing to complete. Click on the 'Co-author' card in the dashboard.
-            - **Expected Result:** The user should be navigated to the 'Co-author' page, and there should be a graph generated with the articles related to the uploaded paper.
-            - **Actual Result:** The user is navigated to the 'Co-author' page, with a graph generated with the articles related to the uploaded paper.
-            - **Result Analysis:** The test case passes, indicating that the user is navigated to the 'Co-author' page as expected, and a graph is generated with the articles related to the uploaded paper.
+            - **Expected Result**: The user should be navigated to the 'Co-author' page, and there should be a graph generated with the articles related to the uploaded paper.
+            - **Actual Result**: The user is navigated to the 'Co-author' page, with a graph generated with the articles related to the uploaded paper.
+            - **Result Analysis**: The test case passes, indicating that the user is navigated to the 'Co-author' page as expected, and a graph is generated with the articles related to the uploaded paper.
         3. **Generate Graph with No Authors Found**
-            - **TC ID:** 7.10
+            - **TC ID**: 7.10
             - **Action Performed**: Search for title keyword 'association' and select paper 'Association for Professionals in Infection ControlBreak the Chain of Infection' from the search results, then wait for the graph to be generated.
-            - **Expected Result:** The graph should be generated with the only one paper node of the selected paper and no other nodes.
-            - **Actual Result:** The graph is generated with the only one paper node of the selected paper and no other nodes.
-            - **Result Analysis:** The test case passes, indicating that the graph is capable of being generated with no authors found.
+            - **Expected Result**: The graph should be generated with the only one paper node of the selected paper and no other nodes.
+            - **Actual Result**: The graph is generated with the only one paper node of the selected paper and no other nodes.
+            - **Result Analysis**: The test case passes, indicating that the graph is capable of being generated with no authors found.
 4. **Citation Tree Generation**
-    - **Based on Test Topic:** [4. Reference Tree](Design.md#4-reference-tree-1)
-    - **Test Description:** Verify that the system can generate and display a basic citation tree for a given paper.
-    - **Test Objective:** Ensure that the citation tree generation feature functions as expected.
-    - **Test Cases:**
+    - **Based on Test Topic**: [4. Reference Tree](Design.md#4-reference-tree-1)
+    - **Test Description**: Verify that the system can generate and display a basic citation tree for a given paper.
+    - **Test Objective**: Ensure that the citation tree generation feature functions as expected.
+    - **Test Cases**:
         1. **Access Page By Sidebar Navigation Link**
-            - **TC ID:** 7.11
+            - **TC ID**: 7.11
             - **Action Performed**: Click on the 'Citation Tree' link in the 'citation' section in the sidebar navigation.
-            - **Expected Result:** The user should be navigated to the 'Citation Tree' page, and there should be no graph generated.
-            - **Actual Result:** The user is navigated to the 'Citation Tree' page, with no graph generated.
-            - **Result Analysis:** The test case passes, indicating that the user is navigated to the 'Citation Tree' page as expected.
+            - **Expected Result**: The user should be navigated to the 'Citation Tree' page, and there should be no graph generated.
+            - **Actual Result**: The user is navigated to the 'Citation Tree' page, with no graph generated.
+            - **Result Analysis**: The test case passes, indicating that the user is navigated to the 'Citation Tree' page as expected.
         2. **Access Page By Dashboard Card When New File Uploaded and Parsed**
-            - **TC ID:** 7.12
+            - **TC ID**: 7.12
             - **Action Performed**: Upload a new file in Dashboard page and wait for the parsing to complete. Click on the 'Citation Tree' card in the dashboard.
-            - **Expected Result:** The user should be navigated to the 'Citation Tree' page, and there should be a graph generated with the articles related to the uploaded paper.
-            - **Actual Result:** The user is navigated to the 'Citation Tree' page, with a graph generated with the articles related to the uploaded paper.
-            - **Result Analysis:** The test case passes, indicating that the user is navigated to the 'Citation Tree' page as expected, and a graph is generated with the articles related to the uploaded paper.
+            - **Expected Result**: The user should be navigated to the 'Citation Tree' page, and there should be a graph generated with the articles related to the uploaded paper.
+            - **Actual Result**: The user is navigated to the 'Citation Tree' page, with a graph generated with the articles related to the uploaded paper.
+            - **Result Analysis**: The test case passes, indicating that the user is navigated to the 'Citation Tree' page as expected, and a graph is generated with the articles related to the uploaded paper.
         3. **Generate Graph with No Citations Found**
-            - **TC ID:** 7.13
+            - **TC ID**: 7.13
             - **Action Performed**: Search for title keyword 'association' and select paper 'Association for Professionals in Infection ControlBreak the Chain of Infection' from the search results, then wait for the graph to be generated.
-            - **Expected Result:** The graph should be generated with the only one paper node of the selected paper and no other nodes.
-            - **Actual Result:** The graph is generated with the only one paper node of the selected paper and no other nodes.
+            - **Expected Result**: The graph should be generated with the only one paper node of the selected paper and no other nodes.
+            - **Actual Result**: The graph is generated with the only one paper node of the selected paper and no other nodes.
 5. **Frontend-Backend Connection Test**
-   - **Test Description:** Verify that the frontend and backend are connected and communicating as expected.
-   - **Test Objective:** Ensure that the frontend can send requests to the backend and receive responses.
-   - **Test Cases:**
+   - **Test Description**: Verify that the frontend and backend are connected and communicating as expected.
+   - **Test Objective**: Ensure that the frontend can send requests to the backend and receive responses.
+   - **Test Cases**:
      1. **Frontend Reaction When Backend Service Is Down**
-        - **TC ID:** 7.14
+        - **TC ID**: 7.14
         - **Action Performed**: Stop the backend service and perform any action that requires a backend service, such as uploading a file or generating a graph.
-        - **Expected Result:** The frontend should redirect to the error page with the error message.
-        - **Actual Result:** The frontend redirects to the error page with the error message.
-        - **Result Analysis:** The test case passes, indicating that the frontend reacts as expected when the backend service is down.
+        - **Expected Result**: The frontend should redirect to the error page with the error message.
+        - **Actual Result**: The frontend redirects to the error page with the error message.
+        - **Result Analysis**: The test case passes, indicating that the frontend reacts as expected when the backend service is down.
      - **Frontend Reaction When Backend Service Internal Error Happens**
-        - **TC ID:** 7.15
+        - **TC ID**: 7.15
         - **Action Performed**: Trigger an internal error in the backend service by sending a malformed request.
-        - **Expected Result:** The frontend should redirect to the error page with the error message.
-        - **Actual Result:** The frontend redirects to the error page with the error message.
-        - **Result Analysis:** The test case passes, indicating that the frontend reacts as expected when the backend service internal error happens.
+        - **Expected Result**: The frontend should redirect to the error page with the error message.
+        - **Actual Result**: The frontend redirects to the error page with the error message.
+        - **Result Analysis**: The test case passes, indicating that the frontend reacts as expected when the backend service internal error happens.
 
 ### Result Summary
 
@@ -596,11 +622,11 @@ This section provides a comprehensive analysis of the usability testing conducte
 ### Test Feedback Collected
 1. **Task 1: Uploading a Paper**
    - **Description**: Upload a paper to the application through Dashboard page, check the paper information and the link cards that are available, and generate a graph from the uploaded paper though these available links cards.
-   - **Goals:** 
+   - **Goals**: 
      1. Successfully upload a paper.
      2. See the extracted information from the paper.
      3. Generate the graph from the uploaded paper.
-   - **Test Cases:**
+   - **Test Cases**:
      1. **UTC ID: 1.1**
         - **Goals Achieved**: 3 passes, 0 fails
         - **Feedback**: The UI is pretty cool, the process of uploading a paper is clear and straightforward, and the information extracted from the paper is accurate. But the information extraction process is a bit slow.
@@ -628,11 +654,11 @@ This section provides a comprehensive analysis of the usability testing conducte
    - **Overall Analysis**: The task of uploading a paper and generating a graph from the uploaded paper is clear and straightforward, and the information extracted from the paper is accurate. However, the information extraction process is a bit slow, and there are some small difficulties in system guidance. The system is good, but there are some improvements that can be made to enhance the user experience.
 2. **Task 2: Search for A Paper**
    - **Description**: Search for a paper by title keyword in one of these sections: same topic, co-author and cited tree, then select a paper from the search results
-   - **Goals:** 
+   - **Goals**: 
      1. See the pop-up window that displays the search result list.
      2. All the papers are relevant to the search keyword.
      3. Select a paper from the list.
-   - **Test Cases:**
+   - **Test Cases**:
      - **UTC ID: 2.1**
        - **Goals Achieved**: 3 passes, 0 fails
        - **Feedback**: The search process is clear and straightforward, and the search results are relevant to the search keyword. The speed of the search process is still a bit slow.
@@ -660,11 +686,11 @@ This section provides a comprehensive analysis of the usability testing conducte
    - **Overall Analysis**: The search process is clear and straightforward, and the search results are relevant to the search keyword. More adjustments can be made to enhance the user experience, which should be pay attention to in the future design and development.
 3. **Task 3: Generate Graphs**
    - **Description**: Generate different graphs in three available sections: Same-Topic, Co-Author, and Cited Tree using the techniques shown in the previous tasks.
-   - **Goals:** 
+   - **Goals**: 
      1. Successfully generate a graph in each section.
      2. The graph is relevant to the section title.
      3. The graph is interactive and papers can be highlighted both in the graph and the list.
-   - **Test Cases:**
+   - **Test Cases**:
      1. **UTC ID: 3.1**
         - **Goals Achieved**: 3 passes, 0 fails
         - **Feedback**: The process of generating a graph is clear and straightforward, but the title of the paper node in the graph makes the graph a bit messy. It takes too long to generate the graph.
@@ -692,17 +718,17 @@ This section provides a comprehensive analysis of the usability testing conducte
     - **Overall Analysis**: The process of generating a graph is clear and straightforward, and the graph is relevant to the section title. The system is good, but there are some improvements that can be made to enhance the user experience.
 
 ### Overall Feedback
-**Rate:** 8.25 out of 10
+**Rate**: 8.25 out of 10
 
 ### Analysis Summary
 The usability testing indicated that users found the interface intuitive and the process of interacting with the system straightforward, also conducted on the application has highlighted the system's strengths and the areas that require attention, as shown below:
 
-- **Strengths:**
+- **Strengths**:
   - **User Interface**: The application's user interface was mostly praised for being clear and user-friendly.
   - **Functionality**: The core functionalities, such as paper upload, search, and graph generation, met the users' expectations.
   - **Information Accuracy**: The accuracy of the information extracted from uploaded papers was highlighted as a strength, indicating the system's effectiveness in processing and extracting information from paper files.
 
-- **Areas for Improvement:**
+- **Areas for Improvement**:
   - **Performance**: A common point of feedback across all tasks was the system's performance, particularly the speed of operations related to database operations.
   - **Graph Usability**: While the graph generation feature was appreciated, there are issues with graph readability, especially with large amount of data, suggested improvements in the graph's layout and the display of information.
   - **Error Handling and Validation**: The feedback also mentioned that a better error handling and validation process is needed.

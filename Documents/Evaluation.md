@@ -17,7 +17,7 @@ Throughout our project, we have made concrete progress in several key areas:
 ### Detailed Milestone Review
 The project was structured around two significant milestones: the mid-term project presentation and the final project delivery. To guarantee an efficient final submission, we defined four critical sub-milestones to monitor our advancement:
 
-- **Requirement Gathering and Analysis**: At the inception of the project, detailed discussions were held with the client to define the project's specific requirements and expected outcomes. This phase's outcomes are documented in our design document, accessible via a link to the relevant section on GitLab [link here].
+- **Requirement Gathering and Analysis**: At the inception of the project, detailed discussions were held with the client to define the project's specific requirements and expected outcomes. This phase's outcomes are documented in our [design document](Design.md/#requirements-table).
 - **Prototype Design and Review (Presentation)**: An initial prototype was developed and subsequently reviewed by both clients and potential users, whose valuable feedback was incorporated into further improvements.
 - **Development and Testing**: Our team systematically completed the development and testing of each functionality, ensuring the software's quality and stability.
 - **User Acceptance Testing (UAT)**: In the final phase of the project, UAT was conducted, and adjustments were made based on user feedback to meet the ultimate project requirements.
@@ -206,7 +206,7 @@ While utilizing the grobid package, known for its precision and efficiency in ex
 
 2. **Limited Dataset**: The project was conducted with a limited dataset due to copyright considerations associated with downloading academic papers. Consequently, we did not augment our dataset with additional articles, limiting our source to the 57 provided papers. Three of these articles were excluded from database entry due to the absence of abstracts, crucial for topic keyword extraction. The lack of abstracts rendered these articles unhelpful for constructing topic networks, leading to their omission from the database. For more details on the challenges faced during abstract extraction, refer to the second point under the [Metadata Extraction Challenges](#metadata-extraction-challenges) section.
 
-3. **System Compatibility with Grobid**: The Grobid package, essential for our metadata extraction process, poses a compatibility challenge due to its lack of support for the Windows operating system. Consequently, deploying our web application locally on Windows systems results in the inability to process uploaded files, restricting users to the search functionality and the exploration of pre-existing database entries. This limitation does not affect deployments on macOS or Linux systems, where the application operates as intended. Windows users, however, are not left without options; they can access our application deployed on the assessment10a server by utilizing virtual machines through the `EIDF` platform. For detailed instructions on accessing and using the virtual machine, please refer to the provided documentation [insert link here].
+3. **System Compatibility with Grobid**: The Grobid package, essential for our metadata extraction process, poses a compatibility challenge due to its lack of support for the Windows operating system. Consequently, deploying our web application locally on Windows systems results in the inability to process uploaded files, restricting users to the search functionality and the exploration of pre-existing database entries. This limitation does not affect deployments on macOS or Linux systems, where the application operates as intended. Windows users, however, are not left without options; they can access our application deployed on the assessment10a server by utilizing virtual machines through the `EIDF` platform. For detailed instructions on accessing and using the virtual machine, please refer to the [README](../README.md) and [setup](Setup.md) files.
 
 ## Team Collaboration and Performance
 Our projects thrive thanks to a carefully constructed approach to collaboration and performance management, articulated through four fundamental pillars: Interaction, Stability, Governance, and Resources. By using GitLab's extensive capabilities, our team's evolving needs are not only met, but it's seamlessly integrated with our overall project goals.
@@ -296,7 +296,7 @@ Our comprehensive evaluation of the prototype's functionality involved a series 
 
 
 ### Usability Analysis
-
+This section can be find in detail in [Test Analysis](Test-Analysis.md/#test-analysis-usability-testing) 
 
 
 ## Lessons Learned
