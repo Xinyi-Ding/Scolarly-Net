@@ -1,78 +1,64 @@
-# Web application usability testing and feedback
+# Usability Analysis Documentation
 
-## Purpose
-The purpose of this document is to provide a guide for usability testing and feedback for the web application.
-The document will provide some tasks for the user to perform and some feedback questions for the user to answer after
-the tasks are completed.
+## 1. Introduction
 
-## Guide
-**Environment**: The web application is hosted on EIDF, so you can access it from the device that has access to it.
-**Preparation**: Before you start the usability testing, please make sure that you have read through the 
-[Guide on how to use the application](Guide.md) and have a basic understanding of the application, and it is better to
-have a paper pdf or docx file ready for the testing.
+### Purpose
 
-## Tasks
-In this section, we will provide some tasks for you to perform. Please complete the tasks and fill out the feedback
-form.
+The purpose of this document is to provide a comprehensive analysis of the usability testing conducted for our web application. It will include details of the testing methodology used, findings and analysis of the test results, and recommendations for improving the user experience.
 
-### Task 1: Upload a paper
-- **Description**: Upload a paper to the application through Dashboard page, and check the paper information and the
-link cards that are available.
-- **Goal**:
-  - [] Successfully upload a paper.
-  - [] See the extracted information from the paper.
-  - [] Generate the graph from the uploaded paper.
+### Scope
 
-#### Task 1 Feedback
-**Is the process of uploading a paper clear and easy to understand?**
+This document will focus on the usability testing of the web application, specifically addressing the user interface and user experience. It will not cover functional testing or technical performance evaluation. 
 
-**Is the information extracted from the paper is accurate?**
+### Methodology
 
-**Does the link cards work as expected?**
+The usability testing was conducted using a combination of direct observation, user feedback, and task success rates. Participants were asked to perform specific tasks within the application, with the guideline provided in the [Guide on how to use the application](Guide.md) and feedback form followed after. Their interactions and feedback were recorded and analyzed to identify usability issues and areas for improvement.
 
-**What difficulties did you encounter?**
+## 2. Usability Testing Methodology
 
-**What do you think can be improved?**
+### Participant Selection
 
-### Task 2: Search for a paper
-- **Description**: Search for a paper by its title.
-- **Goal**:
-  - [] See the pop-up window that displays the search result list.
-  - [] All the papers are relevant to the search keyword.
-  - [] Select a paper from the list.
+The participants for the usability testing were selected based on the target user demographic for the web application. The initial candidate pool was introduced in the [Design Document](Design.md), which includes students, academics, government officials, developers, and companies. But due to the limited time and resources, the participants were selected from the students and academics.
 
-#### Task 2 Feedback
-**Is the process of searching for a paper clear and easy to understand?**
+### Testing Environment
 
-**Is the search result accurate?**
+The usability testing was conducted in a controlled environment, with access to the web application hosted on our group's EIDF. Participants who does not have access to the EIDF were provided with our
 
-**What difficulties did you encounter?**
+### Testing Procedure
+Explain the steps of the usability test, including the tasks participants were asked to perform and any specific scenarios they were placed in.
 
-**What do you think can be improved?**
+### Data Collection Methods
+Outline how data was collected during the tests (e.g., direct observation, screen recordings, questionnaires).
 
-### Task 3: Generate graphs
-- **Description**: Generate different graphs in three available sections: Same-Topic, Co-Author, and Cited Tree.
-- **Goal**:
-  - [] Successfully generate the graph in each section.
-  - [] The graph is relevant to the section title.
-  - [] The graph is interactive and can be highlighted both in the graph and the list.
+## 3. Findings and Analysis
 
-#### Task 3 Feedback
-**Is the process of generating the graph is clear and easy to understand?**
+### Task Success Rates
+Report on the completion rates of assigned tasks and where users encountered difficulties.
 
-**What difficulties did you encounter?**
+### User Behavior and Interaction Patterns
+Summarize notable behaviors, strategies, or patterns that emerged during testing.
 
-**What do you think can be improved?**
+### User Feedback
+Include direct quotes or summaries of user feedback regarding their experience, highlighting both positive aspects and points of frustration.
 
-## Overall Feedback
-**How would you rate the usability of the web application? (Very Poor - 1, Very Good - 10)**
+### Usability Issues
+List and describe specific usability issues identified during testing, categorized by severity or frequency.
 
-**Which part of the application makes you feel most satisfied?**
+## 4. Recommendations for Improvement
 
-**What improvements do you think can be made?**
+### Prioritized Issues
+Prioritize the usability issues based on their impact on user experience and the feasibility of addressing them.
 
-## Signature
-- **Name**:
-- **Date**:
+### Proposed Solutions
+For each major issue, propose a solution or improvement. Where applicable, support your recommendations with best practices in UI/UX design.
 
-*Thank you so much for your time and feedback!*
+### Future Testing
+Suggest areas for further usability testing, especially after significant changes or improvements are made.
+
+## 5. Conclusion
+
+Summarize the key findings from the usability analysis and the potential impact of the proposed improvements on the overall user experience. Reflect on the usability testing process, including any limitations or challenges encountered, and how they might be addressed in future tests.
+
+## 6. Appendices (if necessary)
+
+Include any detailed data, user feedback, test scripts, or additional materials that support the analysis but are too extensive for the main body of the document.

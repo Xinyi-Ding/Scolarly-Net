@@ -46,8 +46,11 @@ To sum up, the project's progress largely adhered to the planned schedule. Howev
 
 5. **Data Model Adjustments**: We expanded the types of data stored in our tables and altered the relationship schema between authors, institutions, and departments. This modification was made to achieve a more normalized data model that aligned with requirement 3b. The contrasts between the initial and final data models are depicted in Figures 1.1 and 1.2, with further details available in [data_model.md](./data_model.md):
     ![original data model](./Image/data_model_v1.svg)
+
     *Figure 1.1: The original data model at project launch.*
+
     ![revised data model](./Image/final_model.jpg)
+
     *Figure 1.2: The revised data model upon project completion.*
 
 6. **File Format Limitations**: Initially, we hoped the website would allow for the extraction of target articles from various formats such as `.pdf` and `.word`. However, the current implementation, which relies on the Grobid extraction package, is limited to processing PDF files that conform to a basic academic paper structure. As a result, non-standard PDF files, like a PDF version of a PowerPoint presentation, cannot be accurately processed for meaningful metadata extraction.
@@ -118,7 +121,9 @@ Our prototype's development and assessment have uncovered a number of critical f
 While utilizing the grobid package, known for its precision and efficiency in extracting metadata, we encountered unforeseen issues that impacted the extraction process.
 1. **Topic and Keyword Extraction Challenge**:
 Although our keyword extraction process was generally successful, we encountered issues with certain articles that exhibited problematic keywords, including complex categorization codes and non-standard phrases. These issues were highlighted in cases such as the one depicted in Figure 1, where extracted keywords did not align with conventional academic nomenclature.
+
 ![Keyword Example](Image/keywords_example.jpg)
+
 *Figure 2: An example of keyword extraction results with complex categorization codes and phrases.* 
 
     To solve this, we decided to forgo displaying the extracted keywords directly and instead utilized them in the process of topic extraction. We refined the process by combining the problematic keywords with the article's abstract and title. We then employed Latent Dirichlet Allocation (LDA) to discern the principal topics from this amalgamated text. LDA was tasked with the identification and grouping of words into topics based on their co-occurrence across the documents, thus revealing the underlying topic structures. 
@@ -127,13 +132,16 @@ Although our keyword extraction process was generally successful, we encountered
 
 2. **Abstract Extraction Challenge**:
 Even though it wasn't specified as a requirement, extracting the abstract is crucial for determining the article's theme. The abstracts that were extracted sometimes included special characters, such as `↵`, or had incorrect line breaks. To standardize the output, we undertook data cleaning, which is depicted in the before-and-after comparison shown below.
+
 ![omparison of abstract format before and after cleanin](./Image/abstract_compare.jpg)
+
 *Figure 3: Comparison of abstract format before and after cleaning.*
 
     In comparison, networks generated using only keywords lacked the comprehensive linkages achievable through Latent Dirichlet Allocation (LDA), see detail examples in Figure 5.1 and 5.2. LDA's advantage lies in its ability to use the root form of topics, maintaining consistency and avoiding the risk of unrecognized illegal characters in keywords. However, LDA heavily relies on the article's content and parameter settings, sometimes highlighting common words despite part-of-speech filtering, such as filtering out adverbs and adjectives. Efforts to use packages like NLTK for phrase combination were only partially successful, especially for uncommon terms. For instance, "Vincent van Gogh," ideally a single entity, was erroneously extracted as three separate topics, as marked in the first box in Figure 4.
     Furthermore, while LDA can cover key topics, it struggles to filter out irrelevant common words like "usage," as indicated in the second box in Figure 4.
 
     ![topic limitation example](./Image/topic_limitation.png)
+
     *Figure 4: Example of topic extraction results (This article was contributed by a team member for testing purposes with their consent.)*
 
     Below is a comparison between the network generated using keywords and the revised network generated using topics after the modifications:
@@ -143,6 +151,7 @@ Even though it wasn't specified as a requirement, extracting the abstract is cru
     *Figure 5.1: Network generated using keywords.*
 
     ![topic mapping](./Image/topic_map.jpg)
+
     *Figure 5.2: Revised network generated using topics.*
 
     However, some unique articles do not include a subheading with `Abstract` in the abstract section (like [2629451.pdf](../backend/data/Papers/2629451.pdf)), some have the abstract in a special format (like `a b s t r a c t` in [nursing.pdf](../backend/data/Papers/nursing.pdf)), and others do not have an abstract at all, such as [296274270.pdf](../backend/data/Papers/296274270.pdf).
@@ -151,7 +160,9 @@ Even though it wasn't specified as a requirement, extracting the abstract is cru
 The metadata extracted from references using the Grobid package was inaccurate; some references were missing titles, and some had incorrect author names. Fortunately, the original reference field was mostly intact, leading us to decide on using the `Anystyle` package for re-extracting metadata from this field. Compared to Grobid, Anystyle yielded more accurate results; however, it lacked the functionality to automatically fill in the authors' first names. Despite this limitation, we prioritized the accuracy of reference extraction, resulting in a compromise on the completeness of the authors' first names.
 
     Even with the use of `Anystyle` for more accurate metadata extraction from raw references, initial errors in extracting these references (such as incorrect segmentation, leading to a single reference being split into two, as shown in Figure 3) remain challenging to avoid and currently lack a solution. Future efforts will consider optimizing this functionality, given more time.
+4. 
 ![a single reference into two](./Image/reference_segements.jpg)
+4. 
 *Figure 6: Error case in reference extraction: Segments 1 and 2 of the raw reference actually belong to the same reference.*
 
 ### Frontend
@@ -227,26 +238,31 @@ Our comprehensive evaluation of the prototype's functionality involved a series 
 - **File Upload and Reading**: The prototype proved its capability by seamlessly allowing the upload of articles and subsequently reading their content. The system efficiently extracted crucial metadata from these documents, showcasing its reliability in handling diverse formats and structures of academic articles. The successful extraction process was visually confirmed, with each article's metadata clearly displayed, indicating the prototype's precision in identifying and parsing relevant information.
 
 ![Successful Metadata Extraction Example](./Image/parsing_example.png)
+
 *Figure 7: Example of Successful Metadata Extraction.*
 
 - **Keyword-Based Article Search**: The search functionality of the prototype underwent testing to ascertain its accuracy in locating articles based on title keywords. The system displayed commendable performance, adeptly matching user queries with the corresponding articles in the database. This feature was instrumental in facilitating easy access to relevant academic content, as evidenced by the search results showcasing the prototype's effectiveness in retrieving accurate matches.
 
 ![Search Results Example](./Image/search_result.jpg)
+
 *Figure 8: Example of Search Results.*
 
 - **topic Relationship Mapping**: A distinguishing aspect of the prototype is its ability to discern and visually represent topic connections across the dataset. Testing this feature revealed the prototype's capacity to generate detailed topic graphs, offering users an intuitive understanding of topic interrelations. These visualizations were particularly useful in highlighting underlying patterns and trends within the academic landscape.
 
 ![topic Relationship Graph Example](./Image/topic_map.jpg)
+
 *Figure 9: Example of a topic Relationship Graph. (Circles represent articles, pentagrams represent topics, and the yellow circle denotes the currently selected or uploaded article.)*
 
 - **Co-Authorship Networks**: The prototype's functionality extends to mapping networks of co-authorship, a feature that was rigorously tested. The system successfully identified collaborative networks among authors, visually mapping these connections in a comprehensive manner. This functionality adds a layer of depth to academic research analysis by elucidating the collaborative dynamics within the scholarly community.
 
 ![Co-Authorship Network Example](./Image/author_relation.jpg)
+
 *Figure 10: Example of a Co-Authorship Network. (The yellow circle represents the selected or uploaded current article, while triangles denote the authors involved in the co-authorship network.)*
 
 - **Citation Mapping**: Another pivotal feature evaluated was the prototype's ability to construct citation maps. These maps are instrumental in tracing the lineage and impact of scholarly works. The evaluation confirmed the prototype's adeptness in creating detailed and informative citation trees, offering valuable insights into the citation networks that underpin academic research.
 
 ![Citation Tree Example](./Image/citation_tree.png)
+
 *Figure 11: Example of a Citation Tree.(The yellow circle represents the selected or uploaded current article, whereas blue circles denote the articles cited by the current article.)*
 
 

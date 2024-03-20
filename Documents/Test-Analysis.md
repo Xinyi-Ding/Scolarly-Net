@@ -1,3 +1,62 @@
+## Test Analysis: Article Parsing Functionality
+
+This detailed analysis scrutinizes the efficacy of the article parsing function, emphasizing its capability to accurately extract and compare metadata, content, author details, and references from PDF article files against a manually curated dataset. The approach adopted for this testing encompasses a tolerance for minor discrepancies in abstracts and references to ensure such variations don't detract from the overall evaluation of extraction accuracy.
+
+### Test Environment Setup
+- **Languages & Frameworks**: The test harness is built using Python and incorporates standard libraries such as `json` for data serialization and `difflib` for comparing differences between text data. Custom services and types are also employed to tailor the testing environment to the specific needs of the parsing function.
+- **Data Source**: The benchmark dataset comprises manually extracted data from a diverse selection of seven articles, which includes five articles with references and two without. This data is stored in JSON format to facilitate structured comparison and analysis.
+- **Target Platform**: The article parsing system under test is designed to handle articles in PDF format, extracting key pieces of information such as metadata, content, author details, and references for further processing or display.
+
+Each test component in this analysis is devised to scrutinize a distinct aspect of the parsing function, with a singular test case applied uniformly across all seven selected articles to maintain consistency and rigor in the testing methodology.
+
+### Test Component: Metadata Extraction
+- **Based on Test Topic:** This component was introduced during the development phase as an essential aspect of ensuring the accuracy of metadata displayed on websites or databases, even though it wasn't part of the initial design specification.
+- **Test Component Description:** The focus here is on the precision of extracting crucial metadata elements from academic articles in PDF format, such as article titles, DOIs, journal names, publication dates, and publishers.
+- **Test Component Objective:** The goal is to affirm the parsing function's ability to extract and accurately represent metadata in comparison to a manually vetted benchmark dataset, thus ensuring the integrity and reliability of metadata displayed on digital platforms.
+- **Test Cases:**
+    1. **Test Case: Comprehensive Metadata Extraction**
+        - **TC ID:** ME01
+        - **Input:** A collection of seven sample articles in PDF format, chosen to represent a variety of publication styles and formats.
+        - **Expected Output:** The parsing function is expected to extract metadata that precisely matches the manually curated dataset, ensuring the integrity of titles, DOIs, journal names, publication dates, and publishers.
+        - **Actual Output:** The parsing function succeeded in accurately extracting the complete set of metadata from all seven articles, demonstrating its robustness and reliability in metadata extraction tasks.
+        - **Result Analysis:** The function showcased exemplary performance in metadata extraction across the board. Instances where certain articles lacked specific metadata elements highlight the importance of designing parsing functions that can gracefully handle such anomalies without compromising the overall accuracy.
+
+### Test Component: Content Parsing
+- **Based on Test Topic:** Linked to [1a. Topic Extraction](Design.md/#1a-topic-extraction-1) and [1b. Keyword Extraction](Design.md/#1b-keyword-extraction-1), this component examines the function's adeptness in parsing article abstracts, a crucial part of content analysis.
+- **Test Component Description:** This segment evaluates the function's efficiency in parsing and representing abstracts from academic articles, ensuring the extracted content aligns closely with manually extracted benchmarks.
+- **Test Component Objective:** To ascertain the precision of abstract extraction processes and validate their consistency against manually curated data, ensuring that the extracted abstracts maintain the semantic integrity of the original content.
+- **Test Cases:**
+    1. **Test Case: Abstract Extraction**
+        - **TC ID:** CP01
+        - **Input:** A representative sample of academic articles in PDF format, chosen to test the function's ability to handle various abstract structures and content complexities.
+        - **Expected Output:** The function is expected to extract abstracts with a high degree of accuracy, ensuring that the extracted content is semantically consistent with the manually curated abstracts in the benchmark dataset.
+        - **Actual Output:** The abstracts were extracted with remarkable precision, reflecting the function's capability to handle textual nuances and variances adeptly, thereby maintaining the content's integrity and meaning.
+        - **Result Analysis:** The content parsing component demonstrated its proficiency in accurately extracting abstracts, reinforcing the function's reliability and effectiveness in content analysis tasks. Despite facing initial challenges in the keyword extraction phase, subsequent enhancements significantly improved the function's performance, highlighting the iterative nature of developing robust parsing functions.
+
+### Test Component: Authors Information Parsing
+- **Based on Test Topic:** [1c. Author Identification](Design.md/#1c-author-identification-1), this component is crucial for attributing the correct authorship and facilitating scholarly communications.
+- **Test Component Description:** Focuses on the precision of extracting detailed author information, including names, affiliations, and email addresses, from the academic articles, which is vital for attributing authorship and facilitating academic communication.
+- **Test Component Objective:** The aim is to verify the function's accuracy in identifying and extracting comprehensive author details, ensuring that the extracted information is consistent with the manually curated dataset and suitable for accurate attribution and correspondence.
+- **Test Cases:**
+    1. **Test Case: Comprehensive Author Information Extraction**
+        - **TC ID:** AI01
+        - **Input:** A selection of academic articles in PDF format, encompassing a range of disciplines and authorship configurations to test the function's versatility.
+        - **Expected Output:** The parsing function is expected to accurately extract author names, affiliations, and email addresses, ensuring that the extracted details align with the manually curated dataset and are accurately represented.
+        - **Actual Output:** The function reliably extracted comprehensive author details from the articles, demonstrating high accuracy and reliability in author information parsing tasks.
+        - **Result Analysis:** The author information parsing component proved highly effective, consistently extracting detailed and accurate author information. Variability in performance due to external library inconsistencies, especially in name extraction, underscores the importance of continuous optimization and refinement to enhance the function's adaptability and reliability across various article formats and presentations.
+
+### Test Component: References Parsing
+- **Based on Test Topic:** [1d. Reference Extraction](Design.md/#1d-reference-extraction-1), this component evaluates the function's capability to accurately extract and match reference lists, an essential aspect of academic integrity and scholarship.
+- **Test Component Description:** This segment assesses the function's ability to accurately identify, extract, and match reference lists from academic articles, a critical component for supporting academic integrity and facilitating scholarly research.
+- **Test Component Objective:** To evaluate the precision of the reference list extraction process and its ability to accurately match extracted references against a manually curated dataset, thereby ensuring the reliability and integrity of reference management.
+- **Test Cases:**
+    1. **Test Case: Comprehensive Reference List Extraction**
+        - **TC ID:** RP01
+        - **Input:** A curated set of academic articles in PDF format, including articles with comprehensive reference lists to test the function's accuracy in reference extraction and matching tasks.
+        - **Expected Output:** The function is expected to accurately extract and match reference lists, ensuring that the extracted references are consistent with the manually curated dataset and accurately represented.
+        - **Actual Output:** The function demonstrated high precision in extracting and matching reference lists, effectively navigating through minor discrepancies and variations in reference formats.
+        - **Result Analysis:** The references parsing component exhibited exemplary performance in extracting and matching reference lists,
+
 ## Test Analysis: Frontend Interactivity
 
 This section provides an in-depth analysis of the frontend interactivity testing, encompassing the functionality of the user interface and the seamless integration of the article parsing system. The testing approach emphasizes the user experience, ensuring that the interface is intuitive, responsive, and capable of effectively communicating the parsing results to the user.
@@ -171,7 +230,7 @@ This section provides an in-depth analysis of the frontend interactivity testing
     - **Test Description:** Verify that the general functionality of the system works as expected, including the navigation, file upload, and parsing of articles.
     - **Test Objective:** Ensure that the user can navigate through the system, upload a file, and view the parsing results.
     - **Test Cases:**
-        1. **Search With a Invalid Title**
+        1. **Search With An Invalid Title**
             - **TC ID:** 7.1
             - **Action Performed**: Enter an invalid paper title keyword 'xyz' in the search bar and click on the search button.
             - **Expected Result:** The 'Search Result' pop-up window should show up with title 'NO RESULTS FOR XYZ', and there should be no search results displayed in the list below.
@@ -290,3 +349,127 @@ All tests passed perfectly as expected. However, there are still some problems i
 Second, the graph models are not welly tested when the data is large. The graph model is tested with a small amount of data, but when the data is large, the graph model may not be able to handle it or performs badly.
 
 Overall, the system works well and passes the test.
+
+## Test Analysis: Backend Functionality
+
+
+
+
+
+
+
+
+## Test Analysis: Usability Testing
+
+This section provides a comprehensive analysis of the usability testing conducted on our paper linking system, focusing on the user interface, user experience, and overall system usability. The testing approach consists of a series of user focused tests, including user interviews, task-based testing, and feedback forms, to evaluate the system's ease of use, efficiency, and user satisfaction.
+
+### Test Environment
+
+- **Test Participants**: The usability testing involved users from two different backgrounds, which are academic researchers and students.
+- **Test Location**: The testing was conducted in a controlled environment, with two ways provided, which are in-person and remote testing.
+- **Test Tools**: The testing was conducted using user feedback forms, task-based testing scenarios, and user interviews to gather feedback and insights from the participants.
+- **Test Devices**: The system was tested on EIDF VM, for participants who do not have access to our VM, were given control of one of our group members' computer to interact with the system.
+
+### Test Feedback Collected
+1. **Task 1: Uploading a Paper**
+   - **Description**: Upload a paper to the application through Dashboard page, check the paper information and the link cards that are available, and generate a graph from the uploaded paper though these available links cards.
+   - **Goals:** 
+     1. Successfully upload a paper.
+     2. See the extracted information from the paper.
+     3. Generate the graph from the uploaded paper.
+   - **Test Cases:**
+     1. **UTC ID: 1.1**
+        - **Goals Achieved**: 3 passes, 0 fails
+        - **Feedback**: The UI is pretty cool, the process of uploading a paper is clear and straightforward, and the information extracted from the paper is accurate. But the information extraction process is a bit slow.
+        - **Suggestions**: Improve the graph generation speed.
+        - **Analysis**: The user experienced is satisfied in this case. The feedback of long waiting time for graph generation might cause by: The database is not deployed in the VM but in the Mongodb official cloud database, so the network speed between the VM and the database are slow.
+        - **Improvement**: Deploy the database in the VM so that the network speed between the VM and the database can be improved.
+     2. **UTC ID: 1.2**
+        - **Goals Achieved**: 0 passes, 3 fails
+        - **Feedback**: The process of uploading a paper is clear and straightforward, but the information extracted from the paper is not accurate because the page jumped to the error page and failed to extract the information from the paper.
+        - **Suggestions**: Improve the information extraction process.
+        - **Analysis**: The user experienced is not satisfied in this case. The error might cause by: Participant chose to upload a pdf file downloaded from a lecture slide, which is not a paper, so the system failed to extract the necessary information like title and abstracts.
+        - **Future Improvement**: Add a validation process to check if the uploaded file is a paper, or return a more user-friendly error message to the user.
+     3. **UTC ID: 1.3**
+        - **Goals Achieved**: 3 passes, 0 fails
+        - **Feedback**: The process of uploading a paper is clear and straightforward with brilliant UI, and the information extracted from the paper is accurate.
+        - **Suggestions**: The system is good, no suggestions.
+        - **Analysis**: The user experienced is satisfied in this case.
+        - **Future Improvement**: No improvement needed.
+     4. **UTC ID: 1.4**
+        - **Goals Achieved**: 3 passes, 0 fails
+        - **Feedback**: The process of uploading a paper is clear and straightforward, and the information extracted from the paper is accurate. There are some small difficulties in identifying what the link cards are for.
+        - **Suggestions**: Info icons could be added beside the link cards to show what the link cards are for when hover on them. And there could be a reset button to reset the uploaded paper, not just think that all users know that they can upload another paper to reset the uploaded paper.
+        - **Analysis**: The user experienced is partly satisfied in this case.
+        - **Future Improvement**: Add info icons and a reset button as suggested.
+   - **Overall Analysis**: The task of uploading a paper and generating a graph from the uploaded paper is clear and straightforward, and the information extracted from the paper is accurate. However, the information extraction process is a bit slow, and there are some small difficulties in system guidance. The system is good, but there are some improvements that can be made to enhance the user experience.
+2. **Task 2: Search for A Paper**
+   - **Description**: Search for a paper by title keyword in one of these sections: same topic, co-author and cited tree, then select a paper from the search results
+   - **Goals:** 
+     1. See the pop-up window that displays the search result list.
+     2. All the papers are relevant to the search keyword.
+     3. Select a paper from the list.
+   - **Test Cases:**
+     - **UTC ID: 2.1**
+       - **Goals Achieved**: 3 passes, 0 fails
+       - **Feedback**: The search process is clear and straightforward, and the search results are relevant to the search keyword. The speed of the search process is still a bit slow.
+       - **Suggestions**: Improve the search speed.
+       - **Analysis**: The user experienced is satisfied in this case. The feedback of long waiting time for search still might cause by the database.
+       - **Improvement**: Deploy the database in the VM.
+     - **UTC ID: 2.2**
+       - **Goals Achieved**: 3 passes, 0 fails
+       - **Feedback**: The search process is clear and straightforward, and the search results are relevant to the search keyword, but it is a bit confusing that why searching for paper title in co-author page instead of searching for author name. The network speed is a bit slow.
+       - **Suggestions**: Add more search options.
+       - **Analysis**: The user experienced is mostly satisfied in this case. Only search for paper title in every page is how the system is designed, but it is a bit confusing for the user without a clear explanation. 
+       - **Future Improvement**: Add a clear explanation to the user, and add more search options is also a good idea because we already can do have search APIs for other options like author name or topic name, but still need to be integrated into the system.
+     - **UTC ID: 2.3**
+       - **Goals Achieved**: 3 passes, 0 fails
+       - **Feedback**: The search process is clear and straightforward, and the search results are relevant to the search keyword. But the authors in the search results list are not fully displayed, which is a bit inconvenient.
+       - **Suggestions**: The system is good, but provide a way to view the full author chip list of the paper in the search results list.
+       - **Analysis**: The user experienced is mostly satisfied in this case. The display of the author chip list is limited by the space of the pop-up window, so it hides the parts that overflow.
+       - **Future Improvement**: Hover on the author chip list to view the full list as suggested.
+     - **UTC ID: 2.4**
+       - **Goals Achieved**: 3 passes, 0 fails
+       - **Feedback**: The search process is clear and straightforward, and the search results are relevant to the search keyword. But there is no search bar in the Dashboard page, which is a bit inconvenient.
+       - **Suggestions**: Since every page has a search bar and can search for paper title only, it might be clearer to the user if the search bar is put in the app bar on the top of the page.
+       - **Analysis**: The user experienced is partly satisfied in this case. The search bar problem is caused by the redundant search bar in each page all of which can only search for paper title, so it is a bit confusing.
+       - **Future Improvement**: Add search bar in the app bar on the top of the page, change search bar in each page to an expandable icon that can be optional to show.
+   - **Overall Analysis**: The search process is clear and straightforward, and the search results are relevant to the search keyword. More adjustments can be made to enhance the user experience, which should be pay attention to in the future design and development.
+3. **Task 3: Generate Graphs**
+   - **Description**: Generate different graphs in three available sections: Same-Topic, Co-Author, and Cited Tree using the techniques shown in the previous tasks.
+   - **Goals:** 
+     1. Successfully generate a graph in each section.
+     2. The graph is relevant to the section title.
+     3. The graph is interactive and papers can be highlighted both in the graph and the list.
+   - **Test Cases:**
+     1. **UTC ID: 3.1**
+        - **Goals Achieved**: 3 passes, 0 fails
+        - **Feedback**: The process of generating a graph is clear and straightforward, but the title of the paper node in the graph makes the graph a bit messy. It takes too long to generate the graph.
+        - **Suggestions**: Improve the graph generation speed and the display of the paper node title in the graph.
+        - **Analysis**: The user experienced is partly satisfied in this case. The feedback of long waiting time for graph generation might cause by the database or the graph generation algorithm in the backend.
+        - **Improvement**: Deploy the database in the VM, and optimize the graph generation algorithm in the backend.
+     2. **UTC ID: 3.2**
+        - **Goals Achieved**: 3 passes, 0 fails
+        - **Feedback**: The process of generating a graph is clear and straightforward, and the graph is relevant to the section title.
+        - **Suggestions**: No suggestions, the system is good.
+        - **Analysis**: The user experienced is satisfied in this case.
+        - **Future Improvement**: No improvement needed.
+     3. **UTC ID: 3.3**
+        - **Goals Achieved**: 3 passes, 0 fails
+        - **Feedback**: The process of generating a graph is clear and straightforward, and the graph is relevant to the section title. But when there a lot of papers in the graph, there are nodes and title overlapping each other, which makes the graph a bit messy.
+        - **Suggestions**: The system is good, but the graph layout needs to be optimized.
+        - **Analysis**: The user experienced is partly satisfied in this case. The graph layout problem is caused by the graph drawing tool Vis-network, which is not easy to control the layout of the graph.
+        - **Future Improvement**: Figure out a way to optimize the graph layout if possible.
+     4. **UTC ID: 3.4**
+        - **Goals Achieved**: 3 passes, 0 fails
+        - **Feedback**: The process of generating a graph is clear and straightforward, and the graph is relevant to the section title. But the graph layout can be improved, and there is another problem that the graph will disappear when the user refreshes the page.
+        - **Suggestions**: The system is good, but the graph layout needs to be optimized, and it is better that the graph can be saved when the user refreshes the page.
+        - **Analysis**: The user experienced is partly satisfied in this case. The graph interaction problem is caused by the graph drawing tool Vis-network, which is not easy to control the interaction of the graph.
+        - **Future Improvement**: Try to use route query to save the graph generation config, that can be used to generate the graph again when the user refreshes the page. The graph layout problem is the same as the previous case.
+    - **Overall Analysis**: The process of generating a graph is clear and straightforward, and the graph is relevant to the section title. The system is good, but there are some improvements that can be made to enhance the user experience.
+
+### Overall Feedback
+**Rate:** 8.25 out of 10
+
+### Analysis Summary
+The usability testing has been successfully completed, with all the test cases passing as expected. The system is clear and straightforward to use, and the information extracted from the paper is accurate. However, there are some improvements that can be made to enhance the user experience, such as improving the graph generation speed, adding more search options, optimizing the graph layout, and adding a clear explanation to the user. The system is good, but there are some adjustments that can be made to enhance the user experience, which should be pay attention to in the future design and development.
