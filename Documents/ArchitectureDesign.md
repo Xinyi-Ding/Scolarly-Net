@@ -79,7 +79,7 @@ In essence, the decision to architect a distinct front-end directly supports the
 - `Python → Grobid` 
     - Python may call upon Grobid services for the extraction of information from PDF documents, further processed within the business logic.
 
-### Test Components
+### **Test Components**
 #### *Component List:*
 - `Vitest:` 
     - A unit testing framework for Vue.js applications, designed to provide fast and reliable test execution. 
@@ -95,6 +95,17 @@ In essence, the decision to architect a distinct front-end directly supports the
 - `Pytest → FastAPI`
     - Pytest is also used to test FastAPI endpoints, verifying the correct behavior of API calls and responses.
 
+### **Deployment Components**
+#### *Component List:*
+- `Docker`: A containerization platform that encapsulates applications and their environments for consistent deployment across different systems. Docker ensures that applications run the same, regardless of where they are deployed. It provides a way to package the application with its environment and dependencies into a container, which can be transported and run anywhere Docker is supported.
+
+#### *Component Dependencies:*
+- `Frontend Container -> All Frontend Components`: The frontend container bundles all frontend components including Vue, Vuex, ElementUI, Webpack, Axios, and ECharts. This container is responsible for the presentation layer of the application, providing the user interface and handling interactions with the user.
+  
+- `Backend Container -> All Backend Components (Except Grobid Component)`: The backend container encompasses the components required for the application's server-side operations, such as FastAPI, Python, and MongoDB. This container handles API requests, business logic, data processing, and analysis. It interacts with the frontend container to serve processed data and accept user inputs.
+  
+- `Grobid Container -> Grobid`: This container is dedicated to running Grobid, a tool for extracting information from PDF documents. It acts as a standalone service that can be utilized by the backend for processing academic documents and transforming them into structured data.
+
 ### **Decision-Making for Technology Selection**
 The architecture and choice of technologies for the this system were methodically planned to align with the project's objectives, the proficiency of the development team, and the specific needs of our target users.
 #### 1. *Development Team Background*
@@ -103,13 +114,40 @@ The architecture and choice of technologies for the this system were methodicall
 - Through in-depth discussions and iterative feedback sessions with stakeholders, we mapped out the crucial features and performance expectations for the system. The client emphasized the need for a responsive UI, robust data processing capabilities, and a flexible data storage approach that can accommodate complex queries, leading to our technology choices.
 - The technology stack was designed to strike a balance between development efficiency and product scalability. Vue.js, along with its associated libraries, was chosen for its reactive nature and ease of integration, which aligns with our aim to deliver a responsive user experience. FastAPI, paired with Python's rapid development and rich library ecosystem, addresses our backend data processing requirements. MongoDB's schema-less design is particularly suited to our needs, offering the flexibility necessary for the varied and evolving datasets encountered in academic research. Additionally, most PDF article extractors, including plugins and libraries, output data in formats like Python dictionaries, XML, or JSON. For instance, the format used by Grobid, the tool we employ for article extraction, is XML. These formats are inherently compatible with MongoDB's storage mechanism, which uses BSON objects. This compatibility is a considerable advantage for storing and managing the data efficiently within our system.
 #### 3. *Security and Data Integrity*
-- Security and data integrity are paramount in academic research platforms. Our backend technologies provide robust security features and the ability to handle sensitive data with the necessary precautions, ensuring users' data remain protected and intact.
+In an academic research platform like ours, where the integrity of scholarly work and the privacy of personal and institutional data are of utmost importance, the selection of backend technologies that prioritize security and data integrity is crucial. **FastAPI** and **MongoDB** have been chosen with these priorities in mind, offering advanced security features tailored to the needs of our diverse user base, from students to government agencies.
+
+- **FastAPI:** This framework is designed with security as a core feature, offering easy integration with secure authentication and authorization systems like OAuth2 and JWT tokens. This is particularly important for our system, which caters to a wide range of users, each requiring controlled access to different levels of data and functionality. For example, students may need access to public academic resources, while academics and government officials may require access to sensitive or proprietary data.
+  
+- **MongoDB:** Known for its robust security mechanisms, MongoDB offers encryption at rest and in transit, ensuring that all data, from student notes to confidential research findings, is securely stored and transferred. Access control, auditing features, and regular security patches further enhance data integrity, providing peace of mind for users reliant on the system for their research and decision-making processes.
+
+The integration of these technologies ensures that all user interactions with the system, from data entry to complex queries, are conducted in a secure environment, safeguarding against unauthorized access and data breaches. This adherence to high security and data integrity standards is essential for maintaining the trust and reliability expected by our users in their scholarly and professional endeavors.
+
 #### 4. *Data Volume Considerations*
-- Initially, the project deals with approximately 10,000 records. MongoDB is well-suited for this data volume due to its performance efficiency. Moreover, it offers excellent horizontal scalability, reassuring us that as the project's data grows over time, we can expand our database infrastructure seamlessly.
+Given the system's aim to serve as a comprehensive platform for academic research, it will initially handle approximately 10,000 records, encompassing a wide range of data types from simple bibliographic information to complex analysis results. **MongoDB** has been selected as our database solution for its exceptional ability to manage such diverse data volumes efficiently.
+
+- **Scalability:** MongoDB's document-oriented structure and schema-less design provide significant flexibility, allowing us to easily accommodate the evolving nature of academic data. This is particularly important as the system grows to include more records and more complex types of data analysis, ensuring that we can scale our database infrastructure without extensive re-engineering.
+
+- **Performance:** MongoDB's indexing capabilities, sharding, and replication features are designed to maintain high performance even as data volume grows. This is crucial for our system, which must deliver quick and accurate search results across vast datasets to users conducting time-sensitive research.
+
+- **Data Management:** The system's features, such as advanced research functionality, data management tools, and analysis and visualisation capabilities, require a database that can handle complex queries and aggregate functions efficiently. MongoDB's rich query language and aggregation framework enable us to provide these sophisticated features without compromising on performance.
+
+The choice of MongoDB, with its emphasis on performance, scalability, and flexibility, aligns with our project's goals and the varied requirements of our users. Whether it's a student compiling a literature review or a government agency conducting policy analysis, our database infrastructure is equipped to support their diverse needs effectively.
 #### 5. *Concurrency and Scalability*
-- The current concurrency requirements for the system are modest, with access provided primarily to internal staff and select clients. The backend, built on FastAPI, is deployed in Docker containers, which are lightweight and portable. Looking ahead, we can utilize Kubernetes (k8s) to orchestrate these containers, enabling horizontal scaling to accommodate any surge in user traffic without compromising performance.
+In the context of the diverse and dynamic needs outlined in the system's purpose and intended user base, the system's architecture must be inherently scalable and capable of handling concurrent access across varied use cases. From in-depth literature reviews by students to complex data analysis for government policy formulation, the system's workload can be highly variable and unpredictable. This necessitates a backend infrastructure that can effortlessly adapt to changing demands without degradation in performance.
+
+The choice to build the backend with **FastAPI** and deploy it within **Docker containers** is strategic, ensuring lightweight, isolated environments that are both efficient and portable. This containerization serves multiple purposes:
+- **Isolation:** Each Docker container provides an isolated environment for a segment of the system's functionality, ensuring that any changes or issues within one container do not affect others, which is crucial for maintaining the system's stability across its varied user base.
+- **Portability:** Docker containers can be easily moved, copied, and deployed across different environments, enhancing the development lifecycle and ensuring consistency between development, testing, and production environments. This is particularly beneficial given the system's broad scope, which might require deployment across different institutions with varying infrastructure setups.
+- **Resource Efficiency:** Containers require less overhead than traditional virtual machines, allowing more efficient use of system resources. This is key for a system expected to handle complex data processing tasks such as extracting paper details, analyzing topic connections, and visualizing author relationships.
+
+Looking forward, the integration of **Kubernetes (k8s)** for container orchestration will enable the system to dynamically scale resources across containers in response to real-time demand. Kubernetes facilitates:
+- **Horizontal Scaling:** Automatically increasing or decreasing the number of container instances based on the system's current load. This ensures that the system can handle peak loads efficiently, such as during exam periods for students or end-of-quarter analysis for companies, without permanent allocation of excessive resources.
+- **Load Balancing:** Distributing user requests intelligently across multiple container instances to ensure optimal resource utilization and response times. This is crucial for maintaining a seamless user experience, whether it's a student rapidly searching for literature or a company conducting extensive market analysis.
+- **Self-healing:** Automatically restarting failed containers, replacing them, and rebalancing loads without downtime. This resilience is vital for a system that supports critical research and decision-making processes across different sectors.
+
+In summary, the system's backend architecture, built on FastAPI and deployed in Docker containers with future Kubernetes integration, is designed to meet the scalability and concurrency requirements inherent in serving a diverse and demanding user base. This approach ensures that the system remains responsive, efficient, and adaptable, catering to the dynamic needs of students, academics, government agencies, and companies engaged in various forms of academic and industry-specific research.
 #### Conclusion
-The chosen technology stack is a reflection of a strategic alignment with the project goals, our team's capabilities, and the user's best interests. This harmony between technology and project requirements is expected to result in a platform that is not only effective in meeting the diverse needs of its users but also robust, secure, and scalable for future expansion.
+The selection of Vue.js, FastAPI, and MongoDB was a strategic decision grounded in a comprehensive understanding of our team's strengths, project requirements, and user needs. This thoughtful alignment is poised to yield a platform that is not only effective in fulfilling the diverse requirements of its users but is also fortified with the robustness, security, and scalability needed for future growth. The integration of these technologies underscores our commitment to delivering a high-quality, user-centric academic research platform.
 
 ### **Horizontal comparison of each component**
 The selection of each technology component within our stack was the result of a deliberate evaluation of its strategic advantages, suitability for meeting both the project goals and the client's specific needs, and its comparison to other potential alternatives. Below we detail the rationale for our choices:
@@ -177,7 +215,7 @@ The selection of each technology component within our stack was the result of a 
 #### Conclusion
 In conclusion, the selected technology stack not only fulfills the individual requirements of performance, scalability, and usability but also integrates into a cohesive architecture that aligns with the overall purpose of the system. Each technology component has been chosen with a strategic perspective, ensuring that the system is well-equipped to support the intricate tasks of academic literature research and analysis, catering to the diverse needs of students, researchers.
 
-### **Example of Alternative Technology Stack**
+### **Alternative Technology Stack**
 Here is an alternative technology stack that could have been chosen for the system, along with a comparative analysis of its advantages and limitations compared to the selected stack.
 
 #### `React + Redux`
