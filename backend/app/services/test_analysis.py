@@ -169,7 +169,7 @@ def test_parse_article_reference():
         pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
+        xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_article_object(xml_path)
         # print("reference test case")
         # print(test_case)
@@ -191,7 +191,7 @@ def test_parse_article_metadata():
         pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
+        xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_article_object(xml_path)
         # print(test_case.journal)
         # print(article.metadata.journal)
@@ -212,7 +212,7 @@ def test_parse_article_content():
         pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
+        xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_article_object(xml_path)
         # print("Test Case:\n")
         # print(test_case)
@@ -236,7 +236,7 @@ def test_parse_article_authors():
         pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
 
         # Parse the article metadata
-        xml_path = analysis.get_extracted_xml(str(pdf_path), grobid_server="http://localhost:8070")
+        xml_path = analysis.get_extracted_xml(str(pdf_path))
         article = analysis.get_article_object(xml_path)
         # print(test_case)
         # print(article.authors)

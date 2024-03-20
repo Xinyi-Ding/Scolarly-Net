@@ -14,9 +14,10 @@
   - [Security and Compliance](#security-and-compliance)
   - [User Experience](#user-experience)
   - [Deployment Strategy](#deployment-strategy)
-- **[Architectural Design](#architectural-design)**
+- **[Architecture and Components Design](#architecture-and-components-design)**
   - [Technology Stack Architecture](#technology-stack-architecture)
-  - [Component Architecture](#component-architecture)
+  - [Software Architecture](#software-architecture)
+  - [Components Design](#components-design)
 - **[Requirements Table](#requirements-table)**
 - **[Requirements Analysis](#requirements-analysis)**
   - [Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference)
@@ -102,125 +103,43 @@ The design prioritizes user experience, ensuring that the system is responsive, 
 ### Deployment Strategy
 The system is planned to be deployed in a cloud-based environment, leveraging the flexibility and scalability of cloud services. A CI/CD pipeline will be established for streamlined development, testing, and deployment processes.
 
-## Architectural Design
+## Architecture and Components Design
 ### Technology Stack Architecture
-![Technology Stack Architecture](/Documents/Image/TechStack.jpg)
-*Figure 1: The overview of planned technology stack architecture.*
-#### Description
-The overall architecture involves Vue and Axios for frontend development, FastApi for backend API services, Python for backend data processing, and MongoDB/Neo4j for data storage. The dependencies establish a seamless flow of data and operations between the frontend and backend components.
+See details in [Architecture and Components Design - Software Architecture](./Architecture-And-Components-Design.md#technology-stack-architecture)
 
-#### Front End
-- **Components**:
-  - **Vue:** A progressive JavaScript framework for building modern, responsive user interfaces. Vue emphasizes declarative rendering, component-based architecture, and seamless integration with other libraries.
-  - **Vuex:** A state management library designed specifically for Vue.js applications. Vuex facilitates centralized state management, enabling efficient handling of shared data between components and maintaining a predictable state flow within the application.
-  - **ElementUI:** A comprehensive Vue.js component library that provides a diverse set of pre-designed UI elements, such as forms, tables, and modals. ElementUI promotes rapid development by offering a consistent and visually appealing design system.
-  - **Webpack:** A powerful module bundler and build tool for JavaScript applications. Webpack simplifies the management of project assets, facilitates code splitting, and optimizes the performance of web applications through efficient bundling and minification processes.
-  - **Axios:** A promise-based HTTP client for the browser and Node.js, Axios seamlessly integrates with Vue.js to simplify asynchronous data fetching and manipulation. It provides a clean and concise API for handling HTTP requests and responses.
-  - **ECharts:** A versatile JavaScript charting library that supports various chart types and interactive features. ECharts is particularly suitable for creating dynamic and visually engaging data visualizations, making it an ideal choice for representing complex datasets in a user-friendly manner.
 
-- **Dependencies**
-  - **Vue → Vuex**  
-  Vue depends on Vuex for managing application-level state. Vuex provides a centralized statemanagement pattern for Vue applications, allowing efficient state sharing among components.
-  - **Vue → ElementUI**  
-  Vue relies on ElementUI as a component library to enhance the user interface. ElementUIprovides a set of pre-designed and customizable UI components, simplifying the process ofbuilding modern and visually appealing Vue applications.
-  - **Vue → Axios** 
-  Vue utilizes Axios for handling HTTP requests. Axios is a JavaScript library thatfacilitates asynchronous data fetching, making it an essential dependency for Vueapplications to communicate with backend servers and APIs.
-  - **Vue → ECharts**  
-  Vue integrates with ECharts to enable data visualization within the application. ECharts isa JavaScript charting library that provides a variety of interactive and dynamic chartoptions, allowing Vue applications to present data in a visually compelling manner.
-  - **Webpack → Vue**  
-  Webpack is responsible for bundling and managing front-end resources. Vue is one of thefront-end frameworks that Webpack supports, allowing developers to organize Vue components,templates, and styles efficiently.
-  - **Webpack → ElementUI**  
-  Webpack includes ElementUI as part of the front-end build process. Webpack manages theintegration of ElementUI components into the application, ensuring that the necessary stylesand scripts are bundled correctly.
-  - **Webpack → Axios:**  
-  Webpack incorporates Axios to handle HTTP requests during the build process. This allows Vue applications, managed by Webpack, to make asynchronous requests for data, ensuring a seamless integration of data fetching and bundling.
+### Software Architecture
+See details in [Architecture and Components Design - Software Architecture](./Architecture-And-Components-Design.md#software-architecture)
 
-#### Back End
-- **Components**:
-  - **FastApi:** A modern, fast (high-performance), web framework for building APIs with Python 3.7+ based on standard Python type hints.
-  - **Python:** A versatile programming language used for data processing and analysis in the backend. Python provides powerful libraries for various tasks, making it a suitable choice for backend development.
-  - **MongoDB/Neo4j:** NoSQL databases used for storing and retrieving data in the backend. MongoDB is a document-oriented database, while Neo4j is a graph database, allowing flexibility in data modeling based on the application's requirements.
-
-- **Dependencies**
-  - **Vue + Axios → FastApi**  
-  Vue, along with Axios, depends on FastApi for handling API requests. FastApi serves as the backend API framework, efficiently managing the communication between the frontend and backend components.
-  - **FastApi → Python**  
-  FastApi relies on Python for implementing the business logic and data processing tasks. Python's rich ecosystem of libraries makes it well-suited for handling complex backend operations.
-  - **FastApi → MongoDB/Neo4j**  
-  FastApi interacts with MongoDB and/or Neo4j databases to store and retrieve data. This dependency enables FastApi to persistently store information and perform data-related operations based on the chosen database model.
-  - **Python → MongoDB/Neo4j**  
-  Python communicates with MongoDB and/or Neo4j databases for data processing and analysis. This interaction allows Python to leverage the data stored in these databases, supporting functionalities such as data manipulation, aggregation, and analysis.
-
-### Component Architecture
-![Component Architecture](/Documents/Image/ComponentGraph.png)
-*Figure 2: The overview of the component architecture for the application.*
-
-#### Overview
-the system utilizes a 5-tier architecture to separate concerns, enhance scalability, and improve maintainability. This architecture allows for a clear distinction between the client interface, presentation logic, business processes, integration services, and resource management. By dividing the system into these layers, the system benefits from increased modularity, which simplifies updates and maintenance. Each tier can be developed and scaled independently, facilitating easier upgrades and integration with other systems or services. The separation also aids in security, as each layer acts as a gatekeeper to the next, ensuring that only authorized operations are performed.
-
-#### Client Tier
-- **ClientUI**: 
-  - Description: The user interface through which users interact with the system. It is designed to be intuitive and facilitate easy access to the system's features.
-  - Relation: This is the primary interface for users to input queries and view results related to academic paper analysis.
-
-#### Presentation Tier
-- **Controller**: 
-  - Description: Manages user input, processes user requests, and sends commands to the model to update the view accordingly.
-  - Relation: Acts as an intermediary between the ClientUI and the business logic, ensuring that user actions are translated into operations on the model.
-- **View**: 
-  - Description: Displays data to the user and sends user commands to the controller.
-  - Relation: Represents the visualization of the data that the system handles, such as showing the extracted paper details and connection maps.
-
-#### Business Tier
-- **SessionFacade**: 
-  - Description: Provides a simplified interface to complex subsystems in the business tier, often used to reduce network calls.
-  - Relation: In the system, it could manage user sessions and streamline interactions with complex data processing tasks for paper analysis.
-- **ValueObject**: 
-  - Description: Holds data that is passed between components, reducing the number of method calls required.
-  - Relation: Transfers relevant data like paper details and metadata across different components of the system.
-
-#### Integration Tier
-- **DataAccessObject (DAO)**: 
-  - Description: Abstracts and encapsulates all access to the data source, managing the connection to the database and the execution of queries.
-  - Relation: Responsible for retrieving and storing data related to academic papers from the database in the system.
-- **ServiceActivator**: 
-  - Description: Invokes services in an asynchronous fashion, can be used for message-driven beans or to initiate services without a direct client request.
-  - Relation: In the system, it may handle asynchronous tasks such as initiating analysis of new academic papers or updating the reference tree.
-
-#### Resource Tier
-- **DataBase**: 
-  - Description: Stores all the persistent data needed for the system to function, such as user accounts, paper details, and connection data.
-  - Relation: Acts as the central repository for the system, where all the academic papers and related metadata are stored.
-- **WebService**: 
-  - Description: Provides a way for the system to communicate with external services over the internet, such as external databases of academic papers.
-  - Relation: Could be used in the system to fetch paper details from external sources or to integrate with other academic research tools.
+### Components Design
+See details in [Architecture and Components Design - Components Design](./Architecture-And-Components-Design.md#components-design)
 
 ## Requirements Table
 This table organizes the requirements, corresponding design details, descriptions, priorities, and test objects into a structured format, providing a comprehensive overview of the system's functionalities.
 
-| Requirements | Design Detail | Description | Priority | Test Object |
-|--------------|---------------|-------------|----------|-------------|
-| [1. Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference-1) | [1a. Topic Extraction](#1a-topic-extraction) | Extracts main research areas or core themes from papers. | High | [Detail](#1a-topic-extraction-1) |
-| | [1b. Keyword Extraction](#1b-keyword-extraction) | Identifies and extracts significant keywords and phrases from papers. | High | [Detail](#1b-keyword-extraction-1) |
-| | [1c. Author Identification](#1c-author-identification) | Extracts and stores authors' details from papers. | High | [Detail](#1c-author-identification-1) |
-| | [1d. Reference Extraction](#1d-reference-extraction) | Automatically extracts and parses reference lists from academic papers. | High | [Detail](#1d-reference-extraction-1) |
-| [2. Topic Connection](#2-topic-connection-1) | [2a. Linking Articles with the Same Topic](#2a-linking-articles-with-the-same-topic) | Links articles that share the same topic. | High | [Detail](#2a-linking-articles-with-the-same-topic-1) |
-| | [2b. Establishing Connections Between Various Topics](#2b-establishing-connections-between-various-topics) | Establishes connections between various topics within the same domain. | Medium | [Detail](#2b-establishing-connections-between-various-topics-1) |
-| [3. Author Relationship](#3-author-relationship-1) | [3a. Associating Authors Collaborating on the Same Paper (Co-author)](#3a-associating-authors-collaborating-on-the-same-paper-co-author) | Establishes connections between authors who have collaborated on the same paper. | High | [Detail](#3a-associating-authors-collaborating-on-the-same-paper-co-author-1) |
+| Requirements | Design Detail                                                                                                                                        | Description | Priority | Test Object |
+|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|----------|-------------|
+| [1. Paper Details Extraction (Topic/Keyword/Author/Reference)](#1-paper-details-extraction-topickeywordauthorreference-1) | [1a. Topic Extraction](#1a-topic-extraction)                                                                                                         | Extracts main research areas or core themes from papers. | High | [Detail](#1a-topic-extraction-1) |
+| | [1b. Keyword Extraction](#1b-keyword-extraction)                                                                                                     | Identifies and extracts significant keywords and phrases from papers. | High | [Detail](#1b-keyword-extraction-1) |
+| | [1c. Author Identification](#1c-author-identification)                                                                                               | Extracts and stores authors' details from papers. | High | [Detail](#1c-author-identification-1) |
+| | [1d. Reference Extraction](#1d-reference-extraction)                                                                                                 | Automatically extracts and parses reference lists from academic papers. | High | [Detail](#1d-reference-extraction-1) |
+| [2. Topic Connection](#2-topic-connection-1) | [2a. Linking Articles with the Same Topic](#2a-linking-articles-with-the-same-topic)                                                                 | Links articles that share the same topic. | High | [Detail](#2a-linking-articles-with-the-same-topic-1) |
+| | [2b. Establishing Connections Between Various Topics](#2b-establishing-connections-between-various-topics)                                           | Establishes connections between various topics within the same domain. | Medium | [Detail](#2b-establishing-connections-between-various-topics-1) |
+| [3. Author Relationship](#3-author-relationship-1) | [3a. Associating Authors Collaborating on the Same Paper (Co-author)](#3a-associating-authors-collaborating-on-the-same-paper-co-author)             | Establishes connections between authors who have collaborated on the same paper. | High | [Detail](#3a-associating-authors-collaborating-on-the-same-paper-co-author-1) |
 | | [3b. Linking Authors Working in the Same Company or Department (Colleague)](#3b-linking-authors-working-in-the-same-company-or-department-colleague) | Connects authors who work in the same company or department. | Medium | [Detail](#3b-linking-authors-working-in-the-same-company-or-department-colleague-1) |
-| | [3c. Co-Recipients of Awards Relationship (Co-Recipients of Awards)](#3c-co-recipients-of-awards-relationship-co-recipients-of-awards) | Showcases relationships between authors who have jointly received specific awards. | Low | [Detail](#3c-co-recipients-of-awards-relationship-co-recipients-of-awards-1) |
-| [4. Reference Tree](#4-reference-tree-1) | [4a. Citation Tree Generation](#4a-citation-tree-generation) | Develops an algorithm to visually represent the citation network of a paper. | High | [Detail](#4a-citation-tree-generation-1) |
-| | [4b. Cited-by Tree Feature (Optional)](#4b-cited-by-tree-feature-optional) | Creates a reverse citation tree that identifies papers which have cited the current paper. | Low | [Detail](#4b-cited-by-tree-feature-optional-1) |
-| | [4c. User Interface](#4c-user-interface) | Provides a user-friendly way to interact with the citation and 'Cited-by' trees. | High | [Detail](#4c-user-interface-1) |
-| | [4d. Citation Context Analysis (Optional)](#4d-citation-context-analysis-optional) | Provides users with the context in which a paper is cited within the citing articles. | Low | [Detail](#4d-citation-context-analysis-optional-1) |
-| | [4e. Citation Influence Scoring (Optional)](#4e-citation-influence-scoring-optional) | Evaluates and displays the influence or impact of each citation within the tree. | Low | [Detail](#4e-citation-influence-scoring-optional-1) |
-| | [4f. Customizable Tree Views (Optional)](#4f-customizable-tree-views-optional) | Allows users to customize how citation trees are displayed. | Low | [Detail](#4f-customizable-tree-views-optional-1) |
-| [5. User Defined Filter and Search](#5-user-defined-filter-and-search-1) | [5a. Customizable Filters](#5a-customizable-filters) | Enables users to define filters based on various parameters. | High | [Detail](#5a-customizable-filters-1) |
-| | [5b. Advanced Keyword Search](#5b-advanced-keyword-search) | Enables users to input specific terms or phrases for advanced keyword searches. | High | [Detail](#5b-advanced-keyword-search-1) |
-| | [5c. Dynamic Query Building](#5c-dynamic-query-building) | Empowers users to create complex queries on-the-fly. | Low | [Detail](#5c-dynamic-query-building-1) |
-| | [5d. Real-time Feedback (Optional)](#5d-real-time-feedback-optional) | Provides immediate feedback as users apply filters or modify search parameters. | Low | [Detail](#5d-real-time-feedback-optional-1) |
-| | [5e. Saved Queries (Optional)](#5e-saved-queries-optional) | Allows users to store frequently used or complex queries for future reference. | Low | [Detail](#5e-saved-queries-optional-1) |
-| | [5f. Intuitive User Interface (Optional)](#5f-intuitive-user-interface-optional) | Ensures that users, regardless of their technical expertise, can navigate and utilize the filter and search functionalities seamlessly. | Low | [Detail](#5f-intuitive-user-interface-optional-1) |
-| | [5g. Compatibility Across User Categories (Optional)](#5g-compatibility-across-user-categories-optional) | Ensures that the filter and search functionalities cater to the specific needs of diverse user categories. | Low | [Detail](#5g-compatibility-across-user-categories-optional-1) |
+| | [3c. Co-Recipients of Awards Relationship (Co-Recipients of Awards)](#3c-co-recipients-of-awards-relationship-co-recipients-of-awards)               | Showcases relationships between authors who have jointly received specific awards. | Low | [Detail](#3c-co-recipients-of-awards-relationship-co-recipients-of-awards-1) |
+| [4. Reference Tree](#4-reference-tree-1) | [4a. Citation Tree Generation](#4a-citation-tree-generation)                                                                                         | Develops an algorithm to visually represent the citation network of a paper. | High | [Detail](#4a-citation-tree-generation-1) |
+| | [4b. Cited-by Tree Feature (Optional)](#4b-cited-by-tree-feature-optional)                                                                           | Creates a reverse citation tree that identifies papers which have cited the current paper. | Low | [Detail](#4b-cited-by-tree-feature-optional-1) |
+| | [4c. Citation Context Analysis (Optional)](#4c-citation-context-analysis-optional)                                                                   | Provides users with the context in which a paper is cited within the citing articles. | Low | [Detail](#4d-citation-context-analysis-optional-1) |
+| | [4d. Citation Influence Scoring (Optional)](#4d-citation-influence-scoring-optional)                                                                 | Evaluates and displays the influence or impact of each citation within the tree. | Low | [Detail](#4e-citation-influence-scoring-optional-1) |
+| | [4e. Customizable Tree Views (Optional)](#4e-customizable-tree-views-optional)                                                                       | Allows users to customize how citation trees are displayed. | Low | [Detail](#4f-customizable-tree-views-optional-1) |
+| [5. User Defined Filter and Search](#5-user-defined-filter-and-search-1) | [5a. Customizable Filters](#5a-customizable-filters)                                                                                                 | Enables users to define filters based on various parameters. | High | [Detail](#5a-customizable-filters-1) |
+| | [5b. Advanced Keyword Search](#5b-advanced-keyword-search)                                                                                           | Enables users to input specific terms or phrases for advanced keyword searches. | High | [Detail](#5b-advanced-keyword-search-1) |
+| | [5c. Dynamic Query Building](#5c-dynamic-query-building)                                                                                             | Empowers users to create complex queries on-the-fly. | Low | [Detail](#5c-dynamic-query-building-1) |
+| | [5d. Real-time Feedback (Optional)](#5d-real-time-feedback-optional)                                                                                 | Provides immediate feedback as users apply filters or modify search parameters. | Low | [Detail](#5d-real-time-feedback-optional-1) |
+| | [5e. Saved Queries (Optional)](#5e-saved-queries-optional)                                                                                           | Allows users to store frequently used or complex queries for future reference. | Low | [Detail](#5e-saved-queries-optional-1) |
+| | [5f. Intuitive User Interface (Optional)](#5f-intuitive-user-interface-optional)                                                                     | Ensures that users, regardless of their technical expertise, can navigate and utilize the filter and search functionalities seamlessly. | Low | [Detail](#5f-intuitive-user-interface-optional-1) |
+| | [5g. Compatibility Across User Categories (Optional)](#5g-compatibility-across-user-categories-optional)                                             | Ensures that the filter and search functionalities cater to the specific needs of diverse user categories. | Low | [Detail](#5g-compatibility-across-user-categories-optional-1) |
 
 *Table 1: The list of the requirements from client.*
 
@@ -375,10 +294,9 @@ One crucial aspect of the proposed system is the implementation of a robust user
 ### 4. Reference Tree
 - [4a. Citation Tree Generation](#4a-citation-tree-generation)
 - [4b. Cited-by Tree Feature (Optional)](#4b-cited-by-tree-feature-optional)
-- [4c. User Interface](#4c-user-interface)
-- [4d. Citation Context Analysis (Optional)](#4d-citation-context-analysis-optional)
-- [4e. Citation Influence Scoring (Optional)](#4e-citation-influence-scoring-optional)
-- [4f. Customizable Tree Views (Optional)](#4f-customizable-tree-views-optional)
+- [4c. Citation Context Analysis (Optional)](#4c-citation-context-analysis-optional)
+- [4d. Citation Influence Scoring (Optional)](#4d-citation-influence-scoring-optional)
+- [4e. Customizable Tree Views (Optional)](#4e-customizable-tree-views-optional)
 #### 4a. [Citation Tree Generation](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/23)
 - **Description**: 
 	- This component involves developing an algorithm to visually represent the citation network of a paper. It will display the immediate citations of the current paper and allow users to explore second and higer levels citations, which are the references cited by the papers in the previous-level citations.
@@ -399,17 +317,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
 	- **Implementation Details**: 
 		- The system will use a reverse lookup algorithm to find papers that cite the current paper. A separate tree structure, similar to the citation tree, will be generated. This tree will also be interactive, allowing users to explore the citation networks of the papers that have cited the current paper.
 
-#### 4c. [User Interface](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/25)
-- **Description**: 
-	- The user interface is crucial for providing a user-friendly way to interact with the citation and 'Cited-by' trees. It needs to be intuitive, responsive, and visually appealing.
-- **Priorisation**: High
-- **Design Details:**
-	- **Requirement Design**: 
-		- The UI should allow users to easily navigate the complex network of citations. It should include graphical representations, clickable elements, and features like search, filter, and different views for better usability.
-	- **Implementation Details**: 
-		- The UI will be developed using web technologies (like HTML, CSS, JavaScript) or appropriate software frameworks. It will feature a main viewing area for the trees, a toolbar or menu for navigation controls, and possibly a sidebar or pop-up windows for detailed information about each citation. The design will ensure that the interface remains uncluttered and easy to use, even with large datasets.
-
-#### 4d. [Citation Context Analysis (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/26)
+#### 4c. [Citation Context Analysis (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/26)
 - **Description**: 
   - This feature aims to provide users with the context in which a paper is cited within the citing articles. It helps in understanding the relevance and impact of the cited paper in ongoing research discussions.
 - **Prioritization**: Low
@@ -419,7 +327,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
   - **Implementation Details**: 
     - Implementing this feature involves NLP techniques to parse the text of citing papers and identify sections where the original paper is cited. The UI should then present these excerpts in a way that is easily accessible, such as a tooltip or a dedicated section within the tree's node details.
 
-#### 4e. [Citation Influence Scoring (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/27)
+#### 4d. [Citation Influence Scoring (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/27)
 - **Description**: 
   - This component is designed to evaluate and display the influence or impact of each citation within the tree. It aims to highlight the most influential papers based on citation metrics like the number of times cited.
 - **Prioritization**: Low
@@ -429,7 +337,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
   - **Implementation Details**: 
     - The algorithm will calculate the influence score based on citation counts and possibly other metrics like journal impact factor. The UI will visually differentiate nodes based on their scores, using methods such as varying node sizes, colors, or adding badges.
 
-#### 4f. [Customizable Tree Views (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/28)
+#### 4e. [Customizable Tree Views (Optional)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/issues/28)
 - **Description**: 
   - This feature allows users to customize how citation trees are displayed, offering various views based on user preferences or specific research needs, such as chronological order, influence score, or research domain.
 - **Prioritization**: Low
@@ -560,37 +468,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - **Columns:** article_id (Foreign Key referencing Article), author_id (Foreign Key referencing Author).
 
 ### Data Model Diagram:
-```
-                            +------------------+
-                            |      Article     |
-                            +------------------+
-                            | article_id (PK)  |
-                            | title            |
-                            | content          |
-                            | publication_date |
-                            | ...              |
-                            +------------------+
-                                    |
-                                    |
-           +------------------------+------------------------+
-           |                        |                        |
-           |                        |                        |
-   +----------------+       +----------------+     +------------------+
-   |  Topic         |       |  Author        |     |    Reference     |
-   +----------------+       +----------------+     +------------------+
-   | topic_id (PK)  |       | author_id (PK) |     | reference_id (PK)|
-   | name           |       | name           |     | reference_text   |
-   +----------------+       | affiliation    |     | article_id (FK)  |
-                            | contact_details|     +------------------+
-                            +----------------+
-
-   +----------------+     +----------------+
-   | Article_Topic  |     | Article_Author |
-   +----------------+     +----------------+
-   | article_id (FK)|     | article_id (FK)|
-   | topic_id (FK)  |     | author_id (FK) |
-   +----------------+     +----------------+
-```
+![data model](./Image/data_model_v1.svg)
 *Figure 3: The design of the structure of the data model.*
 
 ## Test Plan
@@ -610,10 +488,9 @@ One crucial aspect of the proposed system is the implementation of a robust user
 - Reference Tree
   - [4a. Citation Tree Generation](#4a-citation-tree-generation-1)
   - [4b. Cited-by Tree Feature (Optional)](#4b-cited-by-tree-feature-optional-1)
-  - [4c. User Interface](#4c-user-interface-1)
-  - [4d. Citation Context Analysis (Optional)](#4d-citation-context-analysis-optional-1)
-  - [4e. Citation Influence Scoring (Optional)](#4e-citation-influence-scoring-optional-1)
-  - [4f. Customizable Tree Views (Optional)](#4f-customizable-tree-views-optional-1)
+  - [4c. Citation Context Analysis (Optional)](#4c-citation-context-analysis-optional-1)
+  - [4d. Citation Influence Scoring (Optional)](#4d-citation-influence-scoring-optional-1)
+  - [4e. Customizable Tree Views (Optional)](#4e-customizable-tree-views-optional-1)
 - User Defined Filter and Search
   - [5a. Customizable Filters](#5a-customizable-filters-1)
   - [5b. Advanced Keyword Search](#5b-advanced-keyword-search-1)
@@ -624,7 +501,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
   - [5g. Compatibility Across User Categories (Optional)](#5g-compatibility-across-user-categories-optional-1)
 
 #### 1a. Topic Extraction
-**Test Cases:**
+**Test Scenarios**
 1. **Text Pre-processing**
    - **Test Summary:** Whether text pre-processing can extract and clean accurately.
    - **Pre-requisites:** Papers in PDF format are available for extraction.
@@ -652,7 +529,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
    - **Expected Result (Failure Case):** The database improperly stores data, or the API does not allow for efficient operations.
 
 #### 1b.Keyword Extraction
-**Test Cases:**
+**Test Scenarios**
 1. **Keyword Extraction Accuracy**
    - **Test Summary:** Testing using a set of papers ensures that the most relevant keywords and phrases are extracted.
    - **Pre-requisites:** Access to a set of academic papers with explicit keyword sections is established.
@@ -682,7 +559,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
    - **Expected Result (Failure Case):** Misalignment between stored keywords and article metadata, inefficient retrieval performance, or failure to accurately reflect updates and deletions in the database.
 
 #### 1c. Author Identification
-**Test Cases:**
+**Test Scenarios**
 1. **Author Information Extraction Accuracy**
    - **Test Summary:** Testing using a set of papers ensures that the most relevant keywords and phrases are extracted.
    - **Pre-requisites:** A diverse set of academic articles with clearly identified author sections is available.
@@ -717,7 +594,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
    - **Expected Results (Failure Case):** The system fails to update the author's record with new publications, or incorrectly associates the articles with different authors.
 
 #### 1d. Reference Extraction
-**Test Cases:**
+**Test Scenarios**
 1. **Reference Location Accuracy**
    - **Test Summary:** Testing using a set of papers ensures that the most relevant keywords and phrases are extracted.
    - **Pre-requisites:** A diverse collection of academic papers with clearly defined reference sections is available.
@@ -746,7 +623,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
    - **Expected Results (Failure Case):** The system fails to recognize existing articles in the database when they are cited in new papers, or it inaccurately records citation relationships, leading to data inconsistency.
 
 #### 2a. Linking Articles with the Same Topic
-**Test Cases:**
+**Test Scenarios**
 1. **Retrieving Articles for a Selected Topic:**
     - **Test Summary:** Verify the system's ability to retrieve and present articles associated with a selected topic.
     - **Pre-requisites:** A populated database with articles covering various topics.
@@ -758,7 +635,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - **Expected Results (Failure Case):** The system fails to retrieve articles for the selected topic, or the presented articles are unrelated.
     
 #### 2b. Establishing Connections Between Various Topics
-**Test Cases:**
+**Test Scenarios**
 1. **Related Subtopics:**
     - **Test Summary:** Ensure the system accurately identifies and presents related subtopics when exploring a broad topic.
     - **Pre-requisites:** A populated database with articles covering diverse subtopics within broad topics.
@@ -770,7 +647,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - **Expected Results (Failure Case):** The system fails to identify related subtopics, or the presented articles are unrelated to the chosen broad topic.
 
 #### 3a. Associating Authors Collaborating on the Same Paper (Co-author)
-**Test Case:**
+**Test Scenarios**
 1. **Co-Authorship Relationship:**
     - **Test Summary:** Validate the system's ability to associate authors collaborating on the same paper and present the relationship as "Co-author."
     - **Pre-requisites:** A populated database with articles having multiple credited authors.
@@ -782,7 +659,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - **Expected Results (Failure Case):** The system fails to display co-authors for the selected article, or the identified co-authors are incorrect.
 
 #### 3b. Linking Authors Working in the Same Company or Department (Colleague)
-**Test Case:**
+**Test Scenarios**
 1. **Colleague Relationship:**
     - **Test Summary:** Ensure the system correctly links authors working in the same company or department and presents the relationship as "Colleague."
     - **Pre-requisites:** A populated database with authors affiliated with the same company or department.
@@ -796,7 +673,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     The system fails to display colleague relationships for the selected authors, or the identified colleagues are incorrect.
 
 #### 3c. Co-Recipients of Awards Relationship (Co-Recipients of Awards)
-**Test Case:**
+**Test Scenarios**
 1. **Co-Recipients of Awards Relationship:**
     - **Test Summary:** Verify that the system establishes relationships between authors who have jointly received the same award, presenting it as "Co-Recipients of Awards."
     - **Pre-requisites:** A populated database with authors who have received the same award.
@@ -808,7 +685,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - **Expected Results (Failure Case):** The system fails to display award relationships for the selected authors, or the identified co-recipients are incorrect.
 
 #### 4a. Citation Tree Generation
-**Test Cases:**
+**Test Scenarios**
 1. **Basic Citation Tree Visualization:**
     - **Test Summary:** Verify that the system can generate and display a basic citation tree for a given paper.
     - **Pre-requisites:** A populated database with papers and their citations.
@@ -829,7 +706,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - **Expected Result (Failure Case):** Deeper citation levels are inaccessible or inaccurately represented.
 
 #### 4b. Cited-by Tree Feature (Optional)
-**Test Cases:**
+**Test Scenarios**
 1. **Cited-by Tree Generation:**
     - **Test Summary:** Test the system's ability to generate a 'Cited-by' tree, showing papers that have cited the current paper.
     - **Pre-requisites:** A populated database with papers and their referencing details.
@@ -848,27 +725,8 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - **Expected Result (Happy Case):** Contextual information about the citations is correctly displayed within the 'Cited-by' tree.
     - **Expected Result (Failure Case):** Citation contexts are missing or inaccurately represented.
 
-#### 4c. User Interface
-**Test Cases:**
-1. **Intuitive Navigation:**
-    - **Test Summary:** Evaluate the intuitiveness and ease of navigation within the citation and 'Cited-by' trees' user interface.
-    - **Pre-requisites:** A UI designed for interacting with citation trees.
-    - **Test Steps:**
-        1. Navigate through various components of the citation tree UI.
-        2. Assess the ease of use and intuitive nature of the navigation controls.
-    - **Expected Result (Happy Case):** Users find the UI straightforward and can easily navigate through citation trees.
-    - **Expected Result (Failure Case):** Users experience confusion or difficulty navigating the UI.
-2. **Responsive Design:**
-    - **Test Summary:** Confirm that the citation tree UI is responsive and functions well across different devices and screen sizes.
-    - **Pre-requisites:** Citation tree UI accessible on various devices.
-    - **Test Steps:**
-        1. Access the citation tree UI on different devices (desktop, tablet, smartphone).
-        2. Evaluate the responsiveness and usability of the UI on each device.
-    - **Expected Result (Happy Case):** The UI adjusts well to different screen sizes, maintaining functionality and usability.
-    - **Expected Result (Failure Case):** The UI is not responsive, leading to poor usability on certain devices.
-
-#### 4d. Citation Context Analysis (Optional)
-**Test Cases:**
+#### 4c. Citation Context Analysis (Optional)
+**Test Scenarios**
 1. **Context Extraction Accuracy:**
     - **Test Summary:** Verify the system's accuracy in extracting and displaying the citation context within citing papers.
     - **Pre-requisites:** Papers with known citation contexts in the database.
@@ -887,8 +745,8 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - **Expected Result (Happy Case):** Citation contexts are displayed in a user-friendly manner, making it easy for users to understand the relevance of the citation.
     - **Expected Result (Failure Case):** The display of citation contexts is confusing, hard to read, or poorly integrated into the UI.
 
-#### 4e. Citation Influence Scoring (Optional)
-**Test Cases:**
+#### 4d. Citation Influence Scoring (Optional)
+**Test Scenarios**
 1. **Influence Score Calculation:**
     - **Test Summary:** Test the accuracy of the citation influence scoring algorithm.
     - **Pre-requisites:** Papers with known citation metrics and influence scores.
@@ -906,8 +764,8 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - **Expected Result (Happy Case):** The visual representation effectively highlights the most influential papers, making them easily distinguishable.
     - **Expected Result (Failure Case):** The visual differentiation is either too subtle to be noticeable or so pronounced that it detracts from usability.
 
-#### 4f. Customizable Tree Views (Optional)
-**Test Cases:**
+#### 4e. Customizable Tree Views (Optional)
+**Test Scenarios**
 1. **View Customization Functionality:**
     - **Test Summary:** Verify the functionality and ease of use of the customizable tree views feature.
     - **Pre-requisites:** A citation tree with options for different view customizations.
@@ -928,7 +786,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - **Expected Result (Failure Case):** The system fails to remember user preferences, requiring them to be reset in each new session.
 
 #### 5a. Customizable Filters
-**Test Cases:**
+**Test Scenarios**
 1. **Filter Creation:**
    - **Test Summary:** Verify the system's capability to enable users to create filters for author names, publication dates, keywords, and thematic categories.
    - **Pre-requisites:** A populated database with diverse articles and metadata.
@@ -963,7 +821,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
    - **Expected Results (Failure Case):** The system encounters errors or inaccuracies when processing complex filter combinations.
 
 #### 5b. Advanced Keyword Search
-**Test Cases:**
+**Test Scenarios**
 1. **Keyword Input:**
    - **Test Summary:** Confirm that users can input specific terms or phrases for advanced keyword searches.
    - **Pre-requisites:** A populated database with articles covering diverse topics and keywords.
@@ -993,7 +851,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
    - **Expected Results (Failure Case):** Contextual relevance is not considered, leading to irrelevant search results.
 
 #### 5c. Dynamic Query Building
-**Test Cases:**
+**Test Scenarios**
 1. **Query Modification:**
    - **Test Summary:** Verify that users can dynamically add, remove, and modify query components.
    - **Pre-requisites:** A set of predefined queries and a database with diverse articles.
@@ -1023,7 +881,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
    - **Expected Results (Failure Case):** Real-time updates are delayed or do not reflect modifications accurately.
 
 #### 5d. Real-time Feedback (Optional)
-**Test Cases:**
+**Test Scenarios**
 1. **Instant Filter Impact:**
    - **Test Summary:** Confirm that applying filters or modifying search parameters results in real-time updates.
    - **Pre-requisites:** A set of predefined queries and a database with diverse articles.
@@ -1053,7 +911,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
    - **Expected Results (Failure Case):** Delays significantly impact real-time feedback, leading to a less responsive user experience.
 
 #### 5e. Saved Queries (Optional)
-**Test Cases:**
+**Test Scenarios**
 1. **Query Saving:**
    - **Test Summary:** Confirm that users can successfully save queries for future reference.
    - **Pre-requisites:** A set of diverse queries and a populated database.
@@ -1083,7 +941,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
    - **Expected Results (Failure Case):** Security measures fail, leading to unauthorized access or modification of saved queries.
 
 #### 5f. Intuitive User Interface (Optional)
-**Test Cases:**
+**Test Scenarios**
 1. **Usability Testing:**
    - **Test Summary:** Conduct usability testing to ensure the user interface is intuitive and requires minimal training.
    - **Pre-requisites:** A fully developed user interface.
@@ -1113,7 +971,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
    - **Expected Results (Failure Case):** Responsiveness issues lead to a disjointed or compromised user experience on certain devices.
 
 #### 5g. Compatibility Across User Categories (Optional)
-**Test Cases:**
+**Test Scenarios**
 1. **User Category-Specific Profiles:**
    - **Test Summary:** Confirm that the system adapts its presentation and functionality based on user category-specific profiles.
    - **Pre-requisites:** User profiles categorized by roles such as students, academics, government officials, developers, and companies.
