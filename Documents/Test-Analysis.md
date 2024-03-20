@@ -490,6 +490,23 @@ The usability testing indicated that users found the interface intuitive and the
 
 ### Testing Objectives
 
+The usability testing was conducted to evaluate the system's ease of use, efficiency, and user satisfaction. The testing objectives were to gather feedback and insights from the participants to identify usability issues and areas for improvement, and to evaluate the overall user satisfaction with the system.
+
+### Participant Selection
+
+The participants for the usability testing were selected based on the target user demographic for the web application. The initial candidate pool was introduced in the [Design Document](Design.md), which includes students, academics, government officials, developers, and companies. But due to the limited time and resources, the participants were selected from the students and academics.
+
 ### Testing Environment
 
-### Procedure
+The usability testing was conducted in a controlled environment, with two ways provided, which are in-person and remote testing. The participants were given a way to access the application via EIDF VM, or the permission to control one of our group members' computer to interact with the system. The testing was conducted using user feedback forms, task-based testing scenarios, and user interviews to gather feedback and insights from the participants.
+
+### Testing Procedure
+1. The participants were provided with a brief introduction to the application and its core functionalities.
+2. The participants were given a [Guide](Guide.md) on how to use the application, which included the layout of the application, the core functionalities, and the steps to perform specific tasks.
+3. The participants were given a way to access the application via EIDF VM, or the permission to control one of our group members' computer to interact with the system.
+4. The participants were asked to perform specific tasks written in the [Usability Test Form](Usability-Form.md) .
+5. The participants were asked to finish the Usability Form after each task and give a general feedback at the end of the test.
+6. The interactions and feedback were recorded and analyzed to identify usability issues and areas for improvement.
+
+### Testing Method
+The usability testing was conducted using a combination of direct observation, user feedback, and task success rates. After the forms were collected, the feedback was analyzed to identify common praise and issues, showing the strengths and weaknesses of the system. Based on these issues and feedback, useful insights were gathered to guide the future development and improvement of the system. After the issues and improvements were identified, the overall application rate was taken into account to evaluate the issues priority level and the overall user satisfaction.
