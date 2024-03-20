@@ -344,11 +344,13 @@ The frontend interactivity testing has been successfully completed, with all the
 
 ### Analysis Summary
 
-All tests passed perfectly as expected. However, there are still some problems in some part of testing. First, for all components, the unit test can cover part of the test, but there is still a lack of some more detailed tests. For example,  whether the frontend will mistake when the data format returned by the backend changes. 
+All tests passed perfectly as expected. However, there are still some improvements can be made in the future testing plan. First, for all components, the unit test can cover part of the test, but there is still a lack of some more detailed tests. For example,  whether the frontend will mistake when the data format returned by the backend changes. 
 
-Second, the graph models are not welly tested when the data is large. The graph model is tested with a small amount of data, but when the data is large, the graph model may not be able to handle it or performs badly.
+Second, the graph models are not welly tested when the data is large. The graph model is tested with a small amount of data, but when the data is large, the graph model may not be able to handle it or performs badly. So it could be a potential problem that needs to be tested in the future.
 
-Overall, the system works well and passes the test.
+Additionally, while manual testing has been conducted to ensure that the various components of the system work together as intended, there remains a need for more extensive end-to-end testing. It is essential to verify that the system functions seamlessly as a whole, with all components interacting effectively to deliver the intended user experience. It might involve testing the system with a variety of input scenarios, including different file types, large datasets, and complex graph structures, to ensure that the system can handle diverse use cases and deliver consistent performance.
+
+In summary, the current testing phases have shown good results, but there is a need for a more comprehensive testing strategy, which should include detailed unit tests, extensive end-to-end testing, and a deeper analysis of the system's ability to handle unexpected situations and high-load conditions. By addressing these areas, we can enhance the reliability, performance of the system.
 
 ## Test Analysis: Backend Functionality
 
@@ -472,4 +474,15 @@ This section provides a comprehensive analysis of the usability testing conducte
 **Rate:** 8.25 out of 10
 
 ### Analysis Summary
-The usability testing has been successfully completed, with all the test cases passing as expected. The system is clear and straightforward to use, and the information extracted from the paper is accurate. However, there are some improvements that can be made to enhance the user experience, such as improving the graph generation speed, adding more search options, optimizing the graph layout, and adding a clear explanation to the user. The system is good, but there are some adjustments that can be made to enhance the user experience, which should be pay attention to in the future design and development.
+The usability testing indicated that users found the interface intuitive and the process of interacting with the system straightforward, also conducted on the application has highlighted the system's strengths and the areas that require attention, as shown below:
+
+- **Strengths:**
+  - **User Interface**: The application's user interface was mostly praised for being clear and user-friendly.
+  - **Functionality**: The core functionalities, such as paper upload, search, and graph generation, met the users' expectations.
+  - **Information Accuracy**: The accuracy of the information extracted from uploaded papers was highlighted as a strength, indicating the system's effectiveness in processing and extracting information from paper files.
+
+- **Areas for Improvement:**
+  - **Performance**: A common point of feedback across all tasks was the system's performance, particularly the speed of operations related to database operations.
+  - **Graph Usability**: While the graph generation feature was appreciated, there are issues with graph readability, especially with large amount of data, suggested improvements in the graph's layout and the display of information.
+  - **Error Handling and Validation**: The feedback also mentioned that a better error handling and validation process is needed.
+  - **System Guidance**: Some users expressed confusion over certain features, suggests a need for enhanced system guidance, possibly through additional informational tooltips or clearer instructions.
