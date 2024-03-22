@@ -1,41 +1,68 @@
 # Backend Service
-
-## Overview
-
 This backend service is structured to support various functionalities including database operations, service integration, API routing, and core business logic implementation. It is designed with modularity and scalability in mind.
 
-## Directory Structure
+# Project Structure
 
-- `app/`: Main application directory.
-  - `db/`: Contains database configurations and models.
-    - `config.py`: Database configuration settings.
-    - `mongoengine_models.py`: Definitions of database models using MongoEngine.
-    - `__init__.py`: Initializes the database module.
-  - `integration/`: Handles external service integration.
-    - `catalog_access.py`: Access layer for catalog services.
-    - `__init__.py`: Initializes the integration module.
-  - `routers/`: API routes for the application.
-    - `analysis_api.py`: Endpoints related to analysis operations.
-    - `catalog_api.py`: Endpoints for catalog management.
-    - `dependencies.py`: Dependency definitions for API routes.
-    - `__init__.py`: Initializes the routers module.
-  - `services/`: Core business logic and service layer.
-    - `Extractors/`: Contains extractors for different types of data.
-    - `Parser/`:` Contains parsers for different types of data.
-    - `analysis.py`: Analysis service logic.
-    - `catalog.py`: Catalog service logic.
-    - `models.py`: Service layer models.
-    - `schema.py`: Schema definitions for routers layer.
-    - `__init__.py`: Initializes the services module.
-  - `main.py`: Entry point of the application.
-  - `__init__.py`: Initializes the application module.
-- `test/`: Contains unit tests.
-  - `test_main.py`: Test cases for the main application.
-  - `__init__.py`: Initializes the test module.
-- `README.md`: This file.
-- `requirements.txt`: Project dependencies.
+This project is organized as follows:
 
-## Installation
+- `.flake8`: Configuration file for the Flake8 Python linter, setting code style rules.
+- `Dockerfile`: Contains instructions for Docker to build the project's container, specifying the environment and necessary commands.
+- `pytest.ini`: Configuration file for Pytest, defining testing options and behaviors.
+- `README.md`: The project's README file, providing an overview, installation instructions, usage, and additional information.
+- `requirements.txt`: Lists the Python package dependencies required by the project.
+
+## App Module
+
+The `app` directory contains the main application code and is structured as follows:
+
+### Root
+
+- `app/main.py`: The entry point of the FastAPI application, responsible for setting up routes and configurations.
+- `app/test_main.py`: Contains tests for the main application logic.
+- `app/__init__.py`: Initializes the FastAPI app and integrates other components.
+
+### Routers
+
+- `app/routers/response_example.py`: Provides examples of response models used by the application's endpoints.
+- `app/routers/__init__.py`: Initializes the routers module, often by importing and including router modules.
+
+### Services
+
+Contains the core business logic of the application:
+
+- `app/services/analysis.py`: Implements functions related to data analysis and processing.
+- `app/services/catalog.py`: Manages catalog-related operations, such as querying and updating entries.
+- `app/services/models.py`: Defines data models used across various services.
+- `app/services/schema.py`: Utilizes Pydantic schemas for data validation and serialization.
+- `app/services/test_analysis.py`: Includes tests for the analysis service functions.
+- `app/services/__init__.py`: Initializes the services module.
+
+#### Extractor Module
+
+Dedicated to extracting content from articles:
+
+- `app/services/Extractor/extractor.py`: Core functions for content extraction from articles.
+- `app/services/Extractor/__init__.py`: Initializes the Extractor module.
+
+##### Grobid Submodule
+
+Integrates with the GROBID service for extracting content from PDF documents:
+
+- `app/services/Extractor/Grobid/client.py`: Base client for GROBID service interaction.
+- `app/services/Extractor/Grobid/grobid_client.py`: Extended client tailored to this project's needs.
+- `app/services/Extractor/Grobid/__init__.py`: Initializes the Grobid submodule.
+
+#### Parser Module
+
+Handles the parsing and interpretation of extracted data:
+
+- `app/services/Parser/parser.py`: Contains functions for parsing raw data into structured formats.
+- `app/services/Parser/types.py`: Defines custom types used in the parsing process.
+- `app/services/Parser/__init__.py`: Initializes the Parser module.
+
+
+
+# Installation
 
 > Please make sure the Python and Grobid are available on your machine. Go [Setup.md](../Documents/Setup.md) for more information
 
@@ -47,7 +74,7 @@ This backend service is structured to support various functionalities including 
    ```
 3. Configure your environment variables as necessary
 
-## Running the Application
+# Running the Application
 
 1. Enter the `backend` directory
     ```
@@ -62,7 +89,7 @@ This backend service is structured to support various functionalities including 
     python -m app.main
     ```
 
-## Testing
+# Testing
 
 1. To run tests, execute
 
@@ -70,7 +97,7 @@ This backend service is structured to support various functionalities including 
 python -m pytest
 ```
 
-## API Documents
+# API Documents
 
 If successfully running the application, you can access the API documentation at [http://localhost:8000/docs](http://localhost:8000/docs) in your browser.
 

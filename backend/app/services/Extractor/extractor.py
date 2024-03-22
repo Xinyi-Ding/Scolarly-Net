@@ -1,9 +1,38 @@
+"""
+Overview:
+This module introduces an Extractor class designed to convert PDF files into XML format by leveraging Grobid, an
+open-source application for extracting and processing PDF documents in the domain of scholarly articles. It includes
+a utility function to construct the expected XML file path based on the PDF file location, replacing the 'Papers'
+directory with 'xml' in the path and changing the file extension. The Extractor class initializes with the PDF file
+path and the Grobid server URL, then executes the conversion process, ensuring the Grobid service is running by making
+a preliminary check. The conversion utilizes Grobid's 'processFulltextDocument' service, and the resulting XML content
+is written to the designated file path. This module is crucial for automated document processing pipelines, facilitating
+the extraction of structured scholarly content from unstructured PDF files for subsequent analysis or data extraction
+tasks.
+
+Key Components:
+- _generate_xml_path: Generates the file path for the XML version of a PDF file.
+- Extractor class: Manages the conversion of PDF to XML using Grobid, including service availability checks.
+- pdf_to_xml: Primary method for converting the PDF file to XML and saving the output.
+- _check_grobid_running: Verifies the availability of the Grobid service before attempting conversion.
+
+Usage:
+This module is suited for applications in digital libraries, content management systems for academic publications, and
+research platforms requiring the extraction of structured data from scholarly PDF documents.
+"""
+
 from .Grobid.grobid_client import GrobidClient
 from pathlib import Path
 import subprocess
 
 
 def _generate_xml_path(pdf_file_path):
+    """
+    Generate the file path for the XML file corresponding to the PDF file.
+
+    @param pdf_file_path: str: The path to the PDF file.
+    @return: str: The path to the XML file.
+    """
     pdf_path = Path(pdf_file_path)
     pdf_dir = str(pdf_path.parent)
     xml_dir = pdf_dir.replace("Papers", "xml")
@@ -12,7 +41,17 @@ def _generate_xml_path(pdf_file_path):
 
 
 class Extractor(object):
+    """
+    Extractor class to convert PDF files to XML using Grobid.
+    """
     def __init__(self, artical_path, grobid_server="http://10.1.0.10:8070"):
+        """
+        Initialize the Extractor object with the path to the PDF file and the URL of the Grobid server.
+
+        @param artical_path: str: The path to the PDF file.
+        @param grobid_server: str: The URL of the Grobid server.
+        @return: None
+        """
         self.pdf_file_path = artical_path
         self.xml_path = _generate_xml_path(artical_path)
         self.grobid_server = grobid_server
@@ -22,11 +61,7 @@ class Extractor(object):
         """
         Convert the PDF file to XML using Grobid.
 
-        Args:
-        - pdf_file_path: The file path to the PDF file.
-
-        Returns:
-        - str: The file path to the XML file.
+        @return: None
         """
         if not self._check_grobid_running():
             return
@@ -55,11 +90,7 @@ class Extractor(object):
         """
         Check if the Grobid service is running by making a request to the specified URL using curl.
 
-        Args:
-        - url: The URL to the Grobid service (default 'http://localhost:8070').
-
-        Returns:
-        - bool: True if Grobid is running, False otherwise.
+        @return: bool: True if the Grobid service is running, False otherwise.
         """
         try:
             # Use curl to make a request to the Grobid service and capture the HTTP status code
