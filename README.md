@@ -54,26 +54,6 @@ The given prototype of the project is located in branch '[proto](https://git.ecd
 All project documents are located in [Documents](./Documents/) folder.
 Certainly! Here are the checklists with checkboxes for each item:
 
-### Design Checklist
-- [ ] Requirements Engineering
-- [ ] Language and Technology Choices
-- [ ] Design and Data Modelling
-- [ ] Test Plans
-
-### Planning Checklist
-- [ ] Risk Review
-- [ ] Usability Cohort and Test Plan
-- [ ] Project Management
-- [ ] Task Management and Timeline
-
-### Implementation Checklist
-- [ ] Final Prototype (code, setup scripts, documentation)
-- [ ] CI/CD Pipeline Design and Deployment
-- [ ] Usability Analysis
-- [ ] Testing Analysis
-- [ ] Project and Prototype Evaluation
-- [ ] Quality of Presentation
-
 - Design Stage
   - [System Design](./Documents/Design.md)
 - Planning Stage

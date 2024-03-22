@@ -449,27 +449,41 @@ One crucial aspect of the proposed system is the implementation of a robust user
 ## Data Model 
 ### Entities:
 - **Article:**
-    - **Attributes:** article_id (Primary Key), title, content, publication_date, ...
-    - **Relationships:** Many-to-Many with Topic and Author entities.
+    - **Attributes:** id (Primary Key), title, doi, publication_date.
+    - **Relationships:** Has a Many-to-Many relationship with Topic via the Article_Topic associative table, and with Author via the Article_Author associative table. It is also involved in a One-to-Many relationship with ArticleRelationship.
+
 - **Topic:**
-    - **Attributes:** topic_id (Primary Key), name.
-    - **Relationships:** Many-to-Many with Article entities.
+    - **Attributes:** id (Primary Key), name.
+    - **Relationships:** Many-to-Many with Article through Article_Topic. One-to-Many with TopicRelationship.
+
 - **Author:**
-    - **Attributes:** author_id (Primary Key), name, affiliation, contact_details, ...
-    - **Relationships:** Many-to-Many with Article_Author entities.
-- **Reference:**
-    - **Attributes:** reference_id, article_id, author, article name, link, ...
-    - **Relationships:** Many-to-Many with Article entity.
+    - **Attributes:** id (Primary Key), name, affiliation, email.
+    - **Relationships:** Many-to-Many with Article through Article_Author. One-to-Many with AuthorRelationship.
+
+- **ArticleRelationship:**
+    - **Attributes:** citing_article_id, cited_article_id.
+    - **Relationships:** Links Articles in a Many-to-Many relationship, denoting citation connections.
+
+- **TopicRelationship:**
+    - **Attributes:** parent_topic_id, child_topic_id.
+    - **Relationships:** Represents a hierarchical One-to-Many relationship within Topic, indicating subtopic structures.
+
+- **AuthorRelationship:**
+    - **Attributes:** author1_id, author2_id, relationship_type.
+    - **Relationships:** Denotes the type of relationship between Authors, such as co-authors or mentor-mentee, in a Many-to-Many fashion.
 
 ### Associative Tables:
 - **Article_Topic:**
     - **Columns:** article_id (Foreign Key referencing Article), topic_id (Foreign Key referencing Topic).
+    - **Purpose:** To associate Articles with Topics, reflecting the various subjects an article may cover.
+
 - **Article_Author:**
     - **Columns:** article_id (Foreign Key referencing Article), author_id (Foreign Key referencing Author).
+    - **Purpose:** To associate Articles with Authors, detailing the authorship of each article.
 
 ### Data Model Diagram:
 ![data model](./Image/data_model_v1.svg)
-*Figure 3: The design of the structure of the data model.*
+*Figure 1: The design of the structure of the data model.*
 
 ## Test Plan
 ### Test Object

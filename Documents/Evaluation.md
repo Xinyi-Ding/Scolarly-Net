@@ -1,4 +1,39 @@
 # Project and Prototype Evaluation
+
+# Project and Prototype Evaluation
+
+**Table of Contents**
+
+1. [Project Overview](#project-overview)
+   - [Actual Achievements](#actual-achievements)
+   - [Detailed Milestone Review](#detailed-milestone-review)
+2. [Deviation Analysis and Reasons](#deviation-analysis-and-reasons)
+3. [Requirements Fulfillment](#requirements-fulfillment)
+   - [Critical Components and Requirements Alignment](#critical-components-and-requirements-alignment)
+4. [Strengths](#strengths)
+5. [Challenges, Solutions and Limitation](#challenges-solutions-and-limitation)
+   - [Metadata Extraction Challenges](#metadata-extraction-challenges)
+   - [Frontend](#frontend)
+   - [Database](#database)
+   - [General Limitation](#general-limitation)
+6. [Team Collaboration and Performance](#team-collaboration-and-performance)
+   - [Interaction: Enhancing Communication and Engagement](#interaction-enhancing-communication-and-engagement)
+   - [Stability: Ensuring a Robust Development Lifecycle](#stability-ensuring-a-robust-development-lifecycle)
+   - [Management: Monitoring Project Dynamics](#management-monitoring-project-dynamics)
+   - [Resources](#resources)
+7. [Prototype Performance Evaluation](#prototype-performance-evaluation)
+   - [Performance Evaluation](#performance-evaluation)
+   - [Functionality Analysis](#functionality-analysis)
+   - [Usability Analysis](#usability-analysis)
+8. [Lessons Learned](#lessons-learned)
+   - [Project Planning and Management](#project-planning-and-management)
+   - [Development Approach and Technical Strategies](#development-approach-and-technical-strategies)
+   - [Teamwork and Collaboration](#teamwork-and-collaboration)
+   - [User Experience and Feedback](#user-experience-and-feedback)
+   - [Flexibility and Adaptability](#flexibility-and-adaptability)
+   - [Gitlab Usage](#gitlab-usage)
+9. [Future Work](#future-work)
+
 ## Project Overview
 The objective of this project was to create a web application that clearly visualizes the connections between authors of academic papers and their research topics, making it easier to navigate and search for literature within particular academic domains. The team, consisting of four members, took on distinct roles including frontend programming, user interface design, backend programming, database development, project management, and quality assurance testing.
 
