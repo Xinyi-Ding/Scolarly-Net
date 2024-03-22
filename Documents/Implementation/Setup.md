@@ -179,5 +179,5 @@ npm test
 
 ### Mongo DB Services
 Since EIDF's VM is not publicly accessible, we deployed the database on a public Mongo DB server for ease of development and deployment. We monitor and manage the database status and links through the MongoDB compass visual interface.
-![MongoDB Compass](./Image/MongoDB.png)
+![MongoDB Compass](../Image/MongoDB.png)
 *Figure 1: The screenshot for MongoDB Compass Application UI*

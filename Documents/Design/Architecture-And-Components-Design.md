@@ -38,7 +38,7 @@ This document provides a comprehensive overview of the architecture and design o
 
 
 ## **Technology Stack Architecture**
-![Technology Stack Architecture](/Documents/Image/TechStack.jpg)
+![Technology Stack Architecture](../Image/TechStack.jpg)
 *Figure 1: Technology stack architecture.*
 
 ### **Description**
@@ -310,7 +310,7 @@ Here is an alternative technology stack that could have been chosen for the syst
 The alternative stack provides certain benefits; however, it poses significant limitations in terms of the complexity of learning and managing the technologies, the development speed, performance, and flexibility in handling unstructured data, as well as in scalability and deployment management. These limitations underscore the reasons for our selected technology stack, which provides a more user-friendly, efficient, and scalable solution tailored to the needs of a diverse academic audience.
 
 ## **Software Architecture**
-![Component Architecture](/Documents/Image/ComponentGraph.png)
+![Component Architecture](../Image/ComponentGraph.png)
 *Figure 2: Component architecture for the application.*
 
 ### **Overview**
@@ -412,7 +412,7 @@ The `ClientUI` serves as the user interface layer of the system, providing an in
 The `CoAuthors` component is a Vue.js single-file component responsible for visualizing the co-authorship network within academic research. It leverages the `vis-network` library to display interactive graphs that represent the connections between authors and papers. This component provides users with insights into collaborative relationships and scholarly article connections.
 
 #### *Corresponding File*
-[frontend/src/views/author/CoAuthors.vue](/frontend/src/views/author/CoAuthors.vue)
+[frontend/src/views/author/CoAuthors.vue](../../frontend/src/views/author/CoAuthors.vue)
 
 #### *Provided Interfaces*
 This component provides several interfaces for:
@@ -450,7 +450,7 @@ The `CoAuthors` component is used in the system's user interface for real-time u
 The `CitedTree` component is designed to visualize citation networks, depicting how academic papers reference one another. It is a Vue.js single-file component that creates a visual representation of a citation tree using the `vis-network` library, enabling users to understand the impact and relationship between various scholarly works.
 
 #### *Corresponding File*
-[frontend/src/views/reference/CitedTree.vue](/frontend/src/views/reference/CitedTree.vue)
+[frontend/src/views/reference/CitedTree.vue](../../frontend/src/views/reference/CitedTree.vue)
 
 #### *Provided Interfaces*
 This component provides several interfaces for:
@@ -487,7 +487,7 @@ The `CitedTree` component is typically used by researchers or students who wish 
 The `SameTopic` component is a dynamic Vue.js interface for visualizing the network of academic papers related by common topics. It functions by creating an interactive network graph that connects papers sharing similar themes, using `vis-network` to enable users to explore the relationships between different scholarly works based on shared topics.
 
 #### *Corresponding File*
-[frontend/src/views/topic/SameTopic.vue](/frontend/src/views/topic/SameTopic.vue)
+[frontend/src/views/topic/SameTopic.vue](../../frontend/src/views/topic/SameTopic.vue)
 
 #### *Provided Interfaces*
 This component provides several interfaces for:
@@ -525,7 +525,7 @@ The `SameTopic` component is used for real-time user interaction on the front en
 The `TopicConnections` component is envisioned as a part of the system's user interface to visualize and explore the interconnections between various academic papers based on shared topics. Currently under development, this component aims to provide a comprehensive view of how different research papers are interlinked through common subjects, facilitating a deeper understanding of research landscapes.
 
 #### *Corresponding File*
-[frontend/src/views/topic/TopicConnections.vue](/frontend/src/views/topic/TopicConnections.vue)
+[frontend/src/views/topic/TopicConnections.vue](../../frontend/src/views/topic/TopicConnections.vue)
 
 #### *Provided Interfaces*
 Once completed, this component is expected to provide interfaces for:
@@ -554,7 +554,7 @@ Upon its completion, the `TopicConnections` component might depend on:
 The `PaperDashboard` component serves as a central hub in the user interface for presenting detailed information about an uploaded academic paper, including its metadata, authors, references, and related analytical insights. It enables users to interactively explore various dimensions of the paper, such as topics, author networks, and citation trees, through a series of dynamically loaded dashboard cards.
 
 #### *Corresponding File*
-[frontend/src/views/PaperDashboard.vue](/frontend/src/views/PaperDashboard.vue)
+[frontend/src/views/PaperDashboard.vue](../../frontend/src/views/PaperDashboard.vue)
 
 #### *Provided Interfaces*
 This component provides interfaces for:
@@ -587,7 +587,7 @@ The `PaperDashboard` component depends on:
 The `CatalogAPI` module serves as the backbone for the catalog endpoints in a scholarly communication platform, utilizing FastAPI for routing. It is designed to facilitate searches and retrievals of academic papers, authors, topics, and citation relationships through a variety of filters. The API endpoints enable users to access detailed information and establish connections between different entities within the academic domain, supporting functionalities like search results generation, citation tree construction, and exploration of co-authorship and topic-related articles.
 
 #### *Corresponding File*
-[backend/app/routers/catalog_api.py](/backend/app/routers/catalog_api.py)
+[backend/app/routers/catalog_api.py](../../backend/app/routers/catalog_api.py)
 
 #### *Provided Interfaces*
 This module provides RESTful API endpoints for:
@@ -628,7 +628,7 @@ The `CatalogAPI` is used to power the backend of a scholarly communication platf
 The `AnalysisAPI` module is dedicated to handling the upload and analysis of academic documents within a scholarly communication platform. It facilitates the ingestion of new documents by allowing users to upload files, which are then saved, parsed, and analyzed to extract essential metadata like title, authors, abstract, and keywords. This process is crucial for automating the addition of scholarly content to the platform's database, thereby enhancing its value and utility for users.
 
 #### *Corresponding File*
-[backend/app/routers/analysis_api.py](/backend/app/routers/analysis_api.py)
+[backend/app/routers/analysis_api.py](../../backend/app/routers/analysis_api.py)
 
 #### *Provided Interfaces*
 This module provides interfaces for:
@@ -657,7 +657,7 @@ The `AnalysisAPI` depends on:
 The `Models` module in a scholarly communication platform defines the structure and relationships of entities within the academic database system. It encompasses a variety of Pydantic models and data classes to represent articles, topics, authors, institutions, departments, and their interrelations, such as author-institution, author-department, article-author, article-topic, and article-citation connections. These models are crucial for validating, managing, and ensuring the integrity of data related to academic articles, including metadata, authorship, affiliations, and references. Utilizing Pydantic, the module enforces type hints, validates data, and provides detailed error messages for incorrect data inputs, facilitating smooth data operations in an ORM context.
 
 #### *Corresponding File*
-[backend/app/services/models.py](/backend/app/services/models.py)
+[backend/app/services/models.py](../../backend/app/services/models.py)
 
 #### *Provided Interfaces*
 This module provides data models for:
@@ -689,7 +689,7 @@ The `Models` module is integral to the platform's backend, especially in service
 The `Schema` module is designed to define the structure of API responses within a scholarly communication platform. It utilizes Pydantic models to describe entities like papers, authors, topics, and their collections, ensuring consistency and clarity in API communication. This module plays a pivotal role in shaping the data exchange between the backend and frontend or external systems, providing well-defined schemas for individual items, response structures, and specialized formats for representing complex relationships such as co-authorship networks and citation trees.
 
 #### *Corresponding File*
-[backend/app/schema/schema.py](/backend/app/services/schema.py)
+[backend/app/schema/schema.py](../../backend/app/services/schema.py)
 
 #### *Provided Interfaces*
 This module offers schemas for:
@@ -718,7 +718,7 @@ The `Schema` module is used across the API layer of the platform to ensure that 
 The Catalog component is crucial for the system’s ability to import and manage academic articles within the database. It includes a series of interfaces and functions that work together to parse article data from various formats, save articles and their related information (authors, citations, topics), and generate structured responses for user queries.
 
 #### *Corresponding File*
-[backend/app/services/catalog.py](/backend/app/services/catalog.py)
+[backend/app/services/catalog.py](../../backend/app/services/catalog.py)
 
 #### *Provided Interfaces*
 This component provides several interfaces for:
@@ -765,7 +765,7 @@ This component is designed for use within a service-oriented architecture and ca
 The `Analysis` module is central to processing academic documents within the scholarly communication platform. It integrates functionalities for parsing documents, extracting metadata, and analyzing content to identify topics and keywords. This module uses natural language processing (NLP) techniques and Latent Dirichlet Allocation (LDA) for topic modeling, enhancing the platform's capability to automate the ingestion, categorization, and analysis of scholarly articles.
 
 #### *Corresponding File*
-[backend/app/services/analysis.py](/backend/app/services/analysis.py)
+[backend/app/services/analysis.py](../../backend/app/services/analysis.py)
 
 #### *Provided Interfaces*
 This component provides interfaces for:
@@ -799,7 +799,7 @@ The `Analysis` module is invoked during the document upload and processing workf
 The `Extractor` component is essential for converting academic documents from PDF format to structured XML. It utilizes GROBID, an open-source tool, to perform this transformation, enabling further processing and analysis of the document's content. This module serves as an intermediary step in the document ingestion pipeline, preparing the documents for detailed parsing and metadata extraction.
 
 #### *Corresponding File*
-[backend/app/services/Extractor/extractor.py](/backend/app/services/Extractor/extractor.py)
+[backend/app/services/Extractor/extractor.py](../../backend/app/services/Extractor/extractor.py)
 
 #### *Provided Interfaces*
 This component provides interfaces for:
@@ -825,7 +825,7 @@ The `Extractor` component is used during the initial stages of document processi
 The `GrobidClient` serves as a Python interface to interact with the GROBID service, a machine learning library for extracting, parsing, and restructuring raw documents (like PDFs) into structured XML and TEI encoded documents. It handles the concurrent processing of documents, utilizing ThreadPoolExecutor for parallelizing calls to the GROBID services. The client manages batches of documents to optimize memory usage and processing time, making it an efficient tool for large-scale document analysis.
 
 #### *Corresponding File*
-[backend/app/services/Extractor/Grobid/grobid_client.py](/backend/app/services/Extractor/Grobid/grobid_client.py)
+[backend/app/services/Extractor/Grobid/grobid_client.py](../../backend/app/services/Extractor/Grobid/grobid_client.py)
 
 #### *Provided Interfaces*
 This component offers interfaces for:
@@ -859,7 +859,7 @@ The `GrobidClient` is typically used in the context of document ingestion and pr
 The `Client` serves as a foundational class for building clients that interact with RESTful APIs. It provides generic methods to send HTTP requests like GET, POST, PUT, and DELETE, making it versatile for various API interactions. The class includes mechanisms for encoding requests, decoding responses, handling authentication, and managing connection timeouts, making it a robust tool for API communication.
 
 #### *Corresponding File*
-[backend/app/services/Extractor/Grobid/client.py](/backend/app/services/Extractor/Grobid/client.py)
+[backend/app/services/Extractor/Grobid/client.py](../../backend/app/services/Extractor/Grobid/client.py)
 
 #### *Provided Interfaces*
 This component offers interfaces for:
@@ -895,7 +895,7 @@ The `Client` is designed to be a base class for specific API clients. It can be 
 The `Parser` is a crucial component responsible for parsing XML documents related to academic articles. It converts XML data into structured objects representing articles, including metadata like titles and DOIs, content such as abstracts and keywords, and relationships like references and authorships. The parser leverages the ElementTree XML API for navigating and querying the XML structure, extracting relevant information through XPath expressions, and transforming it into Python objects.
 
 #### *Corresponding File*
-[backend/app/services/Parser/parser.py](/backend/app/services/Parser/parser.py)
+[backend/app/services/Parser/parser.py](../../backend/app/services/Parser/parser.py)
 
 #### *Provided Interfaces*
 This component offers interfaces for extracting various elements from XML documents, including:
@@ -931,7 +931,7 @@ The `Parser` is utilized in scenarios requiring detailed analysis and extraction
 The `Types` component defines a series of data classes used to structure and represent the parsed data from academic articles within the parsing system. It encapsulates the metadata, content, authors, and references of articles in a structured format, enabling easy manipulation and access to specific pieces of information extracted from XML documents or other sources. These data classes serve as the foundational building blocks for the system, allowing for standardized communication and storage of article-related data across different modules or services.
 
 #### *Corresponding File*
-[backend/app/services/Parser/types.py](/backend/app/services/Parser/types.py)
+[backend/app/services/Parser/types.py](../../backend/app/services/Parser/types.py)
 
 #### *Provided Interfaces*
 This component offers data structures for:
@@ -967,7 +967,7 @@ The design aligns well with a variety of software architectures, including micro
 The `CatalogAccess` module provides a structured and type-safe way to interact with the MongoDB database, specifically tailored for handling scholarly communication data. It employs the MongoEngine ODM to map Python classes to MongoDB documents and offers CRUD operations for entities such as articles, topics, authors, and institutions. Each entity is associated with a specialized CRUD class that extends from a base class, ensuring uniformity and type safety across different database operations. This module serves as the backbone for data persistence and retrieval within the system, enabling efficient and structured access to stored academic data.
 
 #### *Corresponding File*
-[backend/app/intergration/catalog_access.py](/backend/app/intergration/catalog_access.py)
+[backend/app/intergration/catalog_access.py](../../backend/app/intergration/catalog_access.py)
 
 #### *Provided Interfaces*
 This module provides CRUD operations for various entities, encapsulated in classes like:
@@ -1016,7 +1016,7 @@ The `CatalogAccess` module is compatible with various architectural patterns, es
 The `MongoengineModels` module defines the data schemas and relationships for a scholarly communication system using MongoEngine, a Document-Object Mapper (ODM) for working with MongoDB from Python. It sets up models for various entities such as articles, authors, topics, institutions, departments, and various relationships among them, such as author-institution and article-author. This module is crucial for structuring and manipulating data in the MongoDB database, providing a foundation for storing and querying academic paper-related information efficiently.
 
 #### *Corresponding File*
-[backend/app/db/mongoengine_models.py](/backend/app/db/mongoengine_models.py)
+[backend/app/db/mongoengine_models.py](../../backend/app/db/mongoengine_models.py)
 
 #### *Provided Interfaces*
 This module provides data models for entities such as:
@@ -1065,7 +1065,7 @@ The `MongoengineModels` module is compatible with various software architectures
 The `Config` module provides the MongoDB connection settings for the scholarly communication platform. It contains the URI strings for both the main and test databases hosted on MongoDB Atlas. The module also includes a `TEST_MODE` flag, determined by an environment variable, to toggle between production and test environments, allowing for isolated testing without affecting production data.
 
 #### *Corresponding File*
-[backend/app/db/config.py](/backend/app/db/config.py)
+[backend/app/db/config.py](../../backend/app/db/config.py)
 
 #### *Provided Interfaces*
 This component offers configuration settings for:

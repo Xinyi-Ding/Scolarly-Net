@@ -4,7 +4,7 @@ The main objective of this project is to develop an integrated scholarly literat
 
 ## Project Management
 ### Development Model
-![Waterfall](./Image/Waterfall.png)
+![Waterfall](../Image/Waterfall.png)
 *Figure 1: The overlapping waterfall development model for this project.*
 
 In order to effectively manage this project, we will be using the **Overlapping Waterfall** model as our software development methodology. This model is a variant of the traditional waterfall model that allows certain phases of a project to begin before the previous phase is fully completed. The main advantage of this approach is that it supports smooth transitions between phases, reduces wait times, and promotes more timely communication and collaboration among team members. In addition, we incorporate **Staged Delivery** strategy. The aim is to deliver some of the functionality as early as possible, which allows for faster user feedback and allows the project to be adjusted in subsequent phases based on that feedback. In this project, we have three delivery points: Minimum Viable Product (MVP), Beta, and Final release.
@@ -28,7 +28,7 @@ For the particular scenario of this project being our postgraduate coursework, o
 
 
 ### Timeline
-![Gantt_Chart](./Image/Ganttv3.png)
+![Gantt_Chart](../Image/Ganttv3.png)
 *Figure 2: The Gantt chart for planning timeline.*
 
 This Gantt chart is a project management tool to show a project timeline for the Carlson-Johnson Group. This timeline covers the period from September 2023 to May 2024. The entire development model uses an overlapping waterfall model. It divides the main project activities into key class: design, development, and testing. In addition, it marks three main assessment points as main milestones, which are group presentation, group assessment and individual assessment.
@@ -63,7 +63,7 @@ Task Management enables us to organise, prioritise and track work progress effec
 ### Use of Issue Board
 In this project, we chose to use the [Issue Board](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/boards) provided by GitLab as the core task management tool to track tasks and monitor the progress of the project by adopting "open" and "closed" statuses, which allows us to clearly visualise the status of each task and the corresponding participants. In addition, the use of an issue board ensured that everyone in our team was in synchronisation with the current status and next steps of the project.
 
-![issue board](./Image/issue_board.png)
+![issue board](../Image/issue_board.png)
 *Figure 3: The screenshot for our issue board, which can be found [here](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/boards).*
 
 ### Use of Issue
@@ -76,7 +76,7 @@ In our project management, [Merge Request](https://git.ecdf.ed.ac.uk/psd2324/Car
 
 For further efficiency and quality in submitting requests and reviews, we also used [Merge Request template](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/blob/main/.gitlab/merge_request_templates/merge_request_template.md?ref_type=heads), which ensured that submitters had to provide sufficient contextual information, including the purpose of the code change, the scope of the impact, and any relevant Issue numbers, so that reviewers could understand each change more quickly and comprehensively. In addition, the tight linkage between Merge Requests and Issues makes it easy to track the progress of each feature or fixed, from requirements to deployment, in GitLab, and the corresponding Issue is automatically closed when the merge request is approved, keeping the Issue board logical and simple. In addition, the linkage between Merge Requests and Issues makes it easy to track the progress of each feature or fixed, from requirements to deployment, in GitLab, and the corresponding Issue is automatically closed when the merge request is approved, keeping the Issue board logical and simple.
 
-![Merge Request](./Image/merge_request.png)
+![Merge Request](../Image/merge_request.png)
 *Figure 4: The screen shot for our history of Merge Request, which can be found [here](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/merge_requests?scope=all&state=merged).*
 
 ### Use of MS Teams

@@ -105,7 +105,7 @@ The system is planned to be deployed in a cloud-based environment, leveraging th
 
 ## Architecture and Components Design
 ### Technology Stack Architecture
-See details in [Architecture and Components Design - Software Architecture](./Architecture-And-Components-Design.md#technology-stack-architecture)
+See details in [Architecture and Components Design - Software Architecture](Architecture-And-Components-Design.md#technology-stack-architecture)
 
 
 ### Software Architecture
@@ -482,7 +482,7 @@ One crucial aspect of the proposed system is the implementation of a robust user
     - **Purpose:** To associate Articles with Authors, detailing the authorship of each article.
 
 ### Data Model Diagram:
-![data model](./Image/data_model_v1.svg)
+![data model](../Image/data_model_v1.svg)
 *Figure 1: The design of the structure of the data model.*
 
 ## Test Plan

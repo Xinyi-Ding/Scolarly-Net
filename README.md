@@ -49,27 +49,28 @@ The given prototype of the project is located in branch '[proto](https://git.ecd
 
 - [Formative Assessment](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/blob/proto/README.md)
 
-### Group Assessment
+### Summative Group Assessment
 
 All project documents are located in [Documents](./Documents/) folder.
-Certainly! Here are the checklists with checkboxes for each item:
 
-- Design Stage
-  - [System Design](./Documents/Design.md)
-- Planning Stage
-  - [Architecture and Components Designn](./Documents/Architecture-And-Components-Design.md)
-  - [Project Planning](./Documents/Plan.md)
-- Implementation Stage
-  - [Setup Instruction](./Documents/Setup.md)
-  - [Guild to Use the Web Application](./Documents/Guide.md)
-  - [Backend API Documentation](./Documents/API/api-docs.md)
-  - [CI/CD Deployment and Implementation](./Documents/CICD.md)
-  - [Test Analysis](./Documents/Test-Analysis.md)
-  - [Evaluation](./Documents/Evaluation.md)
+The table below outlines the specific contents of each folder and document within, highlighting the criteria they satisfy and the unique role they play in supporting the project's goals.
 
-### Group Presentation
-
-- [Group Presentation Slices](./Documents/Carlson-Johnson-PSD-Presentation.pptx)
+| Folder              | Document                                                                       | Criteria Satisfied             |
+|---------------------|--------------------------------------------------------------------------------|--------------------------------|
+| Design              | [Architecture-And-Components-Design.md](./Documents/Design/Architecture-And-Components-Design.md) |Technology Stack (Language and Technology Choices) and Software Architecture with detailed components design|
+| Design              | [Data-Model.md](./Documents/Design/Data-Model.md)                             | A more detailed version of data modelling. |
+| Design              | [Design.md](./Documents/Design/Design.md)                                     | Including Requirements Engineering, Design, and Data Modelling and Test Plans |
+| Implementation/API  | [api-doc.md](./Documents/Implementation/API/api-doc.md)                       | Documentation of the API endpoints |
+| Implementation/API  | [openapi.json](./Documents/Implementation/API/openapi.json)                   |  JSON representation of API, adhering to the OpenAPI Specification |
+| Implementation      | [CICD.md](./Documents/Implementation/CICD.md)                                 | CI/CD Pipeline Design and Deployment |
+| Implementation      | [Evaluation.md](./Documents/Implementation/Evaluation.md)                     | Project and Prototype Evaluation |
+| Implementation      | [Guide.md](./Documents/Implementation/Guide.md)                               | Instructions for end-users on how to use the application |
+| Implementation      | [Setup.md](./Documents/Implementation/Setup.md)                               | Instructions on setting up the development/testing environment |
+| Implementation      | [Test-Analysis.md](./Documents/Implementation/Test-Analysis.md)               | Testing Analysis and Usability Analysis |
+| Implementation      | [Usability-Form.md](./Documents/Implementation/Usability-Form.md)             | Form used for usability testing purposes |
+| Planning            | [Plan.md](./Documents/Planning/Plan.md)                                       | Project plan including Project Management, Task Management and Timeline, Usability Cohort and Test Plan, Risk Review |
+| Presentation        | [Carlson-Johnson-PSD-Presentation.pptx](./Documents/Presentation/Carlson-Johnson-PSD-Presentation.pptx) | Presentation for clients |
+|Image|Collection of all figures used in documents.|-|
 
 ### Project Meeting
 
