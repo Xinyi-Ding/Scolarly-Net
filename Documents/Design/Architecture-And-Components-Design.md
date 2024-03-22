@@ -38,7 +38,7 @@ This document provides a comprehensive overview of the architecture and design o
 
 
 ## **Technology Stack Architecture**
-![Technology Stack Architecture](/Documents/Image/TechStack.jpg)
+![Technology Stack Architecture](../Image/TechStack.jpg)
 *Figure 1: Technology stack architecture.*
 
 ### **Description**
@@ -310,7 +310,7 @@ Here is an alternative technology stack that could have been chosen for the syst
 The alternative stack provides certain benefits; however, it poses significant limitations in terms of the complexity of learning and managing the technologies, the development speed, performance, and flexibility in handling unstructured data, as well as in scalability and deployment management. These limitations underscore the reasons for our selected technology stack, which provides a more user-friendly, efficient, and scalable solution tailored to the needs of a diverse academic audience.
 
 ## **Software Architecture**
-![Component Architecture](/Documents/Image/ComponentGraph.png)
+![Component Architecture](../Image/ComponentGraph.png)
 *Figure 2: Component architecture for the application.*
 
 ### **Overview**
@@ -424,7 +424,7 @@ The `CoAuthors` component is a Vue.js single-file component responsible for visu
 - 3A
 
 #### *Corresponding File*
-[frontend/src/views/author/CoAuthors.vue](/frontend/src/views/author/CoAuthors.vue)
+[frontend/src/views/author/CoAuthors.vue](../../frontend/src/views/author/CoAuthors.vue)
 
 #### *Provided Interfaces*
 This component provides several interfaces for:
@@ -465,7 +465,7 @@ The `CitedTree` component is designed to visualize citation networks, depicting 
 - 4A
 
 #### *Corresponding File*
-[frontend/src/views/reference/CitedTree.vue](/frontend/src/views/reference/CitedTree.vue)
+[frontend/src/views/reference/CitedTree.vue](../../frontend/src/views/reference/CitedTree.vue)
 
 #### *Provided Interfaces*
 This component provides several interfaces for:
@@ -505,7 +505,7 @@ The `SameTopic` component is a dynamic Vue.js interface for visualizing the netw
 - 2A
 
 #### *Corresponding File*
-[frontend/src/views/topic/SameTopic.vue](/frontend/src/views/topic/SameTopic.vue)
+[frontend/src/views/topic/SameTopic.vue](../../frontend/src/views/topic/SameTopic.vue)
 
 #### *Provided Interfaces*
 This component provides several interfaces for:
@@ -546,7 +546,7 @@ The `TopicConnections` component is envisioned as a part of the system's user in
 - 2B
 
 #### *Corresponding File*
-[frontend/src/views/topic/TopicConnections.vue](/frontend/src/views/topic/TopicConnections.vue)
+[frontend/src/views/topic/TopicConnections.vue](../../frontend/src/views/topic/TopicConnections.vue)
 
 #### *Provided Interfaces*
 Once completed, this component is expected to provide interfaces for:
@@ -579,7 +579,7 @@ The `PaperDashboard` component serves as a central hub in the user interface for
 - 4A, 4B, 4C, 4D, 4E
 
 #### *Corresponding File*
-[frontend/src/views/PaperDashboard.vue](/frontend/src/views/PaperDashboard.vue)
+[frontend/src/views/PaperDashboard.vue](../../frontend/src/views/PaperDashboard.vue)
 
 #### *Provided Interfaces*
 This component provides interfaces for:
@@ -619,7 +619,7 @@ The `CatalogAPI` module serves as the backbone for the catalog endpoints in a sc
 - 5A, 5B, 5C, 5D, 5E, 5F, 5G
 
 #### *Corresponding File*
-[backend/app/routers/catalog_api.py](/backend/app/routers/catalog_api.py)
+[backend/app/routers/catalog_api.py](../../backend/app/routers/catalog_api.py)
 
 #### *Provided Interfaces*
 This module provides RESTful API endpoints for:
@@ -663,7 +663,7 @@ The `AnalysisAPI` module is dedicated to handling the upload and analysis of aca
 - 1A, 1B
 
 #### *Corresponding File*
-[backend/app/routers/analysis_api.py](/backend/app/routers/analysis_api.py)
+[backend/app/routers/analysis_api.py](../../backend/app/routers/analysis_api.py)
 
 #### *Provided Interfaces*
 This module provides interfaces for:
@@ -696,7 +696,7 @@ The `Models` module in a scholarly communication platform defines the structure 
 - 3A, 3B, 3C
 
 #### *Corresponding File*
-[backend/app/services/models.py](/backend/app/services/models.py)
+[backend/app/services/models.py](../../backend/app/services/models.py)
 
 #### *Provided Interfaces*
 This module provides data models for:
@@ -735,7 +735,7 @@ The `Schema` module is designed to define the structure of API responses within 
 - 5A, 5B, 5C, 5D, 5E, 5F, 5G
 
 #### *Corresponding File*
-[backend/app/schema/schema.py](/backend/app/services/schema.py)
+[backend/app/schema/schema.py](../../backend/app/services/schema.py)
 
 #### *Provided Interfaces*
 This module offers schemas for:
@@ -770,7 +770,7 @@ The Catalog component is crucial for the system’s ability to import and manage
 - 4A, 4B, 4C, 4D, 4E 
 
 #### *Corresponding File*
-[backend/app/services/catalog.py](/backend/app/services/catalog.py)
+[backend/app/services/catalog.py](../../backend/app/services/catalog.py)
 
 #### *Provided Interfaces*
 This component provides several interfaces for:
@@ -820,7 +820,7 @@ The `Analysis` module is central to processing academic documents within the sch
 - 1A, 1B
 
 #### *Corresponding File*
-[backend/app/services/analysis.py](/backend/app/services/analysis.py)
+[backend/app/services/analysis.py](../../backend/app/services/analysis.py)
 
 #### *Provided Interfaces*
 This component provides interfaces for:
@@ -857,7 +857,7 @@ The `Extractor` component is essential for converting academic documents from PD
 - 1a, 1b, 1c, 1d
 
 #### *Corresponding File*
-[backend/app/services/Extractor/extractor.py](/backend/app/services/Extractor/extractor.py)
+[backend/app/services/Extractor/extractor.py](../../backend/app/services/Extractor/extractor.py)
 
 #### *Provided Interfaces*
 This component provides interfaces for:
@@ -886,7 +886,7 @@ The `GrobidClient` serves as a Python interface to interact with the GROBID serv
 - 1A, 1B, 1C, 1D
 
 #### *Corresponding File*
-[backend/app/services/Extractor/Grobid/grobid_client.py](/backend/app/services/Extractor/Grobid/grobid_client.py)
+[backend/app/services/Extractor/Grobid/grobid_client.py](../../backend/app/services/Extractor/Grobid/grobid_client.py)
 
 #### *Provided Interfaces*
 This component offers interfaces for:
@@ -923,7 +923,7 @@ The `Client` serves as a foundational class for building clients that interact w
 - 1A, 1B, 1C, 1D
 
 #### *Corresponding File*
-[backend/app/services/Extractor/Grobid/client.py](/backend/app/services/Extractor/Grobid/client.py)
+[backend/app/services/Extractor/Grobid/client.py](../../backend/app/services/Extractor/Grobid/client.py)
 
 #### *Provided Interfaces*
 This component offers interfaces for:
@@ -962,7 +962,7 @@ The `Parser` is a crucial component responsible for parsing XML documents relate
 - 1A, 1B, 1C, 1D
 
 #### *Corresponding File*
-[backend/app/services/Parser/parser.py](/backend/app/services/Parser/parser.py)
+[backend/app/services/Parser/parser.py](../../backend/app/services/Parser/parser.py)
 
 #### *Provided Interfaces*
 This component offers interfaces for extracting various elements from XML documents, including:
@@ -1001,7 +1001,7 @@ The `Types` component defines a series of data classes used to structure and rep
 - 1A, 1B, 1C, 1D
 
 #### *Corresponding File*
-[backend/app/services/Parser/types.py](/backend/app/services/Parser/types.py)
+[backend/app/services/Parser/types.py](../../backend/app/services/Parser/types.py)
 
 #### *Provided Interfaces*
 This component offers data structures for:
@@ -1043,7 +1043,7 @@ The `CatalogAccess` module provides a structured and type-safe way to interact w
 - 4A, 4B, 4C, 4D, 4E
 
 #### *Corresponding File*
-[backend/app/intergration/catalog_access.py](/backend/app/intergration/catalog_access.py)
+[backend/app/intergration/catalog_access.py](../../backend/app/intergration/catalog_access.py)
 
 #### *Provided Interfaces*
 This module provides CRUD operations for various entities, encapsulated in classes like:
@@ -1098,7 +1098,7 @@ The `MongoengineModels` module defines the data schemas and relationships for a 
 - 4A, 4B, 4C, 4D, 4E
 
 #### *Corresponding File*
-[backend/app/db/mongoengine_models.py](/backend/app/db/mongoengine_models.py)
+[backend/app/db/mongoengine_models.py](../../backend/app/db/mongoengine_models.py)
 
 #### *Provided Interfaces*
 This module provides data models for entities such as:
@@ -1147,7 +1147,7 @@ The `MongoengineModels` module is compatible with various software architectures
 The `Config` module provides the MongoDB connection settings for the scholarly communication platform. It contains the URI strings for both the main and test databases hosted on MongoDB Atlas. The module also includes a `TEST_MODE` flag, determined by an environment variable, to toggle between production and test environments, allowing for isolated testing without affecting production data.
 
 #### *Corresponding File*
-[backend/app/db/config.py](/backend/app/db/config.py)
+[backend/app/db/config.py](../../backend/app/db/config.py)
 
 #### *Provided Interfaces*
 This component offers configuration settings for:

@@ -1,21 +1,22 @@
 # Documents Directory Overview
 
-Welcome to the `Documents` directory of the PSD project. This directory serves as the central repository for all project-related documentation, ensuring team members have access to the latest plans, designs, and other critical information.
+Welcome to the `Documents` directory of the PSD project. This directory serves as the central repository for all project-related documentation, ensuring team members have access to the latest plans, designs, implementations and other critical information.
 
-## Contents
+The table below outlines the specific contents of each folder in `Documents` and document within, highlighting the criteria they satisfy and the unique role they play in supporting the project's goals.
 
-- **Design.md**: This is the current design document for the project. It outlines the design principles, patterns, and specifications that our project adheres to. All team members working on design aspects should refer to this document for guidance.
-
-- **Plan.md**: The project plan document contains timelines, milestones, tasks, and resource allocations. It's essential for project management and tracking the project's progress.
-
-- **Image/**: This folder contains images and graphics related to the project, including diagrams, UI mockups, and other visual aids that support the documentation.
-
-- **Design(deprecated).md**: Please note that this is an outdated design document and has been superseded by `Design.md`. It's kept for historical reference only and should not be used for current project activities.
-
-## Usage Guidelines
-
-- Always refer to the most current version of a document.
-- For design-related queries or updates, consult `Design.md`.
-- Project planning and status updates should align with the details in `Plan.md`.
-- Visual aids and related graphics will be found within the `Image/` directory.
-- Deprecated documents, such as `Design(deprecated).md`, are for archival purposes only. Do not use these for current project decisions.
+| Folder              | Document                                                                       | Criteria Satisfied             |
+|---------------------|--------------------------------------------------------------------------------|--------------------------------|
+| Design              | [Architecture-And-Components-Design.md](./Documents/Design/Architecture-And-Components-Design.md) |Technology Stack (Language and Technology Choices) and Software Architecture with detailed components design|
+| Design              | [Data-Model.md](./Documents/Design/Data-Model.md)                             | A more detailed version of data modelling. |
+| Design              | [Design.md](./Documents/Design/Design.md)                                     | Including Requirements Engineering, Design, and Data Modelling and Test Plans |
+| Implementation/API  | [api-doc.md](./Documents/Implementation/API/api-doc.md)                       | Documentation of the API endpoints |
+| Implementation/API  | [openapi.json](./Documents/Implementation/API/openapi.json)                   | JSON representation of API, adhering to the OpenAPI Specification |
+| Implementation      | [CICD.md](./Documents/Implementation/CICD.md)                                 | CI/CD Pipeline Design and Deployment |
+| Implementation      | [Evaluation.md](./Documents/Implementation/Evaluation.md)                     | Project and Prototype Evaluation |
+| Implementation      | [Guide.md](./Documents/Implementation/Guide.md)                               | Instructions for end-users on how to use the application |
+| Implementation      | [Setup.md](./Documents/Implementation/Setup.md)                               | Instructions on setting up the development/testing environment |
+| Implementation      | [Test-Analysis.md](./Documents/Implementation/Test-Analysis.md)               | Testing Analysis and Usability Analysis |
+| Implementation      | [Usability-Form.md](./Documents/Implementation/Usability-Form.md)             | Form used for usability testing purposes |
+| Planning            | [Plan.md](./Documents/Planning/Plan.md)                                       | Project plan including Project Management, Task Management and Timeline, Usability Cohort and Test Plan, Risk Review |
+| Presentation        | [Carlson-Johnson-PSD-Presentation.pptx](./Documents/Presentation/Carlson-Johnson-PSD-Presentation.pptx) | Presentation for clients |
+|Image|Collection of all figures used in documents.|-|
