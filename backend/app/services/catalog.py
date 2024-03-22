@@ -1,17 +1,34 @@
 """
-This module contains a collection of functions for processing and importing academic articles into a database. It
-includes functions for parsing article data from various formats, saving articles and associated entities such as
-authors and citations to the database, and generating structured responses for queries related to papers, authors,
-and citation networks. It supports operations such as searching for articles by different filters and constructing
-citation trees to analyze the interconnections between academic works.
-"""
+Overview:
+This script facilitates the extraction and storage of academic article data from structured files into a database.
+It processes JSON files containing article metadata, authors, references, and topics, and saves this information
+using CRUD operations. The script supports batch processing of files within directories, and also provides functions
+to generate structured responses for various queries, such as searching for papers by filter criteria, exploring
+topics, authors, co-authorships, and citation trees.
 
+Key Components:
+- save_parse_article: Processes an article from various input formats and saves it to the database.
+- save_parse_article_with_filepath: Processes and saves an article given a path to its JSON file.
+- save_parse_articles_within_dir: Recursively processes and saves articles from JSON files in a specified directory.
+- search_papers_by_filter_as_response: Returns a structured response with papers that meet specified filter criteria.
+- search_topics_by_filter_as_response: Generates a response listing topics based on given filter criteria.
+- search_authors_by_filter_as_response: Retrieves authors matching specified filters and structures the response.
+- search_same_topic_by_filter_as_response: Identifies articles sharing topics and organizes the information.
+- search_co_author_by_filter_as_response: Explores co-authorship relations based on article filters.
+- search_cited_tree_by_filter_as_response: Constructs a citation tree showing how articles reference each other.
+
+Usage:
+The script can be utilized in a backend system for academic article management, where it would parse, store, and
+retrieve article data for various applications, such as content management systems, research databases, or academic
+network analysis tools. It provides a comprehensive approach to handling academic article data with flexibility and
+scalability.
+"""
 
 import json
 import os
 from pathlib import Path
 
-from ..intergration.catalog_access import ArticleCRUD, AuthorCRUD, ArticleAuthorCRUD, \
+from ..integration.catalog_access import ArticleCRUD, AuthorCRUD, ArticleAuthorCRUD, \
     ArticleCitationCRUD, TopicCRUD, ArticleTopicCRUD
 from ..services.Parser.types import ArticleObject
 from ..services.models import ParseArticleVO, ArticleVO, AuthorVO, ArticleAuthorVO, ArticleCitationVO, \
@@ -26,9 +43,10 @@ from ..services.schema import PaperResponse, PaperItemSchema, AuthorSchema, Topi
 def save_parse_article(parse_article: ParseArticleVO | dict | ArticleObject) -> ArticleVO | None:
     """
     This function processes and saves the article metadata, authors, references, and topics to the database.
-    :param parse_article: A ParseArticleVO, dict,
+
+    @param parse_article: A ParseArticleVO, dict,
     or Artical instance containing the article metadata, authors, references, and topics.
-    :return: None
+    @return: None
     """
 
     # Type checking and conversion
@@ -196,8 +214,9 @@ def save_parse_article(parse_article: ParseArticleVO | dict | ArticleObject) -> 
 def save_parse_article_with_filepath(file_path: str) -> ArticleVO:
     """
     Processes a JSON file containing article metadata and saves the article to the database.
-    :param file_path: The path to the JSON file containing article metadata.
-    :return: The saved ArticleVO object.
+
+    @param file_path: The path to the JSON file containing article metadata.
+    @return: The saved ArticleVO object.
     """
     # Open the JSON file and load its content
     with open(file_path, 'r', encoding='utf-8') as f:
@@ -210,8 +229,9 @@ def save_parse_article_with_filepath(file_path: str) -> ArticleVO:
 def save_parse_articles_within_dir(folder_path) -> list[ArticleVO]:
     """
     Recursively processes each JSON file in a given folder and its subfolders.
-    :param folder_path: The path to the folder containing JSON files to process.
-    :return: None
+
+    @param folder_path: The path to the folder containing JSON files to process.
+    @return: None
     """
     # Initialize an empty list to store the parsed article objects
     parse_article_vo_lst: list[ArticleVO] = []
@@ -238,8 +258,9 @@ def save_parse_articles_within_dir(folder_path) -> list[ArticleVO]:
 def search_papers_by_filter_as_response(filter_obj: ArticleFilter) -> PaperResponse:
     """
     Get a list of papers based on the given filter and return a PaperResponse object.
-    :param filter_obj: An ArticleFilter object containing the filter criteria.
-    :return: A PaperResponse object containing the list of papers.
+
+    @param filter_obj: An ArticleFilter object containing the filter criteria.
+    @return: A PaperResponse object containing the list of papers.
     """
     article_crud = ArticleCRUD()
     author_crud = AuthorCRUD()
@@ -279,8 +300,9 @@ def search_papers_by_filter_as_response(filter_obj: ArticleFilter) -> PaperRespo
 def search_topics_by_filter_as_response(filter_obj: TopicFilter) -> TopicResponse:
     """
     Get a list of topics based on the given filter and return a TopicResponse object.
-    :param filter_obj: A TopicFilter object containing the filter criteria.
-    :return: A TopicResponse object containing the list of topics.
+
+    @param filter_obj: A TopicFilter object containing the filter criteria.
+    @return: A TopicResponse object containing the list of topics.
     """
     topic_crud = TopicCRUD()
     article_topic_crud = ArticleTopicCRUD()
@@ -306,8 +328,9 @@ def search_topics_by_filter_as_response(filter_obj: TopicFilter) -> TopicRespons
 def search_authors_by_filter_as_response(filter_obj: AuthorFilter) -> AuthorResponse:
     """
     Get a list of authors based on the given filter and return an AuthorResponse object.
-    :param filter_obj: An AuthorFilter object containing the filter criteria.
-    :return: An AuthorResponse object containing the list of authors.
+
+    @param filter_obj: An AuthorFilter object containing the filter criteria.
+    @return: An AuthorResponse object containing the list of authors.
     """
     author_crud = AuthorCRUD()
     article_author_crud = ArticleAuthorCRUD()
@@ -335,8 +358,8 @@ def search_same_topic_by_filter_as_response(filter_obj: ArticleFilter) -> SameTo
     a structured response that includes connections between topics and articles, a list of topics with their
     details, and a list of papers with their authors.
 
-    :param filter_obj: An ArticleFilter object containing the filter criteria.
-    :return: A SameTopicResponseSchema object containing structured information about topics, articles, and authors.
+    @param filter_obj: An ArticleFilter object containing the filter criteria.
+    @return: A SameTopicResponseSchema object containing structured information about topics, articles, and authors.
     """
     try:
         # Initialize CRUD operations for articles, topics, and authors
@@ -422,8 +445,8 @@ def search_co_author_by_filter_as_response(filter_obj: ArticleFilter) -> CoAutho
     authors, specifically focusing on co-authorship relations. It returns a structured response that includes
     co-authorship connections, detailed author information, and a list of related papers.
 
-    :param filter_obj: An ArticleFilter object containing the filter criteria.
-    :return: A CoAuthorResponseSchema object containing structured information about co-authorships, authors,
+    @param filter_obj: An ArticleFilter object containing the filter criteria.
+    @return: A CoAuthorResponseSchema object containing structured information about co-authorships, authors,
     and papers.
     """
     try:
@@ -497,10 +520,10 @@ def search_cited_tree_by_filter_as_response(filter_obj: ArticleFilter, level_num
     and their associated metadata, based on the given filter criteria and up to a certain level of citation depth.
     This function maps out how articles cite each other, forming a tree-like structure of citations.
 
-    :param filter_obj: An object containing filter criteria for article retrieval.
-    :param level_num: The maximum depth of citation connections to retrieve, defining how far the citation
+    @param filter_obj: An object containing filter criteria for article retrieval.
+    @param level_num: The maximum depth of citation connections to retrieve, defining how far the citation
                       chain should be explored. Level 0 starts with the initial article.
-    :return: A structured response with citation connections and article metadata, including titles and authors.
+    @return: A structured response with citation connections and article metadata, including titles and authors.
     """
 
     # Initialize CRUD operations for articles, citations, and authors
@@ -584,21 +607,3 @@ def search_cited_tree_by_filter_as_response(filter_obj: ArticleFilter, level_num
                                    msg="Success",
                                    data=CitedTreeDataSchema(connections=cited_connection_item_schema_lst,
                                                             papers=paper_item_schema_lst))
-
-
-def main():
-    # # Example usage
-    folder_path = r'C:\Users\Qiu\Desktop\frame\psd\Carlson-Johnson\backend\data\json'
-    print("run")
-    # Process all JSON files within the given folder and its folders
-    save_parse_articles_within_dir(folder_path)
-
-    # Test one file
-    # print(save_parse_article_with_filepath(r"C:\Users\Qiu\Desktop\frame\psd\Carlson-Johnson\backend\app\data\json\1"
-    #                                        r"-s2.0-S0165011413002583-main.json"))
-
-    # analysis.process_articles("app/data/xml", "app/data/json")
-
-
-if __name__ == "__main__":
-    main()

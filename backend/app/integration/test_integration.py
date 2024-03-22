@@ -1,3 +1,30 @@
+"""
+Overview:
+This pytest file is designed to comprehensively test CRUD (Create, Read, Update, Delete) operations for various models
+in a document processing and management system. The tests cover a range of models including Article, Topic, Institution,
+Author, Department, AuthorInstitution, AuthorDepartment, ArticleAuthor, ArticleCitation, TopicRelationship, and
+ArticleTopic. Each model is associated with a specific aspect of document management, such as article metadata,
+author details, institutional affiliations, and relationships between articles and topics.
+
+Features:
+- Fixtures for initializing CRUD objects for each model, facilitating the creation, modification, and deletion of
+  database entries in an isolated test environment.
+- Test functions for each model's CRUD operations, ensuring the integrity and functionality of database interactions.
+- Use of `pytest_asyncio` for testing asynchronous database operations, reflecting real-world application scenarios.
+- Implementation of test cases for both positive scenarios (successful CRUD operations) and negative scenarios
+  (handling of invalid data and operation failures).
+
+Usage:
+The tests in this file can be run using the pytest framework to validate the correctness and robustness of CRUD
+operations within the system's backend. These tests are essential for ensuring data integrity, consistency, and
+reliability of the system's database interactions, making them crucial during development, continuous integration,
+and deployment phases.
+
+This file contributes to the overall quality assurance strategy of the system, allowing developers and testers to
+identify issues early in the development lifecycle, and ensuring that new features or changes do not break existing
+functionality.
+"""
+
 import pytest
 import pytest_asyncio
 from .catalog_access import ArticleCRUD, TopicCRUD, InstitutionCRUD, AuthorCRUD, \
@@ -10,13 +37,24 @@ from ..services.models import ArticleVO, ArticleFilter, TopicVO, TopicFilter, Au
 
 
 @pytest_asyncio.fixture
-def article_crud():
+def article_crud() -> ArticleCRUD:
+    """
+    Create a CRUD object for the Article model.
+
+    @return: ArticleCRUD: The CRUD object for the Article model.
+    """
     return ArticleCRUD()
 
 
 # Combined test function for all CRUD operations of Article
 @pytest.mark.asyncio
-async def test_article_crud_operations(article_crud):
+async def test_article_crud_operations(article_crud) -> None:
+    """
+    Test the CRUD operations for the Article model.
+
+    @param article_crud: ArticleCRUD: The CRUD object for the Article model.
+    @return: None
+    """
     # Create an article
     article_vo_create = ArticleVO(
         title="Test Article",
@@ -82,12 +120,24 @@ async def test_article_crud_operations(article_crud):
 
 
 @pytest_asyncio.fixture
-def topic_crud():
+def topic_crud() -> TopicCRUD:
+    """
+    Create a CRUD object for the Topic model.
+
+    @return: TopicCRUD: The CRUD object for the Topic model.
+    """
+
     return TopicCRUD()
 
 
 @pytest.mark.asyncio
-async def test_topic_crud_operations(topic_crud):
+async def test_topic_crud_operations(topic_crud) -> None:
+    """
+    Test the CRUD operations for the Topic model.
+
+    @param topic_crud: TopicCRUD: The CRUD object for the Topic model.
+    @return: None
+    """
     # Create a topic
     topic_vo_create = TopicVO(name="Test Topic", description="This is a test topic")
     created_topic = topic_crud.create(topic_vo_create)
@@ -123,12 +173,23 @@ async def test_topic_crud_operations(topic_crud):
 
 
 @pytest_asyncio.fixture
-def author_crud():
+def author_crud() -> AuthorCRUD:
+    """
+    Create a CRUD object for the Author model.
+
+    @return: AuthorCRUD: The CRUD object for the Author model.
+    """
     return AuthorCRUD()
 
 
 @pytest.mark.asyncio
-async def test_author_crud_operations(author_crud):
+async def test_author_crud_operations(author_crud) -> None:
+    """
+    Test the CRUD operations for the Author model.
+
+    @param author_crud: AuthorCRUD: The CRUD object for the Author model.
+    @return: None
+    """
     # Create an author
     author_vo_create = AuthorVO(
         name="Doe",
@@ -170,12 +231,23 @@ async def test_author_crud_operations(author_crud):
 
 
 @pytest_asyncio.fixture
-def institution_crud():
+def institution_crud() -> InstitutionCRUD:
+    """
+    Create a CRUD object for the Institution model.
+
+    @return: InstitutionCRUD: The CRUD object for the Institution model.
+    """
     return InstitutionCRUD()
 
 
 @pytest.mark.asyncio
-async def test_institution_crud_operations(institution_crud):
+async def test_institution_crud_operations(institution_crud) -> None:
+    """
+    Test the CRUD operations for the Institution model.
+
+    @param institution_crud: InstitutionCRUD: The CRUD object for the Institution model.
+    @return: None
+    """
     # Create an institution
     institution_vo_create = InstitutionVO(
         name="Test Institution"
@@ -208,12 +280,23 @@ async def test_institution_crud_operations(institution_crud):
 
 
 @pytest_asyncio.fixture
-def department_crud():
+def department_crud() -> DepartmentCRUD:
+    """
+    Create a CRUD object for the Department model.
+
+    @return: DepartmentCRUD: The CRUD object for the Department model.
+    """
     return DepartmentCRUD()
 
 
 @pytest.mark.asyncio
-async def test_department_crud_operations(department_crud):
+async def test_department_crud_operations(department_crud) -> None:
+    """
+    Test the CRUD operations for the Department model.
+
+    @param department_crud: DepartmentCRUD: The CRUD object for the Department model.
+    @return: None
+    """
     # Create a department
     department_vo_create = DepartmentVO(
         name="Test Department",
@@ -248,12 +331,23 @@ async def test_department_crud_operations(department_crud):
 
 
 @pytest.fixture
-def author_institution_crud():
+def author_institution_crud() -> AuthorInstitutionCRUD:
+    """
+    Create a CRUD object for the AuthorInstitution model.
+
+    @return: AuthorInstitutionCRUD: The CRUD object for the AuthorInstitution model.
+    """
     return AuthorInstitutionCRUD()
 
 
 @pytest.mark.asyncio
-async def test_author_institution_crud_operations(author_institution_crud):
+async def test_author_institution_crud_operations(author_institution_crud) -> None:
+    """
+    Test the CRUD operations for the AuthorInstitution model.
+
+    @param author_institution_crud: AuthorInstitutionCRUD: The CRUD object for the AuthorInstitution model.
+    @return: None
+    """
     # Create an author-institution link
     author_institution_vo_create = AuthorInstitutionVO(
         author_id=1,  # Assuming an author with ID 1 exists
@@ -286,12 +380,23 @@ async def test_author_institution_crud_operations(author_institution_crud):
 
 
 @pytest.fixture(scope="module")
-def author_department_crud():
+def author_department_crud() -> AuthorDepartmentCRUD:
+    """
+    Create a CRUD object for the AuthorDepartment model.
+
+    @return: AuthorDepartmentCRUD: The CRUD object for the AuthorDepartment model.
+    """
     return AuthorDepartmentCRUD()
 
 
 @pytest.mark.asyncio
-async def test_author_department_crud_operations(author_department_crud):
+async def test_author_department_crud_operations(author_department_crud) -> None:
+    """
+    Test the CRUD operations for the AuthorDepartment model.
+
+    @param author_department_crud: AuthorDepartmentCRUD: The CRUD object for the AuthorDepartment model.
+    @return: None
+    """
     # Create an author-department link
     author_department_vo_create = AuthorDepartmentVO(
         author_id=1,  # Assuming an author with ID 1 exists
@@ -324,12 +429,23 @@ async def test_author_department_crud_operations(author_department_crud):
 
 
 @pytest.fixture(scope="module")
-def article_author_crud():
+def article_author_crud() -> ArticleAuthorCRUD:
+    """
+    Create a CRUD object for the ArticleAuthor model.
+
+    @return: ArticleAuthorCRUD: The CRUD object for the ArticleAuthor model.
+    """
     return ArticleAuthorCRUD()
 
 
 @pytest.mark.asyncio
-async def test_article_author_crud_operations(article_author_crud):
+async def test_article_author_crud_operations(article_author_crud) -> None:
+    """
+    Test the CRUD operations for the ArticleAuthor model.
+
+    @param article_author_crud: ArticleAuthorCRUD: The CRUD object for the ArticleAuthor model.
+    @return: None
+    """
     # Create an article-author link
     article_author_vo_create = ArticleAuthorVO(
         article_id=9999,
@@ -362,12 +478,23 @@ async def test_article_author_crud_operations(article_author_crud):
 
 
 @pytest.fixture(scope="module")
-def article_citation_crud():
+def article_citation_crud() -> ArticleCitationCRUD:
+    """
+    Create a CRUD object for the ArticleCitation model.
+
+    @return: ArticleCitationCRUD: The CRUD object for the ArticleCitation model.
+    """
     return ArticleCitationCRUD()
 
 
 @pytest.mark.asyncio
-async def test_article_citation_crud_operations(article_citation_crud):
+async def test_article_citation_crud_operations(article_citation_crud) -> None:
+    """
+    Test the CRUD operations for the ArticleCitation model.
+
+    @param article_citation_crud: ArticleCitationCRUD: The CRUD object for the ArticleCitation model.
+    @return: None
+    """
     # Create an article-citation link
     article_citation_vo_create = ArticleCitationVO(
         citing_article_id=9999,
@@ -400,12 +527,23 @@ async def test_article_citation_crud_operations(article_citation_crud):
 
 
 @pytest.fixture(scope="module")
-def topic_relationship_crud():
+def topic_relationship_crud() -> TopicRelationshipCRUD:
+    """
+    Create a CRUD object for the TopicRelationship model.
+
+    @return: TopicRelationshipCRUD: The CRUD object for the TopicRelationship model.
+    """
     return TopicRelationshipCRUD()
 
 
 @pytest.mark.asyncio
-async def test_topic_relationship_crud_operations(topic_relationship_crud):
+async def test_topic_relationship_crud_operations(topic_relationship_crud) -> None:
+    """
+    Test the CRUD operations for the TopicRelationship model.
+
+    @param topic_relationship_crud: TopicRelationshipCRUD: The CRUD object for the TopicRelationship model.
+    @return: None
+    """
     # Create a topic-relationship link
     topic_relationship_vo_create = TopicRelationshipVO(
         parent_topic_id=1,  # Assuming a parent topic with ID 1 exists
@@ -438,12 +576,23 @@ async def test_topic_relationship_crud_operations(topic_relationship_crud):
 
 
 @pytest.fixture(scope="module")
-def article_topic_crud():
+def article_topic_crud() -> ArticleTopicCRUD:
+    """
+    Create a CRUD object for the ArticleTopic model.
+
+    @return: ArticleTopicCRUD: The CRUD object for the ArticleTopic model.
+    """
     return ArticleTopicCRUD()
 
 
 @pytest.mark.asyncio
-async def test_article_topic_crud_operations(article_topic_crud):
+async def test_article_topic_crud_operations(article_topic_crud) -> None:
+    """
+    Test the CRUD operations for the ArticleTopic model.
+
+    @param article_topic_crud: ArticleTopicCRUD: The CRUD object for the ArticleTopic model.
+    @return: None
+    """
     # Create an article-topic link
     article_topic_vo_create = ArticleTopicVO(
         article_id=1,  # Assuming an article with ID 1 exists
