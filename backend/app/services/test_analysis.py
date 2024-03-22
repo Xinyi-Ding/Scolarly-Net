@@ -48,7 +48,7 @@ def normalize_text(text):
 
 
 # Parse test case data
-def _parse_test_case_artical_reference(path: str) -> List[Reference]:
+def _parse_test_case_article_reference(path: str) -> List[Reference]:
     """
     Parse the test case data for the article reference.
 
@@ -72,7 +72,7 @@ def _parse_test_case_artical_reference(path: str) -> List[Reference]:
         ]
 
 
-def _parse_test_case_artical_metadata(path: str) -> Metadata:
+def _parse_test_case_article_metadata(path: str) -> Metadata:
     """
     Parse the test case data for the article metadata.
 
@@ -90,7 +90,7 @@ def _parse_test_case_artical_metadata(path: str) -> Metadata:
         )
 
 
-def _parse_test_case_artical_content(path: str) -> Content:
+def _parse_test_case_article_content(path: str) -> Content:
     """
     Parse the test case data for the article content.
 
@@ -105,7 +105,7 @@ def _parse_test_case_artical_content(path: str) -> Content:
         )
 
 
-def _parse_test_case_artical_authors(path: str) -> List[Author]:
+def _parse_test_case_article_authors(path: str) -> List[Author]:
     """
     Parse the test case data for the article authors.
 
@@ -182,7 +182,7 @@ def test_parse_article_reference():
     json_dir = Path(Path.cwd() / "app/services/test_data/JSON")
     for json_file in json_dir.glob("*.json"):
         print("testing reference:", json_file.name)
-        test_case = _parse_test_case_artical_reference(str(json_file))
+        test_case = _parse_test_case_article_reference(str(json_file))
         # Construct corresponding PDF file path from the JSON file name
         pdf_file_name = json_file.stem + ".pdf"
         pdf_path = Path(Path.cwd() / "app/services/test_data/Papers") / pdf_file_name
@@ -205,7 +205,7 @@ def test_parse_article_metadata():
     """
     json_dir = Path(Path.cwd() / "app/services/test_data/JSON")
     for json_file in json_dir.glob("*.json"):
-        test_case = _parse_test_case_artical_metadata(str(json_file))
+        test_case = _parse_test_case_article_metadata(str(json_file))
 
         # Construct corresponding PDF file path from the JSON file name
         pdf_file_name = json_file.stem + ".pdf"
@@ -228,7 +228,7 @@ def test_parse_article_content():
     """
     json_dir = Path(Path.cwd() / "app/services/test_data/JSON")
     for json_file in json_dir.glob("*.json"):
-        test_case = _parse_test_case_artical_content(str(json_file))
+        test_case = _parse_test_case_article_content(str(json_file))
 
         # Construct corresponding PDF file path from the JSON file name
         pdf_file_name = json_file.stem + ".pdf"
@@ -254,7 +254,7 @@ def test_parse_article_authors():
     """
     json_dir = Path(Path.cwd() / "app/services/test_data/JSON")
     for json_file in json_dir.glob("*.json"):
-        test_case = _parse_test_case_artical_authors(str(json_file))
+        test_case = _parse_test_case_article_authors(str(json_file))
 
         # Construct corresponding PDF file path from the JSON file name
         pdf_file_name = json_file.stem + ".pdf"

@@ -1,7 +1,4 @@
 # Backend Service
-
-## Overview
-
 This backend service is structured to support various functionalities including database operations, service integration, API routing, and core business logic implementation. It is designed with modularity and scalability in mind.
 
 # Project Structure
