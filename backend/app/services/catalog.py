@@ -44,8 +44,7 @@ def save_parse_article(parse_article: ParseArticleVO | dict | ArticleObject) -> 
     """
     This function processes and saves the article metadata, authors, references, and topics to the database.
 
-    @param parse_article: A ParseArticleVO, dict,
-    or Artical instance containing the article metadata, authors, references, and topics.
+    @param parse_article: The ParseArticleVO, dict, or ArticleObject containing the article information.
     @return: None
     """
 
