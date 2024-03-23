@@ -33,6 +33,9 @@ class ServerUnavailableException(Exception):
 
 
 class GrobidClient(ApiClient):
+    """
+    Client for the GROBID services.
+    """
 
     def __init__(self, grobid_server='localhost',
                  batch_size=1000,
@@ -41,6 +44,18 @@ class GrobidClient(ApiClient):
                  timeout=60,
                  config_path=None,
                  check_server=True):
+        """
+        Initialize the GrobidClient object.
+
+        @param grobid_server: str: The URL of the GROBID server.
+        @param batch_size: int: The batch size for processing PDF files.
+        @param coordinates: list: The list of coordinates to include in the extracted elements.
+        @param sleep_time: int: The time to sleep between requests.
+        @param timeout: int: The maximum time before timing out.
+        @param config_path: str: The path to the configuration file.
+        @param check_server: bool: Whether to check the server connection.
+        @return: None
+        """
         self.config = {
             'grobid_server': grobid_server,
             'batch_size': batch_size,
@@ -56,12 +71,18 @@ class GrobidClient(ApiClient):
     def _load_config(self, path="./config.json"):
         """
         Load the json configuration
+
+        @param path: str: The path to the configuration file.
+        @return: None
         """
         config_json = open(path).read()
         self.config = json.loads(config_json)
 
     def _test_server_connection(self):
-        """Test if the server is up and running."""
+        """
+        Test if the server is up and running
+        @return: None
+        """
         the_url = self.get_server_url("isalive")
         try:
             r = requests.get(the_url)
@@ -77,6 +98,14 @@ class GrobidClient(ApiClient):
             print("GROBID server is up and running")
 
     def _output_file_name(self, input_file, input_path, output):
+        """
+        Generate the output file name.
+
+        @param input_file: str: The path to the input file.
+        @param input_path: str: The path to the input directory.
+        @param output: str: The path to the output directory.
+        @return: str: The path to the output file.
+        """
         # we use ntpath here to be sure it will work on Windows too
         if output is not None:
             input_file_name = str(os.path.relpath(os.path.abspath(input_file), input_path))
@@ -108,6 +137,24 @@ class GrobidClient(ApiClient):
             force=True,
             verbose=False,
     ):
+        """
+        Process the files in the input directory.
+
+        @param service: str: The GROBID service to use.
+        @param input_path: str: The path to the input directory.
+        @param output: str: The path to the output directory.
+        @param n: int: The concurrency for service usage.
+        @param generateIDs: bool: Whether to generate random XML IDs.
+        @param consolidate_header: bool: Whether to consolidate the header metadata.
+        @param consolidate_citations: bool: Whether to consolidate the extracted citations.
+        @param include_raw_citations: bool: Whether to include raw citations.
+        @param include_raw_affiliations: bool: Whether to include raw affiliations.
+        @param tei_coordinates: bool: Whether to add the original PDF coordinates.
+        @param segment_sentences: bool: Whether to segment sentences in the text content.
+        @param force: bool: Whether to force re-processing PDF input files.
+        @param verbose: bool: Whether to print information about processed files.
+        @return: None
+        """
         batch_size_pdf = self.config["batch_size"]
         input_files = []
 
@@ -182,6 +229,25 @@ class GrobidClient(ApiClient):
             force,
             verbose=False,
     ):
+        """
+        Process the batch of files.
+
+        @param service: str: The GROBID service to use.
+        @param input_files: list: The list of input files.
+        @param input_path: str: The path to the input directory.
+        @param output: str: The path to the output directory.
+        @param n: int: The concurrency for service usage.
+        @param generateIDs: bool: Whether to generate random XML IDs.
+        @param consolidate_header: bool: Whether to consolidate the header metadata.
+        @param consolidate_citations: bool: Whether to consolidate the extracted citations.
+        @param include_raw_citations: bool: Whether to include raw citations.
+        @param include_raw_affiliations: bool: Whether to include raw affiliations.
+        @param tei_coordinates: bool: Whether to add the original PDF coordinates.
+        @param segment_sentences: bool: Whether to segment sentences in the text content.
+        @param force: bool: Whether to force re-processing PDF input files.
+        @param verbose: bool: Whether to print information about processed files.
+        @return: None
+        """
         if verbose:
             print(len(input_files), "files to process in current batch")
 
@@ -252,6 +318,20 @@ class GrobidClient(ApiClient):
             tei_coordinates,
             segment_sentences
     ):
+        """
+        Process the PDF file.
+
+        @param service: str: The GROBID service to use.
+        @param pdf_file: str: The path to the PDF file.
+        @param generateIDs: bool: Whether to generate random XML IDs.
+        @param consolidate_header: bool: Whether to consolidate the header metadata.
+        @param consolidate_citations: bool: Whether to consolidate the extracted citations.
+        @param include_raw_citations: bool: Whether to include raw citations.
+        @param include_raw_affiliations: bool: Whether to include raw affiliations.
+        @param tei_coordinates: bool: Whether to add the original PDF coordinates.
+        @param segment_sentences: bool: Whether to segment sentences in the text content.
+        @return: tuple: The path to the PDF file, the status code, and the text content.
+        """
         pdf_handle = open(pdf_file, "rb")
         files = {
             "input": (
@@ -308,6 +388,12 @@ class GrobidClient(ApiClient):
         return (pdf_file, status, res.text)
 
     def get_server_url(self, service):
+        """
+        Get the server URL.
+
+        @param service: str: The GROBID service.
+        @return: str: The server URL.
+        """
         return self.config['grobid_server'] + "/api/" + service
 
     def process_txt(
@@ -322,6 +408,20 @@ class GrobidClient(ApiClient):
             tei_coordinates,
             segment_sentences
     ):
+        """
+        Process the TXT file.
+
+        @param service: str: The GROBID service to use.
+        @param txt_file: str: The path to the TXT file.
+        @param generateIDs: bool: Whether to generate random XML IDs.
+        @param consolidate_header: bool: Whether to consolidate the header metadata.
+        @param consolidate_citations: bool: Whether to consolidate the extracted citations.
+        @param include_raw_citations: bool: Whether to include raw citations.
+        @param include_raw_affiliations: bool: Whether to include raw affiliations.
+        @param tei_coordinates: bool: Whether to add the original PDF coordinates.
+        @param segment_sentences: bool: Whether to segment sentences in the text content.
+        @return: tuple: The path to the TXT file, the status code, and the text content.
+        """
         # create request based on file content
         references = None
         with open(txt_file) as f:
@@ -358,6 +458,9 @@ class GrobidClient(ApiClient):
 
 
 def main():
+    """
+    Main function for the GROBID client.
+    """
     valid_services = [
         "processFulltextDocument",
         "processHeaderDocument",

@@ -1,8 +1,41 @@
 """
-This Python module sets up a data model for an academic paper management system using the MongoEngine ODM (
-Object-Document Mapper). It defines data schemas and relationships for articles, authors, topics, institutions,
-and departments with MongoDB as the underlying database. The module handles the database connection, which can be
-toggled between a test and production environment using a configuration setting.
+Overview:
+This Python file defines MongoDB models using MongoEngine for an academic publication management system.
+It establishes a series of Document-based models to handle articles, authors, topics, institutions, departments,
+and various relationships between these entities. The models are designed to capture the complex relationships
+inherent in academic publishing, such as article citations, author affiliations, topic hierarchies, and more.
+
+Models:
+- Article: Stores comprehensive details about individual academic articles, including metadata like title, abstract,
+  publisher, and identifiers such as ISSN and DOI.
+- Topic: Represents subjects or areas of interest that articles can be associated with, facilitating topic-based
+  classification and search.
+- Author: Contains information about authors, including their name, email, and affiliation, enabling detailed author
+  profiles and contribution tracking.
+- Institution & Department: Capture the organizational structure of academic institutions and their departments,
+  allowing for the mapping of authors to their respective institutional affiliations.
+- Relationship Models: A series of models such as AuthorInstitution, AuthorDepartment, ArticleAuthor, ArticleCitation,
+  and ArticleTopic model the many-to-many relationships between articles, authors, topics, etc., reflecting the complex
+  web of connections in academic literature.
+- TopicRelationship: Models hierarchical relationships between topics, supporting the construction of topic trees for
+  advanced categorization and navigation.
+- Sequence: A utility model for generating sequential IDs for documents, ensuring unique identification within the
+  database.
+
+Features:
+- Each model includes validation rules and indexing strategies to optimize query performance and ensure data integrity.
+- The use of sparse and unique indexes on certain fields prevents duplicate entries for critical identifiers like
+  emails, ISSNs, and DOIs, enhancing the reliability of the data.
+- Text indexes on fields such as article titles and topic names support full-text search, enabling efficient discovery
+  of relevant publications and topics.
+
+Usage:
+These models form the backbone of the system's data layer, supporting operations such as article submission, author
+management, and article-topic classification. By leveraging MongoDB's document-oriented structure and MongoEngine's
+ORM capabilities, the models offer flexibility and scalability for managing large volumes of academic data.
+
+This file also includes a utility function, `ensure_indexes()`, which can be invoked to ensure that all defined indexes
+are created in the MongoDB database, enhancing query performance and enforcing data constraints.
 """
 
 from mongoengine import Document, connect
@@ -20,12 +53,22 @@ else:
 
 # Define the Sequence model to store sequence values
 class Sequence(Document):
+    """
+    Sequence model to store sequence values for generating unique identifiers.
+    """
     meta = {'collection': 'sequence'}
     name = StringField(required=True, unique=True, sparse=True)
     value = IntField(required=True)
 
     @classmethod
-    def get_next_sequence(cls, sequence_name):
+    def get_next_sequence(cls, sequence_name) -> int:
+        """
+        Get the next sequence value for the given sequence name.
+
+        @param cls: Sequence: The Sequence class.
+        @param sequence_name: str: The name of the sequence.
+        @return: int: The next sequence value.
+        """
         # Try to find a sequence by name
         sequence = cls.objects(name=sequence_name).first()
         if not sequence:
@@ -40,12 +83,21 @@ class Sequence(Document):
 
 
 # Now, we can use the `Sequence` model within the `sequence` function
-def sequence(sequence_name):
+def sequence(sequence_name) -> int:
+    """
+    Get the next sequence value for the given sequence name.
+
+    @param sequence_name: str: The name of the sequence.
+    @return: int: The next sequence value.
+    """
     return Sequence.get_next_sequence(sequence_name)
 
 
 # Article model
 class Article(Document):
+    """
+    Article model to store information about academic articles.
+    """
     # Unique identifier for each article.
     article_id = IntField(primary_key=True, default=lambda: sequence('article'))
     # The title of the article.
@@ -91,7 +143,12 @@ class Article(Document):
             ]
             }
 
-    def clean(self):
+    def clean(self) -> None:
+        """
+        Clean the model instance before saving by converting empty strings to None for unique fields.
+
+        @return: None
+        """
         # Convert empty strings or other "empty" values to None for unique fields
         for field in ['issn', 'eissn', 'doi']:
             if not getattr(self, field):
@@ -100,6 +157,9 @@ class Article(Document):
 
 # Topic model
 class Topic(Document):
+    """
+    Topic model to store information about topics or subjects.
+    """
     # Unique identifier for each topic.
     topic_id = IntField(primary_key=True, default=lambda: sequence('topic'))
     # The name of the topic. It must be unique.
@@ -126,7 +186,12 @@ class Author(Document):
     # The affiliation of the author. This field can be null.
     affiliation = StringField(max_length=255)
 
-    def clean(self):
+    def clean(self) -> None:
+        """
+        Clean the model instance before saving by converting empty strings to None for unique fields.
+
+        @return: None
+        """
         # Convert empty strings or other "empty" values to None for unique fields
         for field in ['email']:
             if not getattr(self, field):
@@ -147,6 +212,9 @@ class Author(Document):
 
 # Institution model
 class Institution(Document):
+    """
+    Institution model to store information about institutions (e.g., universities, research centers).
+    """
     # Unique identifier for each institution.
     institution_id = IntField(primary_key=True, default=lambda: sequence('institution'))
     # The name of the institution. It must be unique.
@@ -163,6 +231,9 @@ class Institution(Document):
 
 # Department model
 class Department(Document):
+    """
+    Department model to store information about academic departments.
+    """
     # Unique identifier for each department.
     department_id = IntField(primary_key=True, default=lambda: sequence('department'))
     # The name of the department.
@@ -175,6 +246,9 @@ class Department(Document):
 
 # Author-Institution model (relationship)
 class AuthorInstitution(Document):
+    """
+    Author-Institution model to represent the many-to-many relationship between authors and institutions.
+    """
     # Reference to the Author document; represents the many-to-many relationship between authors and institutions.
     author_id = IntField(required=True)
     # Reference to the Institution document; represents the many-to-many relationship between authors and institutions.
@@ -193,6 +267,9 @@ class AuthorInstitution(Document):
 
 # Author-Department model (relationship)
 class AuthorDepartment(Document):
+    """
+    Author-Department model to represent the many-to-many relationship between authors and departments.
+    """
     # Reference to the Author document; represents the many-to-many relationship between authors and departments.
     author_id = IntField(required=True)
     # Reference to the Department document; represents the many-to-many relationship between authors and departments.
@@ -211,6 +288,9 @@ class AuthorDepartment(Document):
 
 # Article-Author model (relationship)
 class ArticleAuthor(Document):
+    """
+    Article-Author model to represent the many-to-many relationship between articles and authors.
+    """
     # Reference to the Article document.
     article_id = IntField(required=True)
     # Reference to the Author document.
@@ -229,6 +309,9 @@ class ArticleAuthor(Document):
 
 # Article-Citation model
 class ArticleCitation(Document):
+    """
+    Article-Citation model to represent the many-to-many relationship between articles for citations.
+    """
     # Reference to the Article document that is doing the citing.
     citing_article_id = IntField(required=True)
     # Reference to the Article document that is being cited.
@@ -246,6 +329,9 @@ class ArticleCitation(Document):
 
 
 class ArticleTopic(Document):
+    """
+    Article-Topic model to represent the many-to-many relationship between articles and topics.
+    """
     article_id = IntField(required=True)
     topic_id = IntField(required=True)
 
@@ -262,6 +348,9 @@ class ArticleTopic(Document):
 
 # TopicRelationship model
 class TopicRelationship(Document):
+    """
+    TopicRelationship model to represent the parent-child relationship between topics.
+    """
     # Reference to the Topic document that is the parent topic.
     parent_topic_id = IntField(required=True)
     # Reference to the Topic document that is the child topic.
@@ -278,9 +367,11 @@ class TopicRelationship(Document):
     }
 
 
-def ensure_indexes():
+def ensure_indexes() -> None:
     """
     Ensure that all indexes are created for the models.
+
+    @return: None
     """
     Article.ensure_indexes()
     Sequence.ensure_indexes()

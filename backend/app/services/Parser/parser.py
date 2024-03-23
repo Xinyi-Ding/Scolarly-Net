@@ -1,3 +1,25 @@
+"""
+Overview:
+This module provides a comprehensive XML parsing utility specifically designed for academic articles. Utilizing the
+ElementTree XML API, it defines a Parser class that extracts structured data from XML documents, including article
+metadata, content, authors, and references. Helper functions facilitate text extraction using XPath queries and
+namespaces, handling various text structures within XML. The module also incorporates external tools like Anystyle CLI
+to parse bibliographic references into structured data. The extracted information is mapped onto custom data classes,
+providing a structured and standardized representation of articles suitable for further processing or storage in
+academic databases, content management systems, or for bibliometric analysis.
+
+Key Components:
+- _find_text_single and _find_text_paragraph: Helper functions for extracting text based on XPath queries.
+- Parser class: Core utility for parsing XML documents, capable of extracting comprehensive article data.
+- Integration with Anystyle CLI for advanced reference parsing, converting raw bibliographic data into structured
+  formats.
+- Use of Python data classes for standardized representation of articles, metadata, content, authors, and references.
+
+Usage:
+This module is ideal for projects involving the extraction, analysis, and management of scholarly article data from
+XML documents, such as digital libraries, academic research databases, and bibliometric analysis tools.
+"""
+
 import io
 import json
 import subprocess
@@ -13,11 +35,11 @@ def _find_text_single(node: Element, xPath: AnyStr, namespaces: Dict) -> Optiona
     """
     Helper functions for parsing XML for metadata
 
-    :param node: The node to search from
-    :param xPath: The xPath to search for
-    :param namespaces: The namespaces to use
-    :return: The text of the element found, or None
-    :note: This function can only be used to parse the single text
+    @param node: The node to search from
+    @param xPath: The xPath to search for
+    @param namespaces: The namespaces to use
+    @return: The text of the element found, or None
+    @note: This function can only be used to parse the single text
     """
 
     element = node.find(xPath, namespaces=namespaces)
@@ -28,11 +50,11 @@ def _find_text_paragraph(node: Element, xPath: AnyStr, namespaces: Dict) -> Opti
     """
     Helper functions for parsing XML for metadata
 
-    :param node: The node to search from
-    :param xPath: The xPath to search for
-    :param namespaces: The namespaces to use
-    :return: The text of the element found, or None
-    :note: This function can only be used to parse the text paragraph
+    @param node: The node to search from
+    @param xPath: The xPath to search for
+    @param namespaces: The namespaces to use
+    @return: The text of the element found, or None
+    @note: This function can only be used to parse the text paragraph
     """
     # Find all <div> elements specified by the XPath
     div_elements = node.findall(xPath, namespaces=namespaces)
@@ -55,19 +77,27 @@ def _find_words_list(node: Element, xPath: AnyStr, namespaces: Dict) -> Optional
     """
     Helper functions for parsing XML for list of words
 
-    :param node: The node to search from
-    :param xPath: The xPath to search for
-    :param namespaces: The namespaces to use
-    :return: The text of the element found, or None
-    :note: This function can only be used to parse the list of words
+    @param node: The node to search from
+    @param xPath: The xPath to search for
+    @param namespaces: The namespaces to use
+    @return: The text of the element found, or None
+    @note: This function can only be used to parse the list of words
     """
-
     elements = node.findall(xPath, namespaces=namespaces)
     return [element.text for element in elements] if elements is not None else None
 
 
 class Parser(object):
+    """
+    The Parser class is used to parse the XML file into an ArticleObject.
+    """
     def __init__(self, xml_path: AnyStr):
+        """
+        Initialize the Parser object with the path to the XML file.
+
+        @param xml_path: The path to the XML file.
+        @return: None
+        """
         self.xml_path = xml_path
         self.xml_namespace = "http://www.w3.org/XML/1998/namespace"
         self.tei_namespace = "http://www.tei-c.org/ns/1.0"
@@ -75,6 +105,12 @@ class Parser(object):
         self.article = self.parse_article()
 
     def parse_article(self):
+        """
+        Parse the XML file into an ArticleObject.
+
+        @return: ArticleObject: The parsed article object.
+        @note: This function is the main function to parse the XML file into an ArticleObject.
+        """
         return ArticleObject(
             metadata=self._parse_metadata(),
             content=self._parse_content(),
@@ -83,6 +119,12 @@ class Parser(object):
         )
 
     def _string_to_tree(self) -> ET.ElementTree:
+        """
+        Parse the XML string into an ElementTree object.
+
+        @return: ET.ElementTree: The ElementTree object.
+        @note: This function is used to parse the XML string into an ElementTree object.
+        """
         with open(self.xml_path, 'r') as xml_file:
             content = xml_file.read()
         if isinstance(content, str):
@@ -91,6 +133,11 @@ class Parser(object):
             raise TypeError(f"Expected string, got {type(content)}")
 
     def _parse_metadata(self) -> Metadata:
+        """
+         Parse the metadata of the article.
+
+         @return: Metadata: The metadata of the article.
+         """
         tei_root = self.etree.getroot()
         title = _find_text_single(tei_root,
                                   './/tei:titleStmt/tei:title[@level="a"]',
@@ -116,6 +163,11 @@ class Parser(object):
         )
 
     def _parse_content(self) -> Content:
+        """
+        Parse the content of the article.
+
+        @return: Content: The content of the article.
+        """
         tei_root = self.etree.getroot()
         abstract = _find_text_paragraph(tei_root,
                                         './/tei:profileDesc/tei:abstract/tei:div',
@@ -130,6 +182,11 @@ class Parser(object):
 
     @property
     def _parse_author(self) -> List[Author]:
+        """
+        Parse the XML string into an ElementTree object.
+
+        @return: List[Author]: The list of authors of the article.
+        """
         # Parse the XML string into an ElementTree object.
         tree = self.etree.getroot()
         authors = []
@@ -164,6 +221,12 @@ class Parser(object):
         return authors
 
     def _find_raw_reference(self, ns=None):
+        """
+        Extract raw references from the XML document.
+
+        @param ns: The namespace dictionary.
+        @return: List[str]: The list of raw references.
+        """
         # print("extracting raw reference")
         if ns is None:
             ns = {'tei': 'http://www.tei-c.org/ns/1.0'}
@@ -182,6 +245,12 @@ class Parser(object):
         return raw_references
 
     def _store_references(self, raw_references):
+        """
+        Store the references in a temporary file and call Anystyle CLI to parse them.
+
+        @param raw_references: The list of raw references.
+        @return: List[Dict]: The list of parsed references.
+        """
         # Write the references to a temporary file
         with tempfile.NamedTemporaryFile(mode='w+', delete=False) as tmp:
             # Each reference on a new line
@@ -210,6 +279,11 @@ class Parser(object):
             subprocess.run(['rm', tmp_path])
 
     def _parse_reference(self):
+        """
+        Parse the references from the XML document.
+
+        @return: List[Reference]: The list of parsed references.
+        """
         raw_references = self._find_raw_reference()
         stored_json_references = self._store_references(raw_references)
         if not stored_json_references:

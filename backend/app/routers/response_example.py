@@ -1,3 +1,7 @@
+"""
+This file contains the example of the response from the API.
+"""
+
 search_papers_example = {
     "code": 200,
     "msg": "Success",

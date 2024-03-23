@@ -1,10 +1,30 @@
 """
-This module provides generic CRUD (Create, Read, Update, Delete) operations classes for interacting with MongoDB
-using the MongoEngine ODM. It defines type-safe interfaces to perform database operations on various entities such as
-articles, topics, authors, institutions, and their relationships. Each CRUD class is specialized for a particular
-entity and extends from a generic base class, ensuring a consistent and type-checked way to handle database
-operations across different parts of the application.
-"""
+Overview:
+This module defines a comprehensive set of CRUD (Create, Read, Update, Delete) operations for various models in a
+FastAPI application that interfaces with a MongoDB database through MongoEngine ODM. Utilizing the power of generic
+programming, it introduces a base class 'CRUDOperations' that abstracts common CRUD functionalities, which can be
+extended or customized for specific models such as Articles, Topics, Authors, Institutions, and Departments. The
+module is structured to separate concerns effectively, using type variables to enforce type safety and consistency
+across model, value object (VO), and filter classes.
+
+Each specific CRUD class inherits from 'CRUDOperations' and may implement additional methods tailored to the model's
+needs, such as 'search_by_filter' which performs query operations based on various filter criteria. This design
+pattern promotes code reuse and maintainability, allowing for easy extension as new models or requirements emerge.
+
+Key Components:
+- MongoEngine ODM: Provides the database models and query capabilities.
+- Pydantic Models (VO): Serve as data transfer objects, ensuring strict type checking and validation.
+- Generic Programming: Leverages Python's typing system to create flexible and reusable components.
+
+Functionality: - Base CRUD Operations: Includes methods for creating, reading, updating, and deleting documents in
+MongoDB. - Model-Specific Extensions: Allows for the implementation of additional methods specific to the domain
+logic of each model. - Search by Filter: A common method in many specific CRUD classes to perform advanced querying
+based on a set of filter criteria.
+
+Usage: The CRUD classes can be instantiated with the respective MongoEngine model, Pydantic VO model, and filter
+model to begin performing database operations. This modular approach facilitates the development of a clean,
+maintainable codebase for web applications that require robust data management capabilities. """
+
 from mongoengine import Q, DoesNotExist
 from typing import List, TypeVar, Generic
 
