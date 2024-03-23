@@ -69,7 +69,7 @@ This frontend service is structured to support various functionalities including
 
 ## Installation
 
-> Please make sure the Node.js (>v20) and npm are available on your machine. Go [Setup.md](../Documents/Setup.md) for more information
+> Please make sure the Node.js (>v20) and npm are available on your machine. Go [Setup.md](../Documents/Implementation/Setup.md#frontend-service) for more information
 
 1. enter the `frontend` directory if still in root directory
    ```

@@ -37,7 +37,7 @@ This backend service is structured to support various functionalities including 
 
 ## Installation
 
-> Please make sure the Python and Grobid are available on your machine. Go [Setup.md](../Documents/Setup.md) for more information
+> Please make sure the Python and Grobid are available on your machine. Go [Setup.md](../Documents/Implementation/Setup.md#backend-service) for more information
 
 1. Clone the repository
 2. Install dependencies
@@ -74,4 +74,4 @@ python -m pytest
 
 If successfully running the application, you can access the API documentation at [http://localhost:8000/docs](http://localhost:8000/docs) in your browser.
 
-If not, you can check the API documentation at [API.md](../Documents/API/api-docs.md).
+If not, you can check the API documentation at [API.md](../Documents/Implementation/API/api-doc.md).
