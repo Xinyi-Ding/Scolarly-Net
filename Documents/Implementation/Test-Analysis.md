@@ -21,7 +21,7 @@ Each test component in this analysis is devised to scrutinize a distinct aspect 
      - **Result Analysis**: The function showcased exemplary performance in metadata extraction across the board. Instances where certain articles lacked specific metadata elements highlight the importance of designing parsing functions that can gracefully handle such anomalies without compromising the overall accuracy.
 
 ### Unit Test Cases: Content Parsing
-- **Based on Test Topic**: Linked to [1a. Topic Extraction](Design.md/#1a-topic-extraction-1) and [1b. Keyword Extraction](Design.md/#1b-keyword-extraction-1), this component examines the function's adeptness in parsing article abstracts, a crucial part of content analysis.
+- **Based on Test Topic**: Linked to [1a. Topic Extraction](../Design/Design.md#1a-topic-extraction-1) and [1b. Keyword Extraction](../Design/Design.md#1b-keyword-extraction), this component examines the function's adeptness in parsing article abstracts, a crucial part of content analysis.
 - **Test  Description**: This segment evaluates the function's efficiency in parsing and representing abstracts from academic articles, ensuring the extracted content aligns closely with manually extracted benchmarks.
 - **Test  Objective**: To ascertain the precision of abstract extraction processes and validate their consistency against manually curated data, ensuring that the extracted abstracts maintain the semantic integrity of the original content.
 - **Test Cases**:
@@ -44,7 +44,7 @@ The reevaluation of the content parsing functionality, specifically in the conte
         
 
 ### Unit Test Cases: Authors Information Parsing
-- **Based on Test Topic**: [1c. Author Identification](Design.md/#1c-author-identification-1), this component is crucial for attributing the correct authorship and facilitating scholarly communications.
+- **Based on Test Topic**: [1c. Author Identification](../Design/Design.md#1c-author-identification-1), this component is crucial for attributing the correct authorship and facilitating scholarly communications.
 - **Test  Description**: Focuses on the precision of extracting detailed author information, including names, affiliations, and email addresses, from the academic articles, which is vital for attributing authorship and facilitating academic communication.
 - **Test  Objective**: The aim is to verify the function's accuracy in identifying and extracting comprehensive author details, ensuring that the extracted information is consistent with the manually curated dataset and suitable for accurate attribution and correspondence.
 - **Test Cases**:
@@ -56,7 +56,7 @@ The reevaluation of the content parsing functionality, specifically in the conte
         - **Result Analysis**: The author information parsing component proved highly effective, consistently extracting detailed and accurate author information. Variability in performance due to external library inconsistencies, especially in name extraction, underscores the importance of continuous optimization and refinement to enhance the function's adaptability and reliability across various article formats and presentations.
 
 ### Unit Test Cases: References Parsing
-- **Based on Test Topic**: [1d. Reference Extraction](Design.md/#1d-reference-extraction-1), this component evaluates the function's capability to accurately extract and match reference lists, an essential aspect of academic integrity and scholarship.
+- **Based on Test Topic**: [1d. Reference Extraction](../Design/Design.md#1d-reference-extraction-1), this component evaluates the function's capability to accurately extract and match reference lists, an essential aspect of academic integrity and scholarship.
 - **Test Description**: This section assesses the function's ability to accurately identify, extract, and match reference lists from academic articles, a critical component for supporting academic integrity and facilitating scholarly research.
 - **Test Objective**: To evaluate the accuracy of the reference list extraction process and its capacity to match extracted references against a manually curated dataset accurately, thereby ensuring the reliability and integrity of reference management.
 - **Test Cases**:
@@ -280,7 +280,7 @@ This section provides an in-depth analysis of the frontend interactivity testing
             - **Actual Result**: The selected paper is highlighted in the graph and the paper list for these two clicks.
             - **Result Analysis**: The test case passes, indicating that the highlight functionality works as expected.
 2. **Linking Articles with the Same Topic**
-    - **Based on Test Topic**: [2. Topic Connection](Design.md#2-topic-connection-1)
+    - **Based on Test Topic**: [2. Topic Connection](../Design/Design.md#2-topic-connection-1)
     - **Test Description**: Verify that the system can link articles with the same topic and display them in the paper list, and finally generate a network graph with their connections.
     - **Test Objective**: Ensure that the system can link articles with the same topic and generate graph of them.
     - **Test Cases**:
@@ -303,7 +303,7 @@ This section provides an in-depth analysis of the frontend interactivity testing
             - **Actual Result**: The graph is generated with the only one paper node of the selected paper and no other nodes.
             - **Result Analysis**: The test case passes, indicating that the graph is capable of being generated with no topics found.
 3. **Associating Authors Collaborating on the Same Paper (Co-author)**
-    - **Based on Test Topic**: [3. Author Relationship](Design.md#3-author-relationship-1)
+    - **Based on Test Topic**: [3. Author Relationship](../Design/Design.md#3-author-relationship-1)
     - **Test Description**: Verify that the system can associate authors collaborating on the same paper and display them in the network graph with papers related to them.
     - **Test Objective**: Ensure that the co-author page functions as expected
     - **Test Cases**:
@@ -326,7 +326,7 @@ This section provides an in-depth analysis of the frontend interactivity testing
             - **Actual Result**: The graph is generated with the only one paper node of the selected paper and no other nodes.
             - **Result Analysis**: The test case passes, indicating that the graph is capable of being generated with no authors found.
 4. **Citation Tree Generation**
-    - **Based on Test Topic**: [4. Reference Tree](Design.md#4-reference-tree-1)
+    - **Based on Test Topic**: [4. Reference Tree](../Design/Design.md#4-reference-tree-1)
     - **Test Description**: Verify that the system can generate and display a basic citation tree for a given paper.
     - **Test Objective**: Ensure that the citation tree generation feature functions as expected.
     - **Test Cases**:
@@ -619,6 +619,15 @@ This section provides a comprehensive analysis of the usability testing conducte
 - **Test Tools**: The testing was conducted using user feedback forms, task-based testing scenarios, and user interviews to gather feedback and insights from the participants.
 - **Test Devices**: The system was tested on EIDF VM, for participants who do not have access to our VM, were given control of one of our group members' computer to interact with the system.
 
+### Testing Procedure
+
+1. The participants were provided with a brief introduction to the application and its core functionalities.
+2. The participants were given a [Guide](Guide.md) on how to use the application, which included the layout of the application, the core functionalities, and the steps to perform specific tasks.
+3. The participants were given a way to access the application via EIDF VM, or the permission to control one of our group members' computer to interact with the system.
+4. The participants were asked to perform specific tasks written in the [Usability Test Form](Usability-Form.md) .
+5. The participants were asked to finish the Usability Form after each task and give a general feedback at the end of the test.
+6. The interactions and feedback were recorded and analyzed to identify usability issues and areas for improvement.
+
 ### Test Feedback Collected
 1. **Task 1: Uploading a Paper**
    - **Description**: Upload a paper to the application through Dashboard page, check the paper information and the link cards that are available, and generate a graph from the uploaded paper though these available links cards.
@@ -733,27 +742,3 @@ The usability testing indicated that users found the interface intuitive and the
   - **Graph Usability**: While the graph generation feature was appreciated, there are issues with graph readability, especially with large amount of data, suggested improvements in the graph's layout and the display of information.
   - **Error Handling and Validation**: The feedback also mentioned that a better error handling and validation process is needed.
   - **System Guidance**: Some users expressed confusion over certain features, suggests a need for enhanced system guidance, possibly through additional informational tooltips or clearer instructions.
-
-
-### Testing Objectives
-
-The usability testing was conducted to evaluate the system's ease of use, efficiency, and user satisfaction. The testing objectives were to gather feedback and insights from the participants to identify usability issues and areas for improvement, and to evaluate the overall user satisfaction with the system.
-
-### Participant Selection
-
-The participants for the usability testing were selected based on the target user demographic for the web application. The initial candidate pool was introduced in the [Design Document](Design.md), which includes students, academics, government officials, developers, and companies. But due to the limited time and resources, the participants were selected from the students and academics.
-
-### Testing Environment
-
-The usability testing was conducted in a controlled environment, with two ways provided, which are in-person and remote testing. The participants were given a way to access the application via EIDF VM, or the permission to control one of our group members' computer to interact with the system. The testing was conducted using user feedback forms, task-based testing scenarios, and user interviews to gather feedback and insights from the participants.
-
-### Testing Procedure
-1. The participants were provided with a brief introduction to the application and its core functionalities.
-2. The participants were given a [Guide](Guide.md) on how to use the application, which included the layout of the application, the core functionalities, and the steps to perform specific tasks.
-3. The participants were given a way to access the application via EIDF VM, or the permission to control one of our group members' computer to interact with the system.
-4. The participants were asked to perform specific tasks written in the [Usability Test Form](Usability-Form.md) .
-5. The participants were asked to finish the Usability Form after each task and give a general feedback at the end of the test.
-6. The interactions and feedback were recorded and analyzed to identify usability issues and areas for improvement.
-
-### Testing Method
-The usability testing was conducted using a combination of direct observation, user feedback, and task success rates. After the forms were collected, the feedback was analyzed to identify common praise and issues, showing the strengths and weaknesses of the system. Based on these issues and feedback, useful insights were gathered to guide the future development and improvement of the system. After the issues and improvements were identified, the overall application rate was taken into account to evaluate the issues priority level and the overall user satisfaction.

@@ -52,7 +52,7 @@ Throughout our project, we have made concrete progress in several key areas:
 ### Detailed Milestone Review
 The project was structured around two significant milestones: the mid-term project presentation and the final project delivery. To guarantee an efficient final submission, we defined four critical sub-milestones to monitor our advancement:
 
-- **Requirement Gathering and Analysis**: At the inception of the project, detailed discussions were held with the client to define the project's specific requirements and expected outcomes. This phase's outcomes are documented in our [design document](Design.md/#requirements-table).
+- **Requirement Gathering and Analysis**: At the inception of the project, detailed discussions were held with the client to define the project's specific requirements and expected outcomes. This phase's outcomes are documented in our [design document](../Design/Design.md#requirements-table).
 - **Prototype Design and Review (Presentation)**: An initial prototype was developed and subsequently reviewed by both clients and potential users, whose valuable feedback was incorporated into further improvements.
 - **Development and Testing**: Our team systematically completed the development and testing of each functionality, ensuring the software's quality and stability.
 - **User Acceptance Testing (UAT)**: In the final phase of the project, UAT was conducted, and adjustments were made based on user feedback to meet the ultimate project requirements.
@@ -61,7 +61,7 @@ The project was structured around two significant milestones: the mid-term proje
 
 Our project was meticulously structured to encompass a series of defined milestones, each serving as a critical checkpoint that aligned our team's efforts with the project's overarching goals. These milestones were strategically spread across the project's timeline to ensure consistent progress and accountability.
 
-- **Requirement Gathering and Analysis**: The project began with a comprehensive phase of requirement gathering. Our team engaged in in-depth consultations with stakeholders to crystallize the project's scope and objectives. This period was characterized by active discussions, clarifications, and negotiations to align stakeholder expectations with feasible project deliverables. The outputs from this phase were meticulously documented, capturing the functional and non-functional requirements in a detailed design document. This document, a record to our collaborative [design](Design.md) and [planning](Plan.md) efforts, is archived and made accessible for reference on GitLab.
+- **Requirement Gathering and Analysis**: The project began with a comprehensive phase of requirement gathering. Our team engaged in in-depth consultations with stakeholders to crystallize the project's scope and objectives. This period was characterized by active discussions, clarifications, and negotiations to align stakeholder expectations with feasible project deliverables. The outputs from this phase were meticulously documented, capturing the functional and non-functional requirements in a detailed design document. This document, a record to our collaborative [design](../Design/Design.md) and [planning](../Planning/Plan.md) efforts, is archived and made accessible for reference on GitLab.
 
 - **Prototype Design and Review (Presentation)**: With a solid understanding of the project's requirements, we moved to the design and development of an initial prototype. This prototype served as a tangible representation of our conceptual understanding and provided a basis for early user engagement. Following its development, we presented the prototype to our clients and a select group of potential users, inviting their critical assessment. The feedback received was invaluable, revealing insights into user experience and functionality that had previously not been considered. These inputs were carefully evaluated and served as a catalyst for iterative design enhancements.
 
@@ -79,12 +79,12 @@ To sum up, the project's progress largely adhered to the planned schedule. Howev
 
 4. **Extended Development Time**: The timeline extended beyond our initial estimates due to unforeseen challenges encountered during the development phase. Issues such as accuracy in data extraction, database deployment intricacies, interface design refinement, backend-frontend integration, and CI/CD pipeline testing contributed to these delays.
 
-5. **Data Model Adjustments**: We expanded the types of data stored in our tables and altered the relationship schema between authors, institutions, and departments. This modification was made to achieve a more normalized data model that aligned with requirement 3b. The contrasts between the initial and final data models are depicted in Figures 1.1 and 1.2, with further details available in [data_model.md](./Data-Model.md):
-    ![original data model](../Image/data_model_v1.svg)
+5. **Data Model Adjustments**: We expanded the types of data stored in our tables and altered the relationship schema between authors, institutions, and departments. This modification was made to achieve a more normalized data model that aligned with requirement 3b. The contrasts between the initial and final data models are depicted in Figures 1.1 and 1.2, with further details available in [data_model.md](../Design/Data-Model.md):
+    ![original data model](../Image/data-model-v1.svg)
 
     *Figure 1.1: The original data model at project launch.*
 
-    ![revised data model](../Image/final_model.jpg)
+    ![revised data model](../Image/final-model.jpg)
 
     *Figure 1.2: The revised data model upon project completion.*
 
@@ -160,7 +160,7 @@ While utilizing the grobid package, known for its precision and efficiency in ex
 1. **Topic and Keyword Extraction Challenge**:
    Although our keyword extraction process was generally successful, we encountered issues with certain articles that exhibited problematic keywords, including complex categorization codes and non-standard phrases. These issues were highlighted in cases such as the one depicted in Figure 1, where extracted keywords did not align with conventional academic nomenclature.
    
-   ![Keyword Example](../Image/keywords_example.jpg)
+   ![Keyword Example](../Image/keywords-example.jpg)
    
    *Figure 2: An example of keyword extraction results with complex categorization codes and phrases.*
 
@@ -171,7 +171,7 @@ While utilizing the grobid package, known for its precision and efficiency in ex
 2. **Abstract Extraction Challenge**:
    Even though it wasn't specified as a requirement, extracting the abstract is crucial for determining the article's theme. The abstracts that were extracted sometimes included special characters, such as `↵`, or had incorrect line breaks. To standardize the output, we undertook data cleaning, which is depicted in the before-and-after comparison shown below.
    
-   ![omparison of abstract format before and after cleanin](../Image/abstract_compare.jpg)
+   ![omparison of abstract format before and after cleanin](../Image/abstract-compare.jpg)
    
    *Figure 3: Comparison of abstract format before and after cleaning.*
 
@@ -179,17 +179,17 @@ While utilizing the grobid package, known for its precision and efficiency in ex
 
    Furthermore, while LDA can cover key topics, it struggles to filter out irrelevant common words like "usage," as indicated in the second box in Figure 4.
 
-   ![topic limitation example](../Image/topic_limitation.png)
+   ![topic limitation example](../Image/topic-limitation.png)
 
    *Figure 4: Example of topic extraction results (This article was contributed by a team member for testing purposes with their consent.)*
 
    Below is a comparison between the network generated using keywords and the revised network generated using topics after the modifications:
 
-   ![keywords mapping](../Image/kewords_map.jpg)
+   ![keywords mapping](../Image/kewords-map.jpg)
 
    *Figure 5.1: Network generated using keywords.*
 
-   ![topic mapping](../Image/topic_map.jpg)
+   ![topic mapping](../Image/topic-map.jpg)
 
    *Figure 5.2: Revised network generated using topics.*
 
@@ -200,7 +200,7 @@ While utilizing the grobid package, known for its precision and efficiency in ex
 
    Even with the use of `Anystyle` for more accurate metadata extraction from raw references, initial errors in extracting these references (such as incorrect segmentation, leading to a single reference being split into two, as shown in Figure 3) remain challenging to avoid and currently lack a solution. Future efforts will consider optimizing this functionality, given more time.
 
-   ![a single reference into two](../Image/reference_segements.jpg)
+   ![a single reference into two](../Image/reference-segements.jpg)
 
    *Figure 6: Error case in reference extraction: Segments 1 and 2 of the raw reference actually belong to the same reference.*
 
@@ -209,21 +209,21 @@ While utilizing the grobid package, known for its precision and efficiency in ex
 1. **Sidebar Navigation Active State**
    The sidebar navigation feature, which allows users to expand or collapse the sidebar, does not retain the active state of the current page when the page is refreshed. This limitation is due to initialize sidebar active state to same value every time the page is refreshed. To address this, we considered to continuously watch the value of the path, and then set the active state of the sidebar according to the path once the path changes or the page is refreshed.
 
-   ![sidebar navigation active state](../Image/router_link.gif)
+   ![sidebar navigation active state](../Image/router-link.gif)
 
    *Figure 7: Sidebar navigation link retains active after page refresh.*
 
 2. **Generate Graphs from Paper Data to Connection**
    It is hard to connect each paper and other nodes together using JS to find the relationship between them. The current version of the project is to generate the connections in the backend and then send the data to the frontend, so it does not need frontend to process the data and find relationship 
 
-    ![connection data](../Image/connection_data.png)
+    ![connection data](../Image/connection-data.png)
 
     *Figure 8: Connection data in the backend.*
 
 3. **Graph Visualization with Large Dataset Challenge**
    The graph visualization tool used in frontend is `vis-network.js`, which is a powerful and flexible tool for visualizing large datasets in a network. However, when the dataset is large, the graph visualization can become cluttered and difficult to interpret.
 
-   ![large dataset graph](../Image/large_dataset_graph.png)
+   ![large dataset graph](../Image/large-dataset-graph.png)
 
    *Figure 9: Graph visualization problem with large dataset.*
 
@@ -234,7 +234,7 @@ While utilizing the grobid package, known for its precision and efficiency in ex
 1. **Normalization and Query Efficiency**
    The database employs standard normalization modeling techniques, which, while structurally sound, often necessitate multiple table joins for complex queries, leading to decreased query efficiency. To mitigate this issue, denormalization could be considered. By storing some frequently accessed query results within the database, we can enhance query performance and reduce the computational overhead associated with complex joins.
    
-   ![db example1.png](../Image/db_example1.png)
+   ![db example1.png](../Image/db-example1.png)
    
    *Figure 10: An example of low query efficiency.*
 
@@ -245,7 +245,7 @@ While utilizing the grobid package, known for its precision and efficiency in ex
 2. **Access Control and Security**
    The current database configuration has its port open to all IP addresses, which poses a significant risk of data breaches as anyone can attempt to access the database. Enhancing the database's security posture is crucial to protect sensitive information and maintain data integrity.
 
-   ![db example2.png](../Image/db_example2.png)
+   ![db example2.png](../Image/db-example2.png)
    
    *Figure 11: Port open to all IP addresses.*
    
@@ -333,37 +333,37 @@ Our comprehensive evaluation of the prototype's functionality involved a series 
 
 - **File Upload and Reading**: The prototype proved its capability by seamlessly allowing the upload of articles and subsequently reading their content. The system efficiently extracted crucial metadata from these documents, showcasing its reliability in handling diverse formats and structures of academic articles. The successful extraction process was visually confirmed, with each article's metadata clearly displayed, indicating the prototype's precision in identifying and parsing relevant information.
 
-![Successful Metadata Extraction Example](../Image/parsing_example.png)
+![Successful Metadata Extraction Example](../Image/parsing-example.png)
 
 *Figure 12: Example of Successful Metadata Extraction.*
 
 - **Keyword-Based Article Search**: The search functionality of the prototype underwent testing to ascertain its accuracy in locating articles based on title keywords. The system displayed commendable performance, adeptly matching user queries with the corresponding articles in the database. This feature was instrumental in facilitating easy access to relevant academic content, as evidenced by the search results showcasing the prototype's effectiveness in retrieving accurate matches.
 
-![Search Results Example](../Image/search_result.jpg)
+![Search Results Example](../Image/search-result.jpg)
 
 *Figure 13: Example of Search Results.*
 
 - **topic Relationship Mapping**: A distinguishing aspect of the prototype is its ability to discern and visually represent topic connections across the dataset. Testing this feature revealed the prototype's capacity to generate detailed topic graphs, offering users an intuitive understanding of topic interrelations. These visualizations were particularly useful in highlighting underlying patterns and trends within the academic landscape.
 
-![topic Relationship Graph Example](../Image/topic_map.jpg)
+![topic Relationship Graph Example](../Image/topic-map.jpg)
 
 *Figure 14: Example of a topic Relationship Graph. (Circles represent articles, pentagrams represent topics, and the yellow circle denotes the currently selected or uploaded article.)*
 
 - **Co-Authorship Networks**: The prototype's functionality extends to mapping networks of co-authorship, a feature that was rigorously tested. The system successfully identified collaborative networks among authors, visually mapping these connections in a comprehensive manner. This functionality adds a layer of depth to academic research analysis by elucidating the collaborative dynamics within the scholarly community.
 
-![Co-Authorship Network Example](../Image/author_relation.jpg)
+![Co-Authorship Network Example](../Image/author-relation.jpg)
 
 *Figure 15: Example of a Co-Authorship Network. (The yellow circle represents the selected or uploaded current article, while triangles denote the authors involved in the co-authorship network.)*
 
 - **Citation Mapping**: Another pivotal feature evaluated was the prototype's ability to construct citation maps. These maps are instrumental in tracing the lineage and impact of scholarly works. The evaluation confirmed the prototype's adeptness in creating detailed and informative citation trees, offering valuable insights into the citation networks that underpin academic research.
 
-![Citation Tree Example](../Image/citation_tree.png)
+![Citation Tree Example](../Image/citation-tree.png)
 
 *Figure 16: Example of a Citation Tree.(The yellow circle represents the selected or uploaded current article, whereas blue circles denote the articles cited by the current article.)*
 
 
 ### Usability Analysis
-This section can be find in detail in [Test Analysis](Test-Analysis.md/#test-analysis-usability-testing) 
+This section can be find in detail in [Test Analysis](Test-Analysis.md#test-analysis-usability-testing) 
 
 
 ## Lessons Learned

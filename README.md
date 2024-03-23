@@ -26,19 +26,19 @@ Our project has been deployed in the EIDF VM and the implementation can be found
 
 ### Instruction
 1. Login to [EIDF portal](https://portal.eidf.ac.uk) by using your SAFE account.
-![Step1](./Documents/Image/QUICK1.png)
+![Step1](./Documents/Image/quick1.png)
 *Figure 2: Screenshot for EIDF protal.*
 
 2. Choose `VDI Login` under Projects >> Your Projects
-![Step2](./Documents/Image/QUICK2.png)
+![Step2](./Documents/Image/quick2.png)
 *Figure 3: Screenshot for find VDI login.*
 
 3. Select the `eidf018-psd-assessment10a_rdp` connection.
-![Step3](./Documents/Image/QUICK3.png)
+![Step3](./Documents/Image/quick3.png)
 *Figure 4: Screenshot for find VM connection.*
 
 4. When login to the VM connection, click web browser and type http://localhost:90 to access our application. The full detail how to interact with our website can refer to [guide](Documents/Implementation/Guide.md) documents.
-![Step4](./Documents/Image/QUICK4.png)
+![Step4](./Documents/Image/quick4.png)
 *Figure 5: Screenshot for how to access our web application in web browser.*
 
 ## Project Documents List

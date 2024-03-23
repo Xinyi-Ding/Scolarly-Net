@@ -13,7 +13,7 @@ It is deployed at [localhost:90](http://localhost:90) the EIDF VM.
 
 To get started, our application's layout is divided into three sections: the sidebar, the app bar, and the main content.
 
-![Base Layout](../Image/base_layout.png)
+![Base Layout](../Image/base-layout.png)
 *Figure 1: Base Layout*
 
 - **Sidebar**, located on the left side of the application, contains the clickable navigation links to different pages
@@ -34,13 +34,13 @@ The page is divided into three sections:
 a file explorer.
   - The file should be in the format of a .pdf file or .docx file.
   - You can only upload one file at a time. New file will replace the old one.
-    ![file upload](../Image/file_upload.png)
+    ![file upload](../Image/file-upload.png)
     *Figure 2: File Upload Box*
 - **Paper Information**: 
   - It is a card right below the file upload box.
   - This section only appears after you upload a file and system finishes processing the file.
   - This is where you can see the information extracted from the paper, such as the title, doi, and authors.
-    ![paper information](../Image/paper_information.png)
+    ![paper information](../Image/paper-information.png)
     *Figure 3: Paper Information Card*
 - **Link Cards**: 
   - These are cards at the bottom of the content section, with initial stripes of red and 'blocked' icons.
@@ -50,7 +50,7 @@ to relevant pages.
   - When a file is uploaded and analyzed, some of the cards will turn green, indicating that these parts of connections
 visualization are available from the uploaded paper. Clicking on these green cards will navigate you to relevant
 pages and generate the visualization directly from your paper, while clicking on the red cards acts the same as before.
-    ![link cards](../Image/link_cards.png)
+    ![link cards](../Image/link-cards.png)
     *Figure 4: Link Cards*
 
 To use this page:
@@ -64,7 +64,7 @@ To use this page:
 All other pages except the Dashboard page are graph pages. These pages are where you can see the connections between
 different papers in a graph.
 
-![graph page](../Image/graph_page.png)
+![graph page](../Image/graph-page.png)
 *Figure 5: Graph Page*
 
 The page is divided into three sections:
@@ -95,7 +95,7 @@ To use these pages:
 It is a network graph. The yellow circle node is the original paper you searched for, the green star node is the topic
 of the original paper, and the blue circle nodes are the papers that share the same topics with the original paper.
 
-![same topic](../Image/same_topic.png)
+![same topic](../Image/same-topic.png)
 *Figure 6: Same Topic Graph*
 
 ### Topic Connection Graph
@@ -106,7 +106,7 @@ It is a network graph. The yellow circle node is the original paper you searched
 authors of the original paper, and the blue circle nodes are the papers that some of these authors had also written
 together.
 
-![co-author](../Image/co_author.png)
+![co-author](../Image/co-author.png)
 *Figure 7: Co-Author Graph*
 
 ### Affiliation Graph
@@ -116,7 +116,7 @@ Still in development.
 It is a tree graph. The yellow circle node on the top is the original paper you searched for, and the blue circle nodes
 are the papers that the original paper cited. The arrows indicate the direction of the citation.
 
-![cited tree](../Image/cited_tree.png)
+![cited tree](../Image/cited-tree.png)
 *Figure 8: Cited Tree Graph*
 
 ### Cited-By Tree Graph

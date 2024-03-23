@@ -137,7 +137,7 @@ gitlab-runner ALL=(ALL) NOPASSWD: ALL
 ### Visualisation Pipeline
 The GitLab UI interface provides visualisation of the CI/CD process. The results returned by the GitLab runner will be provide with graphical display of the run status and run results in it. [Pipeline](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/pipelines) and [Job](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/jobs) page can be found in side bar of GitLab repository page.
 
-![GitLab-job-pipeline-page](../Image/visualisation_pipeline.png)
+![GitLab-job-pipeline-page](../Image/visualisation-pipeline.png)
 *Figure 5: The Job and Pipeline Page in GitLab UI.*
 
 ![GitLab-job-example](../Image/gitlab-job.png)
@@ -183,7 +183,7 @@ Caching is used to speedup pipeline executing, which can reducing the time and n
 
 Continuous Deployment (CD) is the process of automating the deployment of code from a repository to a production environment during the software development process, for example from this project's GitLab repository to EIDF's VM. This pipeline follows continuous integration pipeline and ensures that new changes to the software are automatically and reliably released to the deployment environment for use by end-users, such as our client who has EIDF VM permissions in this project, after CI have passed the necessary testing and quality checks. By implementing a consistent CD pipeline process, the team was able to increase the speed and quality of software delivery while reducing errors in the manual deployment process.
 
-![CD](../Image/CD.png)  
+![CD](../Image/cd.png)  
 *Figure 7: The flow chart of the deployment in EIDF VM.*
 
 The pipeline have additional two stages based on CI pipeline:

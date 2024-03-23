@@ -38,7 +38,7 @@ This document provides a comprehensive overview of the architecture and design o
 
 
 ## **Technology Stack Architecture**
-![Technology Stack Architecture](../Image/TechStack.jpg)
+![Technology Stack Architecture](../Image/tech-stack.jpg)
 *Figure 1: Technology stack architecture.*
 
 ### **Description**
@@ -310,7 +310,7 @@ Here is an alternative technology stack that could have been chosen for the syst
 The alternative stack provides certain benefits; however, it poses significant limitations in terms of the complexity of learning and managing the technologies, the development speed, performance, and flexibility in handling unstructured data, as well as in scalability and deployment management. These limitations underscore the reasons for our selected technology stack, which provides a more user-friendly, efficient, and scalable solution tailored to the needs of a diverse academic audience.
 
 ## **Software Architecture**
-![Component Architecture](../Image/ComponentGraph.png)
+![Component Architecture](../Image/component-graph.png)
 *Figure 2: Component architecture for the application.*
 
 ### **Overview**
@@ -328,8 +328,8 @@ The system adopts a 5-tier architecture, strategically designed to modularize th
 - **Description:** The Presentation Tier manages the application's logic for presenting data to the user. It interprets commands from the Client Tier and decides how to represent information to users effectively.
 - **Relation:** It acts as an intermediary, transforming data from the Business Tier into a user-friendly format and vice versa.
 - **Corresponding Directories:**
-    - [frontend/src/views/](/frontend/src/views/)
-    - [backend/app/routers/](/backend/app/routers/)
+    - [frontend/src/views/](../../frontend/src/views)
+    - [backend/app/routers/](../../backend/app/routers)
 - **Components:**
     - [`CoAuthors`](#coauthors)
     - [`CitedTree`](#citedtree)
@@ -345,7 +345,7 @@ The system adopts a 5-tier architecture, strategically designed to modularize th
 - **Description:** This tier contains the core business logic of the system, processing user requests, performing operations, and making logical decisions.
 - **Relation:** It interfaces with the Presentation Tier to receive processed user inputs and interacts with the Integration Tier to fetch and manipulate data.
 - **Corresponding Directories:**
-    - [backend/app/services](/backend/app/services/)
+    - [backend/app/services](../../backend/app/services)
 - **Components:**
     - [`Models`](#models)
     - [`Schema`](#schema)
@@ -363,7 +363,7 @@ The system adopts a 5-tier architecture, strategically designed to modularize th
 - **Description:** This tier orchestrates the communication between the Business Tier and the Resource Tier, facilitating the integration of different data sources and external services.
 - **Relation:** It serves as a conduit for data, ensuring that requests and responses flow between the front-end and back-end systems correctly and efficiently.
 - **Corresponding Directories:**
-    - [backend/app/integration/](/backend/app/integration/)
+    - [backend/app/integration/](../../backend/app/integration)
 - **Components:**
     - [`CatalogAccess`](#catalogaccess)
 - **Advantages:** Allows for a decoupled architecture where the core business logic is insulated from changes in data sources and external services.
@@ -373,7 +373,7 @@ The system adopts a 5-tier architecture, strategically designed to modularize th
 - **Description:** The Resource Tier is responsible for managing all data storage and retrieval operations, ensuring data integrity and security.
 - **Relation:** It interacts directly with the Integration Tier to provide the necessary data to fulfill business operations.
 - **Corresponding Directories:**
-    - [backend/app/db/](/backend/app/db/)
+    - [backend/app/db/](../../backend/app/db)
 - **Components:**
     - [`MongoengineModels`](#mongoenginemodels)
     - [`Config`](#config)
