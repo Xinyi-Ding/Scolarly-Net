@@ -134,6 +134,7 @@ Install the Node.js from official [website](https://nodejs.org/en/download).
 
 Or install from [brew](https://brew.sh) (Mac) or apt (Ubuntu)
 
+By using brew in Mac:
 ```bash
 # Install node.js
 brew install node
@@ -142,6 +143,7 @@ node -v
 npm -v
 ```
 
+By using apt in Ubuntu:
 ```bash
 # update apt package management index
 sudo apt update
@@ -179,5 +181,5 @@ npm test
 
 ### Mongo DB Services
 Since EIDF's VM is not publicly accessible, we deployed the database on a public Mongo DB server for ease of development and deployment. We monitor and manage the database status and links through the MongoDB compass visual interface.
-![MongoDB Compass](./Image/MongoDB.png)
+![MongoDB Compass](../Image/mongo-db.png)
 *Figure 1: The screenshot for MongoDB Compass Application UI*

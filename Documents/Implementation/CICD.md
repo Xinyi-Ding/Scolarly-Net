@@ -116,31 +116,31 @@ gitlab-runner ALL=(ALL) NOPASSWD: ALL
 ### Register GitLab runner
 1. Open browser and GitLab repository page. Click `Setting` >> `CI/CD`
 
-  ![GitLab-runner 1](./Image/gitlab-runner1.png)
+  ![GitLab-runner 1](../Image/gitlab-runner1.png)
   *Figure 1: GitLab Repository Home Page.*
 
 2. Go the `Runner` part and click `Expand` to `New project runner` or see the existing runner list.
 
-  ![GitLab-runner 2](./Image/gitlab-runner2.png)
+  ![GitLab-runner 2](../Image/gitlab-runner2.png)
   *Figure 2: GitLab Setting >> CI/CD >> Runner page.*
 
 3. If want to add more runner, fill the form after click `New project runner` and press `Create runner`.
 
-  ![GitLab-runner 3](./Image/gitlab-runner3.png)
+  ![GitLab-runner 3](../Image/gitlab-runner3.png)
   *Figure 3: The form for create new GitLab runner.*
 
 4. Follow the step in `Register runner` page and type the commands under `sudo` permission in the EIDF VM terminal.
 
-  ![GitLab-runner 4](./Image/gitlab-runner4.png)
+  ![GitLab-runner 4](../Image/gitlab-runner4.png)
   *Figure 4: The step to register runner on EIDF VM*
 
 ### Visualisation Pipeline
 The GitLab UI interface provides visualisation of the CI/CD process. The results returned by the GitLab runner will be provide with graphical display of the run status and run results in it. [Pipeline](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/pipelines) and [Job](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/jobs) page can be found in side bar of GitLab repository page.
 
-![GitLab-job-pipeline-page](./Image/visualisation_pipeline.png)
+![GitLab-job-pipeline-page](../Image/visualisation-pipeline.png)
 *Figure 5: The Job and Pipeline Page in GitLab UI.*
 
-![GitLab-job-example](./Image/gitLab-job.png)
+![GitLab-job-example](../Image/gitlab-job.png)
 *Figure 6: The example of pipeline and jobs in GitLab UI.*
 
 ## Continuous Integration Design and Implementation (CI)
@@ -182,6 +182,9 @@ Caching is used to speedup pipeline executing, which can reducing the time and n
 ## Continuous Deployment Implementation (CD)
 
 Continuous Deployment (CD) is the process of automating the deployment of code from a repository to a production environment during the software development process, for example from this project's GitLab repository to EIDF's VM. This pipeline follows continuous integration pipeline and ensures that new changes to the software are automatically and reliably released to the deployment environment for use by end-users, such as our client who has EIDF VM permissions in this project, after CI have passed the necessary testing and quality checks. By implementing a consistent CD pipeline process, the team was able to increase the speed and quality of software delivery while reducing errors in the manual deployment process.
+
+![CD](../Image/cd.png)  
+*Figure 7: The flow chart of the deployment in EIDF VM.*
 
 The pipeline have additional two stages based on CI pipeline:
 

@@ -38,7 +38,7 @@ This document provides a comprehensive overview of the architecture and design o
 
 
 ## **Technology Stack Architecture**
-![Technology Stack Architecture](/Documents/Image/TechStack.jpg)
+![Technology Stack Architecture](../Image/tech-stack.jpg)
 *Figure 1: Technology stack architecture.*
 
 ### **Description**
@@ -58,265 +58,262 @@ In essence, the decision to architect a distinct front-end directly supports the
 
 ### **Frontend Components**
 #### *Components List:*
-- `Vue`
+- **`Vue`**
     - A progressive JavaScript framework used for crafting modern, interactive user interfaces. Vue is known for its declarative rendering, component-based structure, and its ability to smoothly blend with other libraries and tools. 
-    - [**Vue Official Documentation**](https://vuejs.org/v2/guide/)
-- `Vuex`
+    - [Vue Official Documentation](https://vuejs.org/v2/guide/)
+- **`Vuex`**
     - This state management pattern library is tailored for Vue.js. It serves as a centralized store for all the components in an application, with rules ensuring the state can only be mutated in a predictable fashion. 
-    - [**Vuex Official Documentation**](https://vuex.vuejs.org/)
-- `VuesticUI`
+    - [Vuex Official Documentation](https://vuex.vuejs.org/)
+- **`VuesticUI`**
     - A Vue.js UI toolkit for web development, VuesticUI offers a collection of high-quality components and tools for building rich, responsive interfaces. 
-    - [**VuesticUI Official Documentation**](https://ui.vuestic.dev/)
-- `Webpack` 
+    - [VuesticUI Official Documentation](https://ui.vuestic.dev/)
+- **`Webpack`** 
     - As a static module bundler for modern JavaScript applications, Webpack processes your application's modules and efficiently bundles them into static assets. 
-    - [**Webpack Official Documentation**](https://webpack.js.org/concepts/)
-- `Axios`
+    - [Webpack Official Documentation](https://webpack.js.org/concepts/)
+- **`Axios`**
     - A promise-based HTTP client for making HTTP requests from the browser or Node.js applications, Axios integrates easily with Vue.js and provides a straightforward API for interaction. 
-    - [**Axios Official Documentation**](https://axios-http.com/docs/intro)
-- `vis.js` 
+    - [Axios Official Documentation](https://axios-http.com/docs/intro)
+- **`vis.js`** 
     - A powerful, interactive charting and data visualization library for the browser. It offers a variety of chart types and can be easily integrated into Vue applications. 
-    - [**vis.js Official Documentation**](https://visjs.org/)
+    - [vis.js Official Documentation](https://visjs.org/)
 
 #### *Component Dependencies:*
-- `Vue → Vuex` 
+- **`Vue → Vuex`**
     - Vuex serves as the state management pattern for applications using Vue. It is essential for maintaining a centralized and coherent state across the application.
-- `Vue → VuesticUI` 
+- **`Vue → VuesticUI`** 
     - Vue utilizes VuesticUI for rich UI components, which are integral to crafting an engaging user interface.
-- `Vue → Axios` 
+- **`Vue → Axios`** 
     - Axios is crucial for Vue applications to handle HTTP requests, allowing seamless communication with back-end services.
-- `Vue → vis.js`
+- **`Vue → vis.js`**
     - integration of vis.js with Vue enables the creation of interactive data visualizations within the user interface.
-- `Webpack → Vue` 
+- **`Webpack → Vue`** 
     - Webpack is leveraged to bundle Vue components efficiently, enhancing application performance and asset management.
-- `Webpack → VuesticUI` 
+- **`Webpack → VuesticUI`** 
     - VuesticUI components are managed and bundled within the Webpack ecosystem, ensuring correct integration and styling.
-- `Webpack → Axios`
+- **`Webpack → Axios`**
     - Axios is configured within Webpack to handle asynchronous HTTP requests as part of the build process.
 
 ### **Backend Components**
 #### *Component List*:
-- `FastAPI`
+- **`FastAPI`**
     - A contemporary, high-performance web framework for building APIs with Python, based on standard Python type hints. 
-    - [**FastAPI Official Documentation**](https://fastapi.tiangolo.com/)
-- `Python`
+    - [FastAPI Official Documentation](https://fastapi.tiangolo.com/)
+- **`Python`**
     - As a programming language, Python is used extensively for data processing and analysis in the backend due to its powerful libraries and versatility. 
-    - [**Python Official Documentation**](https://docs.python.org/3/)
-- `MongoDB`
+    - [Python Official Documentation](https://docs.python.org/3/)
+- **`MongoDB`**
     - A document-based NoSQL database known for its scalability and flexibility, MongoDB serves as the storage engine for handling large volumes of data. 
-    - [**MongoDB Official Documentation**](https://docs.mongodb.com/)
-- `Grobid`
+    - [MongoDB Official Documentation](https://docs.mongodb.com/)
+- **`Grobid`**
     - An open-source software library for document conversion and the extraction of bibliographical data in PDF files. It is typically used for processing academic documents and transforming them into structured TEI encoded documents. 
-    - [**Grobid Official Documentation**](https://grobid.readthedocs.io/)
+    - [Grobid Official Documentation](https://grobid.readthedocs.io/)
 #### *Component Dependencies:*
-- `Vue + Axios → FastAPI`
+- **`Vue + Axios → FastAPI`**
     - The front-end framework Vue, in combination with Axios, depends on FastAPI for processing API requests, enabling robust communication between the client and server.
-- `FastAPI → Python`
+- **`FastAPI → Python`**
     - FastAPI harnesses Python's capabilities to execute complex backend logic and data processing routines.
-- `Python → MongoDB`
+- **`Python → MongoDB`**
     - Python uses libraries such as PyMongo to interact with MongoDB, allowing data manipulation and retrieval for back-end processing.
-- `Python → Grobid` 
+- **`Python → Grobid`** 
     - Python may call upon Grobid services for the extraction of information from PDF documents, further processed within the business logic.
 
 ### **Test Components**
 #### *Component List:*
-- `Vitest:` 
+- **`Vitest:`** 
     - A unit testing framework for Vue.js applications, designed to provide fast and reliable test execution. 
-    - [**Vitest Official Documentation**](https://vitest.dev/)
-- `Pytest` 
+    - [Vitest Official Documentation](https://vitest.dev/)
+- **`Pytest`** 
     - A mature full-featured Python testing tool that helps you write better programs. It is used for writing and executing tests on the back-end side, ensuring the reliability of Python code. 
-    - [**Pytest Official Documentation**](https://docs.pytest.org/en/stable/)
+    - [Pytest Official Documentation](https://docs.pytest.org/en/stable/)
 #### *Component Dependencies:*
-- `Vitest → Vue`
+- **`Vitest → Vue`**
     - Vitest is utilized for testing Vue components, ensuring the front-end logic behaves as expected.
-- `Pytest → Python`
+- **`Pytest → Python`**
     - Pytest is employed to test Python code, including data processing and business logic in the back-end, guaranteeing code quality and performance.
-- `Pytest → FastAPI`
+- **`Pytest → FastAPI`**
     - Pytest is also used to test FastAPI endpoints, verifying the correct behavior of API calls and responses.
 
 ### **Deployment Components**
 #### *Component List:*
-- `Docker`: A containerization platform that encapsulates applications and their environments for consistent deployment across different systems. Docker ensures that applications run the same, regardless of where they are deployed. It provides a way to package the application with its environment and dependencies into a container, which can be transported and run anywhere Docker is supported.
+- **`Docker`**
+    - A containerization platform that encapsulates applications and their environments for consistent deployment across different systems. Docker ensures that applications run the same, regardless of where they are deployed. It provides a way to package the application with its environment and dependencies into a container, which can be transported and run anywhere Docker is supported.
+    - [Docker Official Documentation](https://www.docker.com/)
 
 #### *Component Dependencies:*
-- `Frontend Container -> All Frontend Components`: The frontend container bundles all frontend components including Vue, Vuex, VuesticUI, Webpack, Axios, and vis.js. This container is responsible for the presentation layer of the application, providing the user interface and handling interactions with the user.
+- **`Frontend Container -> All Frontend Components`**
+    - The frontend container bundles all frontend components including Vue, Vuex, VuesticUI, Webpack, Axios, and vis.js. This container is responsible for the presentation layer of the application, providing the user interface and handling interactions with the user.
   
-- `Backend Container -> All Backend Components (Except Grobid Component)`: The backend container encompasses the components required for the application's server-side operations, such as FastAPI, Python, and MongoDB. This container handles API requests, business logic, data processing, and analysis. It interacts with the frontend container to serve processed data and accept user inputs.
+- **`Backend Container -> All Backend Components (Except Grobid Component)`**
+    - The backend container encompasses the components required for the application's server-side operations, such as FastAPI, Python, and MongoDB. This container handles API requests, business logic, data processing, and analysis. It interacts with the frontend container to serve processed data and accept user inputs.
   
-- `Grobid Container -> Grobid`: This container is dedicated to running Grobid, a tool for extracting information from PDF documents. It acts as a standalone service that can be utilized by the backend for processing academic documents and transforming them into structured data.
+- **`Grobid Container -> Grobid`**
+    - This container is dedicated to running Grobid, a tool for extracting information from PDF documents. It acts as a standalone service that can be utilized by the backend for processing academic documents and transforming them into structured data.
 
 ### **Decision-Making for Technology Selection**
 The architecture and choice of technologies for the this system were methodically planned to align with the project's objectives, the proficiency of the development team, and the specific needs of our target users.
-#### 1. *Development Team Background*
-- Our team comprises skilled developers with a strong background in modern JavaScript frameworks, experience in Python for data processing, and proficiency with NoSQL databases. This existing expertise strongly influenced the selection of Vue.js, FastAPI, and MongoDB to capitalize on our team's strengths and ensure a smooth development process.
-#### 2. *Project and User Requirements Fit*
-- Through in-depth discussions and iterative feedback sessions with stakeholders, we mapped out the crucial features and performance expectations for the system. The client emphasized the need for a responsive UI, robust data processing capabilities, and a flexible data storage approach that can accommodate complex queries, leading to our technology choices.
-- The technology stack was designed to strike a balance between development efficiency and product scalability. Vue.js, along with its associated libraries, was chosen for its reactive nature and ease of integration, which aligns with our aim to deliver a responsive user experience. FastAPI, paired with Python's rapid development and rich library ecosystem, addresses our backend data processing requirements. MongoDB's schema-less design is particularly suited to our needs, offering the flexibility necessary for the varied and evolving datasets encountered in academic research. Additionally, most PDF article extractors, including plugins and libraries, output data in formats like Python dictionaries, XML, or JSON. For instance, the format used by Grobid, the tool we employ for article extraction, is XML. These formats are inherently compatible with MongoDB's storage mechanism, which uses BSON objects. This compatibility is a considerable advantage for storing and managing the data efficiently within our system.
-#### 3. *Security and Data Integrity*
-In an academic research platform like ours, where the integrity of scholarly work and the privacy of personal and institutional data are of utmost importance, the selection of backend technologies that prioritize security and data integrity is crucial. **FastAPI** and **MongoDB** have been chosen with these priorities in mind, offering advanced security features tailored to the needs of our diverse user base, from students to government agencies.
+1. **Development Team Background**
+    - Our team comprises skilled developers with a strong background in modern JavaScript frameworks, experience in Python for data processing, and proficiency with NoSQL databases. This existing expertise strongly influenced the selection of Vue.js, FastAPI, and MongoDB to capitalize on our team's strengths and ensure a smooth development process.
+2. **Project and User Requirements Fit**
+    - Through in-depth discussions and iterative feedback sessions with stakeholders, we mapped out the crucial features and performance expectations for the system. The client emphasized the need for a responsive UI, robust data processing capabilities, and a flexible data storage approach that can accommodate complex queries, leading to our technology choices.
+    - The technology stack was designed to strike a balance between development efficiency and product scalability. Vue.js, along with its associated libraries, was chosen for its reactive nature and ease of integration, which aligns with our aim to deliver a responsive user experience. FastAPI, paired with Python's rapid development and rich library ecosystem, addresses our backend data processing requirements. MongoDB's schema-less design is particularly suited to our needs, offering the flexibility necessary for the varied and evolving datasets encountered in academic research. Additionally, most PDF article extractors, including plugins and libraries, output data in formats like Python dictionaries, XML, or JSON. For instance, the format used by Grobid, the tool we employ for article extraction, is XML. These formats are inherently compatible with MongoDB's storage mechanism, which uses BSON objects. This compatibility is a considerable advantage for storing and managing the data efficiently within our system.
+3. **Security and Data Integrity**
+    - In an academic research platform like ours, where the integrity of scholarly work and the privacy of personal and institutional data are of utmost importance, the selection of backend technologies that prioritize security and data integrity is crucial. **FastAPI** and **MongoDB** have been chosen with these priorities in mind, offering advanced security features tailored to the needs of our diverse user base, from students to government agencies.
+        - **FastAPI:** This framework is designed with security as a core feature, offering easy integration with secure authentication and authorization systems like OAuth2 and JWT tokens. This is particularly important for our system, which caters to a wide range of users, each requiring controlled access to different levels of data and functionality. For example, students may need access to public academic resources, while academics and government officials may require access to sensitive or proprietary data.
+        - **MongoDB:** Known for its robust security mechanisms, MongoDB offers encryption at rest and in transit, ensuring that all data, from student notes to confidential research findings, is securely stored and transferred. Access control, auditing features, and regular security patches further enhance data integrity, providing peace of mind for users reliant on the system for their research and decision-making processes.
+    - The integration of these technologies ensures that all user interactions with the system, from data entry to complex queries, are conducted in a secure environment, safeguarding against unauthorized access and data breaches. This adherence to high security and data integrity standards is essential for maintaining the trust and reliability expected by our users in their scholarly and professional endeavors.
 
-- **FastAPI:** This framework is designed with security as a core feature, offering easy integration with secure authentication and authorization systems like OAuth2 and JWT tokens. This is particularly important for our system, which caters to a wide range of users, each requiring controlled access to different levels of data and functionality. For example, students may need access to public academic resources, while academics and government officials may require access to sensitive or proprietary data.
-  
-- **MongoDB:** Known for its robust security mechanisms, MongoDB offers encryption at rest and in transit, ensuring that all data, from student notes to confidential research findings, is securely stored and transferred. Access control, auditing features, and regular security patches further enhance data integrity, providing peace of mind for users reliant on the system for their research and decision-making processes.
+4. **Data Volume Considerations**
+    - Given the system's aim to serve as a comprehensive platform for academic research, it will initially handle approximately 10,000 records, encompassing a wide range of data types from simple bibliographic information to complex analysis results. **MongoDB** has been selected as our database solution for its exceptional ability to manage such diverse data volumes efficiently.
+        - **Scalability:** MongoDB's document-oriented structure and schema-less design provide significant flexibility, allowing us to easily accommodate the evolving nature of academic data. This is particularly important as the system grows to include more records and more complex types of data analysis, ensuring that we can scale our database infrastructure without extensive re-engineering.
+        - **Performance:** MongoDB's indexing capabilities, sharding, and replication features are designed to maintain high performance even as data volume grows. This is crucial for our system, which must deliver quick and accurate search results across vast datasets to users conducting time-sensitive research.
+        - **Data Management:** The system's features, such as advanced research functionality, data management tools, and analysis and visualisation capabilities, require a database that can handle complex queries and aggregate functions efficiently. MongoDB's rich query language and aggregation framework enable us to provide these sophisticated features without compromising on performance.
+    - The choice of MongoDB, with its emphasis on performance, scalability, and flexibility, aligns with our project's goals and the varied requirements of our users. Whether it's a student compiling a literature review or a government agency conducting policy analysis, our database infrastructure is equipped to support their diverse needs effectively.
+5. **Concurrency and Scalability**
+    - In the context of the diverse and dynamic needs outlined in the system's purpose and intended user base, the system's architecture must be inherently scalable and capable of handling concurrent access across varied use cases. From in-depth literature reviews by students to complex data analysis for government policy formulation, the system's workload can be highly variable and unpredictable. This necessitates a backend infrastructure that can effortlessly adapt to changing demands without degradation in performance.
 
-The integration of these technologies ensures that all user interactions with the system, from data entry to complex queries, are conducted in a secure environment, safeguarding against unauthorized access and data breaches. This adherence to high security and data integrity standards is essential for maintaining the trust and reliability expected by our users in their scholarly and professional endeavors.
+    - The choice to build the backend with **FastAPI** and deploy it within **Docker containers** is strategic, ensuring lightweight, isolated environments that are both efficient and portable. This containerization serves multiple purposes:
+        - **Isolation:** Each Docker container provides an isolated environment for a segment of the system's functionality, ensuring that any changes or issues within one container do not affect others, which is crucial for maintaining the system's stability across its varied user base.
+        - **Portability:** Docker containers can be easily moved, copied, and deployed across different environments, enhancing the development lifecycle and ensuring consistency between development, testing, and production environments. This is particularly beneficial given the system's broad scope, which might require deployment across different institutions with varying infrastructure setups.
+        - **Resource Efficiency:** Containers require less overhead than traditional virtual machines, allowing more efficient use of system resources. This is key for a system expected to handle complex data processing tasks such as extracting paper details, analyzing topic connections, and visualizing author relationships.
 
-#### 4. *Data Volume Considerations*
-Given the system's aim to serve as a comprehensive platform for academic research, it will initially handle approximately 10,000 records, encompassing a wide range of data types from simple bibliographic information to complex analysis results. **MongoDB** has been selected as our database solution for its exceptional ability to manage such diverse data volumes efficiently.
+    - Looking forward, the integration of **Kubernetes (k8s)** for container orchestration will enable the system to dynamically scale resources across containers in response to real-time demand. Kubernetes facilitates:
+        - **Horizontal Scaling:** Automatically increasing or decreasing the number of container instances based on the system's current load. This ensures that the system can handle peak loads efficiently, such as during exam periods for students or end-of-quarter analysis for companies, without permanent allocation of excessive resources.
+        - **Load Balancing:** Distributing user requests intelligently across multiple container instances to ensure optimal resource utilization and response times. This is crucial for maintaining a seamless user experience, whether it's a student rapidly searching for literature or a company conducting extensive market analysis.
+        - **Self-healing:** Automatically restarting failed containers, replacing them, and rebalancing loads without downtime. This resilience is vital for a system that supports critical research and decision-making processes across different sectors.
+    - In summary, the system's backend architecture, built on FastAPI and deployed in Docker containers with future Kubernetes integration, is designed to meet the scalability and concurrency requirements inherent in serving a diverse and demanding user base. This approach ensures that the system remains responsive, efficient, and adaptable, catering to the dynamic needs of students, academics, government agencies, and companies engaged in various forms of academic and industry-specific research.
 
-- **Scalability:** MongoDB's document-oriented structure and schema-less design provide significant flexibility, allowing us to easily accommodate the evolving nature of academic data. This is particularly important as the system grows to include more records and more complex types of data analysis, ensuring that we can scale our database infrastructure without extensive re-engineering.
-
-- **Performance:** MongoDB's indexing capabilities, sharding, and replication features are designed to maintain high performance even as data volume grows. This is crucial for our system, which must deliver quick and accurate search results across vast datasets to users conducting time-sensitive research.
-
-- **Data Management:** The system's features, such as advanced research functionality, data management tools, and analysis and visualisation capabilities, require a database that can handle complex queries and aggregate functions efficiently. MongoDB's rich query language and aggregation framework enable us to provide these sophisticated features without compromising on performance.
-
-The choice of MongoDB, with its emphasis on performance, scalability, and flexibility, aligns with our project's goals and the varied requirements of our users. Whether it's a student compiling a literature review or a government agency conducting policy analysis, our database infrastructure is equipped to support their diverse needs effectively.
-#### 5. *Concurrency and Scalability*
-In the context of the diverse and dynamic needs outlined in the system's purpose and intended user base, the system's architecture must be inherently scalable and capable of handling concurrent access across varied use cases. From in-depth literature reviews by students to complex data analysis for government policy formulation, the system's workload can be highly variable and unpredictable. This necessitates a backend infrastructure that can effortlessly adapt to changing demands without degradation in performance.
-
-The choice to build the backend with **FastAPI** and deploy it within **Docker containers** is strategic, ensuring lightweight, isolated environments that are both efficient and portable. This containerization serves multiple purposes:
-- **Isolation:** Each Docker container provides an isolated environment for a segment of the system's functionality, ensuring that any changes or issues within one container do not affect others, which is crucial for maintaining the system's stability across its varied user base.
-- **Portability:** Docker containers can be easily moved, copied, and deployed across different environments, enhancing the development lifecycle and ensuring consistency between development, testing, and production environments. This is particularly beneficial given the system's broad scope, which might require deployment across different institutions with varying infrastructure setups.
-- **Resource Efficiency:** Containers require less overhead than traditional virtual machines, allowing more efficient use of system resources. This is key for a system expected to handle complex data processing tasks such as extracting paper details, analyzing topic connections, and visualizing author relationships.
-
-Looking forward, the integration of **Kubernetes (k8s)** for container orchestration will enable the system to dynamically scale resources across containers in response to real-time demand. Kubernetes facilitates:
-- **Horizontal Scaling:** Automatically increasing or decreasing the number of container instances based on the system's current load. This ensures that the system can handle peak loads efficiently, such as during exam periods for students or end-of-quarter analysis for companies, without permanent allocation of excessive resources.
-- **Load Balancing:** Distributing user requests intelligently across multiple container instances to ensure optimal resource utilization and response times. This is crucial for maintaining a seamless user experience, whether it's a student rapidly searching for literature or a company conducting extensive market analysis.
-- **Self-healing:** Automatically restarting failed containers, replacing them, and rebalancing loads without downtime. This resilience is vital for a system that supports critical research and decision-making processes across different sectors.
-
-In summary, the system's backend architecture, built on FastAPI and deployed in Docker containers with future Kubernetes integration, is designed to meet the scalability and concurrency requirements inherent in serving a diverse and demanding user base. This approach ensures that the system remains responsive, efficient, and adaptable, catering to the dynamic needs of students, academics, government agencies, and companies engaged in various forms of academic and industry-specific research.
-#### Conclusion
 The selection of Vue.js, FastAPI, and MongoDB was a strategic decision grounded in a comprehensive understanding of our team's strengths, project requirements, and user needs. This thoughtful alignment is poised to yield a platform that is not only effective in fulfilling the diverse requirements of its users but is also fortified with the robustness, security, and scalability needed for future growth. The integration of these technologies underscores our commitment to delivering a high-quality, user-centric academic research platform.
 
 ### **Horizontal comparison of each component**
 The selection of each technology component within our stack was the result of a deliberate evaluation of its strategic advantages, suitability for meeting both the project goals and the client's specific needs, and its comparison to other potential alternatives. Below we detail the rationale for our choices:
 
-#### `Vue.js`
+#### **`Vue.js`**
 - **Chosen Over:** Angular, React  
 - **Advantages:** Provides a simplified and adaptable structure for rapid UI development. Its component-driven architecture is ideal for dynamic user interfaces.  
 - **Justification:** The selection was based on Vue.js's gentle learning curve, thorough documentation, and vibrant community. For a platform intended to serve a diverse user base, from students to government officials, a smooth and interactive user experience is paramount, which Vue.js offers with its reactive system.
 
-#### `Vuex`
+#### **`Vuex`**
 - **Chosen Over:** Redux, MobX  
 - **Advantages:** Offers a streamlined state management system, essential for maintaining cohesive state throughout the application.  
 - **Justification:** Vuex's native integration with Vue.js significantly simplifies state management. For a system that includes complex features like user-defined filters and search, this simplicity is invaluable.
 
-#### `VuesticUI`
+#### **`VuesticUI`**
 - **Chosen Over:** Ant Design, BootstrapVue  
 - **Advantages:** Offers an extensive collection of pre-designed components that are seamlessly integrated with Vue.js, enhancing the speed of UI development.
 - **Justification:** The cohesive design system of VuesticUI aligns with our goal for a user-friendly interface that supports diverse features, from data visualization to literature management, enhancing user experience and engagement.
 
-#### `Webpack`
+#### **`Webpack`**
 - **Chosen Over:** Rollup, Parcel  
 - **Advantages:** Optimizes loading time and ensures high performance, essential for a seamless user experience.  
 - **Justification:** Its wide range of plugins and community support offers a more customizable setup, which is vital for handling the complex asset management our system requires.
 
-#### `Axios`
+#### **`Axios`**
 - **Chosen Over:** Fetch API, SuperAgent  
 - **Advantages:** Presents a robust solution for HTTP requests with a promise-based API, simplifying server communication.  
 - **Justification:** Axios's widespread adoption and ease of use make it the best choice for our project, especially considering the need for efficient communication between the system's front end and the back end.
 
-#### `vis.js`
+#### **`vis.js`**
 - **Chosen Over:** ECharts, Chart.js  
 - **Advantages:** Provides extensive charting and dynamic visualization features essential for detailed academic data presentation.
 - **Justification:** vis.js offers an optimal mix of customizability and user-friendliness, catering to our user base's sophisticated data analysis and visualization needs, ranging from students performing literature reviews to businesses conducting market research.
 
-#### `FastAPI`
+#### **`FastAPI`**
 - **Chosen Over:** Flask, Django REST framework  
 - **Advantages:** Known for its fast performance and asynchronous nature, ideal for high-performance APIs.  
 - **Justification:** The modern approach to API development and automatic Swagger documentation generation aligns with our goal to provide a powerful yet user-friendly platform for academic research.
 
-#### `MongoDB`
+#### **`MongoDB`**
 - **Chosen Over:** MySQL, PostgreSQL  
 - **Advantages:** The schema-less design offers unparalleled flexibility in managing diverse datasets.  
 - **Justification:** MongoDB's ability to handle unstructured data efficiently is crucial for the academic articles and related metadata, ensuring the system remains adaptive and scalable.
 
-#### `Grobid`
+#### **`Grobid`**
 - **Chosen Over:** Tika, PDFBox  
 - **Advantages:** Specializes in extracting information from PDF documents, essential for processing academic papers.  
 - **Justification:** Given the system's focus on academic literature analysis, Grobid is ideally suited for converting articles into a structured format for further processing and analysis.
 
-#### `Vitest`
+#### **`Vitest`**
 - **Chosen Over:** Jest, Mocha  
 - **Advantages:** Provides an efficient and reliable framework for Vue.js front-end testing.  
 - **Justification:** The system requires robust front-end testing to maintain a high-quality user experience, and Vitest offers superior integration with Vue.js compared to other frameworks.
 
-#### `Pytest`
+#### **`Pytest`**
 - **Chosen Over:** unittest, Nose2  
 - **Advantages:** Enables comprehensive backend testing, indispensable for data processing integrity.  
 - **Justification:** Pytest's extensive plugin system and simplicity ensure a streamlined testing process, which is vital for the complex data handling our system performs.
 
-#### `Docker and Kubernetes`
+#### **`Docker and Kubernetes`**
 - **Chosen Over:** Traditional VMs, Heroku  
 - **Advantages:** Provide the flexibility to manage and scale applications seamlessly, necessary for modern application deployment.
 - **Justification:** The agility afforded by Docker and Kubernetes in deployment and infrastructure management will enable the system to adapt to user growth and changing requirements effectively.
 
-#### Conclusion
+#### ***Conclusion***
 In conclusion, the selected technology stack not only fulfills the individual requirements of performance, scalability, and usability but also integrates into a cohesive architecture that aligns with the overall purpose of the system. Each technology component has been chosen with a strategic perspective, ensuring that the system is well-equipped to support the intricate tasks of academic literature research and analysis, catering to the diverse needs of students, researchers.
 
 ### **Alternative Technology Stack**
 Here is an alternative technology stack that could have been chosen for the system, along with a comparative analysis of its advantages and limitations compared to the selected stack.
 
-#### `React + Redux`
-- **Chosen Over:** Vue.js + Vuex  
+#### **`React + Redux`**
+- **Instead Of:** Vue.js + Vuex  
 - **Advantages:** Offers a robust ecosystem and is highly performant in large-scale applications.
 - **Limitations:** React and Redux introduce a steeper learning curve and added complexity, which might not align with the ease of use required for our academic-focused platform.
 
-#### `Tailwind CSS`
-- **Chosen Over:** VuesticUI  
+#### **`Tailwind CSS`**
+- **Instead Of:** VuesticUI  
 - **Advantages:** Tailwind CSS offers a utility-first approach that grants detailed control over styling and responsive design, allowing for more custom and finely-tuned UI elements.
 - **Limitations:** Unlike VuesticUI, Tailwind CSS does not come with a wide range of ready-made components. This might require additional time for component development and design customization, potentially extending the overall development timeline.
 
-#### `Vite`
-- **Chosen Over:** Webpack  
+#### **`Vite`**
+- **Instead Of:** Webpack  
 - **Advantages:** Promises faster rebuilds and simpler configuration.
 - **Limitations:** The relative newness means a smaller plugin ecosystem and less community support compared to Webpack.
 
-#### `Fetch API`
-- **Chosen Over:** Axios  
+#### **`Fetch API`**
+- **Instead Of:** Axios  
 - **Advantages:** Built-in within browsers, removing the need for external libraries.
 - **Limitations:** Does not provide features like automatic JSON data transformation that Axios offers.
 
-#### `Chart.js`
-- **Chosen Over:** vis.js  
+#### **`Chart.js`**
+- **Instead Of:** vis.js  
 - **Advantages:** Provides a lightweight solution with a simple API, perfect for fundamental charting needs.
 - **Limitations:** Falls short in offering the advanced and interactive visualization features essential for the detailed academic data analysis our platform necessitates.
 
-#### `Django + Django REST Framework`
-- **Chosen Over:** FastAPI  
+#### **`Django + Django REST Framework`**
+- **Instead Of:** FastAPI  
 - **Advantages:** A full-stack framework with a mature ecosystem, complemented by a RESTful API-building toolkit.
 - **Limitations:** Lacks the performance and modern API development features of FastAPI, such as automatic Swagger documentation.
 
-#### `PostgreSQL`
-- **Chosen Over:** MongoDB  
+#### **`PostgreSQL`**
+- **Instead Of:** MongoDB  
 - **Advantages:** Powerful SQL database with strong compliance to standards.
 - **Limitations:** Not as adept as MongoDB at handling unstructured data, which is critical for our evolving academic datasets.
 
-#### `Cypress`
-- **Chosen Over:** Vitest  
+#### **`Cypress`**
+- **Instead Of:** Vitest  
 - **Advantages:** Offers an excellent setup for end-to-end testing with a rich feature set.
 - **Limitations:** More focused on end-to-end testing and could be less efficient for unit testing specific to Vue.js.
 
-#### `Flask + Flask RESTPlus`
-- **Chosen Over:** FastAPI  
+#### **`Flask + Flask RESTPlus`**
+- **Instead Of:** FastAPI  
 - **Advantages:** Simple and easy to learn, with Flask RESTPlus for building RESTful APIs.
 - **Limitations:** Does not provide the same level of performance and built-in data validation features as FastAPI.
 
-#### `Heroku`
-- **Chosen Over:** Docker + Kubernetes  
+#### **`Heroku`**
+- **Instead Of:** Docker + Kubernetes  
 - **Advantages:** Simplifies application deployment directly in the cloud.
 - **Limitations:** Does not offer the containerization and orchestration capabilities necessary for scalable and complex deployments.
 
-#### Comparative Analysis
+#### ***Comparative Analysis***
 The alternative stack provides certain benefits; however, it poses significant limitations in terms of the complexity of learning and managing the technologies, the development speed, performance, and flexibility in handling unstructured data, as well as in scalability and deployment management. These limitations underscore the reasons for our selected technology stack, which provides a more user-friendly, efficient, and scalable solution tailored to the needs of a diverse academic audience.
 
 ## **Software Architecture**
-![Component Architecture](/Documents/Image/ComponentGraph.png)
+![Component Architecture](../Image/component-graph.png)
 *Figure 2: Component architecture for the application.*
 
 ### **Overview**
 The system adopts a 5-tier architecture, strategically designed to modularize the functional aspects of academic literature research and analysis. This tiered approach enables effective separation of concerns, fostering enhanced scalability, improved maintainability, and secure operation. It ensures that the client interface, presentation logic, business processes, integration services, and resource management remain distinct yet seamlessly interact. This design not only streamlines development and maintenance but also optimizes the system’s security by layering access controls and operational permissions.
 
-#### **Client Tier**
+#### **`Client Tier`**
 - **Description:** The Client Tier is the system's front-facing layer, hosting the ClientUI that users interact with. This tier is dedicated to delivering the user interface through which all user inputs and interactions occur, designed for accessibility and usability.
 - **Relation:** It directly interacts with the Presentation Tier, sending user requests down the tier hierarchy and presenting processed data back to the user.
 - **Components:**
@@ -324,9 +321,12 @@ The system adopts a 5-tier architecture, strategically designed to modularize th
 - **Advantages:** Provides a centralized interface for all user interactions, simplifying the user experience and offering a gateway to the underlying functionalities.
 - **Potential Downsides:** As the most exposed layer, it's vulnerable to attacks; hence, it requires robust security measures.
 
-#### **Presentation Tier**
+#### **`Presentation Tier`**
 - **Description:** The Presentation Tier manages the application's logic for presenting data to the user. It interprets commands from the Client Tier and decides how to represent information to users effectively.
 - **Relation:** It acts as an intermediary, transforming data from the Business Tier into a user-friendly format and vice versa.
+- **Corresponding Directories:**
+    - [frontend/src/views/](../../frontend/src/views)
+    - [backend/app/routers/](../../backend/app/routers)
 - **Components:**
     - [`CoAuthors`](#coauthors)
     - [`CitedTree`](#citedtree)
@@ -338,9 +338,11 @@ The system adopts a 5-tier architecture, strategically designed to modularize th
 - **Advantages:** Separates the logic of how data is displayed from the core business logic, allowing designers and developers to work independently.
 - **Potential Downsides:** Increased complexity in data handling and potential performance bottlenecks if not well-optimized.
 
-#### **Business Tier**
+#### **`Business Tier`**
 - **Description:** This tier contains the core business logic of the system, processing user requests, performing operations, and making logical decisions.
 - **Relation:** It interfaces with the Presentation Tier to receive processed user inputs and interacts with the Integration Tier to fetch and manipulate data.
+- **Corresponding Directories:**
+    - [backend/app/services](../../backend/app/services)
 - **Components:**
     - [`Models`](#models)
     - [`Schema`](#schema)
@@ -354,17 +356,21 @@ The system adopts a 5-tier architecture, strategically designed to modularize th
 - **Advantages:** Centralizes business logic, promoting reusability and consistency across the system.
 - **Potential Downsides:** Complex logic can be difficult to manage and may become a bottleneck for performance if not carefully architected.
 
-#### **Integration Tier**
+#### **`Integration Tier`**
 - **Description:** This tier orchestrates the communication between the Business Tier and the Resource Tier, facilitating the integration of different data sources and external services.
 - **Relation:** It serves as a conduit for data, ensuring that requests and responses flow between the front-end and back-end systems correctly and efficiently.
+- **Corresponding Directories:**
+    - [backend/app/integration/](../../backend/app/integration)
 - **Components:**
     - [`CatalogAccess`](#catalogaccess)
 - **Advantages:** Allows for a decoupled architecture where the core business logic is insulated from changes in data sources and external services.
 - **Potential Downsides:** Adds another layer of complexity and can be a point of failure if not robustly designed.
 
-#### **Resource Tier**
+#### **`Resource Tier`**
 - **Description:** The Resource Tier is responsible for managing all data storage and retrieval operations, ensuring data integrity and security.
 - **Relation:** It interacts directly with the Integration Tier to provide the necessary data to fulfill business operations.
+- **Corresponding Directories:**
+    - [backend/app/db/](../../backend/app/db)
 - **Components:**
     - [`MongoengineModels`](#mongoenginemodels)
     - [`Config`](#config)
@@ -411,8 +417,11 @@ The `ClientUI` serves as the user interface layer of the system, providing an in
 #### *Description*
 The `CoAuthors` component is a Vue.js single-file component responsible for visualizing the co-authorship network within academic research. It leverages the `vis-network` library to display interactive graphs that represent the connections between authors and papers. This component provides users with insights into collaborative relationships and scholarly article connections.
 
+#### *Related Requirement IDs*
+- 3A
+
 #### *Corresponding File*
-[frontend/src/views/author/CoAuthors.vue](/frontend/src/views/author/CoAuthors.vue)
+[frontend/src/views/author/CoAuthors.vue](../../frontend/src/views/author/CoAuthors.vue)
 
 #### *Provided Interfaces*
 This component provides several interfaces for:
@@ -449,8 +458,11 @@ The `CoAuthors` component is used in the system's user interface for real-time u
 #### *Description*
 The `CitedTree` component is designed to visualize citation networks, depicting how academic papers reference one another. It is a Vue.js single-file component that creates a visual representation of a citation tree using the `vis-network` library, enabling users to understand the impact and relationship between various scholarly works.
 
+#### *Related Requirement IDs*
+- 4A
+
 #### *Corresponding File*
-[frontend/src/views/reference/CitedTree.vue](/frontend/src/views/reference/CitedTree.vue)
+[frontend/src/views/reference/CitedTree.vue](../../frontend/src/views/reference/CitedTree.vue)
 
 #### *Provided Interfaces*
 This component provides several interfaces for:
@@ -486,8 +498,11 @@ The `CitedTree` component is typically used by researchers or students who wish 
 #### *Description*
 The `SameTopic` component is a dynamic Vue.js interface for visualizing the network of academic papers related by common topics. It functions by creating an interactive network graph that connects papers sharing similar themes, using `vis-network` to enable users to explore the relationships between different scholarly works based on shared topics.
 
+#### *Related Requirement IDs*
+- 2A
+
 #### *Corresponding File*
-[frontend/src/views/topic/SameTopic.vue](/frontend/src/views/topic/SameTopic.vue)
+[frontend/src/views/topic/SameTopic.vue](../../frontend/src/views/topic/SameTopic.vue)
 
 #### *Provided Interfaces*
 This component provides several interfaces for:
@@ -524,8 +539,11 @@ The `SameTopic` component is used for real-time user interaction on the front en
 #### *Description*
 The `TopicConnections` component is envisioned as a part of the system's user interface to visualize and explore the interconnections between various academic papers based on shared topics. Currently under development, this component aims to provide a comprehensive view of how different research papers are interlinked through common subjects, facilitating a deeper understanding of research landscapes.
 
+#### *Related Requirement IDs*
+- 2B
+
 #### *Corresponding File*
-[frontend/src/views/topic/TopicConnections.vue](/frontend/src/views/topic/TopicConnections.vue)
+[frontend/src/views/topic/TopicConnections.vue](../../frontend/src/views/topic/TopicConnections.vue)
 
 #### *Provided Interfaces*
 Once completed, this component is expected to provide interfaces for:
@@ -553,8 +571,12 @@ Upon its completion, the `TopicConnections` component might depend on:
 #### *Description*
 The `PaperDashboard` component serves as a central hub in the user interface for presenting detailed information about an uploaded academic paper, including its metadata, authors, references, and related analytical insights. It enables users to interactively explore various dimensions of the paper, such as topics, author networks, and citation trees, through a series of dynamically loaded dashboard cards.
 
+#### *Related Requirement IDs*
+- 1A, 1B, 1C, 1D
+- 4A, 4B, 4C, 4D, 4E
+
 #### *Corresponding File*
-[frontend/src/views/PaperDashboard.vue](/frontend/src/views/PaperDashboard.vue)
+[frontend/src/views/PaperDashboard.vue](../../frontend/src/views/PaperDashboard.vue)
 
 #### *Provided Interfaces*
 This component provides interfaces for:
@@ -586,8 +608,15 @@ The `PaperDashboard` component depends on:
 #### *Description*
 The `CatalogAPI` module serves as the backbone for the catalog endpoints in a scholarly communication platform, utilizing FastAPI for routing. It is designed to facilitate searches and retrievals of academic papers, authors, topics, and citation relationships through a variety of filters. The API endpoints enable users to access detailed information and establish connections between different entities within the academic domain, supporting functionalities like search results generation, citation tree construction, and exploration of co-authorship and topic-related articles.
 
+#### *Related Requirement IDs*
+- 1A, 1B, 1C, 1D
+- 2A, 2B
+- 3A, 3B, 3C,
+- 4A, 4B, 4C, 4D, 4E
+- 5A, 5B, 5C, 5D, 5E, 5F, 5G
+
 #### *Corresponding File*
-[backend/app/routers/catalog_api.py](/backend/app/routers/catalog_api.py)
+[backend/app/routers/catalog_api.py](../../backend/app/routers/catalog_api.py)
 
 #### *Provided Interfaces*
 This module provides RESTful API endpoints for:
@@ -627,8 +656,11 @@ The `CatalogAPI` is used to power the backend of a scholarly communication platf
 #### *Description*
 The `AnalysisAPI` module is dedicated to handling the upload and analysis of academic documents within a scholarly communication platform. It facilitates the ingestion of new documents by allowing users to upload files, which are then saved, parsed, and analyzed to extract essential metadata like title, authors, abstract, and keywords. This process is crucial for automating the addition of scholarly content to the platform's database, thereby enhancing its value and utility for users.
 
+#### *Related Requirement IDs*
+- 1A, 1B
+
 #### *Corresponding File*
-[backend/app/routers/analysis_api.py](/backend/app/routers/analysis_api.py)
+[backend/app/routers/analysis_api.py](../../backend/app/routers/analysis_api.py)
 
 #### *Provided Interfaces*
 This module provides interfaces for:
@@ -656,8 +688,12 @@ The `AnalysisAPI` depends on:
 #### *Description*
 The `Models` module in a scholarly communication platform defines the structure and relationships of entities within the academic database system. It encompasses a variety of Pydantic models and data classes to represent articles, topics, authors, institutions, departments, and their interrelations, such as author-institution, author-department, article-author, article-topic, and article-citation connections. These models are crucial for validating, managing, and ensuring the integrity of data related to academic articles, including metadata, authorship, affiliations, and references. Utilizing Pydantic, the module enforces type hints, validates data, and provides detailed error messages for incorrect data inputs, facilitating smooth data operations in an ORM context.
 
+#### *Related Requirement IDs*
+- 1A, 1B, 1C, 1D
+- 3A, 3B, 3C
+
 #### *Corresponding File*
-[backend/app/services/models.py](/backend/app/services/models.py)
+[backend/app/services/models.py](../../backend/app/services/models.py)
 
 #### *Provided Interfaces*
 This module provides data models for:
@@ -688,8 +724,15 @@ The `Models` module is integral to the platform's backend, especially in service
 #### *Description*
 The `Schema` module is designed to define the structure of API responses within a scholarly communication platform. It utilizes Pydantic models to describe entities like papers, authors, topics, and their collections, ensuring consistency and clarity in API communication. This module plays a pivotal role in shaping the data exchange between the backend and frontend or external systems, providing well-defined schemas for individual items, response structures, and specialized formats for representing complex relationships such as co-authorship networks and citation trees.
 
+#### *Related Requirement IDs*
+- 1A, 1B, 1C, 1D
+- 2A, 2B
+- 3A, 3B, 3C
+- 4A, 4B, 4C, 4D, 4E
+- 5A, 5B, 5C, 5D, 5E, 5F, 5G
+
 #### *Corresponding File*
-[backend/app/schema/schema.py](/backend/app/services/schema.py)
+[backend/app/schema/schema.py](../../backend/app/services/schema.py)
 
 #### *Provided Interfaces*
 This module offers schemas for:
@@ -717,8 +760,14 @@ The `Schema` module is used across the API layer of the platform to ensure that 
 #### *Description*
 The Catalog component is crucial for the system’s ability to import and manage academic articles within the database. It includes a series of interfaces and functions that work together to parse article data from various formats, save articles and their related information (authors, citations, topics), and generate structured responses for user queries.
 
+#### *Related Requirement IDs*
+- 1A, 1B, 1C, 1D
+- 2A, 2B
+- 3A, 3B, 3C
+- 4A, 4B, 4C, 4D, 4E 
+
 #### *Corresponding File*
-[backend/app/services/catalog.py](/backend/app/services/catalog.py)
+[backend/app/services/catalog.py](../../backend/app/services/catalog.py)
 
 #### *Provided Interfaces*
 This component provides several interfaces for:
@@ -764,8 +813,11 @@ This component is designed for use within a service-oriented architecture and ca
 #### *Description*
 The `Analysis` module is central to processing academic documents within the scholarly communication platform. It integrates functionalities for parsing documents, extracting metadata, and analyzing content to identify topics and keywords. This module uses natural language processing (NLP) techniques and Latent Dirichlet Allocation (LDA) for topic modeling, enhancing the platform's capability to automate the ingestion, categorization, and analysis of scholarly articles.
 
+#### *Related Requirement IDs*
+- 1A, 1B
+
 #### *Corresponding File*
-[backend/app/services/analysis.py](/backend/app/services/analysis.py)
+[backend/app/services/analysis.py](../../backend/app/services/analysis.py)
 
 #### *Provided Interfaces*
 This component provides interfaces for:
@@ -798,8 +850,11 @@ The `Analysis` module is invoked during the document upload and processing workf
 #### *Description*
 The `Extractor` component is essential for converting academic documents from PDF format to structured XML. It utilizes GROBID, an open-source tool, to perform this transformation, enabling further processing and analysis of the document's content. This module serves as an intermediary step in the document ingestion pipeline, preparing the documents for detailed parsing and metadata extraction.
 
+#### *Related Requirement IDs*
+- 1a, 1b, 1c, 1d
+
 #### *Corresponding File*
-[backend/app/services/Extractor/extractor.py](/backend/app/services/Extractor/extractor.py)
+[backend/app/services/Extractor/extractor.py](../../backend/app/services/Extractor/extractor.py)
 
 #### *Provided Interfaces*
 This component provides interfaces for:
@@ -824,8 +879,11 @@ The `Extractor` component is used during the initial stages of document processi
 #### *Description*
 The `GrobidClient` serves as a Python interface to interact with the GROBID service, a machine learning library for extracting, parsing, and restructuring raw documents (like PDFs) into structured XML and TEI encoded documents. It handles the concurrent processing of documents, utilizing ThreadPoolExecutor for parallelizing calls to the GROBID services. The client manages batches of documents to optimize memory usage and processing time, making it an efficient tool for large-scale document analysis.
 
+#### *Related Requirement IDs*
+- 1A, 1B, 1C, 1D
+
 #### *Corresponding File*
-[backend/app/services/Extractor/Grobid/grobid_client.py](/backend/app/services/Extractor/Grobid/grobid_client.py)
+[backend/app/services/Extractor/Grobid/grobid_client.py](../../backend/app/services/Extractor/Grobid/grobid_client.py)
 
 #### *Provided Interfaces*
 This component offers interfaces for:
@@ -858,8 +916,11 @@ The `GrobidClient` is typically used in the context of document ingestion and pr
 #### *Description*
 The `Client` serves as a foundational class for building clients that interact with RESTful APIs. It provides generic methods to send HTTP requests like GET, POST, PUT, and DELETE, making it versatile for various API interactions. The class includes mechanisms for encoding requests, decoding responses, handling authentication, and managing connection timeouts, making it a robust tool for API communication.
 
+#### *Related Requirement IDs*
+- 1A, 1B, 1C, 1D
+
 #### *Corresponding File*
-[backend/app/services/Extractor/Grobid/client.py](/backend/app/services/Extractor/Grobid/client.py)
+[backend/app/services/Extractor/Grobid/client.py](../../backend/app/services/Extractor/Grobid/client.py)
 
 #### *Provided Interfaces*
 This component offers interfaces for:
@@ -894,8 +955,11 @@ The `Client` is designed to be a base class for specific API clients. It can be 
 #### *Description*
 The `Parser` is a crucial component responsible for parsing XML documents related to academic articles. It converts XML data into structured objects representing articles, including metadata like titles and DOIs, content such as abstracts and keywords, and relationships like references and authorships. The parser leverages the ElementTree XML API for navigating and querying the XML structure, extracting relevant information through XPath expressions, and transforming it into Python objects.
 
+#### *Related Requirement IDs*
+- 1A, 1B, 1C, 1D
+
 #### *Corresponding File*
-[backend/app/services/Parser/parser.py](/backend/app/services/Parser/parser.py)
+[backend/app/services/Parser/parser.py](../../backend/app/services/Parser/parser.py)
 
 #### *Provided Interfaces*
 This component offers interfaces for extracting various elements from XML documents, including:
@@ -930,8 +994,11 @@ The `Parser` is utilized in scenarios requiring detailed analysis and extraction
 #### *Description*
 The `Types` component defines a series of data classes used to structure and represent the parsed data from academic articles within the parsing system. It encapsulates the metadata, content, authors, and references of articles in a structured format, enabling easy manipulation and access to specific pieces of information extracted from XML documents or other sources. These data classes serve as the foundational building blocks for the system, allowing for standardized communication and storage of article-related data across different modules or services.
 
+#### *Related Requirement IDs*
+- 1A, 1B, 1C, 1D
+
 #### *Corresponding File*
-[backend/app/services/Parser/types.py](/backend/app/services/Parser/types.py)
+[backend/app/services/Parser/types.py](../../backend/app/services/Parser/types.py)
 
 #### *Provided Interfaces*
 This component offers data structures for:
@@ -966,8 +1033,14 @@ The design aligns well with a variety of software architectures, including micro
 #### *Description*
 The `CatalogAccess` module provides a structured and type-safe way to interact with the MongoDB database, specifically tailored for handling scholarly communication data. It employs the MongoEngine ODM to map Python classes to MongoDB documents and offers CRUD operations for entities such as articles, topics, authors, and institutions. Each entity is associated with a specialized CRUD class that extends from a base class, ensuring uniformity and type safety across different database operations. This module serves as the backbone for data persistence and retrieval within the system, enabling efficient and structured access to stored academic data.
 
+#### *Related Requirement IDs*
+- 1A, 1B, 1C, 1D
+- 2A, 2B
+- 3A, 3B, 3C
+- 4A, 4B, 4C, 4D, 4E
+
 #### *Corresponding File*
-[backend/app/intergration/catalog_access.py](/backend/app/intergration/catalog_access.py)
+[backend/app/integration/catalog_access.py](../../backend/app/integration/catalog_access.py)
 
 #### *Provided Interfaces*
 This module provides CRUD operations for various entities, encapsulated in classes like:
@@ -1015,8 +1088,14 @@ The `CatalogAccess` module is compatible with various architectural patterns, es
 #### *Description*
 The `MongoengineModels` module defines the data schemas and relationships for a scholarly communication system using MongoEngine, a Document-Object Mapper (ODM) for working with MongoDB from Python. It sets up models for various entities such as articles, authors, topics, institutions, departments, and various relationships among them, such as author-institution and article-author. This module is crucial for structuring and manipulating data in the MongoDB database, providing a foundation for storing and querying academic paper-related information efficiently.
 
+#### *Related Requirement IDs*
+- 1A, 1B, 1C, 1D
+- 2A, 2B
+- 3A, 3B, 3C
+- 4A, 4B, 4C, 4D, 4E
+
 #### *Corresponding File*
-[backend/app/db/mongoengine_models.py](/backend/app/db/mongoengine_models.py)
+[backend/app/db/mongoengine_models.py](../../backend/app/db/mongoengine_models.py)
 
 #### *Provided Interfaces*
 This module provides data models for entities such as:
@@ -1065,7 +1144,7 @@ The `MongoengineModels` module is compatible with various software architectures
 The `Config` module provides the MongoDB connection settings for the scholarly communication platform. It contains the URI strings for both the main and test databases hosted on MongoDB Atlas. The module also includes a `TEST_MODE` flag, determined by an environment variable, to toggle between production and test environments, allowing for isolated testing without affecting production data.
 
 #### *Corresponding File*
-[backend/app/db/config.py](/backend/app/db/config.py)
+[backend/app/db/config.py](../../backend/app/db/config.py)
 
 #### *Provided Interfaces*
 This component offers configuration settings for:

@@ -4,7 +4,7 @@ The main objective of this project is to develop an integrated scholarly literat
 
 ## Project Management
 ### Development Model
-![Waterfall](./Image/Waterfall.png)
+![Waterfall](../Image/waterfall.png)
 *Figure 1: The overlapping waterfall development model for this project.*
 
 In order to effectively manage this project, we will be using the **Overlapping Waterfall** model as our software development methodology. This model is a variant of the traditional waterfall model that allows certain phases of a project to begin before the previous phase is fully completed. The main advantage of this approach is that it supports smooth transitions between phases, reduces wait times, and promotes more timely communication and collaboration among team members. In addition, we incorporate **Staged Delivery** strategy. The aim is to deliver some of the functionality as early as possible, which allows for faster user feedback and allows the project to be adjusted in subsequent phases based on that feedback. In this project, we have three delivery points: Minimum Viable Product (MVP), Beta, and Final release.
@@ -28,7 +28,7 @@ For the particular scenario of this project being our postgraduate coursework, o
 
 
 ### Timeline
-![Gantt_Chart](./Image/Ganttv3.png)
+![Gantt_Chart](../Image/gantt-v3.png)
 *Figure 2: The Gantt chart for planning timeline.*
 
 This Gantt chart is a project management tool to show a project timeline for the Carlson-Johnson Group. This timeline covers the period from September 2023 to May 2024. The entire development model uses an overlapping waterfall model. It divides the main project activities into key class: design, development, and testing. In addition, it marks three main assessment points as main milestones, which are group presentation, group assessment and individual assessment.
@@ -63,7 +63,7 @@ Task Management enables us to organise, prioritise and track work progress effec
 ### Use of Issue Board
 In this project, we chose to use the [Issue Board](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/boards) provided by GitLab as the core task management tool to track tasks and monitor the progress of the project by adopting "open" and "closed" statuses, which allows us to clearly visualise the status of each task and the corresponding participants. In addition, the use of an issue board ensured that everyone in our team was in synchronisation with the current status and next steps of the project.
 
-![issue board](./Image/issue_board.png)
+![issue board](../Image/issue-board.png)
 *Figure 3: The screenshot for our issue board, which can be found [here](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/boards).*
 
 ### Use of Issue
@@ -76,43 +76,57 @@ In our project management, [Merge Request](https://git.ecdf.ed.ac.uk/psd2324/Car
 
 For further efficiency and quality in submitting requests and reviews, we also used [Merge Request template](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/blob/main/.gitlab/merge_request_templates/merge_request_template.md?ref_type=heads), which ensured that submitters had to provide sufficient contextual information, including the purpose of the code change, the scope of the impact, and any relevant Issue numbers, so that reviewers could understand each change more quickly and comprehensively. In addition, the tight linkage between Merge Requests and Issues makes it easy to track the progress of each feature or fixed, from requirements to deployment, in GitLab, and the corresponding Issue is automatically closed when the merge request is approved, keeping the Issue board logical and simple. In addition, the linkage between Merge Requests and Issues makes it easy to track the progress of each feature or fixed, from requirements to deployment, in GitLab, and the corresponding Issue is automatically closed when the merge request is approved, keeping the Issue board logical and simple.
 
-![Merge Request](./Image/merge_request.png)
+![Merge Request](../Image/merge-request.png)
 *Figure 4: The screen shot for our history of Merge Request, which can be found [here](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/merge_requests?scope=all&state=merged).*
 
 ### Use of MS Teams
 In our projects, our team consistently holds weekly meetings aimed at reviewing the past week's progress, setting upcoming tasks and goals, code synchronisation, resolving code conflicts, and discussing possible challenges and solutions. These meetings sometimes take place online and sometimes we choose to meet in person to suit different situations and needs. Online meetings are primarily conducted through the MS Teams platform.
 
 ## Usability Testing
+Usability testing is a critical part of the software development process and helps us ensure that the final product meets the needs and expectations of users. By conducting usability testing, we can identify and resolve potential problems early in the development process, resulting in a product that is intuitive, easy to use, and meets the needs of the target audience.
 
-The usability testing was conducted using a combination of direct observation, user feedback, and task success rates. Participants were asked to perform specific tasks within the application, with the guideline provided in the [Guide on how to use the application](Guide.md) and feedback form followed after. Their interactions and feedback were recorded and analyzed to identify usability issues and areas for improvement.
+### Why we use Usability Testing
+1. **User-Centric Design**: Usability testing helps us design the system from the user's perspective, ensuring that the final product is intuitive and easy to use.
+2. **Identify Issues Early**: By testing the system with real users, we can identify potential issues and areas for improvement early in the development process, reducing the cost of fixing problems later.
+3. **Improve User Satisfaction**: Usability testing helps us understand user needs and preferences, allowing us to make informed design decisions that improve user satisfaction.
 
-### Usability Cohort
+### User Cohort
+Our Scholarly Net System is aimed at users who are engaged in academic research, exploring and analysing scholarly articles, such as students and professors. Feedback from this user group is critical to our system as it directly affects the design and functionality of the system, helping us to better meet their research needs. The detailed definition of the user cohort is shown in [Design.md](../Design/Design.md).
 
-The participants for the usability testing were selected based on the target user demographic for the web application. The initial candidate pool was introduced in the [Design Document](Design.md), which includes students, academics, government officials, developers, and companies. But due to the limited time and resources, the participants were selected from the students and academics.
+#### Characteristics of the User Cohort:
 
-### Testing Objective
-The usability testing was conducted to evaluate the system's ease of use, efficiency, and user satisfaction. The testing objectives were to gather feedback and insights from the participants to identify usability issues and areas for improvement, and to evaluate the overall user satisfaction with the system.
+1. **Academic Background**: Users are likely to have a strong academic background, with experience in reading and analysing scholarly articles.
+2. **Research Needs**: Users are likely to have specific research needs, such as identifying trends, patterns, and relationships in scholarly literature.
+3. **Technical Proficiency**: Users may have varying levels of technical proficiency, from basic computer skills to advanced data analysis skills.
+4. **Time Constraints**: Users may have limited time to learn and use the system, so the system should be intuitive and easy to use.
 
-### Participants Selection
+#### Participants Selection
 
-The participants for the usability testing were selected based on the target user demographic for the web application. The initial candidate pool was introduced in the [Design Document](Design.md), which includes students, academics, government officials, developers, and companies. But due to the limited time and resources, the participants were selected from the students and academics.
+The participants for the usability testing were selected based on the target user demographic for the web application. The initial candidate pool was introduced in the [Design Document](../Design/Design.md), which includes students, academics, government officials, developers, and companies. But due to the limited time and resources, the participants were selected from the students and academics.
 
-### Testing Environment
+### Usability Testing Plan
+
+#### Test Objectives
+1. **Evaluate System Usability**: Assess the ease of use, learnability, and efficiency of the system for users with varying levels of technical proficiency.
+2. **Recognise User Needs**: Identify user needs, preferences, and pain points to inform future design decisions and feature enhancements.
+3. **Collect Feedback**: Gather feedback on the system's functionality, interface design, and overall user experience to guide improvements.
+
+#### Testing Environment
 
 The usability testing was conducted in a controlled environment, with two ways provided, which are in-person and remote testing. The participants were given a way to access the application via EIDF VM, or the permission to control one of our group members' computer to interact with the system. The testing was conducted using user feedback forms, task-based testing scenarios, and user interviews to gather feedback and insights from the participants.
 
-### Testing Procedure
+#### Evaluation Method
 
-1. The participants were provided with a brief introduction to the application and its core functionalities.
-2. The participants were given a [Guide](Guide.md) on how to use the application, which included the layout of the application, the core functionalities, and the steps to perform specific tasks.
-3. The participants were given a way to access the application via EIDF VM, or the permission to control one of our group members' computer to interact with the system.
-4. The participants were asked to perform specific tasks written in the [Usability Test Form](Usability-Form.md) .
-5. The participants were asked to finish the Usability Form after each task and give a general feedback at the end of the test.
-6. The interactions and feedback were recorded and analyzed to identify usability issues and areas for improvement.
+Based on our project requirements and resources, we considered the following approaches to usability testing:
 
-### Evaluation Methods
+| Method Name           | Description                                                                                                                                                                               | Benefits                                                                                                  | Why It Suits Our Project                                                                                                                                                        |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Survey                | Collect feedback from users via online or paper-based questionnaires to understand their views and experiences with the product.                                                          | Allows for quick data collection from a broad user base, facilitating quantitative analysis.              | As our system is designed to serve a wide range of academic communities, the questionnaire allows us to effectively understand the needs and feedback of different user groups. |
+| Observation           | Directly observe users in their natural environment using the product, to understand their behavior and reactions.                                                                        | Provides real data on user behavior, revealing issues users may not report themselves.                    | This can help us gain a deeper understanding of how researchers interact with the system and the practical challenges they face in finding and analysing the literature.        |
+| Task Analysis         | Users are asked to complete a set of specific tasks, and their performance is analyzed to evaluate the product's usability.                                                               | Helps identify and optimize specific features or processes in the product, enhancing user satisfaction.   | This approach allows us to ensure that the system is designed to support efficient literature retrieval and analysis processes, thereby optimising the workflow of researchers. |
+| Prototype Testing     | Collect feedback using sketches or interactive digital prototypes for iterative design.                                                                                                   | Allows discovery and resolution of design issues early in the development process, saving time and costs. | Validating design concepts for academic literature analysis and management functions at an early stage is critical, and prototype testing can accelerate this process.          |
+| Usability Lab Testing | Conduct recordings (e.g. record the meeting with user) and observations of user interactions with the product in a controlled environment to deeply analyze their behavior and reactions. | Provides in-depth understanding of user behavior and detailed feedback, helping to uncover subtle issues. | This approach can provide valuable insights for situations where a detailed understanding of how users are using advanced analytics tools and features is required.             |
 
-The usability testing was conducted using a combination of direct observation, user feedback, and task success rates. After the forms were collected, the feedback was analyzed to identify common praise and issues, showing the strengths and weaknesses of the system. Based on these issues and feedback, useful insights were gathered to guide the future development and improvement of the system. After the issues and improvements were identified, the overall application rate was taken into account to evaluate the issues priority level and the overall user satisfaction.
 
 ## Risk Management
 ### Risk Assessment
@@ -177,36 +191,36 @@ If the Vue.js application needs to run on mobile devices, special attention need
 1. **Scheduling**:
    - Develop a comprehensive project timeline with buffer periods for unexpected delays.
    - Regularly review and adjust resource allocations to ensure project milestones are met.
-2. **Budget**:
-   - Perform rigorous cost estimation with contingencies for scope changes.
-   - Implement a financial monitoring system to track expenses against the budget.
-3. **Operational**:
+2. **Operational**:
    - Define clear process workflows and ensure all team members are trained on them.
    - Establish protocols for integrating external systems to minimize disruptions.
-4. **Technical**:
+3. **Technical**:
    - Ensure system design includes scalability and high-load performance considerations.
    - Conduct thorough testing to verify functional requirements are met.
-5. **Programmatic**:
+4. **Programmatic**:
    - Consult legal experts to navigate data use and copyright issues.
    - Maintain open communication with the client to manage scope and requirements effectively.
-6. **User**:
+5. **User**:
    - Engage with end-users early and frequently to build buy-in and commitment.
    - Organize training sessions and demos to reduce resistance to the new system.
-7. **Requirements**:
+6. **Requirements**:
    - Facilitate regular meetings with stakeholders to clarify requirements.
    - Use conflict resolution techniques to manage and align differing requirements.
-8. **Project Complexity**:
+7. **Project Complexity**:
    - Offer training to upskill team members on new technologies.
    - Regularly review and optimize processes to reduce inefficiencies.
-9. **Planning and Control**:
+8. **Planning and Control**:
    - Utilize experienced project managers and proven project management methodologies.
    - Ensure clear and continuous communication channels within the project team.
-10. **Team**:
+9. **Team**:
     - Provide ongoing training and professional development opportunities.
     - Assess and realign team skills with project needs periodically.
-11. **Organisational Environment**:
+10. **Organisational Environment**:
     - Develop strategies to manage change and maintain project stability.
     - Monitor organizational politics and plan for potential impacts on the project.
+11. **Specific to Project**:
+    - Implement cross-browser testing and mobile compatibility testing to ensure the website performs well across different environments.
+    - Optimize application performance, including code refactoring and memory management, to enhance the efficiency of virtual machines.
 
 #### Risk Resolution
 - **Technical and Operational Risks**: Implement a staged rollout of the system to manage the complexity and integration points, allowing for iterative improvements.
