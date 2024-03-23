@@ -60,7 +60,7 @@ The table below outlines the specific contents of each folder and document withi
 | Design              | [Architecture-And-Components-Design.md](./Documents/Design/Architecture-And-Components-Design.md)       |Technology Stack (Language and Technology Choices) and Software Architecture with detailed components design|
 | Design              | [Data-Model.md](./Documents/Design/Data-Model.md)                                                       | A more detailed version of data modelling. |
 | Design              | [Design.md](./Documents/Design/Design.md)                                                               | Including Requirements Engineering, Design, and Data Modelling and Test Plans |
-| Implementation/API  | [api-doc.md](./Documents/Implementation/API/api-doc.md)                                                 | Documentation of the API endpoints |
+| Implementation/API  | [API-Doc.md](./Documents/Implementation/API/API-Doc.md)                                                 | Documentation of the API endpoints |
 | Implementation/API  | [openapi.json](./Documents/Implementation/API/openapi.json)                                             |  JSON representation of API, adhering to the OpenAPI Specification |
 | Implementation      | [CICD.md](./Documents/Implementation/CICD.md)                                                           | CI/CD Pipeline Design and Deployment |
 | Implementation      | [Evaluation.md](./Documents/Implementation/Evaluation.md)                                               | Project and Prototype Evaluation |
