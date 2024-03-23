@@ -83,36 +83,50 @@ For further efficiency and quality in submitting requests and reviews, we also u
 In our projects, our team consistently holds weekly meetings aimed at reviewing the past week's progress, setting upcoming tasks and goals, code synchronisation, resolving code conflicts, and discussing possible challenges and solutions. These meetings sometimes take place online and sometimes we choose to meet in person to suit different situations and needs. Online meetings are primarily conducted through the MS Teams platform.
 
 ## Usability Testing
+Usability testing is a critical part of the software development process and helps us ensure that the final product meets the needs and expectations of users. By conducting usability testing, we can identify and resolve potential problems early in the development process, resulting in a product that is intuitive, easy to use, and meets the needs of the target audience.
 
-The usability testing was conducted using a combination of direct observation, user feedback, and task success rates. Participants were asked to perform specific tasks within the application, with the guideline provided in the [Guide on how to use the application](Guide.md) and feedback form followed after. Their interactions and feedback were recorded and analyzed to identify usability issues and areas for improvement.
+### Why we use Usability Testing
+1. **User-Centric Design**: Usability testing helps us design the system from the user's perspective, ensuring that the final product is intuitive and easy to use.
+2. **Identify Issues Early**: By testing the system with real users, we can identify potential issues and areas for improvement early in the development process, reducing the cost of fixing problems later.
+3. **Improve User Satisfaction**: Usability testing helps us understand user needs and preferences, allowing us to make informed design decisions that improve user satisfaction.
 
-### Usability Cohort
+### User Cohort
+Our Scholarly Net System is aimed at users who are engaged in academic research, exploring and analysing scholarly articles, such as students and professors. Feedback from this user group is critical to our system as it directly affects the design and functionality of the system, helping us to better meet their research needs. The detailed definition of the user cohort is shown in [Design.md](../Design/Design.md).
+
+#### Characteristics of the User Cohort:
+
+1. **Academic Background**: Users are likely to have a strong academic background, with experience in reading and analysing scholarly articles.
+2. **Research Needs**: Users are likely to have specific research needs, such as identifying trends, patterns, and relationships in scholarly literature.
+3. **Technical Proficiency**: Users may have varying levels of technical proficiency, from basic computer skills to advanced data analysis skills.
+4. **Time Constraints**: Users may have limited time to learn and use the system, so the system should be intuitive and easy to use.
+
+#### Participants Selection
 
 The participants for the usability testing were selected based on the target user demographic for the web application. The initial candidate pool was introduced in the [Design Document](Design.md), which includes students, academics, government officials, developers, and companies. But due to the limited time and resources, the participants were selected from the students and academics.
 
-### Testing Objective
-The usability testing was conducted to evaluate the system's ease of use, efficiency, and user satisfaction. The testing objectives were to gather feedback and insights from the participants to identify usability issues and areas for improvement, and to evaluate the overall user satisfaction with the system.
+### Usability Testing Plan
 
-### Participants Selection
+#### Test Objectives
+1. **Evaluate System Usability**: Assess the ease of use, learnability, and efficiency of the system for users with varying levels of technical proficiency.
+2. **Recognise User Needs**: Identify user needs, preferences, and pain points to inform future design decisions and feature enhancements.
+3. **Collect Feedback**: Gather feedback on the system's functionality, interface design, and overall user experience to guide improvements.
 
-The participants for the usability testing were selected based on the target user demographic for the web application. The initial candidate pool was introduced in the [Design Document](Design.md), which includes students, academics, government officials, developers, and companies. But due to the limited time and resources, the participants were selected from the students and academics.
-
-### Testing Environment
+#### Testing Environment
 
 The usability testing was conducted in a controlled environment, with two ways provided, which are in-person and remote testing. The participants were given a way to access the application via EIDF VM, or the permission to control one of our group members' computer to interact with the system. The testing was conducted using user feedback forms, task-based testing scenarios, and user interviews to gather feedback and insights from the participants.
 
-### Testing Procedure
+#### Evaluation Method
 
-1. The participants were provided with a brief introduction to the application and its core functionalities.
-2. The participants were given a [Guide](Guide.md) on how to use the application, which included the layout of the application, the core functionalities, and the steps to perform specific tasks.
-3. The participants were given a way to access the application via EIDF VM, or the permission to control one of our group members' computer to interact with the system.
-4. The participants were asked to perform specific tasks written in the [Usability Test Form](Usability-Form.md) .
-5. The participants were asked to finish the Usability Form after each task and give a general feedback at the end of the test.
-6. The interactions and feedback were recorded and analyzed to identify usability issues and areas for improvement.
+Based on our project requirements and resources, we considered the following approaches to usability testing:
 
-### Evaluation Methods
+| Method Name           | Description                                                                                                                                                                               | Benefits                                                                                                  | Why It Suits Our Project                                                                                                                                                        |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Survey                | Collect feedback from users via online or paper-based questionnaires to understand their views and experiences with the product.                                                          | Allows for quick data collection from a broad user base, facilitating quantitative analysis.              | As our system is designed to serve a wide range of academic communities, the questionnaire allows us to effectively understand the needs and feedback of different user groups. |
+| Observation           | Directly observe users in their natural environment using the product, to understand their behavior and reactions.                                                                        | Provides real data on user behavior, revealing issues users may not report themselves.                    | This can help us gain a deeper understanding of how researchers interact with the system and the practical challenges they face in finding and analysing the literature.        |
+| Task Analysis         | Users are asked to complete a set of specific tasks, and their performance is analyzed to evaluate the product's usability.                                                               | Helps identify and optimize specific features or processes in the product, enhancing user satisfaction.   | This approach allows us to ensure that the system is designed to support efficient literature retrieval and analysis processes, thereby optimising the workflow of researchers. |
+| Prototype Testing     | Collect feedback using sketches or interactive digital prototypes for iterative design.                                                                                                   | Allows discovery and resolution of design issues early in the development process, saving time and costs. | Validating design concepts for academic literature analysis and management functions at an early stage is critical, and prototype testing can accelerate this process.          |
+| Usability Lab Testing | Conduct recordings (e.g. record the meeting with user) and observations of user interactions with the product in a controlled environment to deeply analyze their behavior and reactions. | Provides in-depth understanding of user behavior and detailed feedback, helping to uncover subtle issues. | This approach can provide valuable insights for situations where a detailed understanding of how users are using advanced analytics tools and features is required.             |
 
-The usability testing was conducted using a combination of direct observation, user feedback, and task success rates. After the forms were collected, the feedback was analyzed to identify common praise and issues, showing the strengths and weaknesses of the system. Based on these issues and feedback, useful insights were gathered to guide the future development and improvement of the system. After the issues and improvements were identified, the overall application rate was taken into account to evaluate the issues priority level and the overall user satisfaction.
 
 ## Risk Management
 ### Risk Assessment

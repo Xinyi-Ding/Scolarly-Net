@@ -1,5 +1,7 @@
 # Group Carlson-Johnson
 
+![logo](./Documents/Image/logo.jpg)
+
 [![pipeline status](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/badges/main/pipeline.svg)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/commits/main)
 
 ## Table of Content
@@ -72,7 +74,7 @@ The table below outlines the specific contents of each folder and document withi
 
 ### Project Meeting
 
-- [Project Meeting Minutes](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/wikis/Meeting-Minutes)
+- [Project Meeting Minutes](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/wikis/home/Meeting-Minutes)
 
 
 ## Contributers
