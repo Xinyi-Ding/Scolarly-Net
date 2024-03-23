@@ -363,7 +363,7 @@ The system adopts a 5-tier architecture, strategically designed to modularize th
 - **Description:** This tier orchestrates the communication between the Business Tier and the Resource Tier, facilitating the integration of different data sources and external services.
 - **Relation:** It serves as a conduit for data, ensuring that requests and responses flow between the front-end and back-end systems correctly and efficiently.
 - **Corresponding Directories:**
-    - [backend/app/intergration/](/backend/app/intergration/)
+    - [backend/app/integration/](/backend/app/integration/)
 - **Components:**
     - [`CatalogAccess`](#catalogaccess)
 - **Advantages:** Allows for a decoupled architecture where the core business logic is insulated from changes in data sources and external services.
@@ -1043,7 +1043,7 @@ The `CatalogAccess` module provides a structured and type-safe way to interact w
 - 4A, 4B, 4C, 4D, 4E
 
 #### *Corresponding File*
-[backend/app/intergration/catalog_access.py](../../backend/app/intergration/catalog_access.py)
+[backend/app/integration/catalog_access.py](../../backend/app/integration/catalog_access.py)
 
 #### *Provided Interfaces*
 This module provides CRUD operations for various entities, encapsulated in classes like:
