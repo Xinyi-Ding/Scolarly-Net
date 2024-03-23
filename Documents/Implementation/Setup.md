@@ -134,6 +134,7 @@ Install the Node.js from official [website](https://nodejs.org/en/download).
 
 Or install from [brew](https://brew.sh) (Mac) or apt (Ubuntu)
 
+By using brew in Mac:
 ```bash
 # Install node.js
 brew install node
@@ -142,6 +143,7 @@ node -v
 npm -v
 ```
 
+By using apt in Ubuntu:
 ```bash
 # update apt package management index
 sudo apt update

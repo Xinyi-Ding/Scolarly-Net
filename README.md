@@ -1,4 +1,5 @@
 # Group Carlson-Johnson
+
 [![pipeline status](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/badges/main/pipeline.svg)](https://git.ecdf.ed.ac.uk/psd2324/Carlson-Johnson/-/commits/main)
 
 ## Table of Content
@@ -20,9 +21,6 @@ The client for this project is the course organisation team for practical softwa
 
 ## Quick Start
 Our project has been deployed in the EIDF VM and the implementation can be found in the CICD implementation documentation. Users who have access to the EIDF `eidf018-psd-assessment10a` VM can directly use the browser in the VM to access http://localhost:90. If you want to run this application on your local computer, you can refer the [setup](/Documents/Implementation/Setup.md) document.
-
-![VM Deployment](./Documents/Image/CD.png)
-*Figure 1: The flow chart of the deployment in EIDF VM.*
 
 ### Instruction
 1. Login to [EIDF portal](https://portal.eidf.ac.uk) by using your SAFE account.

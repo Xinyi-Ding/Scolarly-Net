@@ -183,6 +183,9 @@ Caching is used to speedup pipeline executing, which can reducing the time and n
 
 Continuous Deployment (CD) is the process of automating the deployment of code from a repository to a production environment during the software development process, for example from this project's GitLab repository to EIDF's VM. This pipeline follows continuous integration pipeline and ensures that new changes to the software are automatically and reliably released to the deployment environment for use by end-users, such as our client who has EIDF VM permissions in this project, after CI have passed the necessary testing and quality checks. By implementing a consistent CD pipeline process, the team was able to increase the speed and quality of software delivery while reducing errors in the manual deployment process.
 
+![CD](../Image/CD.png)
+*Figure 7: The flow chart of the deployment in EIDF VM.*
+
 The pipeline have additional two stages based on CI pipeline:
 
 1. **Deploy**: In this phase, the frontend application and backend services are deployed to the target environment via Docker containers. In the configuration file, this stage uses the gitlab runner with shell executor. It will pull the latest code and build the Docker image based on the Dockerfile in the backend and frontend folders to deploy the image as a container, ensuring that the latest changes are available to the frontend application and the backend services in our group EIDF VM.
